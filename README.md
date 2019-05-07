@@ -61,4 +61,4 @@ For Support please use the application topic on r3e forums : https://forum.secto
 
 ## Installation
 
-Check [release tab](https://github.com/Winzarten/SecondMonitor/releases) for latest version
+Check [release tab](https://gitlab.com/winzarten/SecondMonitor/releases) for latest version
