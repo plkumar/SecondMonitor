@@ -44,9 +44,9 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 * Project Cars - Limited functionality as split times and lap times are not provided by the sim api. Splits don't work at all, and lap timing is done by the app, so the will be slight difference between what is in the app and what is in sim. Big thanks to mr_belowski for allowing me to use his project cars pit coordinates from CrewChief :)
 
 ## Known Issues
-[Known Issues - Second Monitor](https://github.com/Winzarten/SecondMonitor/wiki/Known-Issues)
+[Known Issues - Second Monitor](https://gitlab.com/Winzarten/SecondMonitor/wikis/Known-Issues)
 
-[Known Issues - Telemetry Viewer](https://github.com/Winzarten/SecondMonitor/wiki/Known-Issues-(Telemetry-Viewer)))
+[Known Issues - Telemetry Viewer](https://gitlab.com/Winzarten/SecondMonitor/wikis/Known-Issues-(Telemetry-Viewer))
 
 
 ## Future Plans   
