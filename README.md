@@ -24,15 +24,15 @@ Second Monitor is Timing/Car information application for racing simulators. It d
 * Session Reports - Ability to automatically export session reports in xlsx file. Files containig race summary, lap overview for each driver, race progress and detailed lap information for players laps
 
 From version 4.0.0 it is possible to use Second Monitor on separate computer, than the sim is running on.
-Check the [Instructions.](https://github.com/Winzarten/SecondMonitor/wiki/Setting-up-Second-Monitor-on-separate-computer) 
+Check the [Instructions.](/wiki/Setting-up-Second-Monitor-on-separate-computer) 
   
 ## Telemetry Viewer:
-  ![ScreenshotTV](https://github.com/Winzarten/SecondMonitor/blob/master/_githubStuff/TelemetryViewer/TelemetryViewer.png)
+  ![ScreenshotTV](/_githubStuff/TelemetryViewer/TelemetryViewer.png)
 
 
 Telemetry Viewer allows to view and analyse the telemetry data that the main second monitor application captures during a session. The data are saved per completed lap and grouped into individual sessions. The basic usage of the application is explained in the topics below.
 
-[See the Wiki](https://github.com/Winzarten/SecondMonitor/wiki)
+[See the Wiki](https://gitlab.com/winzarten/SecondMonitor/wikis/home)
   
 ## Supported Simulators
 * R3E - Works out of the box
@@ -46,7 +46,7 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 ## Known Issues
 [Known Issues - Second Monitor](https://github.com/Winzarten/SecondMonitor/wiki/Known-Issues)
 
-[Known Issues - Telemetry Viewer](https://github.com/Winzarten/SecondMonitor/wiki/Known-Issues-(Telemetry-Viewer))
+[Known Issues - Telemetry Viewer](https://github.com/Winzarten/SecondMonitor/wiki/Known-Issues-(Telemetry-Viewer)))
 
 
 ## Future Plans   
