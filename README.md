@@ -48,6 +48,8 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 
 [Known Issues - Telemetry Viewer](https://gitlab.com/Winzarten/SecondMonitor/wikis/Known-Issues-(Telemetry-Viewer))
 
+[Issues Tracker](https://gitlab.com/winzarten/SecondMonitor/issues) 
+
 
 ## Future Plans   
  - [x] Telemetry - Allow the application to track and view advanced telemetry for individual laps.
