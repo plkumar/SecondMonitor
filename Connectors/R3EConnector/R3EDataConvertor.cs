@@ -428,6 +428,13 @@
 
             playerCar.SpeedLimiterEngaged = data.PitLimiter == 1;
 
+            playerCar.WorldOrientation = new Orientation()
+            {
+                Roll = Angle.GetFromRadians(data.CarOrientation.Roll),
+                Pitch = Angle.GetFromRadians(data.CarOrientation.Pitch),
+                Yaw = Angle.GetFromRadians(-data.CarOrientation.Yaw),
+            };
+
             FillDrsData(data, playerCar);
             FillBoostData(data.PushToPass, playerCar);
         }

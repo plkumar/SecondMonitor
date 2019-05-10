@@ -80,8 +80,23 @@
             //_columnSeries.Points.AddRange(OriginalModel.Items.Select( x=> new DataPoint(x.Category, x.Percentage)));
 
 
-            LinearAxis barAxis = new LinearAxis {MinimumMinorStep = BandSize, AxislineColor = BaseColor, Position = AxisPosition.Bottom, MajorStep = BandSize * 5, MinorStep = BandSize, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, TicklineColor = BaseColor, Unit = OriginalModel.Unit, ExtraGridlineStyle = LineStyle.Solid, ExtraGridlineColor = OxyColors.Red, ExtraGridlineThickness = 2, ExtraGridlines = new double[] { 0}, Selectable = true};
+            LinearAxis barAxis = new LinearAxis
+            {
+                MinimumMinorStep = BandSize, AxislineColor = BaseColor, Position = AxisPosition.Bottom, MajorStep = BandSize * 5, MinorStep = BandSize, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, TicklineColor = BaseColor, Unit = OriginalModel.Unit, ExtraGridlineStyle = LineStyle.Solid, ExtraGridlineColor = OxyColors.Red, ExtraGridlineThickness = 2, ExtraGridlines = new double[] { 0}, Selectable = true,
+            };
             LinearAxis valueAxis = new LinearAxis {Unit = "%", Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.0, AbsoluteMinimum = 0, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, MajorStep = 5, AxislineColor = BaseColor, TicklineColor = BaseColor, MinorGridlineStyle = LineStyle.Dot, MinorGridlineColor = BaseColor, Selectable = true};
+
+            if (OriginalModel.UseCustomXRange)
+            {
+                barAxis.Minimum = OriginalModel.MinimumX;
+                barAxis.Maximum = OriginalModel.MaximumX;
+            }
+
+            if (OriginalModel.UseCustomYRange)
+            {
+                valueAxis.Minimum = OriginalModel.MinimumY;
+                valueAxis.Maximum = OriginalModel.MaximumY;
+            }
 
             barAxis.PositionAtZeroCrossing = true;
             model.Series.Add(_columnSeries);

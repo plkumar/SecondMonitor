@@ -80,7 +80,9 @@
     <Compile Include="AggregatedCharts\Filter\NoClutchFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoHorizontalAccelerationFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoLateralAccelerationFilter.cs" />
+    <Compile Include="AggregatedCharts\Filter\SuspensionVelocityFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\ThrottlePositionFilter.cs" />
+    <Compile Include="AggregatedCharts\Filter\IWheelTelemetryFilter.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\RideHeightHistogramExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\AbstractWheelHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\AggregatedChartKind.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="TelemetryApplicationModule.cs" />
     <Compile Include="TelemetryApplicationModuleBootstrapper.cs" />
     <Compile Include="ViewModels\AggregatedCharts\AggregatedChartSelectorViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityWheelsChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\WheelsHistogramChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\IAggregatedChartSelectorViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\CompositeAggregatedChartsViewModel.cs" />
@@ -231,6 +234,10 @@
     <Compile Include="ViewModels\GraphPanel\Wheels\WheelRpsGraphViewModel.cs" />
     <Compile Include="AggregatedCharts\Histogram\HistogramBand.cs" />
     <Compile Include="AggregatedCharts\Histogram\Histogram.cs" />
+    <Compile Include="ViewModels\GraphPanel\AbstractAverageValueGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\XGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\YawGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\YGraphViewModel.cs" />
     <Compile Include="ViewModels\LoadedLapCache\ILoadedLapsCache.cs" />
     <Compile Include="ViewModels\LoadedLapCache\LoadedLapsCache.cs" />
     <Compile Include="ViewModels\OpenWindow\IOpenWindowSessionInformationViewModel.cs" />

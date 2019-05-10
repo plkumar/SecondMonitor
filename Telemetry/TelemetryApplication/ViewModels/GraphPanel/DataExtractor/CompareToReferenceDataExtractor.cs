@@ -62,7 +62,10 @@
 
         private void ChangeReferenceLap([CanBeNull] LapSummaryDto lapSummaryDto)
         {
-            _referenceLap = lapSummaryDto != null ? _loadedTelemetries[lapSummaryDto.Id] : null;
+            if (lapSummaryDto == null || _loadedTelemetries.TryGetValue(lapSummaryDto.Id, out _referenceLap))
+            {
+                _referenceLap = null;
+            }
             DataRefreshRequested?.Invoke(this, new EventArgs());
         }
 

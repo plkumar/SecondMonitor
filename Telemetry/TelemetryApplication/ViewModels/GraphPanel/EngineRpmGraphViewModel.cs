@@ -22,7 +22,7 @@
             return value.PlayerData.CarInfo.EngineRpm;
         }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             double newMax = lapTelemetry.TimedTelemetrySnapshots.Max(x => x.PlayerData.CarInfo.EngineRpm) * 1.1;
             double newMin = lapTelemetry.TimedTelemetrySnapshots.Min(x => x.PlayerData.CarInfo.EngineRpm) * 0.9;
@@ -35,6 +35,6 @@
             {
                 YMinimum = newMin;
             }
-        }
+        }*/
     }
 }

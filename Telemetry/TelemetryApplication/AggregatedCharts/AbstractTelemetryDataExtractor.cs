@@ -22,11 +22,11 @@
             AngleUnits = settingsProvider.DisplaySettingsViewModel.AngleUnits;
         }
 
-        protected VelocityUnits VelocityUnits { get; }
-        protected VelocityUnits VelocityUnitsSmall { get; }
-        protected DistanceUnits DistanceUnitsSmall { get; }
-        protected ForceUnits ForceUnits { get; }
-        protected AngleUnits AngleUnits { get; }
+        public VelocityUnits VelocityUnits { get; }
+        public VelocityUnits VelocityUnitsSmall { get; }
+        public DistanceUnits DistanceUnitsSmall { get; }
+        public ForceUnits ForceUnits { get; }
+        public AngleUnits AngleUnits { get; }
 
         protected TimedValue[] ExtractTimedValuesOfLoadedLaps(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractionFunc)
         {

@@ -8,7 +8,6 @@
     using Contracts.Commands;
     using DataModel.Extensions;
     using OxyPlot;
-    using OxyPlot.Annotations;
     using OxyPlot.Axes;
     using OxyPlot.Series;
     using SecondMonitor.ViewModels;

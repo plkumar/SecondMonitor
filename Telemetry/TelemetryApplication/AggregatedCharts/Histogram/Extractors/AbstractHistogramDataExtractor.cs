@@ -55,6 +55,13 @@
                 histogram.AddItem(currentBand);
             }
 
+            histogram.UseCustomYRange = true;
+            histogram.MaximumY = histogram.Items.Max(x => x.Percentage);
+
+            histogram.UseCustomXRange = true;
+            histogram.MaximumX = histogram.Items.Max(x => x.Category);
+            histogram.MinimumX = histogram.Items.Min(x => x.Category);
+
             return histogram;
         }
 

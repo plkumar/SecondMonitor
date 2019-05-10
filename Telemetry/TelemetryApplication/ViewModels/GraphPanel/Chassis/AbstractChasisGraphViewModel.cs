@@ -54,10 +54,10 @@
 
         protected abstract Func<CarInfo, double> RearFunc { get; }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
 
-        }
+        }*/
 
         protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color)
         {

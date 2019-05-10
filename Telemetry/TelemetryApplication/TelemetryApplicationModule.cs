@@ -121,6 +121,9 @@
             Bind<IGraphViewModel>().To<FrontRearDownForceGraphViewModel>();
             Bind<IGraphViewModel>().To<CamberGraphViewModel>();
             Bind<IGraphViewModel>().To<RakeGraphViewModel>();
+            Bind<IGraphViewModel>().To<YawGraphViewModel>();
+            /*Bind<IGraphViewModel>().To<XGraphViewModel>();
+            Bind<IGraphViewModel>().To<YGraphViewModel>();*/
 
             Bind<ISingleSeriesDataExtractor>().To<SimpleSingleSeriesDataExtractor>();
             Bind<ISingleSeriesDataExtractor>().To<CompareToReferenceDataExtractor>();

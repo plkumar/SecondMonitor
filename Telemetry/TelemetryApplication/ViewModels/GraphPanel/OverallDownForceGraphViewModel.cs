@@ -17,14 +17,14 @@
         protected override string YUnits => Force.GetUnitSymbol(ForceUnits);
         protected override double YTickInterval => Force.GetFromNewtons(1000).GetValueInUnits(ForceUnits);
         protected override bool CanYZoom => true;
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             double newYMax = lapTelemetry.TimedTelemetrySnapshots.Max(x => x.PlayerData?.CarInfo?.OverallDownForce?.GetValueInUnits(ForceUnits) ?? 0.0);
             if (newYMax > YMaximum)
             {
                 YMaximum = newYMax;
             }
-        }
+        }*/
 
         protected override double GetYValue(TimedTelemetrySnapshot value)
         {

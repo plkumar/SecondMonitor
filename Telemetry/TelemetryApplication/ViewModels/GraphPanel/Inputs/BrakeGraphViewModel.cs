@@ -21,10 +21,10 @@
         protected override double YTickInterval => 20;
         protected override bool CanYZoom => true;
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             YMaximum = 101;
-        }
+        }*/
 
         //protected override bool FilterFunction(TimedTelemetrySnapshot previousSnapshot, TimedTelemetrySnapshot currentSnapshot) => Math.Abs(previousSnapshot.InputInfo.BrakePedalPosition - currentSnapshot.InputInfo.BrakePedalPosition) > 0.01;
 
