@@ -25,6 +25,7 @@
             RearDownForce = new Force();
             FrontRollAngle = new Angle();
             RearRollAngle = new Angle();
+            WorldOrientation = new Orientation();
         }
 
         public Wheels WheelsInfo { get; set; }
@@ -66,6 +67,8 @@
         public Angle FrontRollAngle { get; set; }
 
         public Angle RearRollAngle { get; set; }
+
+        public Orientation WorldOrientation { get; set; }
 
     }
 }

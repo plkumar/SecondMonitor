@@ -24,13 +24,13 @@
             return XAxisKind == XAxisKind.LapTime ? Distance.FromMeters(value.PlayerData.LapDistance).GetByUnit(DistanceUnits) : value.LapTimeSeconds;
         }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             double newMax = XAxisKind == XAxisKind.LapTime ? Distance.FromMeters(lapTelemetry.TimedTelemetrySnapshots.Max(x => x.PlayerData.LapDistance)).GetByUnit(DistanceUnits) : lapTelemetry.LapSummary.LapTimeSeconds * 1.1;
             if (newMax > YMaximum)
             {
                 YMaximum = newMax;
             }
-        }
+        }*/
     }
 }

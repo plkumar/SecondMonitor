@@ -23,7 +23,7 @@
         protected override double YTickInterval => Math.Round(Distance.FromMeters(0.01).GetByUnit(SuspensionDistanceUnits), 2);
         protected override bool CanYZoom => true;
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             if (_maxRake != 0)
             {
@@ -34,7 +34,7 @@
             {
                 YMinimum = _minRake;
             }
-        }
+        }*/
 
         protected override double GetYValue(TimedTelemetrySnapshot value)
         {

@@ -179,8 +179,6 @@
                 RemoveLapTelemetry(lapTelemetryDto.LapSummary);
             }
 
-            UpdateYMaximum(lapTelemetryDto);
-
             CheckAndCreateAxis();
 
             TimedTelemetrySnapshot[] dataPoints = lapTelemetryDto.TimedTelemetrySnapshots.OrderBy(x => x.PlayerData.LapDistance).ToArray();
@@ -193,12 +191,21 @@
                 return;
             }
 
-            double maxX = 0.0;
-            series.ForEach(x => maxX = Math.Max(maxX, x.Points.Max(y => y.X)));
-            if (maxX > XMaximum)
+            double maxY = 0.0;
+            double minY = YMinimum;
+            double maxX = YMaximum;
+            foreach (var x in series)
             {
-                XMaximum = maxX;
+                maxX = Math.Max(maxX, x.Points.Max(y => y.X));
+                maxY = Math.Max(maxY, x.Points.Max(y => y.Y));
+                minY = Math.Min(minY, x.Points.Min(y => y.Y));
             }
+
+            minY += minY * 0.1;
+            maxY += maxY * 0.1;
+            XMaximum = maxX;
+            YMinimum = minY;
+            YMaximum = maxY;
 
             _selectedXValue[lapTelemetryDto.LapSummary.Id] = (0, color);
             LoadedSeries.Add(lapTelemetryDto.LapSummary.Id, (lapTelemetryDto,series));
@@ -402,8 +409,6 @@
             _plotModel.PlotView.InvalidatePlot(true);
             _invalidatingPlot = false;
         }
-
-        protected abstract void UpdateYMaximum(LapTelemetryDto lapTelemetry);
 
         private void UpdateYAxis()
         {

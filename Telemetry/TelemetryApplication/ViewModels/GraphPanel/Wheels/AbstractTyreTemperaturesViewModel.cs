@@ -87,10 +87,10 @@
 
         protected abstract Func<Wheels, WheelInfo> WheelSelectionFunction { get; }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
 
-        }
+        }*/
 
         protected override void SubscribeGraphViewSync()
         {

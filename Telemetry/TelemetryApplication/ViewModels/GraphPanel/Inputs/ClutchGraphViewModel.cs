@@ -21,9 +21,9 @@
             return value.InputInfo.ClutchPedalPosition * 100;
         }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             YMaximum = 101;
-        }
+        }*/
     }
 }

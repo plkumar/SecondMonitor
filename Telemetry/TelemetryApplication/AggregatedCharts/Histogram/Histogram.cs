@@ -17,6 +17,13 @@
         public double BandSize { get; set; }
         public double MajorTickSize { get; set; }
         public string Unit { get; set; }
+        public double MinimumX { get; set; }
+        public double MaximumX { get; set; }
+        public bool UseCustomXRange { get; set; }
+
+        public bool UseCustomYRange { get; set; }
+        public double MinimumY { get; set; }
+        public double MaximumY { get; set; }
 
         public void AddItem(HistogramBand histogramBand)
         {

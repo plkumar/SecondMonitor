@@ -630,7 +630,7 @@
                                        Foreground="{StaticResource LightGrey01Brush}"
                                        Grid.ZIndex="2">
                                 <Hyperlink Foreground="{StaticResource LightGrey01Brush}"
-                                           NavigateUri="https://github.com/Winzarten/SecondMonitor/wiki" RequestNavigate="Hyperlink_OnRequestNavigate">
+                                           NavigateUri="https://gitlab.com/winzarten/SecondMonitor/wikis/home" RequestNavigate="Hyperlink_OnRequestNavigate">
                                     More information available at the Wiki (Click Here)
                                 </Hyperlink>
                             </TextBlock>

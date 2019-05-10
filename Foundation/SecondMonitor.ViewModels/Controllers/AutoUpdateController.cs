@@ -6,9 +6,9 @@
     {
         public void CheckForUpdate()
         {
-            #if! DEBUG
-            AutoUpdater.Start("https://raw.githubusercontent.com/Winzarten/SecondMonitor/master/AutoUpdater.xml");
-            #endif
+#if !DEBUG
+            AutoUpdater.Start("https://gitlab.com/winzarten/SecondMonitor/raw/master/AutoUpdater.xml");
+#endif
         }
     }
 }

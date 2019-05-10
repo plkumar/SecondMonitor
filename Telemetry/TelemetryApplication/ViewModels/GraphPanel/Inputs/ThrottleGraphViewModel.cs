@@ -21,10 +21,10 @@
             return value.InputInfo.ThrottlePedalPosition * 100;
         }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             YMaximum = 101;
-        }
+        }*/
 
         //protected override bool FilterFunction(TimedTelemetrySnapshot previousSnapshot, TimedTelemetrySnapshot currentSnapshot) => Math.Abs(previousSnapshot.InputInfo.ThrottlePedalPosition - currentSnapshot.InputInfo.ThrottlePedalPosition) > 0.01;
     }

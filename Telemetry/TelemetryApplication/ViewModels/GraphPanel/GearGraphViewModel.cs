@@ -31,9 +31,9 @@
             }
         }
 
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             YMaximum = 7;
-        }
+        }*/
     }
 }

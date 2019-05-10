@@ -16,7 +16,7 @@
         protected override string YUnits => "°";
         protected override double YTickInterval => 45;
         protected override bool CanYZoom => true;
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             double max = lapTelemetry.TimedTelemetrySnapshots.Max(x => x.InputInfo.WheelAngle);
             if (max > YMaximum)
@@ -24,7 +24,7 @@
                 YMinimum = -max;
                 YMaximum = max;
             }
-        }
+        }*/
 
         protected override double GetYValue(TimedTelemetrySnapshot value)
         {

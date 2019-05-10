@@ -15,11 +15,11 @@
         protected override string YUnits => "Gs";
         protected override double YTickInterval => 1;
         protected override bool CanYZoom => true;
-        protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
+        /*protected override void UpdateYMaximum(LapTelemetryDto lapTelemetry)
         {
             YMinimum = -3;
             YMaximum = 3;
-        }
+        }*/
 
         protected override double GetYValue(TimedTelemetrySnapshot value)
         {

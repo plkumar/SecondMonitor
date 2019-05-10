@@ -68,6 +68,7 @@
     <Compile Include="BasicProperties\MultiClassDisplayKind.cs" />
     <Compile Include="BasicProperties\OptimalQuantity.cs" />
     <Compile Include="BasicProperties\InputInfo.cs" />
+    <Compile Include="BasicProperties\Orientation.cs" />
     <Compile Include="BasicProperties\Point3D.cs" />
     <Compile Include="BasicProperties\PressureUnits.cs" />
     <Compile Include="BasicProperties\TemperatureUnits.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="BasicProperties\Volume.cs" />
     <Compile Include="BasicProperties\VolumeUnits.cs" />
     <Compile Include="BasicProperties\SessionLengthType.cs" />
+    <Compile Include="Calculators\YawCalculator.cs" />
     <Compile Include="DriversPresentation\DriverPresentationDTO.cs" />
     <Compile Include="DriversPresentation\DriverPresentationsDTO.cs" />
     <Compile Include="Extensions\CollectionExtension.cs" />
