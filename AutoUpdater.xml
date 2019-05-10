@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
     <version>4.9.0.0</version>
-    <url>https://github.com/Winzarten/SecondMonitor/releases/download/v4.9.0/SecondMonitor.msi</url>
-    <changelog>https://gitlab.com/winzarten/SecondMonitor/uploads/d67efbae107e101bf8fc4425354c8c53/SecondMonitor.msi</changelog>
+    <url>https://gitlab.com/winzarten/SecondMonitor/uploads/d67efbae107e101bf8fc4425354c8c53/SecondMonitor.msi</url>
+    <changelog>https://winzarten.gitlab.io/SecondMonitor/</changelog>
     <mandatory>false</mandatory>
 </item>
