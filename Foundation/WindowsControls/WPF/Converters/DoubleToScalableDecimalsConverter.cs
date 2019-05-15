@@ -15,7 +15,9 @@
                 {
                     return "-";
                 }
-                return valueD == 0 ? "0" : valueD < 10 ? valueD.ToString("F2") : valueD < 100 ? valueD.ToString("F1") : valueD.ToString("F0");
+
+                double absValue = Math.Abs(valueD);
+                return valueD == 0 ? "0" : absValue < 10 ? valueD.ToString("F2") : absValue < 100 ? valueD.ToString("F1") : valueD.ToString("F0");
             }
 
             return 0;

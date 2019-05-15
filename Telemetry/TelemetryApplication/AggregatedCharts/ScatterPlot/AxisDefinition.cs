@@ -20,5 +20,9 @@
         public double MinorTick { get; }
         public string Unit { get; }
         public string Title { get; set; }
+        public bool UseCustomRange { get; set; }
+        public double Minimum { get; set; }
+        public double Maximum { get; set; }
+
     }
 }

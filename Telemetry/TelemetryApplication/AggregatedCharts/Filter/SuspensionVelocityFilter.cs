@@ -10,11 +10,13 @@
         private Func<Wheels, WheelInfo> _wheelPicker;
 
         public VelocityUnits VelocityUnits { get; set; }
-        public double LimitVelocity { get; set; }
+        public double MinimumVelocity { get; set; }
+        public double MaximumVelocity { get; set; }
 
         public bool Accepts(TimedTelemetrySnapshot dataSet)
         {
-            return Math.Abs(_wheelPicker(dataSet.PlayerData.CarInfo.WheelsInfo).SuspensionVelocity.GetValueInUnits(VelocityUnits)) < LimitVelocity;
+            double velocity = _wheelPicker(dataSet.PlayerData.CarInfo.WheelsInfo).SuspensionVelocity.GetValueInUnits(VelocityUnits);
+            return MinimumVelocity <= velocity && velocity <= MaximumVelocity;
         }
 
 
