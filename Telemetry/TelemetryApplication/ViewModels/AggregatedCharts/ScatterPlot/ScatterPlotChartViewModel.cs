@@ -92,8 +92,8 @@
             };
 
 
-            LinearAxis xAxis = new LinearAxis { Title = OriginalModel.XAxis.Title, AxislineColor = BaseColor, Position = AxisPosition.Bottom, MajorStep = OriginalModel.XAxis.MajorTick, MinorGridlineStyle = LineStyle.None, MinorGridlineColor = BaseColor, MinorGridlineThickness = 0.5, MinorStep = OriginalModel.XAxis.MinorTick, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, TicklineColor = BaseColor, Unit = OriginalModel.XAxis.Unit, ExtraGridlineStyle = LineStyle.Solid, MinimumPadding = 0.2, MaximumPadding = 0.2, ExtraGridlineColor = OxyColors.Red, ExtraGridlineThickness = 2, ExtraGridlines = new double[] { 0 } };
-            LinearAxis yAxis = new LinearAxis { Title = OriginalModel.YAxis.Title, AxislineColor = BaseColor, Position = AxisPosition.Left, MajorStep = OriginalModel.YAxis.MajorTick, MinorGridlineStyle  = LineStyle.None, MinorGridlineColor = BaseColor, MinorGridlineThickness = 0.5, MinorStep = OriginalModel.YAxis.MinorTick, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, TicklineColor = BaseColor, Unit = OriginalModel.YAxis.Unit, ExtraGridlineStyle = LineStyle.Solid, MinimumPadding = 0.2, MaximumPadding = 0.2, ExtraGridlineColor = OxyColors.Red, ExtraGridlineThickness = 2, ExtraGridlines = new double[] { 0 } };
+            LinearAxis xAxis = CreateAxis(OriginalModel.XAxis, AxisPosition.Bottom);
+            LinearAxis yAxis = CreateAxis(OriginalModel.YAxis, AxisPosition.Left);
             IEnumerable<ScatterSeries> series = OriginalModel.ScatterPlotSeries.Select(BuildScatterSeries);
 
             series.ForEach(model.Series.Add);
@@ -104,6 +104,21 @@
 
 
             DataPointsCount = OriginalModel.ScatterPlotSeries.Select(x => x.DataPoints.Count).Sum();
+        }
+
+        private LinearAxis CreateAxis(AxisDefinition axisDefinition, AxisPosition position)
+        {
+            LinearAxis axis = new LinearAxis { Title = axisDefinition.Title, AxislineColor = BaseColor, Position = position, MajorStep = axisDefinition.MajorTick, MinorGridlineStyle = LineStyle.None, MinorGridlineColor = BaseColor, MinorGridlineThickness = 0.5,
+                MinorStep = axisDefinition.MinorTick, MajorGridlineStyle = LineStyle.Solid, MajorGridlineColor = BaseColor, TicklineColor = BaseColor, Unit = axisDefinition.Unit,
+                ExtraGridlineStyle = LineStyle.Solid, MinimumPadding = 0.2, MaximumPadding = 0.2, ExtraGridlineColor = OxyColors.Red, ExtraGridlineThickness = 2, ExtraGridlines = new double[] { 0 } };
+
+            if (axisDefinition.UseCustomRange)
+            {
+                axis.Minimum = axisDefinition.Minimum;
+                axis.Maximum = axisDefinition.Maximum;
+            }
+
+            return axis;
         }
 
         protected ScatterSeries BuildScatterSeries(ScatterPlotSeries scatterPlotSeries)

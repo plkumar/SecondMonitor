@@ -2,6 +2,7 @@
 {
     public class SuspensionVelocityWheelsChartViewModel : WheelsHistogramChartViewModel
     {
-        public double Range { get; set; }
+        public double Minimum { get; set; }
+        public double Maximum { get; set; }
     }
 }

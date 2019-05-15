@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.ScatterPlot.Providers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Extractors;
@@ -40,29 +41,48 @@
 
         public IAggregatedChartViewModel CreateAggregatedChartViewModel()
         {
+            double maxG = 0;
             IReadOnlyCollection<LapTelemetryDto> loadedLaps = _loadedLapsCache.LoadedLaps;
             string title = $"{ChartName} - Laps: {string.Join(", ", loadedLaps.Select(x => x.LapSummary.CustomDisplayName))}";
 
             AxisDefinition xAxis = new AxisDefinition(_dataExtractor.XMajorTickSize, _dataExtractor.XMajorTickSize / 4, _dataExtractor.XUnit, "Lat Acc");
             AxisDefinition yAxis = new AxisDefinition(_dataExtractor.YMajorTickSize, _dataExtractor.YMajorTickSize / 4, _dataExtractor.YUnit, "Long Acc");
             ScatterPlot scatterPlot = new ScatterPlot(title, xAxis, yAxis);
+            ScatterPlotSeries newSeries;
 
             for (int i = 0; i < 4; i++)
             {
                 _throttlePositionFilter.Minimum = i * 0.25; ;
                 _throttlePositionFilter.Maximum = (i + 1) * 0.25;
                 string seriesTitle = $"Throttle - {i * 25}% - {(i + 1) * 25:F2}%";
-                scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(loadedLaps, _filters, seriesTitle, ColorMap[i]));
+                newSeries = _dataExtractor.ExtractSeries(loadedLaps, _filters, seriesTitle, ColorMap[i]);
+                scatterPlot.AddScatterPlotSeries(newSeries);
+                maxG = Math.Max(maxG, newSeries.DataPoints.Max(x => Math.Abs(x.Y)));
             }
+
 
             _throttlePositionFilter.Minimum = 1;
             _throttlePositionFilter.Maximum = double.MaxValue;
-            scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(loadedLaps, _filters, "Throttle - 100%", ColorMap[4]));
+            newSeries = _dataExtractor.ExtractSeries(loadedLaps, _filters, "Throttle - 100%", ColorMap[4]);
+            maxG = Math.Max(maxG, newSeries.DataPoints.Max(x => Math.Abs(x.Y)));
+            scatterPlot.AddScatterPlotSeries(newSeries);
 
+            SetAxisRanges(maxG, xAxis, yAxis);
             ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = "Lateral / Longitudinal G" };
             viewModel.FromModel(scatterPlot);
 
             return viewModel;
+        }
+
+        private void SetAxisRanges(double maximumG, AxisDefinition xAxis, AxisDefinition yAxis)
+        {
+            double maximum = Math.Ceiling(maximumG);
+            xAxis.UseCustomRange = true;
+            yAxis.UseCustomRange = true;
+            xAxis.Minimum = -maximum;
+            xAxis.Maximum = maximum;
+            yAxis.Minimum = -maximum;
+            yAxis.Maximum = maximum;
         }
     }
 }

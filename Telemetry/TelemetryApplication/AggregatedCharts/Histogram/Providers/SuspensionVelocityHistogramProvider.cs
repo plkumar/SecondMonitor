@@ -27,7 +27,8 @@
         public override AggregatedChartKind Kind => AggregatedChartKind.Histogram;
         protected override void OnNewViewModel(SuspensionVelocityWheelsChartViewModel newViewModel)
         {
-            newViewModel.Range = _suspensionVelocityHistogramDataExtractor.DefaultRange;
+            newViewModel.Maximum = _suspensionVelocityHistogramDataExtractor.DefaultMaximum;
+            newViewModel.Minimum = _suspensionVelocityHistogramDataExtractor.DefaultMinimum;
         }
 
         protected override void ApplyHistogramLimits(Histogram flHistogram, Histogram frHistogram, Histogram rlHistogram, Histogram rrHistogram, SuspensionVelocityWheelsChartViewModel viewModel)
@@ -38,20 +39,21 @@
             rlHistogram.MaximumY = maxY;
             rrHistogram.MaximumY = maxY;
 
-            flHistogram.MinimumX = -viewModel.Range;
-            frHistogram.MinimumX = -viewModel.Range;
-            rlHistogram.MinimumX = -viewModel.Range;
-            rrHistogram.MinimumX = -viewModel.Range;
+            flHistogram.MinimumX = viewModel.Minimum;
+            frHistogram.MinimumX = viewModel.Minimum;
+            rlHistogram.MinimumX = viewModel.Minimum;
+            rrHistogram.MinimumX = viewModel.Minimum;
 
-            flHistogram.MaximumX = viewModel.Range;
-            frHistogram.MaximumX = viewModel.Range;
-            rlHistogram.MaximumX = viewModel.Range;
-            rrHistogram.MaximumX = viewModel.Range;
+            flHistogram.MaximumX = viewModel.Maximum;
+            frHistogram.MaximumX = viewModel.Maximum;
+            rlHistogram.MaximumX = viewModel.Maximum;
+            rrHistogram.MaximumX = viewModel.Maximum;
         }
 
         protected override void BeforeHistogramFilling(SuspensionVelocityWheelsChartViewModel wheelsChart)
         {
-            _suspensionVelocityFilter.LimitVelocity =  wheelsChart.Range;
+            _suspensionVelocityFilter.MinimumVelocity =  wheelsChart.Minimum;
+            _suspensionVelocityFilter.MaximumVelocity = wheelsChart.Maximum;
             _suspensionVelocityFilter.VelocityUnits = _suspensionVelocityHistogramDataExtractor.VelocityUnitsSmall;
             base.BeforeHistogramFilling(wheelsChart);
         }
