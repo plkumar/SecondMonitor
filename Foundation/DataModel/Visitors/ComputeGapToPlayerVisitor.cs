@@ -73,7 +73,7 @@
             }
 
             TimeSpan computedGap = simulatorDataSet.PlayerInfo.Timing.GapAhead;
-            for (int i = simulatorDataSet.PlayerInfo.Position -2 ; i >= 0; i--)
+            for (int i = simulatorDataSet.PlayerInfo.Position -2 ; i >= 0 && i < drivers.Length; i--)
             {
                 _computedGapToPlayer[drivers[i].DriverName] = computedGap;
                 computedGap += drivers[i].Timing.GapAhead;

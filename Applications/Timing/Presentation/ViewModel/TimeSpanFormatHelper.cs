@@ -37,7 +37,7 @@
         {
             if (timeSpan == TimeSpan.Zero)
             {
-                return "-";
+                return "0";
             }
             string returnString = $"{Math.Abs(timeSpan.TotalSeconds):F1}";
             if (!includeSign)

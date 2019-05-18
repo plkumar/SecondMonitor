@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel
+﻿namespace SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel
 {
     using System;
     using System.Diagnostics;
@@ -325,11 +323,34 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel
             private set => SetProperty(ref _isLastSector3SessionBest, value);
         }
 
+        private int _rating;
+        public int Rating
+        {
+            get => _rating;
+            set => SetProperty(ref _rating, value);
+        }
+
+        private bool _isPlayersRatingBetter;
+        public bool IsPlayersRatingBetter
+        {
+            get => _isPlayersRatingBetter;
+            set => SetProperty(ref _isPlayersRatingBetter, value);
+        }
+
+        private string _tyreCompound;
+
+        public string TyreCompound
+        {
+            get => _tyreCompound;
+            set => SetProperty(ref _tyreCompound, value);
+        }
+
         public void RefreshProperties()
         {
             try
             {
                 IsClassIndicationEnabled = DriverTiming.Session?.LastSet?.SessionInfo?.IsMultiClass == true;
+                Rating = GetRating();
                 Position = DriverTiming.Position.ToString();
                 PositionInClass = FormatPositionInClass();
                 CompletedLaps = DriverTiming.CompletedLaps.ToString();
@@ -362,12 +383,24 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel
                 ColorLapsColumns = GetColorLapsColumns();
                 IsLastPlayerLapBetter = GetIsLastPlayerLapBetter();
                 IsPlayersPaceBetter = GetIsPlayersPaceBetter();
+                TyreCompound = DriverTiming.DriverInfo.CarInfo?.WheelsInfo?.FrontLeft?.TyreType ?? string.Empty;
                 _refreshStopwatch.Restart();
             }
             catch (Exception ex)
             {
                 LogManager.GetCurrentClassLogger().Error(ex);
             }
+        }
+
+        private int GetRating()
+        {
+            if (IsPlayer || DriverTiming.Rating == 0 || DriverTiming?.Session?.Player == null)
+            {
+                IsPlayersRatingBetter = true;
+                return DriverTiming.Rating;
+            }
+            IsPlayersRatingBetter = DriverTiming.Session.Player.Rating >= DriverTiming.Rating;
+            return DriverTiming.Rating;
         }
 
         private string FormatPositionInClass()
@@ -648,13 +681,18 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel
                 return;
             }
 
-           FillGetGapToPlayerComputed(DriverTiming.DistanceToPlayer);
+            FillGetGapToPlayerComputed(DriverTiming.DistanceToPlayer);
         }
 
         private void FillGetGapToPlayerComputed(double distanceToPlayer)
         {
-
             double requiredTime = distanceToPlayer > 0 ? distanceToPlayer / DriverTiming.DriverInfo.Speed.InMs : distanceToPlayer / DriverTiming.Session.Player.DriverInfo.Speed.InMs;
+            if (double.IsNaN(requiredTime) || double.IsInfinity(requiredTime))
+            {
+                GapToColumnText = string.Empty;
+                return;
+            }
+
             GapToPlayer = TimeSpan.FromSeconds(requiredTime);
             if (Math.Abs(requiredTime) > 30)
             {

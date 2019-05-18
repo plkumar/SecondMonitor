@@ -2,19 +2,25 @@
 <html>
 
 <body>
-		<h2>Version 4.10.0</h2>		
+	<h2>Version 5.0.0 - Single Player Ratings</h2>		
+	<b>Main Application:</b>
+	<ul>
+		<li><b>Rating For SP:</b> Added Rating module for single player races (similar to what you might see in IRacing). This module tracks your rating for each class you drive, offering optimal difficulty based on your performance. AI drivers have computed rating based on the selected difficulty and qualification times. Your performance againts them during the race will determine your rating changes. Please see the tutorial to get you going : https://gitlab.com/winzarten/SecondMonitor/wikis/Rating-Tutorial  </li>
+		<li>Removed some textual effect (i.e. shadowing) on the main app, as they were too demanding on performance.</li>
+	</ul>
+	<h2>Version 4.10.0</h2>		
+	<b>Telemetry Viewer:</b>
+	<ul>
+		<li><b>Added Yaw Chart:</b> Yaw is difference between the car orientation, and where the car is travelling. This value is computed by the telemetry viewer, currently only works in R3E. Not filled in older telemetry files</li>
+		<li>Suspension Velocity Histogram improved - The histogram has default range of -200 to 200mm/s. Points outside this range will not be taken into calculation. This range in changeable in the chart.</li>
+	</ul>
+	<h2>Version 4.9.0</h2>		
 		<b>Telemetry Viewer:</b>
 		<ul>
-			<li><b>Added Yaw Chart:</b> Yaw is difference between the car orientation, and where the car is travelling. This value is computed by the telemetry viewer, currently only works in R3E. Not filled in older telemetry files</li>
-			<li>Suspension Velocity Histogram improved - The histogram has default range of -200 to 200mm/s. Points outside this range will not be taken into calculation. This range in changeable in the chart.</li>
+			<li><b>Added Lateral vs Longitudinal Acceleration Chart</b></li>
+			<li><b>Added Rear vs Front roll angle chart.</b> Only works in R3E (the only simulator providing roll information), and only with telemetry files caputred from this version.</li>
+			<li>Starting the renaming process from Horizontal to Longitudinal :)</li>
 		</ul>
-		<h2>Version 4.9.0</h2>		
-			<b>Telemetry Viewer:</b>
-			<ul>
-				<li><b>Added Lateral vs Longitudinal Acceleration Chart</b></li>
-				<li><b>Added Rear vs Front roll angle chart.</b> Only works in R3E (the only simulator providing roll information), and only with telemetry files caputred from this version.</li>
-				<li>Starting the renaming process from Horizontal to Longitudinal :)</li>
-			</ul>
 	<h2>Version 4.8.0</h2>
 	<b>Main App:</b>
 		<ul>

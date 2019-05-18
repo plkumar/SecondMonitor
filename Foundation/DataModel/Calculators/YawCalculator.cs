@@ -14,6 +14,7 @@
             }
 
             double carYaw = (dp1.PlayerData.CarInfo.WorldOrientation.Yaw.InRadians + dp2.PlayerData.CarInfo.WorldOrientation.Yaw.InRadians) / 2;
+            //double theta = Math.Atan2(dp1.PlayerData.WorldPosition.Z.InCentimeters - dp2.PlayerData.WorldPosition.Z.InCentimeters, dp1.PlayerData.WorldPosition.X.InCentimeters - dp2.PlayerData.WorldPosition.X.InCentimeters);
             double theta = Math.Atan2(dp1.PlayerData.WorldPosition.X.InCentimeters - dp2.PlayerData.WorldPosition.X.InCentimeters, dp1.PlayerData.WorldPosition.Z.InCentimeters - dp2.PlayerData.WorldPosition.Z.InCentimeters);
             Angle angle = Angle.GetFromRadians(theta - carYaw);
             if (Math.Abs(angle.InDegrees) > 180)

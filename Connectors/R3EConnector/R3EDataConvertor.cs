@@ -234,6 +234,10 @@
             {
                 DriverData r3RDriverData = r3RData.DriverData[i];
                 DriverInfo driverInfo = CreateDriverInfo(r3RData, r3RDriverData, playerName);
+                /*if (string.IsNullOrWhiteSpace(driverInfo.DriverName))
+                {
+                    continue;
+                }*/
 
                 if (driverInfo.IsPlayer)
                 {
@@ -243,6 +247,7 @@
                 }
                 else
                 {
+                    AddWheelInfo(driverInfo, r3RDriverData);
                     driverInfo.CurrentLapValid = r3RDriverData.CurrentLapValid == 1;
                 }
 
@@ -404,7 +409,7 @@
             //Add Flags Info
             AddFlags(data, simData);
 
-            simData.SessionInfo.IsMultiClass = simData.DriversInfo.Any(x => x.Position != x.PositionInClass);
+            simData.SessionInfo.IsMultiClass = simData.DriversInfo != null && simData.DriversInfo.Any(x => x != null && x.Position != x.PositionInClass);
 
             return simData;
         }
@@ -570,7 +575,7 @@
                     simData.SessionInfo.SessionPhase = SessionPhase.Checkered;
                     break;
                 default:
-                    simData.SessionInfo.SessionPhase = SessionPhase.Green;
+                    simData.SessionInfo.SessionPhase = SessionPhase.Unavailable;
                     break;
 
             }
@@ -591,7 +596,7 @@
                     break;
                 case Constant.SessionLengthFormat.TimeAndLapBased:
                     simData.SessionInfo.SessionTimeRemaining = data.SessionTimeRemaining;
-                    simData.SessionInfo.SessionLengthType = SessionLengthType.TimeWitchExtraLap;
+                    simData.SessionInfo.SessionLengthType = SessionLengthType.TimeWithExtraLap;
                     break;
                 case Constant.SessionLengthFormat.Unavailable:
                 default:

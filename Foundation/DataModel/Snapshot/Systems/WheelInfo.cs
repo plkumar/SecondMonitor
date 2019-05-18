@@ -47,7 +47,7 @@
                                  };
 
             TyreWear = new TyreWear(){ActualWear = 0.0, NoWearWearLimit = 0.03, LightWearLimit = 0.25, HeavyWearLimit = 0.7};
-            TyreType = "Prime";
+            TyreType = string.Empty;
             RideHeight = Distance.FromMeters(0);
             SuspensionTravel = Distance.FromMeters(0);
             SuspensionVelocity = Velocity.Zero;

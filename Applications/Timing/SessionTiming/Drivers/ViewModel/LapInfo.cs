@@ -3,6 +3,7 @@
 namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
 {
     using System;
+    using System.Data.SqlClient;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using NLog;
@@ -140,7 +141,7 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
             TimeSpan lapDurationByTiming = dataSet.SessionInfo.SessionTime.Subtract(LapStart);
 
             // Perform a sanity check on the sim reported lap time. The time difference between what the application counted and the sim counted cannot be more than 15 seconds.
-            if (!dataSet.SimulatorSourceInfo.HasLapTimeInformation || driverInfo.Timing.LastLapTime == TimeSpan.Zero)// || Math.Abs(lapDurationByTiming.TotalSeconds - driverInfo.Timing.LastLapTime.TotalSeconds) > 15)
+            if (!dataSet.SimulatorSourceInfo.HasLapTimeInformation || (driverInfo.Timing.LastLapTime == TimeSpan.Zero && dataSet.SessionInfo.SessionType == SessionType.Race))// || Math.Abs(lapDurationByTiming.TotalSeconds - driverInfo.Timing.LastLapTime.TotalSeconds) > 15)
             {
                 LapEnd = _isPendingStart != TimeSpan.Zero ? _isPendingStart : dataSet.SessionInfo.SessionTime;
             }

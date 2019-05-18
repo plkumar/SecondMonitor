@@ -6,11 +6,6 @@
 
     public class XGraphViewModel : AbstractSingleSeriesGraphViewModel
     {
-        private string _title;
-        private string _yUnits;
-        private double _yTickInterval;
-        private bool _canYZoom;
-
         public XGraphViewModel(IEnumerable<ISingleSeriesDataExtractor> dataExtractors) : base(dataExtractors)
         {
         }
