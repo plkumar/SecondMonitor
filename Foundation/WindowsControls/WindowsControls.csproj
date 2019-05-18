@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="Colors\HSLColor .cs" />
     <Compile Include="Colors\MediaColorExtension.cs" />
+    <Compile Include="Extension\DependencyObjectExtension.cs" />
     <Compile Include="Extension\ItemsControlExtensions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SituationOverview\SituationOverviewProvider.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="WPF\Converters\DateTimeToCurrentConverter.cs" />
     <Compile Include="WPF\Converters\DoubleToScalableDecimalsConverter.cs" />
     <Compile Include="WPF\Converters\DoubleToStringNoDecimalConverter.cs" />
+    <Compile Include="WPF\Converters\FormattedTimeToBrushConverter.cs" />
     <Compile Include="WPF\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanToVisibilityConverter.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="WPF\Converters\TimeSpanToMinutesSecondMilisecondsConverter.cs" />
     <Compile Include="WPF\Converters\TimeSpanToMinutesSecondsConverter.cs" />
     <Compile Include="WPF\Converters\TimeSpanToSecondsNoSignConverter.cs" />
+    <Compile Include="WPF\Converters\TyreCompoundToBrushConverter.cs" />
     <Compile Include="WPF\DriverPosition\AbstractSituationOverviewControl.cs" />
     <Compile Include="WPF\DriverPosition\FullMapControl.cs" />
     <Compile Include="WPF\DriverPosition\IMapSidePanelViewModel.cs" />
@@ -178,6 +181,9 @@
     <Compile Include="WPF\DriverPosition\ISituationOverviewControl.cs" />
     <Compile Include="WPF\DriverPosition\DriverPositionControl.cs" />
     <Compile Include="WPF\DriverPosition\PositionCircleControl.cs" />
+    <Compile Include="WPF\PitBoard\RacePitBoard.xaml.cs">
+      <DependentUpon>RacePitBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPF\PluginsConfig\BroadcastLimitSettingsControl.xaml.cs">
       <DependentUpon>BroadcastLimitSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -304,6 +310,10 @@
     <Page Include="WPF\DriverPosition\DriverPositionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\PitBoard\RacePitBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WPF\PluginsConfig\BroadcastLimitSettingsControl.xaml">
       <SubType>Designer</SubType>

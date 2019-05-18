@@ -41,7 +41,7 @@
         public Rf2Connector()
             : base(RFExecutables)
         {
-            TickTime = 10;
+            TickTime = 16;
             _sessionTimeInterpolator = new SessionTimeInterpolator(TimeSpan.FromMilliseconds(190));
             _dependencies = new DependencyChecker(new FileExistDependency[]{ new FileExistDependency(@"Plugins\rFactor2SharedMemoryMapPlugin64.dll", @"Connectors\RFactor2\rFactor2SharedMemoryMapPlugin64.dll") }, () => true );
             _rf2DataConvertor = new RF2DataConvertor(_sessionTimeInterpolator);
@@ -185,13 +185,15 @@
 
         private bool CheckSessionStarted(Rf2FullData rfData, SimulatorDataSet dataSet)
         {
-            if (_previousSessionTime > dataSet.SessionInfo.SessionTime)
+            if (_previousSessionTime.TotalSeconds - 1 > dataSet.SessionInfo.SessionTime.TotalSeconds)
             {
+                Logger.Info("New Session - Session time is less");
                 return true;
             }
 
             if (_rawLastSessionType != rfData.scoring.mScoringInfo.mSession || _lastSessionType != dataSet.SessionInfo.SessionType)
             {
+                Logger.Info("New Session - Session type doesn't match");
                 _lastSessionType = dataSet.SessionInfo.SessionType;
                 _rawLastSessionType = rfData.scoring.mScoringInfo.mSession;
                 _lastSessionPhase = dataSet.SessionInfo.SessionPhase;
@@ -200,6 +202,7 @@
 
             if (dataSet.SessionInfo.SessionPhase != _lastSessionPhase && _lastSessionPhase != SessionPhase.Green && dataSet.SessionInfo.SessionPhase != SessionPhase.Countdown)
             {
+                Logger.Info("New Session - Session phase doesn't match");
                 _lastSessionType = dataSet.SessionInfo.SessionType;
                 _rawLastSessionType = rfData.scoring.mScoringInfo.mSession;
                 _lastSessionPhase = dataSet.SessionInfo.SessionPhase;

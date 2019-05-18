@@ -180,8 +180,6 @@
     <Compile Include="Settings\DTO\TelemetrySettingsDto.cs" />
     <Compile Include="Settings\DTO\XAxisKind.cs" />
     <Compile Include="Settings\IGraphsSettingsProvider.cs" />
-    <Compile Include="Settings\ISettingsProvider.cs" />
-    <Compile Include="Settings\AppDataSettingsProvider.cs" />
     <Compile Include="Settings\ITelemetrySettingsRepository.cs" />
     <Compile Include="Settings\TelemetrySettingsRepository.cs" />
     <Compile Include="TelemetryApplicationModule.cs" />
@@ -235,6 +233,7 @@
     <Compile Include="AggregatedCharts\Histogram\HistogramBand.cs" />
     <Compile Include="AggregatedCharts\Histogram\Histogram.cs" />
     <Compile Include="ViewModels\GraphPanel\AbstractAverageValueGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\WorldYawGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\XGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\YawGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\YGraphViewModel.cs" />

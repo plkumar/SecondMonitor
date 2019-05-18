@@ -98,10 +98,10 @@
                     <Grid>
                         <ComboBox HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="94"
                                   ItemsSource="{Binding Source={StaticResource DataFromDisplayModeEnum}}"
-                                  SelectedItem="{Binding TimesDisplayMode}" />
+                                  SelectedItem="{Binding TimesDisplayMode}"  Style="{StaticResource StandardComboBoxStyle}"  />
                         <ComboBox HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="94"
                                   ItemsSource="{Binding Source={StaticResource DataFromDisplayModeEnum}}"
-                                  SelectedItem="{Binding OrderingMode}" />
+                                  SelectedItem="{Binding OrderingMode}"  Style="{StaticResource StandardComboBoxStyle}"  />
                         <Label Content="Drivers Order" HorizontalAlignment="Left" Margin="6,0,0,0"
                                VerticalAlignment="Top" Foreground="White" />
                         <Label Content="Display Times" HorizontalAlignment="Left" Margin="10,48,0,0"
@@ -130,6 +130,9 @@
                                     <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Sector 1" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.Sector1.Visible}"></CheckBox>
                                     <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Sector 2" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.Sector2.Visible}"></CheckBox>
                                     <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Sector 3" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.Sector3.Visible}"></CheckBox>
+                                </DockPanel>
+                                <DockPanel DockPanel.Dock="Top">
+                                    <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Rating" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.Rating.Visible}"></CheckBox>
                                 </DockPanel>
                             </DockPanel>
                         </Grid>
@@ -168,12 +171,12 @@
                                Foreground="White" />
                         <xctk:IntegerUpDown x:Name="UpDownPaceLaps" VerticalAlignment="Top" Minimum="1" Maximum="10"
                                             Text="" Margin="0,0,15,0"
-                                            Value="{Binding PaceLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Value="{Binding PaceLaps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}" />
                         <Label Content="Refresh Rate:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                Foreground="White" />
                         <xctk:IntegerUpDown x:Name="UpDownRefreshRate" VerticalAlignment="Top" Minimum="50"
                                             Maximum="5000" Margin="0,0,15,0"
-                                            Text="" Value="{Binding RefreshRate}" Increment="50" />
+                                            Text="" Value="{Binding RefreshRate}" Increment="50"  Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}"  />
                         <CheckBox Content="Scroll to Player" Foreground="White" VerticalAlignment="Top"
                                   HorizontalAlignment="Left" Margin="0,10,0,0" IsChecked="{Binding ScrollToPlayer}" />
                         <CheckBox Content="Animate Delta Bar" Foreground="White" VerticalAlignment="Top"
@@ -184,7 +187,7 @@
                         <ComboBox HorizontalAlignment="Left"
                                   VerticalAlignment="Top" Width="94"
                                   ItemsSource="{Binding Source={StaticResource DataFromMultiClassDisplayKindEnum}}"
-                                  SelectedItem="{Binding MultiClassDisplayKind}" />
+                                  SelectedItem="{Binding MultiClassDisplayKind}" Style="{StaticResource StandardComboBoxStyle}"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Column="1">
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
@@ -201,82 +204,112 @@
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Map Options" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      DockPanel.Dock="Top">
-                <StackPanel Margin="0,0,0,5">
-                    <CheckBox Content="Animate Drivers Pos." Foreground="White" VerticalAlignment="Top"
-                              HorizontalAlignment="Left" Margin="0,10,0,0" IsChecked="{Binding AnimateDriversPosition}"
-                              ToolTip="Enables and Disables the fluid animation of drivers in the circle maps. Disable to lower CPU usage of application." />
-                    <CheckBox Content="Scale Drivers" Foreground="White" VerticalAlignment="Top"
-                              HorizontalAlignment="Left" Margin="0,10,0,0"
-                              IsChecked="{Binding MapDisplaySettingsViewModel.AutoScaleDrivers}"
-                              ToolTip="Sets if drivers icons should be scaled with the map. If checked the drivers icons will always be the same size. If unchecked driver icon will always be with scale to the map - always 25 meters." />
-                    <CheckBox Content="Keep Map Ratio" Foreground="White" VerticalAlignment="Top"
-                              HorizontalAlignment="Left" Margin="0,10,0,0"
-                              IsChecked="{Binding MapDisplaySettingsViewModel.KeepMapRatio}"
-                              ToolTip="If enabled the map will always keep the ration. If unchecked the map will fill the whole available space, at the cost of distortion." />
-                    <StackPanel Orientation="Horizontal">
+            <DockPanel  DockPanel.Dock="Top">
+                <GroupBox Header="Map Options" Foreground="White" HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          DockPanel.Dock="Left">
+                    <StackPanel Margin="0,0,0,5">
+                        <CheckBox Content="Animate Drivers Pos." Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding AnimateDriversPosition}"
+                                  ToolTip="Enables and Disables the fluid animation of drivers in the circle maps. Disable to lower CPU usage of application." />
+                        <CheckBox Content="Scale Drivers" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding MapDisplaySettingsViewModel.AutoScaleDrivers}"
+                                  ToolTip="Sets if drivers icons should be scaled with the map. If checked the drivers icons will always be the same size. If unchecked driver icon will always be with scale to the map - always 25 meters." />
+                        <CheckBox Content="Keep Map Ratio" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding MapDisplaySettingsViewModel.KeepMapRatio}"
+                                  ToolTip="If enabled the map will always keep the ration. If unchecked the map will fill the whole available space, at the cost of distortion." />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Style="{StaticResource StandardTextBox}"
+                                Text="{Binding MapDisplaySettingsViewModel.MapPointsInterval, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=500}"
+                                Width="40" Margin="0,5,0,0"
+                                ToolTip="Interval (in MS) defining how often the app should take the drivers position when creating a new map for unknown track. (default is 500ms)" />
+                            <TextBlock Margin="5,5,0,0" Text="Points interval"
+                                       ToolTip="Interval (in MS) defining how often the app should take the drivers position when creating a new map for unknown track. (default is 500ms)" />
+                        </StackPanel>
+                        <CheckBox Content="Always Use Circle" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding MapDisplaySettingsViewModel.AlwaysUseCirce}"
+                                  ToolTip="Forces the app to always use the circle instead of a track map." />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Pit Board" Foreground="White" HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          DockPanel.Dock="Left">
+                    <StackPanel Margin="0,0,0,5">
+                        <CheckBox Content="Enabled" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="5,10,0,0"
+                                  IsChecked="{Binding PitBoardSettingsViewModel.IsEnabled}"
+                                  ToolTip="Enables and Disables the pit board" />
+                        <TextBlock Margin="5,15,0,0" Text="Display Time (seconds)" ToolTip="Interval (in Seconds) defining how how long the pit board stays opened" />
                         <TextBox
-                            Text="{Binding MapDisplaySettingsViewModel.MapPointsInterval, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=500}"
-                            Width="40" Margin="0,5,0,0"
-                            ToolTip="Interval (in MS) defining how often the app should take the drivers position when creating a new map for unknown track. (default is 500ms)" />
-                        <TextBlock Margin="5,5,0,0" Text="Points interval"
-                                   ToolTip="Interval (in MS) defining how often the app should take the drivers position when creating a new map for unknown track. (default is 500ms)" />
+                            Text="{Binding PitBoardSettingsViewModel.DisplaySeconds, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=500}"
+                            Width="40" Margin="5,5,0,0" HorizontalAlignment="Left" Style="{StaticResource StandardTextBox}"
+                            ToolTip="Interval (in Seconds) defining how how long the pit board stays opened" />
                     </StackPanel>
-                    <CheckBox Content="Always Use Circle" Foreground="White" VerticalAlignment="Top"
-                              HorizontalAlignment="Left" Margin="0,10,0,0"
-                              IsChecked="{Binding MapDisplaySettingsViewModel.AlwaysUseCirce}"
-                              ToolTip="Forces the app to always use the circle instead of a track map." />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="UOM" Foreground="White" HorizontalAlignment="Left" Height="200" DockPanel.Dock="Top">
-                <WrapPanel Orientation="Vertical">
+                </GroupBox>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <GroupBox Header="UOM" Foreground="White" HorizontalAlignment="Left" Height="200" DockPanel.Dock="Left">
+                    <WrapPanel Orientation="Vertical">
+                        <StackPanel>
+                            <Label Content="Temperature" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox x:Name="CmbTemperature" HorizontalAlignment="Left"
+                                      VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataFromTemperatureEnum}}"
+                                      SelectedItem="{Binding TemperatureUnits}"  Style="{StaticResource StandardComboBoxStyle}"  />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Pressure" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox x:Name="CmbPressure" HorizontalAlignment="Left"
+                                      VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataFromPressureEnum}}"
+                                      SelectedItem="{Binding PressureUnits}"  Style="{StaticResource StandardComboBoxStyle}"  />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Volume" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox x:Name="CmbVolume" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      Width="94" ItemsSource="{Binding Source={StaticResource DataFromVolumeEnum}}"
+                                      SelectedItem="{Binding VolumeUnits}" Style="{StaticResource StandardComboBoxStyle}"  />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Velocity" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataFromVelocityEnum}}"
+                                      SelectedItem="{Binding VelocityUnits}"  Style="{StaticResource StandardComboBoxStyle}"  />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Force" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataForForceUnitsEnum}}"
+                                      SelectedItem="{Binding ForceUnits}"  Style="{StaticResource StandardComboBoxStyle}"  />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Angle" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataForAngleUnitsEnum}}"
+                                      SelectedItem="{Binding AngleUnits}"  Style="{StaticResource StandardComboBoxStyle}" />
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="Rating" Foreground="White" HorizontalAlignment="Left" DockPanel.Dock="Left">
                     <StackPanel>
-                        <Label Content="Temperature" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox x:Name="CmbTemperature" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Width="94"
-                                  ItemsSource="{Binding Source={StaticResource DataFromTemperatureEnum}}"
-                                  SelectedItem="{Binding TemperatureUnits}" />
+                        <CheckBox Content="Enable Rating" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding RatingSettingsViewModel.IsEnabled}"
+                                  ToolTip="Enables and Disables the rating application module." />
                     </StackPanel>
-                    <StackPanel>
-                        <Label Content="Pressure" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox x:Name="CmbPressure" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Width="94"
-                                  ItemsSource="{Binding Source={StaticResource DataFromPressureEnum}}"
-                                  SelectedItem="{Binding PressureUnits}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="Volume" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox x:Name="CmbVolume" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="94" ItemsSource="{Binding Source={StaticResource DataFromVolumeEnum}}"
-                                  SelectedItem="{Binding VolumeUnits}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="Velocity" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
-                                  ItemsSource="{Binding Source={StaticResource DataFromVelocityEnum}}"
-                                  SelectedItem="{Binding VelocityUnits}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="Force" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
-                                  ItemsSource="{Binding Source={StaticResource DataForForceUnitsEnum}}"
-                                  SelectedItem="{Binding ForceUnits}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="Angle" HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="White" />
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
-                                  ItemsSource="{Binding Source={StaticResource DataForAngleUnitsEnum}}"
-                                  SelectedItem="{Binding AngleUnits}" />
-                    </StackPanel>
-                </WrapPanel>
-            </GroupBox>
+                </GroupBox>
+
+            </DockPanel>
         </DockPanel>
         <DockPanel Grid.Column="1" Margin="5" VerticalAlignment="Stretch">
             <GroupBox Header="Session Options" Foreground="White" VerticalAlignment="Stretch">
@@ -296,7 +329,7 @@
                         <TextBlock Margin="0,0,0,0" VerticalAlignment="Top" Style="{StaticResource StandardText}" Foreground="White" Text="User Files Path:"/>
                         <TextBox TextWrapping="Wrap" Margin="0,0,0,0" VerticalAlignment="Top" Style="{StaticResource StandardTextBox}" Background="Black" IsReadOnly="True"  FontSize="{StaticResource SmallFontSize}" Foreground="White" MaxWidth="600"
                                  Text="This includes stored maps, telemetry, car settings info and reports. Changing this will not move the existing files to a new locations. Application restart after changing this settings is advisable."/>
-                        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" IsReadOnly="True" Text="{Binding ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" IsReadOnly="True" Text="{Binding ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StandardTextBox}"/>
                         <Button Content="..." VerticalContentAlignment="Center" Margin="5" Height="21" HorizontalAlignment="Right" VerticalAlignment="Top"  Width="19" Command="{Binding Path=ReportingSettingsView.SelectExportDirCommand}"/>
                     </StackPanel>
                 </StackPanel>
@@ -314,14 +347,14 @@
                                        Content="Maximum Reports:" Height="27" />
                                 <xctk:IntegerUpDown HorizontalAlignment="Right" VerticalAlignment="Top" Minimum="1"
                                                     Maximum="100" Text=""
-                                                    Value="{Binding ReportingSettingsView.MaximumReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    Value="{Binding ReportingSettingsView.MaximumReports, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}"  />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White"
                                        Content="Minimum Session (minutes):" Height="27" Width="165" />
                                 <xctk:IntegerUpDown HorizontalAlignment="Right" VerticalAlignment="Top" Minimum="1"
                                                     Maximum="100" Text=""
-                                                    Value="{Binding ReportingSettingsView.MinimumSessionLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    Value="{Binding ReportingSettingsView.MinimumSessionLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}" />
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -355,7 +388,7 @@
                               IsChecked="{Binding TelemetrySettingsViewModel.LogInvalidLaps}" />
                     <StackPanel Orientation="Horizontal" >
                         <TextBox
-                            Text="{Binding TelemetrySettingsViewModel.LoggingInterval, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=50}"
+                            Text="{Binding TelemetrySettingsViewModel.LoggingInterval, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=50}" Style="{StaticResource StandardTextBox}"
                             Width="40" Margin="5,5,0,0"
                             ToolTip="Interval (in MS) defining how often the app should log the telemetry information." />
                         <TextBlock Margin="5,5,0,0" Text="Telemetry Data Interval (ms)"
@@ -364,7 +397,7 @@
                     <StackPanel Orientation="Horizontal" >
                         <TextBox
                             Text="{Binding TelemetrySettingsViewModel.MaxSessionsKept, Converter={StaticResource IntegerToStringConverter}, ConverterParameter=10}"
-                            Width="40" Margin="5,5,0,0"
+                            Width="40" Margin="5,5,0,0" Style="{StaticResource StandardTextBox}"
                             ToolTip="Defines How Many Sessions, at maximum, should be kept stored. If the number is exceeded, then the application if automatically delete the oldest telemetry data." />
                         <TextBlock Margin="5,5,0,0" Text="Maximum Sessions Stored"
                                    ToolTip="Defines How Many Sessions, at maximum, should be kept stored. If the number is exceeded, then the application if automatically delete the oldest telemetry data." />

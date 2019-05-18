@@ -80,6 +80,11 @@
                 playerCar.CarDamageInformation.Engine.Damage = 1;
             }
 
+            playerCar.WorldOrientation = new Orientation()
+            {
+                Yaw = Angle.GetFromRadians(Math.Atan2(data.OriZ.X, data.OriZ.Z)),
+            };
+
             playerCar.SpeedLimiterEngaged = false;
 
         }
@@ -255,6 +260,11 @@
                 {
                     data.SessionInfo.LeaderCurrentLap = driverInfo.CompletedLaps + 1;
                     data.LeaderInfo = driverInfo;
+                }
+
+                if (rfVehicleInfo.Control == 2)
+                {
+                    data.SessionInfo.IsMultiplayer = true;
                 }
 
                 AddLappingInformation(data, rfData, driverInfo);
@@ -477,7 +487,7 @@
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (data.EndET > 0)
             {
-                simData.SessionInfo.SessionLengthType = simData.SessionInfo.SessionType != SessionType.Race ? SessionLengthType.Time : SessionLengthType.TimeWitchExtraLap;
+                simData.SessionInfo.SessionLengthType = simData.SessionInfo.SessionType != SessionType.Race ? SessionLengthType.Time : SessionLengthType.TimeWithExtraLap;
                 simData.SessionInfo.SessionTimeRemaining =
                     data.EndET - data.CurrentET > 0 ? data.EndET - data.CurrentET : 0;
             }

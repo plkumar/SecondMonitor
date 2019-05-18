@@ -5,6 +5,8 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using WindowsControls.WPF;
     using DataModel.BasicProperties;
@@ -14,6 +16,7 @@
     using NLog;
     using SessionTiming.Drivers.Presentation.ViewModel;
     using SessionTiming.Drivers.ViewModel;
+    using SessionTiming.ViewModel;
     using SimdataManagement.DriverPresentation;
     using ViewModels;
     using ViewModels.Colors;
@@ -30,6 +33,8 @@
         private readonly Dictionary<string, DriverTiming> _driverNameTimingMap;
         private int _loadIndex;
         private readonly Stopwatch _refreshGapWatch;
+        private Task _pitBoardTask;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public TimingDataGridViewModel(DriverPresentationsManager driverPresentationsManager, DisplaySettingsViewModel displaySettingsViewModel, IClassColorProvider classColorProvider )
         {
@@ -40,6 +45,9 @@
             _displaySettingsViewModel = displaySettingsViewModel;
             _classColorProvider = classColorProvider;
             DriversViewModels = new ObservableCollection<DriverTimingViewModel>();
+            PitBoardViewModel = new PitBoardViewModel();
+            PitBoardViewModel.PitBoard.Lap = "L0";
+
         }
 
         public ObservableCollection<DriverTimingViewModel> DriversViewModels { get; }
@@ -47,6 +55,8 @@
         public DisplayModeEnum DriversOrdering { get; set; }
 
         public DriverTimingViewModel PlayerViewModel { get; set; }
+
+        public PitBoardViewModel PitBoardViewModel { get; private set; }
 
         public void UpdateProperties(SimulatorDataSet dataSet)
         {
@@ -147,6 +157,30 @@
 
         }
 
+        public async Task UpdateAndShowPitBoard()
+        {
+            if (!_displaySettingsViewModel.PitBoardSettingsViewModel.IsEnabled)
+            {
+                return;
+            }
+
+            PitBoardViewModel.UpdatePitBoard(DriversViewModels.ToArray());
+            if (_pitBoardTask != null)
+            {
+                try
+                {
+                    _cancellationTokenSource.Cancel();
+                    await _pitBoardTask;
+                }
+                catch (TaskCanceledException)
+                {
+
+                }
+            }
+            _cancellationTokenSource = new CancellationTokenSource();
+            _pitBoardTask = PitBoardViewModel.ShowPitBoard(TimeSpan.FromSeconds(_displaySettingsViewModel.PitBoardSettingsViewModel.DisplaySeconds), _cancellationTokenSource.Token);
+        }
+
         private void RemoveAllDrivers()
         {
             if (!Application.Current.Dispatcher.CheckAccess())
@@ -193,6 +227,7 @@
                 Application.Current.Dispatcher.Invoke(() => MatchDriversList(drivers));
                 return;
             }
+            PitBoardViewModel.Reset();
 
             lock (_lockObject)
             {

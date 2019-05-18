@@ -56,8 +56,6 @@
             Bind<TelemetryStoryBoardFactory>().ToSelf();
             Bind<IMapsLoaderFactory>().To<MapsLoaderFactory>();
             Bind<ILoadedLapsCache>().To<LoadedLapsCache>().InSingletonScope();
-
-            Bind<ISettingsProvider>().To<AppDataSettingsProvider>().InNamedScope(MainWidowScopeName);
             Bind<ITelemetryLoadController>().To<TelemetryLoadController>().InNamedScope(MainWidowScopeName);
             Bind<ITelemetryViewsSynchronization>().To<TelemetryViewsSynchronization>().InSingletonScope();
             Bind<IGraphViewSynchronization>().To<GraphViewSynchronization>().InNamedScope(MainWidowScopeName);
@@ -122,7 +120,8 @@
             Bind<IGraphViewModel>().To<CamberGraphViewModel>();
             Bind<IGraphViewModel>().To<RakeGraphViewModel>();
             Bind<IGraphViewModel>().To<YawGraphViewModel>();
-            /*Bind<IGraphViewModel>().To<XGraphViewModel>();
+            /*Bind<IGraphViewModel>().To<WorldYawGraphViewModel>();
+            Bind<IGraphViewModel>().To<XGraphViewModel>();
             Bind<IGraphViewModel>().To<YGraphViewModel>();*/
 
             Bind<ISingleSeriesDataExtractor>().To<SimpleSingleSeriesDataExtractor>();

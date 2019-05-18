@@ -5,7 +5,7 @@
     using DataModel.Snapshot.Systems;
     using DataModel.Telemetry;
     using Filter;
-    using Settings;
+    using SecondMonitor.ViewModels.Settings;
     using TelemetryManagement.DTO;
 
     public abstract class AbstractWheelHistogramDataExtractor : AbstractHistogramDataExtractor

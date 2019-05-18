@@ -58,6 +58,8 @@
 
     <SolidColorBrush x:Shared="False" x:Key="Green01Brush" Color="{StaticResource Green01Color}"/>
 
+    <SolidColorBrush x:Shared="False" x:Key="Yellow01Brush" Color="{StaticResource Yellow01Color}" />
+
     <SolidColorBrush x:Shared="False" x:Key="YellowSectorBrush" Color="{StaticResource Yellow01Color}" />
     <SolidColorBrush x:Shared="False" x:Key="ClutchPedalColor" Color="{StaticResource Yellow01Color}" />
     <SolidColorBrush x:Shared="False" x:Key="ClutchPedalBorderColor" Color="{StaticResource Yellow02Color}" />
@@ -98,6 +100,14 @@
     <SolidColorBrush x:Shared="False" x:Key="IconWarningBrush" Color="{StaticResource Orange01Color}"/>
     <SolidColorBrush x:Shared="False" x:Key="IconErrorBrush" Color="{StaticResource LightRed02Color}"/>
     <SolidColorBrush x:Shared="False" x:Key="IconInformationBrush" Color="{StaticResource LightBlue01Color}"/>
+
+
+    <SolidColorBrush x:Shared="False" x:Key="TyreSuperSoft" Color="#ff00ff"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreSoft" Color="#e60000"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreMedium" Color="#e6e600"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreHard" Color="#ffffff"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreIntermediate" Color="#33cc33"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreWet" Color="#0066ff"/>
 
 
 </ResourceDictionary>

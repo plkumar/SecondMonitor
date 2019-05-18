@@ -1,4 +1,5 @@
-﻿namespace SecondMonitor.PCars2Connector
+﻿
+namespace SecondMonitor.PCars2Connector
 {
     using System;
     using System.Diagnostics;

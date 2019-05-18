@@ -19,6 +19,7 @@
         private DriverInfo _lastPlayer = new DriverInfo();
         private int _lastPlayerId = -1;
         private int currentlyIgnoredPackage = 0;
+        private TimeSpan _lastPlayerTime = TimeSpan.Zero;
 
         public RF2DataConvertor(SessionTimeInterpolator sessionTimeInterpolator)
         {
@@ -36,6 +37,7 @@
                 simData.SimulatorSourceInfo.InvalidateLapBySector = true;
                 simData.SimulatorSourceInfo.SectorTimingSupport = DataInputSupport.Full;
                 simData.SimulatorSourceInfo.TelemetryInfo.ContainsSuspensionTravel = true;
+                //simData.SimulatorSourceInfo.TelemetryInfo.ContainsSuspensionVelocity = true;
                 /*                simData.SimulatorSourceInfo.TelemetryInfo.RequiresDistanceInterpolation = true;
                                 simData.SimulatorSourceInfo.TelemetryInfo.RequiresPositionInterpolation = true;*/
 
@@ -111,6 +113,11 @@
                 playerCar.CarDamageInformation.Engine.Damage = 1;
             }
 
+            /*playerCar.WorldOrientation = new Orientation()
+            {
+                Yaw = Angle.GetFromRadians(Math.Atan2(data.mOri[2].x, data.mOri[2].z)),
+            };*/
+
             playerCar.SpeedLimiterEngaged = data.mSpeedLimiter == 1;
             playerCar.FrontDownForce = Force.GetFromNewtons(data.mFrontDownforce);
             playerCar.RearDownForce = Force.GetFromNewtons(data.mRearDownforce);
@@ -159,7 +166,7 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyrePressure.ActualQuantity =
                 Pressure.FromKiloPascals(playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.RearRight].mPressure);
 
-            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Detached = playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontLeft].mDetached == 1 || playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontLeft].mFlat == 1;
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Detached = playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontLeft].mDetached == 1 || playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontLeft].mFlat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Detached = playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontRight].mDetached == 1 || playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.FrontRight].mFlat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Detached = playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.RearLeft].mDetached == 1 || playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.RearLeft].mFlat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Detached = playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.RearRight].mDetached == 1 || playerVehicleTelemetry.mWheels[(int)rFactor2Constants.rF2WheelIndex.RearRight].mFlat == 1;
@@ -283,8 +290,19 @@
         }
 
 
-        private static void FillPlayerCarInfo(rF2VehicleTelemetry playerVehicleTelemetry, SimulatorDataSet simData)
+        private void FillPlayerCarInfo(rF2VehicleTelemetry playerVehicleTelemetry, SimulatorDataSet simData)
         {
+            TimeSpan playerSessionTime = TimeSpan.FromSeconds(playerVehicleTelemetry.mElapsedTime);
+            //simData.SessionInfo.SessionTime = playerSessionTime;
+            /*if (playerSessionTime > simData.SessionInfo.SessionTime && playerSessionTime > _lastPlayerTime)
+            {
+                simData.SessionInfo.SessionTime = playerSessionTime;
+                _lastPlayerTime = playerSessionTime;
+            }
+            else
+            {
+                playerSessionTime = TimeSpan.Zero;
+            }*/
             simData.PlayerInfo.CarInfo.EngineRpm = (int)playerVehicleTelemetry.mEngineRPM;
             switch (playerVehicleTelemetry.mGear)
             {
@@ -316,6 +334,7 @@
             for (int i = 0; i < rfData.scoring.mScoringInfo.mNumVehicles; i++)
             {
                 rF2VehicleScoring rF2VehicleScoring = rfData.scoring.mVehicles[i];
+                rF2VehicleTelemetry rF2VehicleTelemetry = rfData.telemetry.mVehicles[i];
                 DriverInfo driverInfo = CreateDriverInfo(rfData, rF2VehicleScoring);
 
                 if (driverInfo.IsPlayer)
@@ -326,6 +345,10 @@
                 }
                 else
                 {
+                    driverInfo.CarInfo.WheelsInfo.FrontLeft.TyreType = StringExtensions.FromArray(rF2VehicleTelemetry.mFrontTireCompoundName);
+                    driverInfo.CarInfo.WheelsInfo.FrontRight.TyreType = driverInfo.CarInfo.WheelsInfo.FrontLeft.TyreType;
+                    driverInfo.CarInfo.WheelsInfo.RearRight.TyreType = StringExtensions.FromArray(rF2VehicleTelemetry.mRearTireCompoundName);
+                    driverInfo.CarInfo.WheelsInfo.RearLeft.TyreType = driverInfo.CarInfo.WheelsInfo.RearRight.TyreType;
                     driverInfo.CurrentLapValid = true;
                 }
 
@@ -334,6 +357,11 @@
                 {
                     data.SessionInfo.LeaderCurrentLap = driverInfo.CompletedLaps + 1;
                     data.LeaderInfo = driverInfo;
+                }
+
+                if (rF2VehicleScoring.mControl == 2)
+                {
+                    data.SessionInfo.IsMultiplayer = true;
                 }
 
                 AddLappingInformation(data, rfData, driverInfo);
@@ -483,15 +511,16 @@
         internal void FillSessionInfo(Rf2FullData data, SimulatorDataSet simData)
         {
             // Timing
-            simData.SessionInfo.SessionTime = TimeSpan.FromSeconds(data.scoring.mScoringInfo.mCurrentET);
             simData.SessionInfo.TrackInfo.LayoutLength = Distance.FromMeters(data.scoring.mScoringInfo.mLapDist);
             simData.SessionInfo.TrackInfo.TrackName = StringExtensions.FromArray(data.scoring.mScoringInfo.mTrackName);
             simData.SessionInfo.TrackInfo.TrackLayoutName = string.Empty;
             simData.SessionInfo.WeatherInfo.AirTemperature = Temperature.FromCelsius(data.scoring.mScoringInfo.mAmbientTemp);
             simData.SessionInfo.WeatherInfo.TrackTemperature = Temperature.FromCelsius(data.scoring.mScoringInfo.mTrackTemp);
             simData.SessionInfo.WeatherInfo.RainIntensity = (int)(data.scoring.mScoringInfo.mRaining * 100);
+            simData.SessionInfo.SessionTime = TimeSpan.FromSeconds(data.scoring.mScoringInfo.mCurrentET);
 
-            _sessionTimeInterpolator.Visit(simData);
+
+            //_sessionTimeInterpolator.Visit(simData);
 
             if (data.scoring.mScoringInfo.mTrackTemp == 0 && data.scoring.mScoringInfo.mSession == 0 && data.scoring.mScoringInfo.mGamePhase == 0
                 && string.IsNullOrEmpty(simData.SessionInfo.TrackInfo.TrackName)
@@ -577,7 +606,7 @@
             switch ((rFactor2Constants.rF2FinishStatus)finishStatus)
             {
                 case rFactor2Constants.rF2FinishStatus.None:
-                    return DriverFinishStatus.Na;
+                    return DriverFinishStatus.None;
                 case rFactor2Constants.rF2FinishStatus.Dnf:
                     return DriverFinishStatus.Dnf;
                 case rFactor2Constants.rF2FinishStatus.Dq:

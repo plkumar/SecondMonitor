@@ -37,7 +37,7 @@
                 var dp1 = dataPoints[i];
                 var dp2 = dataPoints[i + 1];
 
-                double angle = (dp1.PlayerData.WorldPosition.Z.InMeters - dp2.PlayerData.WorldPosition.Z.InMeters);
+                double angle = (dp1.PlayerData.WorldPosition.X.InMeters - dp2.PlayerData.WorldPosition.X.InMeters);
                 DataPoint oxyPoint = new DataPoint((GetXValue(dp1) + GetXValue(dp2)) / 2,  angle );
                 points2.Add(oxyPoint);
             }

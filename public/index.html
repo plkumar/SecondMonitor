@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+	<title></title>
+</head>
 <body>
+<h2>Version 5.0.0 - Single Player Ratings</h2>
+<b>Main Application:</b>
+<ul>
+	<li><b>Rating For SP:</b> Added Rating module for single player races (similar to what you might see in IRacing).  Initially supported for R3E, RFactor2 and Assetto Corsa. Support for AMS and PCars 2 will come in next version. This module tracks your rating for each class you drive, offering optimal difficulty based on your performance. AI drivers have computed rating based on the selected difficulty and qualification times. Your performance againts them during the race will determine your rating changes. Please see the tutorial to get you going : https://gitlab.com/winzarten/SecondMonitor/wikis/Rating-Tutorial  </li>
+	<li><b>Pit Board:</b> In races, after each completed lap, a <b>pit board</b> will open temporarily on the bottom-left side of the application (over the tyres and pedals overview). The main information provided by the board is the gap to the car ahead and behind, as well as the difference of these gaps between current an previous lap. This information is color colored - green if you're catching the car ahead, or pulling from the car behind. Red if the car ahead is pulling await, or the car behind is catching. </li>
+	<li><b>Tyre Color Codes:</b> The Pit column in timing grid now contains a colored ribbon, if a standard tyre compound is equipped. For R3E and RFactor 2 this colored ribbon is also present for competing drivers, so you can quickly see what compound is the field running. Other simulator do not expose this information. The standard compounds are - <b>suppersoft, soft, medium, hard, intermediate, wet, prime, option</b>. The ribbon is using the colors used in F1. </li>
+	<li>Removed some textual effect (i.e. shadowing) on the main app, as they were too demanding on performance.</li>
+</ul>
 <h2>Version 4.11.0</h2>
 <b>Telemetry Viewer:</b>
 <ul>
@@ -503,5 +513,4 @@ telemetry). This update adapts the existing functionality to the new Shared Memo
 	<li>Application should no longer crash when connecting to shared memory failed</li>
 </ul>
 </body>
-
 </html>

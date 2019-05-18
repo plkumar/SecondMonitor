@@ -31,14 +31,19 @@
 
         public SimulatorDataSet CreateSimulatorDataSet(AssettoCorsaShared acData)
         {
-            SimulatorDataSet simData = new SimulatorDataSet("Assetto Corsa");
-            simData.SimulatorSourceInfo.HasLapTimeInformation = true;
-            simData.SimulatorSourceInfo.OutLapIsValid = true;
-            simData.SimulatorSourceInfo.SimNotReportingEndOfOutLapCorrectly = true;
-            simData.SimulatorSourceInfo.ForceLapOverTime = true;
-            simData.SimulatorSourceInfo.GlobalTyreCompounds = true;
-            simData.SimulatorSourceInfo.SectorTimingSupport = DataInputSupport.SpOnly;
-            simData.SimulatorSourceInfo.TelemetryInfo.ContainsSuspensionTravel = true;
+            SimulatorDataSet simData = new SimulatorDataSet("Assetto Corsa")
+            {
+                SimulatorSourceInfo =
+                {
+                    HasLapTimeInformation = true,
+                    OutLapIsValid = true,
+                    SimNotReportingEndOfOutLapCorrectly = true,
+                    ForceLapOverTime = true,
+                    GlobalTyreCompounds = true,
+                    SectorTimingSupport = DataInputSupport.SpOnly,
+                    TelemetryInfo = {ContainsSuspensionTravel = true}
+                }
+            };
 
             FillSessionInfo(acData, simData);
             AddDriversData(simData, acData);
@@ -79,6 +84,13 @@
             playerCar.CarDamageInformation.Bodywork.Damage = data.AcsPhysics.carDamage.Max() / 100.0;
 
             playerCar.SpeedLimiterEngaged = simData.PlayerInfo.InPits;
+
+            playerCar.WorldOrientation = new Orientation()
+            {
+                Pitch = Angle.GetFromRadians(data.AcsPhysics.pitch),
+                Yaw = Angle.GetFromRadians(data.AcsPhysics.heading),
+                Roll = Angle.GetFromRadians(data.AcsPhysics.roll),
+            };
 
             FillDrsData(data, playerCar);
             FillBoostData(data, playerCar);
@@ -155,6 +167,11 @@
 
             simData.PlayerInfo.CarInfo.FrontHeight =  Distance.FromMeters(acData.AcsPhysics.rideHeight[0]);
             simData.PlayerInfo.CarInfo.RearHeight = Distance.FromMeters(acData.AcsPhysics.rideHeight[1]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.RideHeight = simData.PlayerInfo.CarInfo.FrontHeight;
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.RideHeight = simData.PlayerInfo.CarInfo.FrontHeight;
+
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.RideHeight = simData.PlayerInfo.CarInfo.RearHeight;
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.RideHeight = simData.PlayerInfo.CarInfo.RearHeight;
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int) AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int)AcWheels.FR]);
@@ -383,9 +400,10 @@
                 DriverName = StringExtensions.FromArray(acVehicleInfo.driverName),
                 CompletedLaps = acVehicleInfo.lapCount,
                 CarName = FormatACName(StringExtensions.FromArray(acVehicleInfo.carModel)),
-                CarClassName = "N/A",
-                CarClassId = string.Empty,
             };
+
+            driverInfo.CarClassName = driverInfo.CarName;
+            driverInfo.CarClassId = driverInfo.CarClassName;
 
             driverInfo.InPits = acVehicleInfo.isCarInPit == 1 || acVehicleInfo.isCarInPitlane == 1;
 
@@ -421,12 +439,12 @@
             double distanceToPlayer = playerLapDistance - driverInfo.LapDistance;
             if (distanceToPlayer < -(trackLength / 2))
             {
-                distanceToPlayer = distanceToPlayer + trackLength;
+                distanceToPlayer += trackLength;
             }
 
             if (distanceToPlayer > (trackLength / 2))
             {
-                distanceToPlayer = distanceToPlayer - trackLength;
+                distanceToPlayer -= trackLength;
             }
 
             driverInfo.DistanceToPlayer = distanceToPlayer;
@@ -442,6 +460,7 @@
             simData.SessionInfo.WeatherInfo.AirTemperature = Temperature.FromCelsius(data.AcsPhysics.airTemp);
             simData.SessionInfo.WeatherInfo.TrackTemperature = Temperature.FromCelsius(data.AcsPhysics.roadTemp);
             simData.SessionInfo.WeatherInfo.RainIntensity = 0;
+            simData.SessionInfo.IsMultiplayer = data.AcsSecondMonitor.serverName[0] != 0;
 
             switch (data.AcsGraphic.session)
             {

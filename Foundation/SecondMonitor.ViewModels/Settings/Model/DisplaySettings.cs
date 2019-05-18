@@ -60,6 +60,10 @@
         public TelemetrySettings TelemetrySettings { get; set; } = new TelemetrySettings();
 
         public WindowLocationSetting WindowLocationSetting { get; set; }
+
+        public RatingSettings RatingSettings { get; set; } = new RatingSettings();
+
+        public PitBoardSettings PitBoardSettings { get; set; } = new PitBoardSettings();
     }
 
 }
