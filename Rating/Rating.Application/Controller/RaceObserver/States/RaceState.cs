@@ -41,6 +41,8 @@
 
         protected override void Initialize(SimulatorDataSet simulatorDataSet)
         {
+            _isFlashing = false;
+            _ratingComputed = false;
             DriverInfo[] eligibleDrivers = FilterEligibleDrivers(simulatorDataSet);
             if (CanUserPreviousRaceContext(eligibleDrivers))
             {
@@ -82,6 +84,13 @@
             if (!IsStateInitialized && simulatorDataSet.DriversInfo.Any(x => string.IsNullOrWhiteSpace(x.DriverName)))
             {
                 return false;
+            }
+
+
+            // Second Race - Session didn't change, but player state has
+            if (_ratingComputed && simulatorDataSet.PlayerInfo.FinishStatus == DriverFinishStatus.None)
+            {
+                Initialize(simulatorDataSet);
             }
 
             if (_isFlashing)

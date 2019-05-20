@@ -32,7 +32,7 @@
 
             Dictionary<string, DriversRating> ratings = new Dictionary<string, DriversRating>();
             int lastRating = 0;
-            foreach (Driver driver in qualificationResult.Where(x => x.IsPlayer || x.BestPersonalLap != null))
+            foreach (Driver driver in qualificationResult.Where(x => x.IsPlayer || (x.BestPersonalLap != null && x.BestPersonalLap.LapTime != TimeSpan.Zero)))
             {
                 if (driver.IsPlayer)
                 {
@@ -50,7 +50,7 @@
                 };
             }
 
-            foreach (Driver driver in qualificationResult.Where(x => !x.IsPlayer && x.BestPersonalLap == null))
+            foreach (Driver driver in qualificationResult.Where(x => !x.IsPlayer && (x.BestPersonalLap == null || x.BestPersonalLap.LapTime == TimeSpan.Zero)))
             {
                 DriverWithoutRating aiDriver = _simulatorRatingController.GetAiRating(driver.DriverName);
                 ratings[driver.DriverName] = new DriversRating()
@@ -67,6 +67,7 @@
         public Dictionary<string, DriversRating> CreateFieldRating(DriverInfo[] fieldDrivers, int difficulty)
         {
             InitializeReferenceRating(difficulty);
+            fieldDrivers = fieldDrivers.OrderBy(x => x.Position).ToArray();
             Dictionary<string, DriversRating> ratings = new Dictionary<string, DriversRating>();
             int middleDriverIndex = fieldDrivers.Length > 3 ? 3 : fieldDrivers.Length - 1;
             int ratingBetweenPlaces = _simulatorRatingController.QuickRaceAiRatingForPlace;
