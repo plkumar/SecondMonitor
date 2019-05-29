@@ -24,7 +24,7 @@ Second Monitor is Timing/Car information application for racing simulators. It d
 * Session Reports - Ability to automatically export session reports in xlsx file. Files containig race summary, lap overview for each driver, race progress and detailed lap information for players laps
 
 From version 4.0.0 it is possible to use Second Monitor on separate computer, than the sim is running on.
-Check the [Instructions.](https://gitlab.com/Winzarten/SecondMonitor/wiki/Setting-up-Second-Monitor-on-separate-computer) 
+Check the [Instructions.](https://gitlab.com/winzarten/SecondMonitor/wikis/Setting-up-Second-Monitor-on-separate-computer) 
   
 ## Telemetry Viewer:
   ![ScreenshotTV](/_githubStuff/TelemetryViewer/TelemetryViewer.png)
