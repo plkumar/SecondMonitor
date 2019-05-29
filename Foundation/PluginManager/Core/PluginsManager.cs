@@ -29,9 +29,9 @@
         private IGameConnector _activeConnector;
         private Task _connectorTask;
         private SimulatorDataSet _oldDataSet;
-        private readonly List<ISimulatorDateSetVisitor> _visitors;
+        private readonly List<ISimulatorDataSetVisitor> _visitors;
 
-        public PluginsManager(IPluginSettingsProvider pluginSettingsProvider, IGameConnector[] connectors, IEnumerable<ISimulatorDateSetVisitor> dataVisitors)
+        public PluginsManager(IPluginSettingsProvider pluginSettingsProvider, IGameConnector[] connectors, IEnumerable<ISimulatorDataSetVisitor> dataVisitors)
         {
             _pluginSettingsProvider = pluginSettingsProvider;
             _plugins = new List<ISecondMonitorPlugin>();

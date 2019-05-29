@@ -1,57 +1,36 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Controllers.Synchronization;
     using TelemetryApplication.AggregatedCharts.Histogram;
-    using TelemetryManagement.StoryBoard;
+    using TelemetryApplication.AggregatedCharts.Histogram.Providers;
 
     public class SuspensionVelocityHistogramChartViewModel : HistogramChartViewModel
     {
-        private double _bumpAverageSpeed;
-        private double _reboundAverageSpeed;
-        private double _bumpPercentage;
-        private double _reboundPercentage;
-
         public SuspensionVelocityHistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(dataPointSelectionSynchronization)
         {
+            BandsStatistics = new ObservableCollection<SuspensionVelocityStatsViewModel>();
         }
 
-        public double BumpAverageSpeed
-        {
-            get => _bumpAverageSpeed;
-            set => SetProperty(ref _bumpAverageSpeed, value);
-        }
-
-        public double ReboundAverageSpeed
-        {
-            get => _reboundAverageSpeed;
-            set => SetProperty(ref _reboundAverageSpeed, value);
-        }
-
-        public double BumpPercentage
-        {
-            get => _bumpPercentage;
-            set => SetProperty(ref _bumpPercentage, value);
-        }
-
-        public double ReboundPercentage
-        {
-            get => _reboundPercentage;
-            set => SetProperty(ref _reboundPercentage, value);
-        }
+        public ObservableCollection<SuspensionVelocityStatsViewModel> BandsStatistics { get; }
 
         protected override void ApplyModel(Histogram model)
         {
-            List<HistogramBand> bumps = model.Items.Where(x => x.Category > 0).ToList();
-            List<HistogramBand> rebound = model.Items.Where(x => x.Category < 0).ToList();
-            BumpPercentage = bumps.Sum(x => x.Percentage);
-            ReboundPercentage = rebound.Sum(x => x.Percentage);
-            List<TimedValue> bumpValues = bumps.SelectMany(x => x.SourceValues).ToList();
-            BumpAverageSpeed = bumpValues.Sum(x => x.Value * x.ValueTime.TotalSeconds) / bumpValues.Sum(x => x.ValueTime.TotalSeconds);
+            BandsStatistics.Clear();
+            List<HistogramBar> allBars = model.Items.SelectMany(x => x.Items).ToList();
 
-            List<TimedValue> reboundValues = rebound.SelectMany(x => x.SourceValues).ToList();
-            ReboundAverageSpeed = reboundValues.Sum(x => x.Value * x.ValueTime.TotalSeconds) / reboundValues.Sum(x => x.ValueTime.TotalSeconds);
+            SuspensionVelocityStatsViewModel allSuspensionVelocityStatsViewModel = new SuspensionVelocityStatsViewModel() {Title = "All:"};
+            allSuspensionVelocityStatsViewModel.FromModel(allBars);
+            BandsStatistics.Add(allSuspensionVelocityStatsViewModel);
+
+            foreach (HistogramBand histogramBand in model.Items)
+            {
+                var newStatsViewModel = new SuspensionVelocityStatsViewModel() {Title = histogramBand.Title + ":"};
+                newStatsViewModel.FromModel(histogramBand.Items);
+                BandsStatistics.Add(newStatsViewModel);
+            }
             base.ApplyModel(model);
         }
     }

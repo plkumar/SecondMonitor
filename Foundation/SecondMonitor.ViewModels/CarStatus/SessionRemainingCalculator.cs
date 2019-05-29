@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.ViewModels.CarStatus
 {
     using System;
+    using System.Diagnostics;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
@@ -9,22 +10,56 @@
     {
         private readonly IPaceProvider _paceProvider;
         private int _leaderTimeoutLap;
+        private readonly Stopwatch _lastCalculationStopWatch;
+        private double? _lapsRemaining;
+        private TimeSpan? _timeRemaining;
 
         public SessionRemainingCalculator(IPaceProvider paceProvider)
         {
             _paceProvider = paceProvider;
             _leaderTimeoutLap = -1;
+            _lastCalculationStopWatch = Stopwatch.StartNew();
+        }
+
+
+        private void Recalculate(SimulatorDataSet dataSet)
+        {
+            RecalculateTimeRemaining(dataSet);
+            RecalculateLapsRemaining(dataSet);
+            _lastCalculationStopWatch.Restart();
         }
 
         public TimeSpan GetTimeRemaining(SimulatorDataSet dataSet)
         {
+            if (_lastCalculationStopWatch.ElapsedMilliseconds > 500 || !_timeRemaining.HasValue)
+            {
+                Recalculate(dataSet);
+
+            }
+
+            return _timeRemaining.GetValueOrDefault(TimeSpan.Zero);
+        }
+
+        public double GetLapsRemaining(SimulatorDataSet dataSet)
+        {
+            if (_lastCalculationStopWatch.ElapsedMilliseconds > 500 || !_lapsRemaining.HasValue)
+            {
+                Recalculate(dataSet);
+
+            }
+
+            return _lapsRemaining.GetValueOrDefault(0);
+        }
+
+        private void RecalculateTimeRemaining(SimulatorDataSet dataSet)
+        {
             if (dataSet.SessionInfo.SessionLengthType == SessionLengthType.Time || dataSet.SessionInfo.SessionLengthType == SessionLengthType.TimeWithExtraLap)
             {
-                return TimeSpan.FromSeconds(dataSet.SessionInfo.SessionTimeRemaining);
+                _timeRemaining = TimeSpan.FromSeconds(dataSet.SessionInfo.SessionTimeRemaining);
             }
             else
             {
-                return _paceProvider.LeadersPace != null
+                _timeRemaining = _paceProvider.LeadersPace != null
                     ? TimeSpan.FromSeconds(GetLeaderLapsToGo(dataSet) * _paceProvider.LeadersPace.Value.TotalSeconds)
                     : TimeSpan.Zero;
             }
@@ -33,21 +68,27 @@
         public void Reset()
         {
             _leaderTimeoutLap = -1;
+            _timeRemaining = null;
+            _lapsRemaining = null;
         }
 
-        public double GetLapsRemaining(SimulatorDataSet dataSet)
+
+
+        public void RecalculateLapsRemaining(SimulatorDataSet dataSet)
         {
             TimeSpan? playerPace = _paceProvider.PlayersPace;
             TimeSpan? leaderPace = _paceProvider.LeadersPace;
 
-            if (playerPace == null || leaderPace == null || playerPace.Value == TimeSpan.Zero || leaderPace.Value == TimeSpan.Zero)
+            if (!playerPace.HasValue|| !leaderPace.HasValue || playerPace.Value == TimeSpan.Zero || leaderPace.Value == TimeSpan.Zero)
             {
-                return double.NaN;
+                _lapsRemaining = double.NaN;
+                return;
             }
 
             if (dataSet.SessionInfo.SessionLengthType == SessionLengthType.Laps)
             {
-                return GetLeaderLapsToGo(dataSet);
+                _lapsRemaining = GetLeaderLapsToGo(dataSet);
+                return;
             }
             else
             {
@@ -71,7 +112,7 @@
                     totalDistanceToGo += dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
                 }
 
-                return totalDistanceToGo / dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
+                _lapsRemaining = totalDistanceToGo / dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
             }
         }
 

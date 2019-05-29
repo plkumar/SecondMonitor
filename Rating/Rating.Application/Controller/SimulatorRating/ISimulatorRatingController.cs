@@ -20,12 +20,13 @@
         int QuickRaceAiRatingForPlace { get; }
         string SimulatorName { get; }
 
+        string LastPlayedClass { get; }
+
         DriverWithoutRating GetAiRating(string aiDriverName);
         DriversRating GetPlayerOverallRating();
         DriversRating GetPlayerRating(string className);
         void SetSelectedDifficulty(int difficulty, bool wasUserSelected, string className);
         void UpdateRating(DriversRating newClassRating, DriversRating newSimRating, string className, string trackName);
-        string GetRaceSuggestion();
 
 
         DifficultySettings GetDifficultySettings(string className);

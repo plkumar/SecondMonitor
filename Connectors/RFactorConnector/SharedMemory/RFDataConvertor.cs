@@ -26,6 +26,7 @@
             simData.SimulatorSourceInfo.InvalidateLapBySector = true;
             simData.SimulatorSourceInfo.SectorTimingSupport = DataInputSupport.Full;
             simData.SimulatorSourceInfo.TelemetryInfo.ContainsSuspensionTravel = true;
+            simData.SimulatorSourceInfo.NAStateBetweenSessions = true;
 
             FillSessionInfo(rfData, simData);
             AddDriversData(simData, rfData);
@@ -136,6 +137,11 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreWear.ActualWear = 1 - data.Wheel[(int)RfWheelIndex.FrontRight].Wear;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreWear.ActualWear = 1 - data.Wheel[(int)RfWheelIndex.RearLeft].Wear;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear = 1 - data.Wheel[(int)RfWheelIndex.RearRight].Wear;
+
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyreType = "Prime";
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreType = "Prime";
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreType = "Prime";
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreType = "Prime";
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Rps = -data.Wheel[(int)RfWheelIndex.FrontLeft].Rotation;
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Rps = - data.Wheel[(int)RfWheelIndex.FrontRight].Rotation;
@@ -445,14 +451,15 @@
                 case RfSessionType.Qualification:
                     simData.SessionInfo.SessionType = SessionType.Qualification;
                     break;
+                case RfSessionType.Race3:
                 case RfSessionType.WarmUp:
                     simData.SessionInfo.SessionType = SessionType.WarmUp;
                     break;
                 case RfSessionType.Race1:
                 case RfSessionType.Race2:
-                case RfSessionType.Race3:
                 case RfSessionType.Race4:
                 case RfSessionType.Race5:
+                case RfSessionType.Race6:
                     simData.SessionInfo.SessionType = SessionType.Race;
                     break;
                 default:

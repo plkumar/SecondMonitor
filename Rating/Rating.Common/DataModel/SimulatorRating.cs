@@ -9,7 +9,6 @@
         public SimulatorRating()
         {
             ClassRatings = new List<ClassRating>();
-            RunTracks = new HashSet<string>();
         }
 
         [XmlAttribute]
@@ -19,6 +18,7 @@
 
         public List<ClassRating> ClassRatings { get; set; }
 
-        public HashSet<string> RunTracks { get; set; }
+        [XmlAttribute]
+        public string LastPlayerClass { get; set; }
     }
 }

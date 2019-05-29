@@ -8,7 +8,6 @@
         private string _gapAheadChange;
         private string _gapBehind;
         private string _gapBehindChange;
-        private string _additionalText;
 
         public string Position
         {

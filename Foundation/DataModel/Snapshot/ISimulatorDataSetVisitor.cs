@@ -1,6 +1,6 @@
 ﻿namespace SecondMonitor.DataModel.Snapshot
 {
-    public interface ISimulatorDateSetVisitor
+    public interface ISimulatorDataSetVisitor
     {
         void Visit(SimulatorDataSet simulatorDataSet);
         void Reset();

@@ -46,10 +46,12 @@
             DriverInfo[] eligibleDrivers = FilterEligibleDrivers(simulatorDataSet);
             if (CanUserPreviousRaceContext(eligibleDrivers))
             {
+                Logger.Info("Using Previous Race Context");
                 SessionKind = SharedContext.RaceContext.IsRatingBasedOnQualification ? SessionKind.RaceWithQualification : SessionKind.RaceWithoutQualification;
                 SessionDescription = SharedContext.RaceContext.UsedDifficulty.ToString();
                 return;
             }
+            Logger.Info("Cannot use Race Context");
             int difficultyToUse = SharedContext.QualificationContext?.QualificationDifficulty ?? SharedContext.UserSelectedDifficulty;
 
             SharedContext.RaceContext = new RaceContext()
@@ -205,6 +207,7 @@
         {
             if(SharedContext.RaceContext?.FieldRating == null)
             {
+                Logger.Info("No Previous Race Context");
                 return false;
             }
 

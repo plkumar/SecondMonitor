@@ -87,11 +87,16 @@
     <Compile Include="OperationalRange\CarModelProperties.cs" />
     <Compile Include="OperationalRange\DataSourceProperties.cs" />
     <Compile Include="OperationalRange\TyreCompoundProperties.cs" />
+    <Compile Include="SimulatorContent\Car.cs" />
+    <Compile Include="SimulatorContent\CarClass.cs" />
+    <Compile Include="SimulatorContent\SimulatorContent.cs" />
+    <Compile Include="SimulatorContent\SimulatorsContent.cs" />
+    <Compile Include="SimulatorContent\Track.cs" />
     <Compile Include="SimulatorsNameMap.cs" />
     <Compile Include="Snapshot\Drivers\DriverFinishStatus.cs" />
     <Compile Include="Snapshot\Drivers\GapInformationKind.cs" />
     <Compile Include="Snapshot\Drivers\IDriverInfo.cs" />
-    <Compile Include="Snapshot\ISimulatorDateSetVisitor.cs" />
+    <Compile Include="Snapshot\ISimulatorDataSetVisitor.cs" />
     <Compile Include="Snapshot\SessionPhase.cs" />
     <Compile Include="BasicProperties\SessionType.cs" />
     <Compile Include="Snapshot\Systems\BoostSystem.cs" />

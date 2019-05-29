@@ -16,6 +16,14 @@
         private WheelStatusViewModel _leftRearTyre;
         private WheelStatusViewModel _rightRearTyre;
 
+        public CarWheelsViewModel(SessionRemainingCalculator sessionRemainingCalculator, IPaceProvider paceProvider)
+        {
+            LeftFrontTyre = new WheelStatusViewModel(true, sessionRemainingCalculator, paceProvider);
+            LeftRearTyre = new WheelStatusViewModel(true, sessionRemainingCalculator, paceProvider);
+            RightFrontTyre = new WheelStatusViewModel(false, sessionRemainingCalculator, paceProvider);
+            RightRearTyre = new WheelStatusViewModel(false, sessionRemainingCalculator, paceProvider);
+        }
+
         public CarWheelsViewModel()
         {
             LeftFrontTyre = new WheelStatusViewModel(true);
@@ -67,17 +75,22 @@
 
         public void ApplyDateSet(SimulatorDataSet dataSet)
         {
-            if (dataSet?.PlayerInfo?.CarInfo?.WheelsInfo == null)
+            Wheels wheels = dataSet?.PlayerInfo?.CarInfo?.WheelsInfo;
+
+            if (wheels == null)
             {
                 return;
             }
 
-            ApplyPlayerInfo(dataSet.PlayerInfo);
+            LeftFrontTyre.ApplyWheelCondition(dataSet, wheels.FrontLeft);
+            RightFrontTyre.ApplyWheelCondition(dataSet, wheels.FrontRight);
+            LeftRearTyre.ApplyWheelCondition(dataSet, wheels.RearLeft);
+            RightRearTyre.ApplyWheelCondition(dataSet, wheels.RearRight);
         }
 
-        public void ApplyPlayerInfo(DriverInfo playerInfo)
+        public void ApplyDateSet(DriverInfo playerInfo)
         {
-            Wheels wheels = playerInfo?.CarInfo?.WheelsInfo;
+            Wheels wheels = playerInfo.CarInfo?.WheelsInfo;
 
             if (wheels == null)
             {
@@ -92,7 +105,10 @@
 
         public void Reset()
         {
-            // Nothing to do
+            LeftFrontTyre.Reset();
+            RightFrontTyre.Reset();
+            LeftRearTyre.Reset();
+            RightRearTyre.Reset();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

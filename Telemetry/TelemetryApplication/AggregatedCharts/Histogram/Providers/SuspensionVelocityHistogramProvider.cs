@@ -1,8 +1,6 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.Histogram.Providers
 {
     using System;
-    using System.Linq;
-    using DataModel.BasicProperties;
     using Extractors;
     using Filter;
     using SecondMonitor.ViewModels.Factory;
@@ -29,6 +27,7 @@
         {
             newViewModel.Maximum = _suspensionVelocityHistogramDataExtractor.DefaultMaximum;
             newViewModel.Minimum = _suspensionVelocityHistogramDataExtractor.DefaultMinimum;
+            newViewModel.FastSlowBoundary = _suspensionVelocityHistogramDataExtractor.DefaultFastSlowBoundary;
         }
 
         protected override void ApplyHistogramLimits(Histogram flHistogram, Histogram frHistogram, Histogram rlHistogram, Histogram rrHistogram, SuspensionVelocityWheelsChartViewModel viewModel)
@@ -55,6 +54,7 @@
             _suspensionVelocityFilter.MinimumVelocity =  wheelsChart.Minimum;
             _suspensionVelocityFilter.MaximumVelocity = wheelsChart.Maximum;
             _suspensionVelocityFilter.VelocityUnits = _suspensionVelocityHistogramDataExtractor.VelocityUnitsSmall;
+            _suspensionVelocityHistogramDataExtractor.FastSlowBoundary = wheelsChart.FastSlowBoundary;
             base.BeforeHistogramFilling(wheelsChart);
         }
     }

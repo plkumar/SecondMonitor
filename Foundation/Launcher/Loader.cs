@@ -102,7 +102,7 @@
         {
             KernelWrapper kernelWrapper = new KernelWrapper();
             IPluginSettingsProvider pluginSettingsProvider = kernelWrapper.Get<IPluginSettingsProvider>();
-            IEnumerable<ISimulatorDateSetVisitor> dataVisitors = kernelWrapper.GetAll<ISimulatorDateSetVisitor>();
+            IEnumerable<ISimulatorDataSetVisitor> dataVisitors = kernelWrapper.GetAll<ISimulatorDataSetVisitor>();
             PluginsManager pluginManager = new PluginsManager(pluginSettingsProvider, connectors, dataVisitors);
             pluginManager.InitializePlugins();
             pluginManager.Start();

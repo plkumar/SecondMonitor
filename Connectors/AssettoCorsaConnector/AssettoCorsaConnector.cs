@@ -8,12 +8,14 @@
     using SharedMemory;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
+    using NLog;
     using PluginManager.DependencyChecker;
     using PluginManager.GameConnector;
     using SecondMonitor.PluginManager.GameConnector.SharedMemory;
 
     public class AssettoCorsaConnector : AbstractGameConnector
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static readonly string[] ACExecutables = { "acs_x86", "acs" };
         private readonly DependencyChecker dependencies;
         private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(120);
@@ -191,6 +193,7 @@
                 _lastSessionType = dataSet.SessionInfo.SessionType;
                 _rawLastSessionType = acData.AcsGraphic.session;
                 _lastSessionPhase = dataSet.SessionInfo.SessionPhase;
+                Logger.Info("Session restart cause - Session Type Change");
                 return true;
             }
 
@@ -201,6 +204,7 @@
                 _lastSessionType = dataSet.SessionInfo.SessionType;
                 _rawLastSessionType = acData.AcsGraphic.session;
                 _lastSessionPhase = dataSet.SessionInfo.SessionPhase;
+                Logger.Info("Session restart cause - Session Phase Change");
                 return true;
             }
 
@@ -211,12 +215,14 @@
 
             if (_lastDataSet.PlayerInfo?.CompletedLaps > dataSet.PlayerInfo?.CompletedLaps)
             {
+                Logger.Info("Session restart cause - Less Completed Laps than previously");
                 return true;
             }
 
             if (_lastDataSet.SessionInfo.SessionType == SessionType.Race && _lastDataSet.SessionInfo.LeaderCurrentLap
                 > dataSet.SessionInfo.LeaderCurrentLap)
             {
+                Logger.Info("Session restart cause - Less Leader Completed Laps than previously");
                 return true;
             }
 

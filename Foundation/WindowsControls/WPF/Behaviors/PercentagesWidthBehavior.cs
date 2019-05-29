@@ -1,7 +1,6 @@
 ﻿namespace SecondMonitor.WindowsControls.WPF.Behaviors
 {
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Interactivity;
 
     public class PercentagesWidthBehavior : Behavior<FrameworkElement>

@@ -29,6 +29,7 @@ namespace SecondMonitor.Timing.Controllers
     using SessionTiming.Drivers.Presentation.ViewModel;
     using ViewModels.Settings;
     using ViewModels.Settings.Model;
+    using ViewModels.SimulatorContent;
 
     public class TimingApplicationController : ISecondMonitorPlugin
     {
@@ -53,6 +54,7 @@ namespace SecondMonitor.Timing.Controllers
         private ReportsController _reportsController;
         private readonly IRatingApplicationController _ratingApplicationController;
         private readonly ISettingsProvider _settingsProvider;
+        private readonly ISimulatorContentController _simulatorContentController;
 
         public TimingApplicationController()
         {
@@ -60,6 +62,7 @@ namespace SecondMonitor.Timing.Controllers
             _displaySettingsLoader = new DisplaySettingsLoader();
             _ratingApplicationController = _kernelWrapper.Get<IRatingApplicationController>();
             _settingsProvider = _kernelWrapper.Get<ISettingsProvider>();
+            _simulatorContentController = _kernelWrapper.Get<ISimulatorContentController>();
         }
 
         public PluginsManager PluginManager
@@ -104,6 +107,7 @@ namespace SecondMonitor.Timing.Controllers
             CreateGui();
             _timingDataViewModel.GuiDispatcher = _timingGui.Dispatcher;
             _timingDataViewModel?.Reset();
+            _simulatorContentController.StartControllerAsync();
         }
 
         private void CreateRatingController()
@@ -140,6 +144,7 @@ namespace SecondMonitor.Timing.Controllers
             {
                 await _ratingApplicationController.NotifyDataLoaded(dataSet);
                 _simSettingController?.ApplySimSettings(dataSet);
+                _simulatorContentController.Visit(dataSet);
 
             }
             catch (SimSettingsException ex)
@@ -195,6 +200,7 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel.SessionCompleted -= TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel?.TerminatePeriodicTask(exceptions);
             _displaySettingsLoader.TrySaveDisplaySettings(_displaySettingsViewModel.SaveToNewModel(), SettingsPath);
+            await _simulatorContentController.StopControllerAsync();
             await _pluginsManager.DeletePlugin(this, exceptions);
         }
 

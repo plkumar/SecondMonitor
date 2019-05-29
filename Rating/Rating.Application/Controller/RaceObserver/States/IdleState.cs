@@ -16,10 +16,6 @@
         public IdleState(SharedContext sharedContext) : base(sharedContext)
         {
             _stateDuration = Stopwatch.StartNew();
-            if (sharedContext.SimulatorRatingController != null)
-            {
-                SessionDescription = sharedContext.SimulatorRatingController.GetRaceSuggestion();
-            }
         }
 
         public override SessionKind SessionKind { get; protected set; } = SessionKind.Idle;
@@ -37,10 +33,14 @@
         {
             if (_stateDuration.ElapsedMilliseconds > 7000 && !IsStateInitialized)
             {
-                Logger.Info("Idle state for 7seconds - clearing race and qualification context");
                 _stateDuration.Stop();
-                SharedContext.QualificationContext = null;
-                SharedContext.RaceContext = null;
+                if (!simulatorDataSet.SimulatorSourceInfo.NAStateBetweenSessions)
+                {
+                    Logger.Info("Idle state for 7seconds - clearing race and qualification context");
+                    SharedContext.QualificationContext = null;
+                    SharedContext.RaceContext = null;
+
+                }
                 IsStateInitialized = true;
             }
             return simulatorDataSet.SessionInfo.SessionType != SessionType && base.DoDataLoaded(simulatorDataSet);

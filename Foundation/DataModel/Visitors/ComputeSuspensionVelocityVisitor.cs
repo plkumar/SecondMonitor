@@ -4,7 +4,7 @@
     using Snapshot;
     using Snapshot.Systems;
 
-    public class ComputeSuspensionVelocityVisitor : ISimulatorDateSetVisitor
+    public class ComputeSuspensionVelocityVisitor : ISimulatorDataSetVisitor
     {
         private bool _firstPackage;
         private double _lastSessionTimeSeconds;

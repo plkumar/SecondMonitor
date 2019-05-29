@@ -4,6 +4,8 @@
 
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
+    using NLog;
+    using NLog.Fluent;
 
     public class AssettoCorsaStartObserver
     {
@@ -12,6 +14,7 @@
             Countdown, StartSequence, Started, StartCompleted, StartRestartTimeout
         }
 
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private StartState _startState;
         private SimulatorDataSet _lastDataSet;
 
@@ -69,6 +72,7 @@
         {
             if ((dataSet.PlayerInfo != null && !dataSet.PlayerInfo.InPits) || dataSet.LeaderInfo.Speed > Velocity.Zero)
             {
+                Logger.Info("Moving to Start Sequence");
                 _startState = StartState.StartSequence;
             }
         }
@@ -77,12 +81,14 @@
         {
             if (dataSet.PlayerInfo != null && dataSet.PlayerInfo.InPits)
             {
+                Logger.Info("Player in pits - moving to start sequence");
                 _startState = StartState.Countdown;
                 dataSet.SessionInfo.SessionType = SessionType.Na;
             }
 
             if (dataSet.LeaderInfo.Speed > Velocity.FromKph(2))
             {
+                Logger.Info("Player moving - moving to started");
                 _startState = StartState.Started;
                 dataSet.SessionInfo.SessionType = SessionType.Na;
             }
@@ -92,12 +98,14 @@
         {
             if (dataSet.PlayerInfo != null && dataSet.PlayerInfo.InPits)
             {
+                Logger.Info("Player in pits - moving to start sequence");
                 _startState = StartState.Countdown;
                 dataSet.SessionInfo.SessionType = SessionType.Na;
             }
 
             if (dataSet.LeaderInfo.TotalDistance > 500)
             {
+                Logger.Info("Leader moved more than 500m - moving to start completed");
                 _startState = StartState.StartCompleted;
             }
 
@@ -107,6 +115,7 @@
         {
             if (dataSet.LeaderInfo.TotalDistance < 400)
             {
+                Logger.Info("Leader completed less than 400m - moving to StartRestartTimeout");
                 _startState = StartState.StartRestartTimeout;
                 _restartTimeoutEnd = dataSet.SessionInfo.SessionTime.Add(TimeSpan.FromSeconds(2));
             }
@@ -118,11 +127,13 @@
             if (dataSet.LeaderInfo.TotalDistance < 400 && dataSet.SessionInfo.SessionTime > _restartTimeoutEnd)
             {
                 _startState = StartState.Countdown;
+                Logger.Info("Leader completed less than 400m - moving to countdown");
                 dataSet.SessionInfo.SessionType = SessionType.Na;
             }
 
             if (dataSet.LeaderInfo.CompletedLaps > 1)
             {
+                Logger.Info("Leader completed whole lap - moving to start completed");
                 _startState = StartState.StartCompleted;
             }
 

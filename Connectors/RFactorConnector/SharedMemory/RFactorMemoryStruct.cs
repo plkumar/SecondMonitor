@@ -102,7 +102,7 @@ This means that you need to watch your types very closely!
         Race3 = 9,
         Race4 = 10,
         Race5 = 11,
-
+        Race6 = 12,
     }
 
 

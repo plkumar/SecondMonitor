@@ -19,11 +19,9 @@
         private readonly SimulatorRatingConfiguration _simulatorRatingConfiguration;
         private Ratings _ratings;
         private SimulatorRating _simulatorRating;
-        private readonly Random _random;
 
         public SimulatorRatingController(string simulatorName, IRatingRepository ratingRepository, ISimulatorRatingConfigurationProvider simulatorRatingConfigurationProvider)
         {
-            _random = new Random();
             SimulatorName = simulatorName;
             _ratingRepository = ratingRepository;
             _simulatorRatingConfiguration = simulatorRatingConfigurationProvider.GetRatingConfiguration(simulatorName);
@@ -41,6 +39,9 @@
         public int QuickRaceAiRatingForPlace => _simulatorRatingConfiguration.QuickRaceAiRatingForPlace;
 
         public string SimulatorName { get; }
+
+        public string LastPlayedClass => _simulatorRating.LastPlayerClass;
+
 
         public double AiRatingNoise => _simulatorRatingConfiguration.AiRatingNoise;
 
@@ -145,28 +146,16 @@
             newClassRating = FillDifficulty(newClassRating);
             classRating.PlayersRating = newClassRating;
             _simulatorRating.PlayersRating = newSimRating;
-            _simulatorRating.RunTracks.Add(trackName);
 
             if (!classRating.DifficultySettings.WasUserSelected)
             {
                 classRating.DifficultySettings.SelectedDifficulty = classRating.PlayersRating.Difficulty;
             }
 
+            _simulatorRating.LastPlayerClass = className;
             _ratingRepository.SaveRatings(_ratings);
             NotifyRatingsChanges(CreateChangeArgs(oldClassRating, classRating.PlayersRating, className), CreateChangeArgs(oldSimRating, _simulatorRating.PlayersRating, SimulatorName));
         }
-
-        public string GetRaceSuggestion()
-        {
-            if (_simulatorRating.ClassRatings.Count == 0 || _simulatorRating.RunTracks.Count == 0)
-            {
-                return string.Empty;
-            }
-
-            List<string> runTracks = _simulatorRating.RunTracks.ToList();
-            return $"{_simulatorRating.ClassRatings[_random.Next(_simulatorRating.ClassRatings.Count)].ClassName}, at: {runTracks[_random.Next(runTracks.Count)]}";
-        }
-
 
         public int GetSuggestedDifficulty(int rating)
         {

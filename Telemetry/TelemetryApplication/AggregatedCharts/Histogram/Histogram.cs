@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.Histogram
 {
     using System.Collections.Generic;
+    using Providers;
 
     public class Histogram
     {

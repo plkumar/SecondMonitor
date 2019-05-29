@@ -40,16 +40,17 @@
         {
             double frontHeight = 0;
             double rearHeight= 0;
-            if (value.PlayerData.CarInfo.FrontHeight != null && value.PlayerData.CarInfo.RearHeight != null && !value.PlayerData.CarInfo.FrontHeight.IsZero)
-            {
-                rearHeight = value.PlayerData.CarInfo.RearHeight.GetByUnit(SuspensionDistanceUnits);
-                frontHeight = value.PlayerData.CarInfo.FrontHeight.GetByUnit(SuspensionDistanceUnits);
-            }else if (value.PlayerData.CarInfo.WheelsInfo?.FrontLeft?.RideHeight != null )
+            if (value.PlayerData.CarInfo.WheelsInfo?.FrontLeft?.RideHeight != null )
             {
                 DataModel.Snapshot.Systems.Wheels wheels = value.PlayerData.CarInfo.WheelsInfo;
                 frontHeight = (wheels.FrontLeft.RideHeight.GetByUnit(SuspensionDistanceUnits) + wheels.FrontRight.RideHeight.GetByUnit(SuspensionDistanceUnits)) / 2;
                 rearHeight = (wheels.RearLeft.RideHeight.GetByUnit(SuspensionDistanceUnits) + wheels.RearRight.RideHeight.GetByUnit(SuspensionDistanceUnits)) / 2;
 
+            }
+            else if (value.PlayerData.CarInfo.FrontHeight != null && value.PlayerData.CarInfo.RearHeight != null && !value.PlayerData.CarInfo.FrontHeight.IsZero)
+            {
+                rearHeight = value.PlayerData.CarInfo.RearHeight.GetByUnit(SuspensionDistanceUnits);
+                frontHeight = value.PlayerData.CarInfo.FrontHeight.GetByUnit(SuspensionDistanceUnits);
             }
 
             double rake = rearHeight - frontHeight;

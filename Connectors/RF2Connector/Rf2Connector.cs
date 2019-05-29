@@ -187,7 +187,7 @@
         {
             if (_previousSessionTime.TotalSeconds - 1 > dataSet.SessionInfo.SessionTime.TotalSeconds)
             {
-                Logger.Info("New Session - Session time is less");
+                Logger.Info($"New Session - Session time is less. Oldtime : {_previousSessionTime.TotalSeconds} - New Time: {dataSet.SessionInfo.SessionTime.TotalSeconds}");
                 return true;
             }
 

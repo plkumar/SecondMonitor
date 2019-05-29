@@ -10,6 +10,7 @@
 
         private readonly SimulatorDSViewModels _viewModels;
         private readonly FuelPlannerViewModelFactory _fuelPlannerViewModelFactory;
+        private readonly SessionRemainingCalculator _sessionRemainingCalculator;
 
         private CarWheelsViewModel _playersWheelsViewModel;
         private FuelOverviewViewModel _fuelOverviewViewModel;
@@ -22,7 +23,8 @@
 
         public CarStatusViewModel(IPaceProvider paceProvider)
         {
-            _viewModels = new SimulatorDSViewModels {new CarWheelsViewModel(), new FuelOverviewViewModel(paceProvider), new PedalsAndGearViewModel(), new CarSystemsViewModel(), new DashboardViewModel()};
+            _sessionRemainingCalculator = new SessionRemainingCalculator(paceProvider);
+            _viewModels = new SimulatorDSViewModels {new CarWheelsViewModel(_sessionRemainingCalculator, paceProvider), new FuelOverviewViewModel(_sessionRemainingCalculator), new PedalsAndGearViewModel(), new CarSystemsViewModel(), new DashboardViewModel()};
             _fuelPlannerViewModelFactory = new FuelPlannerViewModelFactory();;
             RefreshProperties();
         }

@@ -8,7 +8,7 @@
     using Snapshot;
     using Snapshot.Drivers;
 
-    public class ComputeGapToPlayerVisitor : ISimulatorDateSetVisitor
+    public class ComputeGapToPlayerVisitor : ISimulatorDataSetVisitor
     {
         private readonly TimeSpan _informationValiditySpan;
         private readonly Stopwatch _updateStopwatch;

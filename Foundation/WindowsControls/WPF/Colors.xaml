@@ -43,6 +43,7 @@
     <Color x:Shared="False" x:Key="Sector3Color">#999966</Color>
 
 
+    <SolidColorBrush x:Shared="False" x:Key="Green02Brush" Color="{StaticResource Green02Color}" />
 
     <SolidColorBrush x:Shared="False" x:Key="LightGrey01Brush" Color="{StaticResource LightGrey01Color}" />
     <SolidColorBrush x:Shared="False" x:Key="LightGrey02Brush" Color="{StaticResource LightGrey02Color}" />
@@ -102,10 +103,11 @@
     <SolidColorBrush x:Shared="False" x:Key="IconInformationBrush" Color="{StaticResource LightBlue01Color}"/>
 
 
-    <SolidColorBrush x:Shared="False" x:Key="TyreSuperSoft" Color="#ff00ff"/>
-    <SolidColorBrush x:Shared="False" x:Key="TyreSoft" Color="#e60000"/>
-    <SolidColorBrush x:Shared="False" x:Key="TyreMedium" Color="#e6e600"/>
-    <SolidColorBrush x:Shared="False" x:Key="TyreHard" Color="#ffffff"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreUltraSoft" Color="#ff00ff"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreSuperSoft" Color="#e60000"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreSoft" Color="#e6e600"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreMedium" Color="#ffffff"/>
+    <SolidColorBrush x:Shared="False" x:Key="TyreHard" Color="#ff8000"/>
     <SolidColorBrush x:Shared="False" x:Key="TyreIntermediate" Color="#33cc33"/>
     <SolidColorBrush x:Shared="False" x:Key="TyreWet" Color="#0066ff"/>
 

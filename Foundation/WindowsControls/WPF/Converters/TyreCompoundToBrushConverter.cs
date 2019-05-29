@@ -13,6 +13,7 @@
             Source = new Uri(@"pack://application:,,,/WindowsControls;component/WPF/Colors.xaml", UriKind.RelativeOrAbsolute)
         };
 
+        private static readonly SolidColorBrush UltraSoftBrush;
         private static readonly SolidColorBrush SuperSoftBrush;
         private static readonly SolidColorBrush SoftBrush;
         private static readonly SolidColorBrush MediumBrush;
@@ -29,6 +30,7 @@
 
         static TyreCompoundToBrushConverter()
         {
+            UltraSoftBrush = (SolidColorBrush)ColorResourceDictionary["TyreUltraSoft"];
             SuperSoftBrush = (SolidColorBrush)ColorResourceDictionary["TyreSuperSoft"];
             SoftBrush = (SolidColorBrush)ColorResourceDictionary["TyreSoft"];
             MediumBrush = (SolidColorBrush)ColorResourceDictionary["TyreMedium"];
@@ -45,6 +47,11 @@
             }
 
             stringValue = stringValue.ToLower();
+            if (stringValue.Contains("ultrasoft"))
+            {
+                return UltraSoftBrush;
+            }
+
             if (stringValue.Contains("supersoft"))
             {
                 return SuperSoftBrush;
@@ -55,7 +62,7 @@
                 return SoftBrush;
             }
 
-            if (stringValue.Contains("medium")  || stringValue.Contains("slick"))
+            if (stringValue.Contains("medium"))
             {
                 return MediumBrush;
             }
@@ -73,6 +80,11 @@
             if (stringValue.Contains("wet"))
             {
                 return WetBrush;
+            }
+
+            if (stringValue.Contains("slick"))
+            {
+                return MediumBrush;
             }
 
             return Brushes.Transparent;

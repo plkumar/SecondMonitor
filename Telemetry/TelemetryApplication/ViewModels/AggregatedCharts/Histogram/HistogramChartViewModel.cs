@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using AggregatedCharts;
     using Controllers.Synchronization;
@@ -10,6 +11,7 @@
     using OxyPlot.Axes;
     using SecondMonitor.ViewModels;
     using TelemetryApplication.AggregatedCharts.Histogram;
+    using TelemetryApplication.AggregatedCharts.Histogram.Providers;
     using LinearAxis = OxyPlot.Axes.LinearAxis;
     using LinearBarSeries = OxyPlot.Series.LinearBarSeries;
 
@@ -22,17 +24,18 @@
 
         private double _bandSize;
         private PlotModel _plotModel;
-        private LinearBarSeries _columnSeries;
+        private readonly List<LinearBarSeries> _columnSeries;
         private int _dataPointsCount;
-        private readonly Dictionary<DataPoint, HistogramBand> _pointBandMap;
-        private readonly Dictionary<HistogramBand, RectangleAnnotation> _selectionAnnotations;
+        private readonly Dictionary<DataPoint, HistogramBar> _pointBandMap;
+        private readonly Dictionary<HistogramBar, RectangleAnnotation> _selectionAnnotations;
         private string _title;
 
         public HistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization)
         {
+            _columnSeries = new List<LinearBarSeries>();
             _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
-            _pointBandMap = new Dictionary<DataPoint, HistogramBand>();
-            _selectionAnnotations = new Dictionary<HistogramBand, RectangleAnnotation>();
+            _pointBandMap = new Dictionary<DataPoint, HistogramBar>();
+            _selectionAnnotations = new Dictionary<HistogramBar, RectangleAnnotation>();
         }
 
         public int DataPointsCount
@@ -70,13 +73,9 @@
                 SelectionColor = SelectedColor,
             };
 
-            _columnSeries = new LinearBarSeries() {TrackerFormatString = OriginalModel.Unit+ ": {2:0.00}\n%: {4:0.00}", Title = "Percentage", StrokeColor = BaseColor, StrokeThickness = 1, BarWidth = double.MaxValue, SelectionMode = SelectionMode.Multiple, Selectable = true};
-            foreach (HistogramBand histogramBand in OriginalModel.Items)
-            {
-                DataPoint newPoint = new DataPoint(histogramBand.Category, histogramBand.Percentage);
-                _pointBandMap.Add(newPoint, histogramBand);
-                _columnSeries.Points.Add(newPoint);
-            }
+            _columnSeries.Clear();
+            _columnSeries.AddRange(OriginalModel.Items.Select(CreateLinearBarSeries));
+
             //_columnSeries.Points.AddRange(OriginalModel.Items.Select( x=> new DataPoint(x.Category, x.Percentage)));
 
 
@@ -99,7 +98,7 @@
             }
 
             barAxis.PositionAtZeroCrossing = true;
-            model.Series.Add(_columnSeries);
+            _columnSeries.ForEach(x => model.Series.Add(x));
             model.Axes.Add(barAxis);
             model.Axes.Add(valueAxis);
             PlotModel = model;
@@ -107,9 +106,22 @@
 
         }
 
+        private LinearBarSeries CreateLinearBarSeries(HistogramBand histogramBand)
+        {
+            var newLinearBarSeries = new LinearBarSeries() { TrackerFormatString = OriginalModel.Unit + ": {2:0.00}\n%: {4:0.00}", Title = $"Percentage ({histogramBand.Title})", StrokeColor = BaseColor, StrokeThickness = 1, BarWidth = double.MaxValue, SelectionMode = SelectionMode.Multiple, Selectable = true, FillColor = histogramBand.Color};
+            foreach (HistogramBar histogramBar in histogramBand.Items)
+            {
+                DataPoint newPoint = new DataPoint(histogramBar.Category, histogramBar.Percentage);
+                _pointBandMap.Add(newPoint, histogramBar);
+                newLinearBarSeries.Points.Add(newPoint);
+            }
+
+            return newLinearBarSeries;
+        }
+
         public void ToggleSelection(Point mousePoint)
         {
-            if (!TryGetBandByMousePoint(mousePoint, out HistogramBand histogramBand))
+            if (!TryGetBandByMousePoint(mousePoint, out HistogramBar histogramBand))
             {
                 return;
             }
@@ -149,17 +161,22 @@
             _selectionAnnotations.Clear();
         }
 
-        private bool TryGetBandByMousePoint(Point mousePoint, out HistogramBand band)
+        private bool TryGetBandByMousePoint(Point mousePoint, out HistogramBar bar)
         {
-            HitTestResult hitResult = _columnSeries.HitTest(new HitTestArguments(new ScreenPoint(mousePoint.X, mousePoint.Y), 0));
-            if (hitResult?.Item == null || !(hitResult.Item is DataPoint dataPoint))
-            {
-                band = null;
-                return false;
-            }
 
-            band = _pointBandMap[dataPoint];
-            return true;
+            foreach (LinearBarSeries columnSeries in _columnSeries)
+            {
+                HitTestResult hitResult = columnSeries.HitTest(new HitTestArguments(new ScreenPoint(mousePoint.X, mousePoint.Y), 0));
+                if (hitResult?.Item == null || !(hitResult.Item is DataPoint dataPoint))
+                {
+                    continue;
+                }
+
+                bar = _pointBandMap[dataPoint];
+                return true;
+            }
+            bar = null;
+            return false;
         }
 
         public void Dispose()

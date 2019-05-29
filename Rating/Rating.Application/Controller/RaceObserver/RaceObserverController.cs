@@ -185,6 +185,10 @@
             RefreshClassesOnVm();
             RefreshSimulatorRatingOnVm();
             SubscribeSimulatorRatingController();
+            if (!string.IsNullOrEmpty(_simulatorRatingController.LastPlayedClass))
+            {
+                RatingApplicationViewModel.SelectedClass = _simulatorRatingController.LastPlayedClass;
+            }
         }
 
         private void ResetToInitialState()
