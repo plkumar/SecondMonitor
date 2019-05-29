@@ -51,6 +51,11 @@
         public bool TimeInterpolated { get; set; }
 
         [XmlAttribute]
+        //Indicates that there is possibility of prolonged N/A Session Type between two valid session. I.e. in AMS when the player is in the pre-race screen, the game doesn't return a valid session type (i.e. race).
+        //This affects i.e. rating,
+        public bool NAStateBetweenSessions { get; set; }
+
+        [XmlAttribute]
         public GapInformationKind GapInformationProvided { get; set; }
 
         public TelemetryInfo TelemetryInfo { get; set; }

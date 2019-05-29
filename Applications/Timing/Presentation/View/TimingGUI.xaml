@@ -331,7 +331,9 @@
                                                                                TyrePressure="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.TyrePressure, Mode=OneWay}"
                                                                                TyreRightTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.TyreRightTemperature, Mode=OneWay}"
                                                                                TyreSlippingIndication="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.TyreSlippingIndication, Mode=OneWay}"
-                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.WheelCamber, Mode=OneWay}"/>
+                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.WheelCamber, Mode=OneWay}"
+                                                                               WearAtRaceEnd="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.WearAtRaceEnd, Mode=OneWay}"
+                                                                               LapsUntilHeavyWear="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftFrontTyre.LapsUntilHeavyWear, Mode=OneWay}"/>
                                     <wheelStatusControl:WheelStatusControl Grid.Row="0" Grid.Column="1" Height="96" Width="200"
                                                                                BrakeTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.BrakeTemperature, Mode=OneWay}"
                                                                                IsLeftWheel="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.IsLeftWheel, Mode=OneWay}"
@@ -348,7 +350,9 @@
                                                                                TyrePressure="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.TyrePressure, Mode=OneWay}"
                                                                                TyreRightTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.TyreRightTemperature, Mode=OneWay}"
                                                                                TyreSlippingIndication="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.TyreSlippingIndication, Mode=OneWay}"
-                                                                           WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.WheelCamber, Mode=OneWay}"/>
+                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.WheelCamber, Mode=OneWay}"
+                                                                               WearAtRaceEnd="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.WearAtRaceEnd, Mode=OneWay}"
+                                                                               LapsUntilHeavyWear="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightFrontTyre.LapsUntilHeavyWear, Mode=OneWay}"/>
 
                                     <wheelStatusControl:WheelStatusControl Grid.Row="1" Grid.Column="0" Height="96" Width="200"
                                                                                BrakeTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.BrakeTemperature, Mode=OneWay}"
@@ -366,7 +370,9 @@
                                                                                TyrePressure="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.TyrePressure, Mode=OneWay}"
                                                                                TyreRightTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.TyreRightTemperature, Mode=OneWay}"
                                                                                TyreSlippingIndication="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.TyreSlippingIndication, Mode=OneWay}"
-                                                                           WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.WheelCamber, Mode=OneWay}"/>
+                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.WheelCamber, Mode=OneWay}"
+                                                                               WearAtRaceEnd="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.WearAtRaceEnd, Mode=OneWay}"
+                                                                               LapsUntilHeavyWear="{Binding CarStatusViewModel.PlayersWheelsViewModel.LeftRearTyre.LapsUntilHeavyWear, Mode=OneWay}"/>
                                     <wheelStatusControl:WheelStatusControl Grid.Row="1" Grid.Column="1" Height="96" Width="200"
                                                                                BrakeTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.BrakeTemperature, Mode=OneWay}"
                                                                                IsLeftWheel="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.IsLeftWheel, Mode=OneWay}"
@@ -383,7 +389,9 @@
                                                                                TyrePressure="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.TyrePressure, Mode=OneWay}"
                                                                                TyreRightTemperature="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.TyreRightTemperature, Mode=OneWay}"
                                                                                TyreSlippingIndication="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.TyreSlippingIndication, Mode=OneWay}"
-                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.WheelCamber, Mode=OneWay}"/>
+                                                                               WheelCamber="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.WheelCamber, Mode=OneWay}"
+                                                                               WearAtRaceEnd="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.WearAtRaceEnd, Mode=OneWay}"
+                                                                               LapsUntilHeavyWear="{Binding CarStatusViewModel.PlayersWheelsViewModel.RightRearTyre.LapsUntilHeavyWear, Mode=OneWay}"/>
                                 </Grid>
                                 <Border Grid.Column="1"
                                         BorderBrush="{StaticResource Anthracite01Brush}"

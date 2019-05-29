@@ -53,6 +53,11 @@
                 rF2VehicleTelemetry playerF2VehicleTelemetry =
                     rfData.telemetry.mVehicles.First(x => x.mID == _lastPlayerId);
 
+                if (playerF2VehicleTelemetry.mElapsedTime > 0)
+                {
+                    simData.SessionInfo.SessionTime = TimeSpan.FromSeconds(playerF2VehicleTelemetry.mElapsedTime);
+                }
+
                 FillPlayerCarInfo(playerF2VehicleTelemetry, simData);
 
                 // PEDAL INFO

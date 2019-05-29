@@ -136,6 +136,7 @@
     <Compile Include="WPF\Behaviors\PercentagesWidthBehavior.cs" />
     <Compile Include="WPF\Behaviors\VolumeBehavior\StrokeBrushByOptimalTemperatureBehavior.cs" />
     <Compile Include="WPF\Behaviors\VolumeBehavior\StrokeBrushByOptimalVolumeBehavior.cs" />
+    <Compile Include="WPF\Behaviors\LeftMarginPercentageBehavior.cs" />
     <Compile Include="WPF\CarSettingsControl\CarSettingsControl.cs" />
     <Compile Include="WPF\CarSettingsControl\ITyreSettingsViewModel.cs" />
     <Compile Include="WPF\CarSettingsControl\TyreCompoundSettingsControl.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="WPF\Converters\DoubleToScalableDecimalsConverter.cs" />
     <Compile Include="WPF\Converters\DoubleToStringNoDecimalConverter.cs" />
     <Compile Include="WPF\Converters\FormattedTimeToBrushConverter.cs" />
+    <Compile Include="WPF\Converters\IntToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanToVisibilityConverter.cs" />

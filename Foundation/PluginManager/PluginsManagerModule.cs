@@ -9,8 +9,8 @@
     {
         public override void Load()
         {
-            Bind<ISimulatorDateSetVisitor>().To<ComputeGapToPlayerVisitor>().WithConstructorArgument("informationValiditySpan", TimeSpan.FromMilliseconds(300));
-            Bind<ISimulatorDateSetVisitor>().To<ComputeSuspensionVelocityVisitor>();
+            Bind<ISimulatorDataSetVisitor>().To<ComputeGapToPlayerVisitor>().WithConstructorArgument("informationValiditySpan", TimeSpan.FromMilliseconds(300));
+            Bind<ISimulatorDataSetVisitor>().To<ComputeSuspensionVelocityVisitor>();
         }
     }
 }

@@ -11,5 +11,6 @@
         string MapRepositoryPath { get; }
 
         string RatingsRepositoryPath { get; }
+        string SimulatorContentRepository { get; }
     }
 }

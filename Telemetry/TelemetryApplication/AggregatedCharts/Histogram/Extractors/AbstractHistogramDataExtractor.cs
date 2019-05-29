@@ -6,6 +6,8 @@
     using WindowsControls.Properties;
     using DataModel.Telemetry;
     using Filter;
+    using OxyPlot;
+    using Providers;
     using SecondMonitor.ViewModels.Settings;
     using Settings;
     using TelemetryManagement.DTO;
@@ -26,7 +28,7 @@
             return ExtractHistogram(loadedLaps, extractFunc, null, bandSize, title);
         }
 
-        protected Histogram ExtractHistogram(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters, double bandSize, string title)
+        protected virtual Histogram ExtractHistogram(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters, double bandSize, string title)
         {
             TimedValue[] data = ExtractTimedValuesOfLoadedLaps(loadedLaps, extractFunc, filters).Where(x => x.ValueTime.TotalSeconds < 2).OrderBy(x => x.Value).ToArray();
             if (data.Length == 0)
@@ -46,22 +48,25 @@
                 Unit = YUnit,
                 DataPointsCount = data.Length,
             };
+            HistogramBand histogramBand = new HistogramBand();
+            histogram.AddItem(histogramBand);
+
             for (double i = minBand; i <= maxBand; i += bandSize)
             {
                 IGrouping<double, TimedValue> currentGrouping = groupedByBand.FirstOrDefault(x => Math.Abs(x.Key - i) < 0.0001);
 
                 double bandTime = currentGrouping?.Sum(x => x.ValueTime.TotalSeconds) ?? 0;
                 double percentage = bandTime / totalSeconds * 100;
-                HistogramBand currentBand = new HistogramBand(currentGrouping?.ToArray() ?? new TimedValue[0], i, percentage);
-                histogram.AddItem(currentBand);
+                HistogramBar currentBar = new HistogramBar(currentGrouping?.ToArray() ?? new TimedValue[0], i, percentage);
+                histogramBand.AddItem(currentBar);
             }
 
             histogram.UseCustomYRange = true;
-            histogram.MaximumY = histogram.Items.Max(x => x.Percentage);
+            histogram.MaximumY = histogram.Items.SelectMany(x => x.Items).Max(x => x.Percentage);
 
             histogram.UseCustomXRange = true;
-            histogram.MaximumX = histogram.Items.Max(x => x.Category);
-            histogram.MinimumX = histogram.Items.Min(x => x.Category);
+            histogram.MaximumX = histogram.Items.SelectMany(x => x.Items).Max(x => x.Category);
+            histogram.MinimumX = histogram.Items.SelectMany(x => x.Items).Min(x => x.Category);
 
             return histogram;
         }

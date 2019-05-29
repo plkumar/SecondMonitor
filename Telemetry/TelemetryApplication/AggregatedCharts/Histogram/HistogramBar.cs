@@ -2,9 +2,9 @@
 {
     using TelemetryManagement.StoryBoard;
 
-    public class HistogramBand
+    public class HistogramBar
     {
-        public HistogramBand(TimedValue[] sourceValues, double category, double percentage)
+        public HistogramBar(TimedValue[] sourceValues, double category, double percentage)
         {
             SourceValues = sourceValues;
             Category = category;

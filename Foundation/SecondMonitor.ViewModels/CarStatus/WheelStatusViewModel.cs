@@ -6,6 +6,7 @@
     using System.Windows;
 
     using DataModel.BasicProperties;
+    using DataModel.Snapshot;
     using DataModel.Snapshot.Systems;
     using Properties;
 
@@ -27,6 +28,10 @@
         private static readonly DependencyProperty TyreMildWearLimitProperty = DependencyProperty.Register("TyreMildWearLimit", typeof(double), typeof(WheelStatusViewModel));
         private static readonly DependencyProperty TyreHeavyWearLimitProperty = DependencyProperty.Register("TyreHeavyWearLimit", typeof(double), typeof(WheelStatusViewModel));
         public static readonly DependencyProperty WheelCamberProperty = DependencyProperty.Register("WheelCamber", typeof(double), typeof(WheelStatusViewModel), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty WearAtRaceEndProperty = DependencyProperty.Register("WearAtRaceEnd", typeof(double), typeof(WheelStatusViewModel), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty LapsUntilHeavyWearProperty = DependencyProperty.Register("LapsUntilHeavyWear", typeof(int), typeof(WheelStatusViewModel), new PropertyMetadata(default(int)));
+
+        private readonly TyreLifeTimeMonitor _tyreLifeTimeMonitor;
 
         public double WheelCamber
         {
@@ -34,9 +39,20 @@
             set => SetValue(WheelCamberProperty, value);
         }
 
+        public int LapsUntilHeavyWear
+        {
+            get => (int)GetValue(LapsUntilHeavyWearProperty);
+            set => SetValue(LapsUntilHeavyWearProperty, value);
+        }
+
         public WheelStatusViewModel(bool isLeft)
         {
             IsLeftWheel = isLeft;
+        }
+
+        public WheelStatusViewModel(bool isLeft, SessionRemainingCalculator sessionRemainingCalculator, IPaceProvider paceProvider) : this(isLeft)
+        {
+            _tyreLifeTimeMonitor = new TyreLifeTimeMonitor(paceProvider, sessionRemainingCalculator);
         }
 
         public string TyreCompound
@@ -129,6 +145,12 @@
             set => SetValue(IsLeftWheelProperty, value);
         }
 
+        public double WearAtRaceEnd
+        {
+            get => (double)GetValue(WearAtRaceEndProperty);
+            set => SetValue(WearAtRaceEndProperty, value);
+        }
+
         public void ApplyWheelCondition(WheelInfo wheelInfo)
         {
 
@@ -167,6 +189,25 @@
             TyreCompound = wheelInfo.TyreType;
             TyreSlippingIndication = wheelInfo.Detached;
             //WheelCamber = wheelInfo.Camber.GetValueInUnits(AngleUnits.Degrees);
+        }
+
+        public void ApplyWheelCondition(SimulatorDataSet dateSet, WheelInfo wheelInfo)
+        {
+            ApplyWheelCondition(wheelInfo);
+
+            if (_tyreLifeTimeMonitor == null)
+            {
+                return;
+            }
+
+            _tyreLifeTimeMonitor.ApplyWheelInfo(dateSet, wheelInfo);
+            WearAtRaceEnd = _tyreLifeTimeMonitor.WearAtRaceEnd;
+            LapsUntilHeavyWear = _tyreLifeTimeMonitor.LapsUntilHeavyWear;
+        }
+
+        public void Reset()
+        {
+            _tyreLifeTimeMonitor?.Reset();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

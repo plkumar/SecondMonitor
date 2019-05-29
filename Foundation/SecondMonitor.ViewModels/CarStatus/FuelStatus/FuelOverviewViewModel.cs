@@ -33,10 +33,10 @@
         private readonly FuelConsumptionMonitor _fuelConsumptionMonitor;
         private readonly SessionRemainingCalculator _sessionRemainingCalculator;
 
-        public FuelOverviewViewModel(IPaceProvider paceProvider)
+        public FuelOverviewViewModel(SessionRemainingCalculator sessionRemainingCalculator)
         {
             _refreshWatch = Stopwatch.StartNew();
-            _sessionRemainingCalculator = new SessionRemainingCalculator(paceProvider);
+            _sessionRemainingCalculator = sessionRemainingCalculator;
             _fuelConsumptionMonitor = new FuelConsumptionMonitor();
             _resetCommand = new RelayCommand(Reset);
         }

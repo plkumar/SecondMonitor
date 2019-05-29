@@ -3,6 +3,7 @@
     using System;
 
     using DataModel.Snapshot;
+    using Timing.Presentation.ViewModel;
 
     public class PitStopInfo
     {
@@ -86,7 +87,7 @@
         {
             get
             {
-                string phaseAsString = string.Empty;
+                string phaseAsString;
                 switch(Phase)
                 {
                     case PitPhase.Entry:
@@ -104,7 +105,8 @@
                     default:
                         return string.Empty;
                 }
-                return phaseAsString + $"{(int) PitStopDuration.TotalSeconds}.{PitStopDuration.Milliseconds:N0}";
+
+                return phaseAsString + PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false);
             }
         }
 

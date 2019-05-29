@@ -8,7 +8,7 @@
     using DataModel.Snapshot.Systems;
     using PluginManager.Visitor;
 
-    public class SimSettingAdapter : ISimulatorDateSetVisitor
+    public class SimSettingAdapter : ISimulatorDataSetVisitor
     {
         private readonly SimSettingsLoader _simSettingsLoader;
         private DataSourceProperties _dataSourceProperties;

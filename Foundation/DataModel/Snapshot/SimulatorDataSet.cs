@@ -32,9 +32,9 @@
 
         public SimulatorSourceInfo SimulatorSourceInfo { get; set; } = new SimulatorSourceInfo();
 
-        public void Accept(ISimulatorDateSetVisitor simulatorDateSetVisitor)
+        public void Accept(ISimulatorDataSetVisitor simulatorDataSetVisitor)
         {
-            simulatorDateSetVisitor.Visit(this);
+            simulatorDataSetVisitor.Visit(this);
         }
     }
 }

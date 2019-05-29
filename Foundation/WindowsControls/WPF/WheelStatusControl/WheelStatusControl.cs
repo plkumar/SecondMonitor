@@ -14,22 +14,29 @@
         private static readonly DependencyProperty TyreLeftTemperatureProperty = DependencyProperty.Register("TyreLeftTemperature", typeof(OptimalQuantity<Temperature>), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreCenterTemperatureProperty = DependencyProperty.Register("TyreCenterTemperature", typeof(OptimalQuantity<Temperature>), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreRightTemperatureProperty = DependencyProperty.Register("TyreRightTemperature", typeof(OptimalQuantity<Temperature>), typeof(WheelStatusControl));
-        private static readonly DependencyProperty BrakeTemperatureProperty = DependencyProperty.Register("BrakeTemperature", typeof(OptimalQuantity<Temperature>), typeof(WheelStatusControl), new PropertyMetadata(){ PropertyChangedCallback = PropertyChangedCallback });
+        private static readonly DependencyProperty BrakeTemperatureProperty = DependencyProperty.Register("BrakeTemperature", typeof(OptimalQuantity<Temperature>), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreCompoundProperty = DependencyProperty.Register("TyreCompound", typeof(string), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreNoWearWearLimitProperty = DependencyProperty.Register("TyreNoWearWearLimit", typeof(double), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreMildWearLimitProperty = DependencyProperty.Register("TyreMildWearLimit", typeof(double), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyreHeavyWearLimitProperty = DependencyProperty.Register("TyreHeavyWearLimit", typeof(double), typeof(WheelStatusControl));
-
-        private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
-
         private static readonly DependencyProperty TyreSlippingIndicationProperty = DependencyProperty.Register("TyreSlippingIndication", typeof(bool), typeof(WheelStatusControl));
         private static readonly DependencyProperty TyrePressureProperty = DependencyProperty.Register("TyrePressure", typeof(OptimalQuantity<Pressure>), typeof(WheelStatusControl));
         private static readonly DependencyProperty IsLeftWheelProperty = DependencyProperty.Register("IsLeftWheel", typeof(bool), typeof(WheelStatusControl));
-
         public static readonly DependencyProperty WheelCamberProperty = DependencyProperty.Register("WheelCamber", typeof(double), typeof(WheelStatusControl), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty WearAtRaceEndProperty = DependencyProperty.Register("WearAtRaceEnd", typeof(double), typeof(WheelStatusControl), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty LapsUntilHeavyWearProperty = DependencyProperty.Register("LapsUntilHeavyWear", typeof(int), typeof(WheelStatusControl), new PropertyMetadata(default(int)));
+
+        public int LapsUntilHeavyWear
+        {
+            get => (int) GetValue(LapsUntilHeavyWearProperty);
+            set => SetValue(LapsUntilHeavyWearProperty, value);
+        }
+
+        public double WearAtRaceEnd
+        {
+            get => (double) GetValue(WearAtRaceEndProperty);
+            set => SetValue(WearAtRaceEndProperty, value);
+        }
 
         public double WheelCamber
         {

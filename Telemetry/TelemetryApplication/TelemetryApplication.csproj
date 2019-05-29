@@ -89,6 +89,7 @@
     <Compile Include="AggregatedCharts\Histogram\Extractors\AbstractWheelHistogramDataExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\RpmHistogramDataExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\SuspensionVelocityHistogramDataExtractor.cs" />
+    <Compile Include="AggregatedCharts\Histogram\Providers\HistogramBand.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\RideHeightHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\RpmHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\IAggregatedChartProvider.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="TelemetryApplicationModule.cs" />
     <Compile Include="TelemetryApplicationModuleBootstrapper.cs" />
     <Compile Include="ViewModels\AggregatedCharts\AggregatedChartSelectorViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityStatsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityWheelsChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\WheelsHistogramChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\IAggregatedChartSelectorViewModel.cs" />
@@ -230,7 +232,7 @@
     <Compile Include="ViewModels\GraphPanel\Wheels\SuspensionVelocityGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\TyrePressuresGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\WheelRpsGraphViewModel.cs" />
-    <Compile Include="AggregatedCharts\Histogram\HistogramBand.cs" />
+    <Compile Include="AggregatedCharts\Histogram\HistogramBar.cs" />
     <Compile Include="AggregatedCharts\Histogram\Histogram.cs" />
     <Compile Include="ViewModels\GraphPanel\AbstractAverageValueGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\WorldYawGraphViewModel.cs" />

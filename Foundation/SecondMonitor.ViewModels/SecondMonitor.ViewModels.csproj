@@ -86,6 +86,7 @@
     <Compile Include="CarStatus\IPaceProvider.cs" />
     <Compile Include="CarStatus\PedalsAndGearViewModel.cs" />
     <Compile Include="CarStatus\SessionRemainingCalculator.cs" />
+    <Compile Include="CarStatus\TyreLifeTimeMonitor.cs" />
     <Compile Include="CarStatus\WheelStatusViewModel.cs" />
     <Compile Include="Colors\BasicColorPaletteProvider.cs" />
     <Compile Include="Colors\ClassColorProvider.cs" />
@@ -110,6 +111,11 @@
     <Compile Include="PluginsSettings\PluginsConfigurationViewModel.cs" />
     <Compile Include="PluginsSettings\RemoteConfigurationViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="RaceSuggestion\IRaceSuggestionController.cs" />
+    <Compile Include="RaceSuggestion\IRaceSuggestionViewModel.cs" />
+    <Compile Include="RaceSuggestion\RaceSuggestionController.cs" />
+    <Compile Include="RaceSuggestion\RaceSuggestionViewModel.cs" />
+    <Compile Include="Repository\AbstractXMLRepository.cs" />
     <Compile Include="Settings\AppDataSettingsProvider.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Settings\Model\ColumnSettings.cs" />
@@ -136,6 +142,10 @@
     <Compile Include="Settings\ViewModel\SessionOptionsViewModel.cs" />
     <Compile Include="Settings\ViewModel\SessionReportSettingsViewModel.cs" />
     <Compile Include="Settings\ViewModel\TelemetrySettingsViewModel.cs" />
+    <Compile Include="SimulatorContent\ISimulatorContentController.cs" />
+    <Compile Include="SimulatorContent\ISimulatorContentRepository.cs" />
+    <Compile Include="SimulatorContent\SimulatorContentController.cs" />
+    <Compile Include="SimulatorContent\StoredSimulatorContentRepository.cs" />
     <Compile Include="SimulatorDSViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -33,10 +33,11 @@
         {
             if (_sessionCompleted)
             {
+                Logger.Info("Session already completed");
                 return false;
             }
 
-            _sessionCompleted = true;
+
             if (!IsSessionResultAcceptable(sessionSummary))
             {
                 Logger.Info("Seesion is not acceptable to be used by rating calculations. Not enough drivers with laps times");
@@ -54,6 +55,7 @@
 
             Logger.Info("Seesion is acceptable to be used by rating calculations.");
             SharedContext.QualificationContext.LastQualificationResult = eligibleDrivers;
+            _sessionCompleted = true;
             return false;
         }
 

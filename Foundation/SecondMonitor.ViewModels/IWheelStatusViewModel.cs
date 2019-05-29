@@ -1,9 +1,11 @@
 ﻿namespace SecondMonitor.ViewModels
 {
+    using DataModel.Snapshot;
     using DataModel.Snapshot.Systems;
 
     public interface IWheelStatusViewModel
     {
-        void ApplyWheelCondition(WheelInfo wheelInfo);
+        void ApplyWheelCondition(SimulatorDataSet simulatorDataSet, WheelInfo wheelInfo);
+        void Reset();
     }
 }

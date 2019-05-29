@@ -589,7 +589,7 @@
                 Dispatcher.Invoke(() => StartNewSession(dataSet));
                 return;
             }
-
+            SessionInfoViewModel.Reset();
             UpdateCurrentSessionOption(dataSet);
             CreateTiming(dataSet);
         }

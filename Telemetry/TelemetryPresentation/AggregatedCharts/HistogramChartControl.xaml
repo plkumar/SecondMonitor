@@ -8,6 +8,27 @@
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
         <ResourceDictionary Source="../Template/GraphDataTemplates.xaml" />
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type histogram:SuspensionVelocityStatsViewModel}">
+                <DockPanel LastChildFill="False" Margin="10,0,10,10">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding Title}" Margin="0,0,30,0"/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="Average Rebound Speed: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text="Rebound %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="Average Bump Speed: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="Bump %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="0,0,15,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type histogram:SuspensionVelocityHistogramChartViewModel}">
                 <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                     <Grid>
@@ -27,24 +48,9 @@
                                 </i:Interaction.Behaviors>
                             </oxy:PlotView>
                         </Grid>
-                        <DockPanel LastChildFill="False" Grid.Row="1" Margin="10,0,10,10">
-                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource StandardText}" Text="Average Rebound Speed: "/>
-                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
-                            </StackPanel>
-                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text="Rebound %: "/>
-                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
-                            </StackPanel>
-                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource StandardText}" Text="Average Bump Speed: "/>
-                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
-                            </StackPanel>
-                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource StandardText}" Text="Bump %: "/>
-                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="0,0,15,0"/>
-                            </StackPanel>
-                        </DockPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,10">
+                            <ItemsControl ItemsSource="{Binding BandsStatistics}" ></ItemsControl>
+                        </StackPanel>
                     </Grid>
             </Border>
             </DataTemplate>

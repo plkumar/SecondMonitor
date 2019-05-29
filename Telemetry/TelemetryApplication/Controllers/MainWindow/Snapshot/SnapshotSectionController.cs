@@ -82,7 +82,7 @@
                 return;
             }
             _abstractSnapshotViewModels.ForEach(x => x.FromModel(e.TelemetrySnapshot));
-            _snapshotSectionViewModel.CarWheelsViewModel.ApplyPlayerInfo(e.TelemetrySnapshot.PlayerData);
+            _snapshotSectionViewModel.CarWheelsViewModel.ApplyDateSet(e.TelemetrySnapshot.PlayerData);
         }
 
         private void TelemetryViewsSynchronizationOnLapLoaded(object sender, LapTelemetryArgs e)
