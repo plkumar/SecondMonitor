@@ -85,8 +85,9 @@
                 _secondMonitorBuffer.Connect();
                 _isConnected = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Error(ex);
                 Disconnect();
                 throw;
             }
