@@ -42,12 +42,20 @@
                 new IDependency[]
                     {
                         new DirectoryExistsDependency(@"apps\python\SecondMonitor"),
+                        new DirectoryExistsDependency(@"apps\python\SecondMonitor\stdlib"),
+                        new DirectoryExistsDependency(@"apps\python\SecondMonitor\stdlib64"),
                         new FileExistsAndMatchDependency(
                             @"apps\python\SecondMonitor\SecondMonitor.py",
                             @"Connectors\AssettoCorsa\SecondMonitor.py"),
                         new FileExistsAndMatchDependency(
                             @"apps\python\SecondMonitor\smshared_mem.py",
-                            @"Connectors\AssettoCorsa\smshared_mem.py")
+                            @"Connectors\AssettoCorsa\smshared_mem.py"),
+                        new FileExistsAndMatchDependency(
+                        @"apps\python\SecondMonitor\stdlib\_ctypes.pyd",
+                        @"Connectors\AssettoCorsa\stdlib\_ctypes.pyd"),
+                        new FileExistsAndMatchDependency(
+                            @"apps\python\SecondMonitor\stdlib64\_ctypes.pyd",
+                            @"Connectors\AssettoCorsa\stdlib64\_ctypes.pyd"),
                     },
                 () => true);
 
