@@ -5,6 +5,14 @@ import os.path
 import platform
 import configparser
 
+if platform.architecture()[0] == "64bit":
+    sysdir=os.path.dirname(__file__)+'/stdlib64'
+else:
+    sysdir=os.path.dirname(__file__)+'/stdlib'
+
+sys.path.insert(0, sysdir)
+os.environ['PATH'] = os.environ['PATH'] + ";."
+
 import ctypes
 from ctypes import *
 

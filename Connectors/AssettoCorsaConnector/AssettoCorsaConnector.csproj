@@ -75,7 +75,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)Artifacts\Dependencies\AssettoCorsa\AssettoCorsaPlugin\smshared_mem.py" "$(TargetDir)smshared_mem.py"
-copy /Y "$(SolutionDir)Artifacts\Dependencies\AssettoCorsa\AssettoCorsaPlugin\SecondMonitor.py" "$(TargetDir)SecondMonitor.py"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y /s "$(SolutionDir)Artifacts\Dependencies\AssettoCorsa\AssettoCorsaPlugin" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
