@@ -7,7 +7,7 @@
     {
         Window OpenWindow(IViewModel viewModel, string title);
 
-        Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent);
+        Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation);
 
         Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, Action onClose);
     }

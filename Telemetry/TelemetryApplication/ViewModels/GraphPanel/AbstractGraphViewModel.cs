@@ -193,7 +193,7 @@
 
             double maxY = 0.0;
             double minY = YMinimum;
-            double maxX = YMaximum;
+            double maxX = 0.0;
             foreach (var x in series)
             {
                 maxX = Math.Max(maxX, x.Points.Max(y => y.X));

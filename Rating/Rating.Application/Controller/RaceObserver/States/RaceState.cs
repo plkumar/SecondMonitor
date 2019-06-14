@@ -176,17 +176,17 @@
             {
                 return;
             }
-            _ratingUpdater.UpdateRatingsAsLoss(SharedContext.RaceContext.FieldRating, SharedContext.SimulatorRating, player, sessionSummary.TrackInfo.TrackFullName);
+            _ratingUpdater.UpdateRatingsAsLoss(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating, SharedContext.RaceContext.UsedDifficulty, player, sessionSummary.TrackInfo.TrackFullName);
         }
 
         private void ComputeRatingFromResults(SessionSummary sessionSummary)
         {
-            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.SimulatorRating, _finishStateFactory.Create(sessionSummary));
+            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(sessionSummary), SharedContext.RaceContext.UsedDifficulty);
         }
 
         private void ComputeRatingFromResults(SimulatorDataSet simulatorDataSet)
         {
-            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.SimulatorRating, _finishStateFactory.Create(simulatorDataSet));
+            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(simulatorDataSet), SharedContext.RaceContext.UsedDifficulty);
         }
 
         private bool CanUseQualification(DriverInfo[] eligibleDrivers)

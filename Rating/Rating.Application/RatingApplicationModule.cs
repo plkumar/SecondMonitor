@@ -6,6 +6,8 @@
     using Ninject.Modules;
     using ViewModels;
     using ViewModels.Rating;
+    using ViewModels.RatingHistory;
+    using ViewModels.RatingOverview;
 
     public class RatingApplicationModule : NinjectModule
     {
@@ -17,6 +19,14 @@
             Bind<ISimulatorRatingControllerFactory>().To<SimulatorRatingControllerFactory>();
             Bind<ISimulatorRatingController>().To<SimulatorRatingController>();
             Bind<IRaceStateFactory>().To<RaceStateFactory>();
+
+            Bind<IHistoryWindowViewModel>().To<HistoryWindowViewModel>();
+            Bind<IRaceResultViewModel>().To<RaceResultViewModel>();
+            Bind<IRaceHistoriesViewModel>().To<RaceHistoriesViewModel>();
+
+            Bind<IRatingOverviewWindowViewModel>().To<RatingOverviewWindowViewModel>();
+            Bind<ISimulatorRatingsViewModel>().To<SimulatorRatingsViewModel>();
+            Bind<IClassRatingViewModel>().To<ClassRatingViewModel>();
 
             Bind<IRatingApplicationViewModel>().To<RatingApplicationViewModel>();
             Bind<IRatingViewModel>().To<RatingViewModel>();

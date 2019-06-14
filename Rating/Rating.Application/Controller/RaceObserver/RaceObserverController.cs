@@ -18,7 +18,6 @@
     {
         private readonly ISimulatorRatingControllerFactory _simulatorRatingControllerFactory;
         private readonly IRaceStateFactory _raceStateFactory;
-        private string _currentSimulator;
         private string _currentClass;
         private ISimulatorRatingController _simulatorRatingController;
         private IRatingApplicationViewModel _ratingApplicationViewModel;
@@ -28,9 +27,11 @@
         {
             _simulatorRatingControllerFactory = simulatorRatingControllerFactory;
             _raceStateFactory = raceStateFactory;
-            _currentSimulator = string.Empty;
+            CurrentSimulator = string.Empty;
             _currentClass = string.Empty;
         }
+
+        public string CurrentSimulator { get; private set; }
 
         public Task StartControllerAsync()
         {
@@ -94,7 +95,7 @@
 
             if (e.PropertyName == nameof(RatingApplicationViewModel.UseSuggestedDifficulty) && RatingApplicationViewModel.UseSuggestedDifficulty)
             {
-                RatingApplicationViewModel.Difficulty = RatingApplicationViewModel.ClassRating.OriginalModel.Difficulty;
+                RatingApplicationViewModel.Difficulty = RatingApplicationViewModel.ClassRating.Difficulty;
             }
 
             if (e.PropertyName == nameof(RatingApplicationViewModel.Difficulty))
@@ -133,9 +134,9 @@
 
         private async Task CheckSimulatorClassChange(SimulatorDataSet simulatorDataSet)
         {
-            if (simulatorDataSet.Source != _currentSimulator && !string.IsNullOrWhiteSpace(simulatorDataSet.Source) && !SimulatorsNameMap.IsNotConnected(simulatorDataSet.Source))
+            if (simulatorDataSet.Source != CurrentSimulator && !string.IsNullOrWhiteSpace(simulatorDataSet.Source) && !SimulatorsNameMap.IsNotConnected(simulatorDataSet.Source))
             {
-                _currentSimulator = simulatorDataSet.Source;
+                CurrentSimulator = simulatorDataSet.Source;
                 _currentClass = string.Empty;
                 await OnSimulatorChanged();
                 OnClassChanged();
@@ -165,10 +166,10 @@
 
         private async Task OnSimulatorChanged()
         {
-            if (!_simulatorRatingControllerFactory.IsSimulatorSupported(_currentSimulator))
+            if (!_simulatorRatingControllerFactory.IsSimulatorSupported(CurrentSimulator))
             {
                 RatingApplicationViewModel.IsCollapsed = false;
-                RatingApplicationViewModel.CollapsedMessage = $"{_currentSimulator}, is not supported";
+                RatingApplicationViewModel.CollapsedMessage = $"{CurrentSimulator}, is not supported";
                 return;
             }
             RatingApplicationViewModel.IsCollapsed = true;
@@ -178,7 +179,7 @@
                 await _simulatorRatingController.StopControllerAsync();
             }
 
-            _simulatorRatingController = _simulatorRatingControllerFactory.CreateController(_currentSimulator);
+            _simulatorRatingController = _simulatorRatingControllerFactory.CreateController(CurrentSimulator);
             await _simulatorRatingController.StartControllerAsync();
             RatingApplicationViewModel.InitializeAiDifficultySelection(_simulatorRatingController.MinimumAiDifficulty, _simulatorRatingController.MaximumAiDifficulty);
             ResetToInitialState();
@@ -193,7 +194,7 @@
 
         private void ResetToInitialState()
         {
-            if (!_simulatorRatingControllerFactory.IsSimulatorSupported(_currentSimulator))
+            if (!_simulatorRatingControllerFactory.IsSimulatorSupported(CurrentSimulator))
             {
                 return;
 
@@ -226,7 +227,11 @@
             {
                 return;
             }
-            RatingApplicationViewModel.ClassRating.FromModel(_simulatorRatingController.GetPlayerRating(_currentClass));
+
+            var classRating = _simulatorRatingController.GetPlayerRating(_currentClass);
+            _currentState.SharedContext.DifficultyRating = classRating.difficultyRating;
+            RatingApplicationViewModel.ClassRating.FromModel(classRating.simRating);
+            RatingApplicationViewModel.ClassRating.Difficulty = classRating.difficultyRating.Difficulty;
             DifficultySettings difficultySettings = _simulatorRatingController.GetDifficultySettings(_currentClass);
 
             RatingApplicationViewModel.UseSuggestedDifficulty = !difficultySettings.WasUserSelected;

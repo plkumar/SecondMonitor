@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Windows;
+    using System.Windows.Input;
     using Common.DataModel.Player;
     using Controller.RaceObserver.States;
     using Rating;
@@ -107,15 +108,11 @@
             set => SetProperty(ref _isRateRaceCheckboxChecked, value);
         }
 
-        public void ApplySimulatorRating(DriversRating driversRating)
-        {
-            SimulatorRating.FromModel(driversRating);
-        }
+        public ICommand ShowAllHistoryCommand { get; set; }
 
-        public void ApplyClassRating(DriversRating driversRating)
-        {
-            ClassRating.FromModel(driversRating);
-        }
+        public ICommand ShowClassHistoryCommand { get; set; }
+
+        public ICommand ShowAllRatings { get; set; }
 
         public void AddSelectableClass(string className)
         {

@@ -52,6 +52,7 @@
             SuspensionTravel = Distance.FromMeters(0);
             SuspensionVelocity = Velocity.Zero;
             Camber = new Angle();
+            TyreLoad = new Force();
         }
 
         public double Rps { get; set; } //Currently in Radians / s
@@ -85,6 +86,8 @@
         public Velocity SuspensionVelocity { get; set; }
 
         public Angle Camber { get; set; }
+
+        public Force TyreLoad { get; set; }
 
     }
 

@@ -120,6 +120,7 @@
             Bind<IGraphViewModel>().To<CamberGraphViewModel>();
             Bind<IGraphViewModel>().To<RakeGraphViewModel>();
             Bind<IGraphViewModel>().To<YawGraphViewModel>();
+            Bind<IGraphViewModel>().To<TyreLoadGraphViewModel>();
             /*Bind<IGraphViewModel>().To<WorldYawGraphViewModel>();
             Bind<IGraphViewModel>().To<XGraphViewModel>();
             Bind<IGraphViewModel>().To<YGraphViewModel>();*/

@@ -128,7 +128,7 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyrePressure.ActualQuantity = Pressure.FromKiloPascals(data.Wheel[(int)RfWheelIndex.RearLeft].Pressure);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyrePressure.ActualQuantity = Pressure.FromKiloPascals(data.Wheel[(int)RfWheelIndex.RearRight].Pressure);
 
-            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Detached = data.Wheel[(int) RfWheelIndex.FrontLeft].Detached == 1 || data.Wheel[(int)RfWheelIndex.FrontLeft].Flat == 1;
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Detached = data.Wheel[(int) RfWheelIndex.FrontLeft].Detached == 1 || data.Wheel[(int)RfWheelIndex.FrontLeft].Flat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Detached = data.Wheel[(int)RfWheelIndex.FrontRight].Detached == 1 || data.Wheel[(int)RfWheelIndex.FrontRight].Flat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Detached = data.Wheel[(int)RfWheelIndex.RearLeft].Detached == 1 || data.Wheel[(int)RfWheelIndex.RearLeft].Flat == 1;
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Detached = data.Wheel[(int)RfWheelIndex.RearRight].Detached == 1 || data.Wheel[(int)RfWheelIndex.RearRight].Flat == 1;
@@ -185,7 +185,7 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreCoreTemperature.ActualQuantity = Temperature.FromKelvin(data.Wheel[(int)RfWheelIndex.RearRight].Temperature[1]);
 
             // Fuel System
-            simData.PlayerInfo.CarInfo.FuelSystemInfo.FuelCapacity = Volume.FromLiters(50);
+            simData.PlayerInfo.CarInfo.FuelSystemInfo.FuelCapacity = Volume.FromLiters(Math.Max(50, data.Fuel));
             simData.PlayerInfo.CarInfo.FuelSystemInfo.FuelRemaining = Volume.FromLiters(data.Fuel);
         }
 

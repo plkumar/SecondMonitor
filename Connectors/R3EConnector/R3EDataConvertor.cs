@@ -139,6 +139,11 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.RideHeight = Distance.FromMeters(data.Player.RideHeight.RearLeft);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.RideHeight = Distance.FromMeters(data.Player.RideHeight.RearRight);
 
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyreLoad = Force.GetFromNewtons(data.TyreLoad.FrontLeft);
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreLoad = Force.GetFromNewtons(data.TyreLoad.FrontRight);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreLoad = Force.GetFromNewtons(data.TyreLoad.RearLeft);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreLoad = Force.GetFromNewtons(data.TyreLoad.RearRight);
+
             // Front Left Tyre Temps
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.CenterTyreTemp.IdealQuantity = Temperature.FromCelsius(data.TireTemp.FrontLeft.OptimalTemp);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.CenterTyreTemp.IdealQuantityWindow = Temperature.FromCelsius((data.TireTemp.FrontLeft.HotTemp - data.TireTemp.FrontLeft.OptimalTemp) * 0.5);
@@ -421,10 +426,10 @@
             playerCar.CarDamageInformation.Bodywork.MediumDamageThreshold = 0.01;
             playerCar.CarDamageInformation.Engine.MediumDamageThreshold = 0.01;
             playerCar.CarDamageInformation.Transmission.MediumDamageThreshold = 0.01;
-            playerCar.CarDamageInformation.Suspension.Damage = 1 - data.CarDamage.Suspension;
-            playerCar.CarDamageInformation.Bodywork.Damage = 1 - data.CarDamage.Aerodynamics;
-            playerCar.CarDamageInformation.Engine.Damage = 1 - data.CarDamage.Engine;
-            playerCar.CarDamageInformation.Transmission.Damage = 1 -data.CarDamage.Transmission;
+            playerCar.CarDamageInformation.Suspension.Damage = data.CarDamage.Suspension >= 0 ? 1 - data.CarDamage.Suspension : 0;
+            playerCar.CarDamageInformation.Bodywork.Damage = data.CarDamage.Aerodynamics >= 0 ? 1 - data.CarDamage.Aerodynamics : 0;
+            playerCar.CarDamageInformation.Engine.Damage = data.CarDamage.Engine >= 0 ? 1 - data.CarDamage.Engine : 0;
+            playerCar.CarDamageInformation.Transmission.Damage = data.CarDamage.Transmission >= 0 ? 1 -data.CarDamage.Transmission : 0;
             playerCar.TurboPressure = Math.Abs(data.TurboPressure) < 0.1 ? Pressure.Zero : Pressure.FromBar(data.TurboPressure);
             playerCar.OverallDownForce = Force.GetFromNewtons(data.Player.CurrentDownforce);
 

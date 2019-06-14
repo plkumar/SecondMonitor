@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Common.Configuration
 {
+    using System;
     using System.Linq;
 
     public class SimulatorRatingConfigurationProvider : ISimulatorRatingConfigurationProvider

@@ -6,7 +6,7 @@
 
     public static class GlickoRatingExtension
     {
-        public static GlickoPlayer ToGlicko(this DriversRating driversRating, string name)
+        public static GlickoPlayer ToGlicko(this DriversRating driversRating, string name = "")
         {
             return new GlickoPlayer(driversRating.Rating, driversRating.Deviation, driversRating.Volatility) { Name = name};
         }

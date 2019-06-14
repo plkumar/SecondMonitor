@@ -50,9 +50,11 @@
     <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\IAsyncCommand.cs" />
+    <Compile Include="Commands\IRelayCommandWithParameter.cs" />
     <Compile Include="Commands\NotifyTaskCompletion.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandWithCondition.cs" />
+    <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="FuelInformation\IFuelCalculatorViewModel.cs" />
     <Compile Include="FuelInformation\IFuelConsumptionInfo.cs" />
     <Compile Include="FuelInformation\IFuelPlannerViewModel.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="TrackMap\ITrackDtoManipulator.cs" />
     <Compile Include="TrackMap\MapEventArgs.cs" />
     <Compile Include="UserInput\IUserInputProvider.cs" />
+    <Compile Include="WheelInformation\IIdealWheelQuantitiesFiller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SessionTiming\" />

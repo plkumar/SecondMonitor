@@ -24,9 +24,9 @@
 
         DriverWithoutRating GetAiRating(string aiDriverName);
         DriversRating GetPlayerOverallRating();
-        DriversRating GetPlayerRating(string className);
+        (DriversRating simRating, DriversRating difficultyRating) GetPlayerRating(string className);
         void SetSelectedDifficulty(int difficulty, bool wasUserSelected, string className);
-        void UpdateRating(DriversRating newClassRating, DriversRating newSimRating, string className, string trackName);
+        void UpdateRating(DriversRating newClassRating, DriversRating newDifficultyRating, DriversRating newSimRating, int difficulty, string trackName, DriverFinishState driverFinishState);
 
 
         DifficultySettings GetDifficultySettings(string className);

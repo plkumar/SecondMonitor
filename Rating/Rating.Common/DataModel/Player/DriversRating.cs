@@ -3,7 +3,7 @@
     using System;
     using System.Xml.Serialization;
 
-    public struct DriversRating
+    public class DriversRating
     {
         private DateTime _creationTime;
 

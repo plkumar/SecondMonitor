@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ratingOverview="clr-namespace:SecondMonitor.Rating.Application.ViewModels.RatingOverview;assembly=Rating.Application">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type ratingOverview:SimulatorRatingsViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding SimulatorName}" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource StandardText}" Margin="5,0,5,0" FontSize="{StaticResource BigFontSize}" Text="Rating:"/>
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding SimulatorRating}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBlock Style="{StaticResource StandardText}" Margin="5,0,5,0" FontSize="{StaticResource BigFontSize}" Text="Last Race:"/>
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding LastRace, Converter={StaticResource DateTimeToCurrentConverter}}"/>
+                        </StackPanel>
+                    </Grid>
+                    <DataGrid Grid.Row="3" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="True" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding ClassRatings}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Class" Binding="{Binding ClassName }" Foreground="{StaticResource LightGrey01Brush}"  ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
+                            <DataGridTextColumn Header="Rating" Binding="{Binding Rating }" Foreground="{StaticResource LightGrey01Brush}"  ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
+                            <DataGridTemplateColumn Header="Sim Δ">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type ratingOverview:ClassRatingViewModel}">
+                                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding SimulatorDelta, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding SimulatorDelta, Converter={StaticResource IntToRedGreenConverter}, Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty }" ElementStyle="{StaticResource TextBoxCenteredStyle}" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Last Race" Binding="{Binding LastRace, Converter={StaticResource DateTimeToCurrentConverter} }" Foreground="{StaticResource LightGrey01Brush}"  ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
+                            <DataGridTemplateColumn Header="Open History">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type ratingOverview:ClassRatingViewModel}">
+                                        <Button DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Center"
+                                                Command="{Binding OpenClassHistoryCommand, Mode=OneWay}"
+                                                Style="{StaticResource StandardButton}" Width="35" Height="35"
+                                                ToolTip="All Races History">
+                                            <Button.Content>
+                                                <TextBlock VerticalAlignment="Center" Margin="-3" HorizontalAlignment="Center" Style="{StaticResource StandardText}" Text="H" FontWeight="Bold"></TextBlock>
+                                            </Button.Content>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

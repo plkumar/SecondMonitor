@@ -9,12 +9,12 @@
     {
         public SessionFinishState Create(SimulatorDataSet simulatorDataSet)
         {
-            return new SessionFinishState(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName, simulatorDataSet.DriversInfo.Select(x => new DriverFinishState(x.IsPlayer, x.DriverName, x.CarClassName, x.Position)));
+            return new SessionFinishState(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName, simulatorDataSet.DriversInfo.Select(x => new DriverFinishState(x.IsPlayer, x.DriverName, x.CarName, x.CarClassName, x.Position)));
         }
 
         public SessionFinishState Create(SessionSummary sessionSummary)
         {
-            return new SessionFinishState(sessionSummary.TrackInfo.TrackFullName, sessionSummary.Drivers.Select(x => new DriverFinishState(x.IsPlayer, x.DriverName, x.ClassName, x.FinishingPosition)));
+            return new SessionFinishState(sessionSummary.TrackInfo.TrackFullName, sessionSummary.Drivers.Select(x => new DriverFinishState(x.IsPlayer, x.DriverName, x.CarName, x.ClassName, x.FinishingPosition)));
         }
     }
 }

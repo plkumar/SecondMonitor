@@ -9,6 +9,7 @@
         public SimulatorRating()
         {
             ClassRatings = new List<ClassRating>();
+            Results = new List<RaceResult>();
         }
 
         [XmlAttribute]
@@ -17,6 +18,8 @@
         public DriversRating PlayersRating { get; set; }
 
         public List<ClassRating> ClassRatings { get; set; }
+
+        public List<RaceResult> Results { get; set; }
 
         [XmlAttribute]
         public string LastPlayerClass { get; set; }

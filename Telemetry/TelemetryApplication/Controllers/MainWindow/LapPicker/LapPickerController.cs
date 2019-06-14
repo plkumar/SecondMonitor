@@ -121,7 +121,7 @@
                 _loadedLaps.Add(lapSummaryDto);
             }
 
-            LapSummaryDto bestLap = _loadedLaps.OrderBy(x => x.LapTime).FirstOrDefault();
+            LapSummaryDto bestLap = _loadedLaps.Where(x => x.LapTime != TimeSpan.Zero). OrderBy(x => x.LapTime).FirstOrDefault();
             _lapSelectionViewModel.BestLap = $"{bestLap?.CustomDisplayName} - {bestLap.LapTime.FormatToDefault()}";
 
             LapSummaryDto bestSector1Lap = _loadedLaps.Where(x => x.Sector1Time > TimeSpan.Zero).OrderBy(x => x.Sector1Time).FirstOrDefault();

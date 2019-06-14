@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Colors.xaml" />
+        <ResourceDictionary Source="../Constants.xaml" />
+        <ResourceDictionary>
+
+            <Style x:Key="TextBoxCenteredStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
+                <Setter Property="Background" Value="{StaticResource Anthracite01Brush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource LightGrey02Brush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style x:Key="CommonDataGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
+                <Setter Property="Background" Value="{StaticResource DarkGrey01Brush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource DarkGrey05Brush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Background" Value="{StaticResource Anthracite01Brush}" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="False" />
+                <Setter Property="CanUserReorderColumns" Value="False" />
+                <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
+                <Setter Property="ColumnHeaderStyle" Value="{StaticResource CommonDataGridHeaderStyle}" />
+                <Setter Property="HeadersVisibility" Value="Column" />
+                <Setter Property="BorderBrush" Value="{StaticResource DarkGrey05Brush}" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="SelectionMode" Value="Single" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
+                <Setter Property="FontSize" Value="{StaticResource TimingGridFontSize}" />
+                <Setter Property="RowStyle" Value="{StaticResource DataGridRowStyle}" />
+                <Setter Property="CellStyle">
+                    <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

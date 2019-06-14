@@ -100,7 +100,7 @@
         {
             ObservableCollection<IGraphSettingsViewModel> newLeftPanelGraphs = new ObservableCollection<IGraphSettingsViewModel>();
             ObservableCollection<IGraphSettingsViewModel> newRightPanelGraphs = new ObservableCollection<IGraphSettingsViewModel>();
-            ObservableCollection<IGraphSettingsViewModel> newNotUsedPanelGraphs = new ObservableCollection<IGraphSettingsViewModel>();
+            List<IGraphSettingsViewModel> newNotUsedPanelGraphs = new List<IGraphSettingsViewModel>();
             foreach (GraphSettingsDto modelGraphSetting in model.GraphSettings)
             {
                 IGraphSettingsViewModel newViewModel = _viewModelFactory.Create<IGraphSettingsViewModel>();
@@ -123,7 +123,7 @@
 
             LeftPanelGraphs = newLeftPanelGraphs;
             RightPanelGraphs = newRightPanelGraphs;
-            NotUsedGraphs = newNotUsedPanelGraphs;
+            NotUsedGraphs = new ObservableCollection<IGraphSettingsViewModel>(newNotUsedPanelGraphs.OrderBy(x => x.OriginalModel.Title));
             XAxisKind = model.XAxisKind;
         }
     }

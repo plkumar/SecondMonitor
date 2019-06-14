@@ -13,35 +13,25 @@ namespace SecondMonitor.SimdataManagement.SimSettings
 
         private readonly XmlSerializer _xmlSerializer;
 
-        public SimSettingsLoader(string primaryPath, string overridingPath)
+        public SimSettingsLoader(string path)
         {
-            PrimaryPath = primaryPath;
-            OverridingPath = overridingPath;
+            Path = path;
             _xmlSerializer = new XmlSerializer(typeof(DataSourceProperties));
         }
 
-        public string PrimaryPath { get; }
-        public string OverridingPath { get; set; }
+        public string Path { get;  }
 
         public DataSourceProperties GetDataSourcePropertiesAsync(string sourceName)
         {
-            string primaryFilePath = Path.Combine(PrimaryPath, sourceName + FileSuffix);
-
+            string primaryFilePath = System.IO.Path.Combine(Path, sourceName + FileSuffix);
             DataSourceProperties baseProperties = File.Exists(primaryFilePath) ? LoadDataSourceProperties(primaryFilePath) : new DataSourceProperties() { SourceName = sourceName };
-
-            string secondaryPath = Path.Combine(OverridingPath, sourceName + FileSuffix);
-            if (File.Exists(secondaryPath))
-            {
-                baseProperties.OverrideWith(LoadDataSourceProperties(secondaryPath));
-            }
-
             return baseProperties;
         }
 
         public void SaveDataSourceProperties(DataSourceProperties properties)
         {
-            Directory.CreateDirectory(OverridingPath);
-            string path = Path.Combine(OverridingPath, properties.SourceName + FileSuffix);
+            Directory.CreateDirectory(Path);
+            string path = System.IO.Path.Combine(Path, properties.SourceName + FileSuffix);
 
             using (FileStream file = File.Exists(path) ? File.Open(path, FileMode.Truncate) : File.Create(path))
             {

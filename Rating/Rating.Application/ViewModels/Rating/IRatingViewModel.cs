@@ -8,5 +8,7 @@
         string SecondaryRating { get; }
         int RatingChange { get; set; }
         bool RatingChangeVisible { get; set; }
+
+        int Difficulty { get; set; }
     }
 }

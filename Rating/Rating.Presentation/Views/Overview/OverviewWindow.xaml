@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ratingOverview="clr-namespace:SecondMonitor.Rating.Application.ViewModels.RatingOverview;assembly=Rating.Application">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary Source="SimulatorRatingsView.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type ratingOverview:RatingOverviewWindowViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Ratings:"/>
+                    <TabControl Grid.Row="2" ItemsSource="{Binding SimulatorRatings}">
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding SimulatorName}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                    </TabControl>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

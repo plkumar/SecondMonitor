@@ -16,6 +16,8 @@
 
         public DriversRating PlayersRating { get; set; }
 
+        public DriversRating DifficultyRating { get; set; }
+
         public DifficultySettings DifficultySettings { get; set; }
 
         public List<DriverWithoutRating> AiRatings { get; set; }

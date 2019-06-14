@@ -4,9 +4,7 @@
     using System.Collections.Generic;
     using DataExtractor;
     using DataModel.BasicProperties;
-    using DataModel.Snapshot.Systems;
     using DataModel.Telemetry;
-    using TelemetryManagement.DTO;
 
     public class RakeGraphViewModel : AbstractSingleSeriesGraphViewModel
     {

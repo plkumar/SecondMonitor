@@ -1105,7 +1105,8 @@
         public float TireUnused3;
         public float TireUnused4;
         public TireData<float> TireUnused5;
-        public TireData<float> TireUnused6;
+
+        public TireData<float> TyreLoad;
 
         //////////////////////////////////////////////////////////////////////////
         // Damage
