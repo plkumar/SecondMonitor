@@ -16,35 +16,50 @@
             _ratingController = ratingController;
         }
 
-        public void UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating simulatorRating, SessionFinishState sessionFinishState)
+        public void UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating, SessionFinishState sessionFinishState, int difficulty)
         {
             DriverFinishState player = sessionFinishState.DriverFinishStates.First(x => x.IsPlayer);
+            GlickoPlayer newClassRating = CalculateNewRatingByResult(ratings, ratings.First(x => x.Key == player.Name).Value, sessionFinishState, player);
+            GlickoPlayer newSimRating = CalculateNewRatingByResult(ratings, simulatorRating, sessionFinishState, player);
+            GlickoPlayer newDifficultyRating = CalculateNewRatingByResult(ratings, difficultyRating, sessionFinishState, player);
+
+            ComputeNewRatingsAndNotify(newClassRating.FromGlicko(), newDifficultyRating.FromGlicko(), newSimRating.FromGlicko(), difficulty, player, sessionFinishState.TrackName);
+        }
+
+        public void UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating,int difficulty, Driver player, string trackName)
+        {
+            DriverFinishState playerFinishState = new DriverFinishState(true, player.DriverName, player.CarName, player.ClassName, ratings.Count);
+            GlickoPlayer newClassRating = CalculateNewAsLoss(ratings, ratings.First(x => x.Key == player.DriverName).Value, player);
+            GlickoPlayer newSimRating = CalculateNewAsLoss(ratings, simulatorRating, player);
+
+            ComputeNewRatingsAndNotify(newClassRating.FromGlicko(), difficultyRating, newSimRating.FromGlicko(), difficulty, playerFinishState, trackName);
+        }
+
+        private GlickoPlayer CalculateNewAsLoss(Dictionary<string, DriversRating> ratings, DriversRating rating,  Driver player)
+        {
+            var playerRating = rating.ToGlicko(player.DriverName);
+            var glickoRatings = TransformToGlickoPlayers(ratings);
+            var opponents = glickoRatings.Where(x => x.Key != player.DriverName).Select(x => new GlickoOpponent(x.Value, 0)).ToList();
+            return CalculateNewRating(playerRating, opponents);
+        }
+
+        private GlickoPlayer CalculateNewRatingByResult(Dictionary<string, DriversRating> ratings, DriversRating rating, SessionFinishState sessionFinishState, DriverFinishState player)
+        {
+            var playerRating = rating.ToGlicko(player.Name);
+            var glickoRatings = TransformToGlickoPlayers(ratings);
             DriverFinishState[] eligibleDrivers = sessionFinishState.DriverFinishStates.Where(x => !x.IsPlayer && ratings.ContainsKey(x.Name)).ToArray();
-            var glickoRatingsClass = TransformToGlickoPlayers(ratings);
-            var glickoRatingsSim = TransformToGlickoPlayers(ratings);
-            var playerRating = glickoRatingsClass[player.Name];
-            var playerSimRating = simulatorRating.ToGlicko(playerRating.Name);
-            var opponentsClass = eligibleDrivers.Select(x => new GlickoOpponent(glickoRatingsClass[x.Name], x.FinishPosition < player.FinishPosition ? 0 : 1)).ToList();
-            var opponentSim = eligibleDrivers.Select(x => new GlickoOpponent(glickoRatingsSim[x.Name], x.FinishPosition < player.FinishPosition ? 0 : 1)).ToList();
-            ComputeNewRatingsAndNotify(playerRating, playerSimRating, opponentsClass,  opponentSim, player.CarClass, sessionFinishState.TrackName);
+            var opponents = eligibleDrivers.Select(x => new GlickoOpponent(glickoRatings[x.Name], x.FinishPosition < player.FinishPosition ? 0 : 1)).ToList();
+            return CalculateNewRating(playerRating, opponents);
         }
 
-        public void UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratings, DriversRating simulatorRating, Driver player, string trackName)
+        private GlickoPlayer CalculateNewRating(GlickoPlayer player, List<GlickoOpponent> opponents)
         {
-            var glickoRatingsClass = TransformToGlickoPlayers(ratings);
-            var glickoRatingsSim = TransformToGlickoPlayers(ratings);
-            var playerRating = glickoRatingsClass[player.DriverName];
-            var playerSimRating = simulatorRating.ToGlicko(playerRating.Name);
-            var opponentsClass = glickoRatingsClass.Where(x => x.Key != player.DriverName).Select(x => new GlickoOpponent(x.Value, 0)).ToList();
-            var opponentsSim = glickoRatingsSim.Where(x => x.Key != player.DriverName).Select(x => new GlickoOpponent(x.Value, 0)).ToList();
-            ComputeNewRatingsAndNotify(playerRating, playerSimRating, opponentsClass, opponentsSim, player.ClassName, trackName);
+            return GlickoCalculator.CalculateRanking(player, opponents);
         }
 
-        private void ComputeNewRatingsAndNotify(GlickoPlayer player, GlickoPlayer playerAsSimulator, List<GlickoOpponent> opponentsClass, List<GlickoOpponent> opponentsSim, string className, string trackName)
+        private void ComputeNewRatingsAndNotify(DriversRating newPlayerClassRating, DriversRating newDifficultyRating, DriversRating newPlayerSimRatingRating, int difficulty, DriverFinishState playerFinishState, string trackName)
         {
-            var newPlayerClassRating = GlickoCalculator.CalculateRanking(player, opponentsClass);
-            var newPlayerSimRatingRating = GlickoCalculator.CalculateRanking(playerAsSimulator, opponentsSim);
-            _ratingController.UpdateRating(newPlayerClassRating.FromGlicko(), newPlayerSimRatingRating.FromGlicko(), className, trackName);
+            _ratingController.UpdateRating(newPlayerClassRating, newDifficultyRating, newPlayerSimRatingRating, difficulty, trackName, playerFinishState);
         }
 
         private static Dictionary<string, GlickoPlayer> TransformToGlickoPlayers(Dictionary<string, DriversRating> ratings)

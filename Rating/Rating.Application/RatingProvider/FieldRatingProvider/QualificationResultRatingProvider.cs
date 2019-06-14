@@ -36,7 +36,7 @@
             {
                 if (driver.IsPlayer)
                 {
-                    ratings[driver.DriverName] = _simulatorRatingController.GetPlayerRating(driver.ClassName);
+                    ratings[driver.DriverName] = _simulatorRatingController.GetPlayerRating(driver.ClassName).simRating;
                     continue;
                 }
 
@@ -76,7 +76,7 @@
                 DriverInfo driver = fieldDrivers[i];
                 if (driver.IsPlayer)
                 {
-                    ratings[driver.DriverName] = _simulatorRatingController.GetPlayerRating(driver.CarClassName);
+                    ratings[driver.DriverName] = _simulatorRatingController.GetPlayerRating(driver.CarClassName).simRating;
                     continue;
                 }
 

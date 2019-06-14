@@ -54,6 +54,8 @@
     <Compile Include="DataModel\DriverFinishState.cs" />
     <Compile Include="DataModel\Player\DriverWithoutRating.cs" />
     <Compile Include="DataModel\Player\DriversRating.cs" />
+    <Compile Include="DataModel\RaceResult.cs" />
+    <Compile Include="DataModel\RatingChange.cs" />
     <Compile Include="DataModel\Ratings.cs" />
     <Compile Include="DataModel\SessionFinishState.cs" />
     <Compile Include="DataModel\SimulatorRating.cs" />

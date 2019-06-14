@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
     using DataModel.Snapshot.Systems;
     using PluginManager.Extensions;
+    using PluginManager.GameConnector.WheelInformation;
 
     public class AcDataConverter
     {
@@ -17,6 +20,7 @@
         private readonly Dictionary<string, TimeSpan[]> _currentSectorTimes;
 
         private readonly AssettoCorsaStartObserver _startObserver;
+        private readonly IdealWheelQuantitiesFromXml _idealWheelQuantitiesFromXml;
 
         private DriverInfo _lastPlayer;
         private int? _sectorLength;
@@ -27,6 +31,18 @@
             _currentSectorTimes = new Dictionary<string, TimeSpan[]>();
             _sectorLength = null;
             _startObserver = new AssettoCorsaStartObserver();
+            _idealWheelQuantitiesFromXml = new IdealWheelQuantitiesFromXml(Path.Combine(AssemblyDirectory, "AcTyreProperties.xml"));
+        }
+
+        private static string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
         }
 
         public SimulatorDataSet CreateSimulatorDataSet(AssettoCorsaShared acData)
@@ -39,7 +55,7 @@
                     OutLapIsValid = true,
                     SimNotReportingEndOfOutLapCorrectly = true,
                     ForceLapOverTime = true,
-                    GlobalTyreCompounds = true,
+                    GlobalTyreCompounds = false,
                     SectorTimingSupport = DataInputSupport.SpOnly,
                     TelemetryInfo = {ContainsSuspensionTravel = true}
                 }
@@ -71,8 +87,11 @@
             //Add Additional Player Car Info
             AddPlayerCarInfo(acData, simData);
 
+            foreach (DriverInfo driverInfo in simData.DriversInfo)
+            {
 
-            _startObserver.Observe(simData);
+            }
+
             return simData;
         }
 
@@ -136,7 +155,7 @@
             simData.PlayerInfo.CarInfo.Acceleration.ZinMs = acData.AcsPhysics.accG[2] * 9.8;
         }
 
-        private static void AddTyresAndFuelInfo(SimulatorDataSet simData, AssettoCorsaShared acData)
+        private void AddTyresAndFuelInfo(SimulatorDataSet simData, AssettoCorsaShared acData)
         {
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyrePressure.ActualQuantity = Pressure.FromPsi(acData.AcsPhysics.wheelsPressure[(int)AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyrePressure.ActualQuantity = Pressure.FromPsi(acData.AcsPhysics.wheelsPressure[(int)AcWheels.FR]);
@@ -210,6 +229,8 @@
             // Fuel System
             simData.PlayerInfo.CarInfo.FuelSystemInfo.FuelCapacity = Volume.FromLiters(acData.AcsStatic.maxFuel);
             simData.PlayerInfo.CarInfo.FuelSystemInfo.FuelRemaining = Volume.FromLiters(acData.AcsPhysics.fuel);
+
+            _idealWheelQuantitiesFromXml.FillWheelIdealQuantities(simData);
         }
 
         private static double GetACTyreWear(double acReportedTyreWear)
@@ -400,21 +421,19 @@
                 DriverName = StringExtensions.FromArray(acVehicleInfo.driverName),
                 CompletedLaps = acVehicleInfo.lapCount,
                 CarName = FormatACName(StringExtensions.FromArray(acVehicleInfo.carModel)),
+                InPits = acVehicleInfo.isCarInPit == 1 || acVehicleInfo.isCarInPitlane == 1,
+                IsPlayer = acVehicleInfo.carId == 0,
+                Position = dataSet.SessionInfo.SessionType == SessionType.Race ? acVehicleInfo.carRealTimeLeaderboardPosition + 1 : acVehicleInfo.carLeaderboardPosition,
+                Speed = Velocity.FromMs(acVehicleInfo.speedMS),
+                LapDistance = acData.AcsStatic.trackSPlineLength * acVehicleInfo.spLineLength,
+                TotalDistance = acVehicleInfo.lapCount * acData.AcsStatic.trackSPlineLength + acVehicleInfo.spLineLength * acData.AcsStatic.trackSPlineLength,
+                FinishStatus = FromAcStatus(acVehicleInfo.finishedStatus),
+                WorldPosition = new Point3D(Distance.FromMeters(acVehicleInfo.worldPosition.x), Distance.FromMeters(acVehicleInfo.worldPosition.y), Distance.FromMeters(acVehicleInfo.worldPosition.z)),
             };
-
+            driverInfo.CarClassId = driverInfo.CarName;
             driverInfo.CarClassName = driverInfo.CarName;
-            driverInfo.CarClassId = driverInfo.CarClassName;
-
-            driverInfo.InPits = acVehicleInfo.isCarInPit == 1 || acVehicleInfo.isCarInPitlane == 1;
 
 
-            driverInfo.IsPlayer = acVehicleInfo.carId == 0;
-            driverInfo.Position = dataSet.SessionInfo.SessionType == SessionType.Race ? acVehicleInfo.carRealTimeLeaderboardPosition + 1 : acVehicleInfo.carLeaderboardPosition;
-            driverInfo.Speed = Velocity.FromMs(acVehicleInfo.speedMS);
-            driverInfo.LapDistance = acData.AcsStatic.trackSPlineLength * acVehicleInfo.spLineLength;
-            driverInfo.TotalDistance = acVehicleInfo.lapCount * acData.AcsStatic.trackSPlineLength + acVehicleInfo.spLineLength * acData.AcsStatic.trackSPlineLength;
-            driverInfo.FinishStatus = FromAcStatus(acVehicleInfo.finishedStatus);
-            driverInfo.WorldPosition = new Point3D(Distance.FromMeters(acVehicleInfo.worldPosition.x), Distance.FromMeters(acVehicleInfo.worldPosition.y), Distance.FromMeters(acVehicleInfo.worldPosition.z));
             ComputeDistanceToPlayer(_lastPlayer, driverInfo, acData);
             return driverInfo;
         }

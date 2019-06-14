@@ -1,5 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Common.Configuration
 {
+    using System;
+
     public class SimulatorRatingConfiguration
     {
         public string SimulatorName { get; set; }
@@ -17,5 +19,10 @@
         public double AiRatingNoise { get; set; }
 
         public int QuickRaceAiRatingForPlace { get; set; }
+
+        public int GetDifficultyForRating(int rating)
+        {
+            return Math.Min(MinimumAiLevel + ((rating - MinimumRating) / RatingPerLevel), MaximumAiLevel);
+        }
     }
 }

@@ -41,6 +41,7 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -94,6 +95,18 @@
     <Compile Include="RatingProvider\RatingChangeArgs.cs" />
     <Compile Include="ViewModels\IRatingApplicationViewModel.cs" />
     <Compile Include="ViewModels\RatingApplicationViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\HistoryWindowViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\IHistoryWindowViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\IRaceResultViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\IRaceHistoriesViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\RaceResultViewModel.cs" />
+    <Compile Include="ViewModels\RatingHistory\RaceHistoriesViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\ClassRatingViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\RatingOverviewWindowViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\IClassRatingViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\IRatingOverviewWindowViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\ISimulatorRatingsViewModel.cs" />
+    <Compile Include="ViewModels\RatingOverview\SimulatorRatingsViewModel.cs" />
     <Compile Include="ViewModels\Rating\IRatingViewModel.cs" />
     <Compile Include="ViewModels\Rating\RatingViewModel.cs" />
   </ItemGroup>

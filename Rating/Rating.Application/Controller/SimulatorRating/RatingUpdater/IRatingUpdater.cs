@@ -7,7 +7,7 @@
 
     public interface IRatingUpdater
     {
-        void UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating simulatorRating, SessionFinishState sessionFinishState);
-        void UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratingMap, DriversRating simulatorRating, Driver player, string trackName);
+        void UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating, SessionFinishState sessionFinishState, int difficulty);
+        void UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratingMap, DriversRating difficultyRating, DriversRating simulatorRating, int difficulty, Driver player, string trackName);
     }
 }

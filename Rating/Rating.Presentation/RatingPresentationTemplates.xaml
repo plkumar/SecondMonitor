@@ -6,5 +6,7 @@
         <ResourceDictionary Source="RatingColors.xaml"/>
         <ResourceDictionary Source="Views/RatingApplicationView.xaml"/>
         <ResourceDictionary Source="Views/RatingView.xaml"/>
+        <ResourceDictionary Source="Views/History/HistoryWindow.xaml"/>
+        <ResourceDictionary Source="Views/Overview/OverviewWindow.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

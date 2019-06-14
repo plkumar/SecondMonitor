@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Windows.Input;
     using Common.DataModel.Player;
     using Controller.RaceObserver.States;
     using Rating;
@@ -24,12 +25,16 @@
         bool UseSuggestedDifficulty { get; set; }
         bool IsRateRaceCheckboxChecked { get; }
 
-        void ApplySimulatorRating(DriversRating driversRating);
-        void ApplyClassRating(DriversRating driversRating);
+        ICommand ShowAllHistoryCommand { get; set; }
+
+        ICommand ShowClassHistoryCommand { get; set; }
+
+        ICommand ShowAllRatings { get; set; }
 
         void AddSelectableClass(string className);
         void ClearSelectableClasses();
         void InitializeAiDifficultySelection(int minimumLevel, int maximumLevel);
+
 
     }
 }

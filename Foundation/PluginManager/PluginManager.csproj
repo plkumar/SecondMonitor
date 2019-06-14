@@ -71,6 +71,8 @@
     <Compile Include="GameConnector\DataEventArgs.cs" />
     <Compile Include="GameConnector\MessageArgs.cs" />
     <Compile Include="GameConnector\SharedMemory\MappedBuffer.cs" />
+    <Compile Include="GameConnector\WheelInformation\AbstractIdealWheelQuantitiesFiller.cs" />
+    <Compile Include="GameConnector\WheelInformation\IdealWheelQuantitiesFromXml.cs" />
     <Compile Include="PluginsManagerModule.cs" />
     <Compile Include="PluginsManagerModuleBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +99,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

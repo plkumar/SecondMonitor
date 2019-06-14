@@ -230,6 +230,7 @@
     <Compile Include="ViewModels\GraphPanel\Wheels\RightRearTyreTempsGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\SuspensionTravelGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\SuspensionVelocityGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\Wheels\TyreLoadGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\TyrePressuresGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\Wheels\WheelRpsGraphViewModel.cs" />
     <Compile Include="AggregatedCharts\Histogram\HistogramBar.cs" />

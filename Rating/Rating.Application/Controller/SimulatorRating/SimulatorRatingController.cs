@@ -13,7 +13,7 @@
 
     public class SimulatorRatingController : ISimulatorRatingController
     {
-        private const double GlickoDeviationC = 15.8;
+        private const double GlickoDeviationC = 7.95;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IRatingRepository _ratingRepository;
         private readonly SimulatorRatingConfiguration _simulatorRatingConfiguration;
@@ -93,6 +93,14 @@
                     CreationTime = DateTime.Now,
                     Difficulty = _simulatorRating.PlayersRating.Difficulty,
                 },
+                DifficultyRating = new DriversRating()
+                {
+                    Rating = _simulatorRating.PlayersRating.Rating,
+                    Deviation = _simulatorRating.PlayersRating.Deviation,
+                    Volatility = _simulatorRating.PlayersRating.Volatility,
+                    CreationTime = DateTime.Now,
+                    Difficulty = _simulatorRating.PlayersRating.Difficulty,
+                },
                 DifficultySettings = new DifficultySettings()
                 {
                     SelectedDifficulty = GetSuggestedDifficulty(_simulatorRating.PlayersRating.Rating),
@@ -117,12 +125,12 @@
             return FillDifficulty(UpdateDeviation(_simulatorRating.PlayersRating));
         }
 
-        public DriversRating GetPlayerRating(string className)
+        public (DriversRating simRating, DriversRating difficultyRating) GetPlayerRating(string className)
         {
             ClassRating classRating = _simulatorRating.ClassRatings.FirstOrDefault(x => x.ClassName == className) ?? CreateClassRating(className);
             Logger.Info($"Retreived Players Rating for Class {className}");
             LogRating(classRating.PlayersRating);
-            return FillDifficulty(UpdateDeviation(classRating.PlayersRating));
+            return (FillDifficulty(UpdateDeviation(classRating.PlayersRating)), FillDifficulty(UpdateDeviation(classRating.DifficultyRating)));
         }
 
         public void SetSelectedDifficulty(int difficulty, bool wasUserSelected, string className)
@@ -135,31 +143,57 @@
             };
         }
 
-        public void UpdateRating(DriversRating newClassRating, DriversRating newSimRating, string className, string trackName)
+        public void UpdateRating(DriversRating newClassRating, DriversRating newDifficultyRating, DriversRating newSimRating, int difficulty, string trackName, DriverFinishState driverFinishState)
         {
-            ClassRating classRating = GetOrCreateClassRating(className);
+            ClassRating classRating = GetOrCreateClassRating(driverFinishState.CarClass);
             DriversRating oldClassRating = classRating.PlayersRating;
+            DriversRating oldDifficultyRating = classRating.DifficultyRating;
             DriversRating oldSimRating = _simulatorRating.PlayersRating;
             newSimRating = NormalizeRatingChange(oldSimRating, newSimRating);
             newClassRating = NormalizeRatingChange(oldClassRating, newClassRating);
             newSimRating = FillDifficulty(newSimRating);
             newClassRating = FillDifficulty(newClassRating);
+            newDifficultyRating = NormalizeRatingChange(oldDifficultyRating, newDifficultyRating);
+            newDifficultyRating = FillDifficulty(newDifficultyRating);
             classRating.PlayersRating = newClassRating;
+            classRating.DifficultyRating = newDifficultyRating;
             _simulatorRating.PlayersRating = newSimRating;
 
             if (!classRating.DifficultySettings.WasUserSelected)
             {
-                classRating.DifficultySettings.SelectedDifficulty = classRating.PlayersRating.Difficulty;
+                classRating.DifficultySettings.SelectedDifficulty = classRating.DifficultyRating.Difficulty;
             }
 
-            _simulatorRating.LastPlayerClass = className;
+            _simulatorRating.LastPlayerClass = driverFinishState.CarClass;
+            RaceResult result = new RaceResult()
+            {
+                CarName = driverFinishState.CarName,
+                ClassName = driverFinishState.CarClass,
+                CreationTime = DateTime.Now,
+                FinishingPosition = driverFinishState.FinishPosition,
+                TrackName = trackName,
+                Difficulty = difficulty,
+                SimulatorRatingChange = new RatingChange()
+                {
+                    RatingBeforeChange = oldSimRating.Rating,
+                    RatingAfterChange =  newSimRating.Rating
+                },
+                ClassRatingChange= new RatingChange()
+                {
+                    RatingBeforeChange = oldClassRating.Rating,
+                    RatingAfterChange = newClassRating.Rating
+                },
+
+            };
+            _simulatorRating.Results.Add(result);
+            _simulatorRating.Results = _simulatorRating.Results.Take(500).ToList();
             _ratingRepository.SaveRatings(_ratings);
-            NotifyRatingsChanges(CreateChangeArgs(oldClassRating, classRating.PlayersRating, className), CreateChangeArgs(oldSimRating, _simulatorRating.PlayersRating, SimulatorName));
+            NotifyRatingsChanges(CreateChangeArgs(oldClassRating, classRating.PlayersRating, driverFinishState.CarClass), CreateChangeArgs(oldSimRating, _simulatorRating.PlayersRating, SimulatorName));
         }
 
         public int GetSuggestedDifficulty(int rating)
         {
-            return Math.Min(_simulatorRatingConfiguration.MinimumAiLevel + ((rating - _simulatorRatingConfiguration.MinimumRating) / _simulatorRatingConfiguration.RatingPerLevel), _simulatorRatingConfiguration.MaximumAiLevel);
+            return _simulatorRatingConfiguration.GetDifficultyForRating(rating);
         }
 
         public DifficultySettings GetDifficultySettings(string className)

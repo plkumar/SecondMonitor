@@ -5,12 +5,14 @@
 
     public class WindowService : IWindowService
     {
-        public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight);
+        public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual);
 
-        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent)
+        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation)
         {
             Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
+            window.Owner = Application.Current.MainWindow;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.Show();
             return window;
         }

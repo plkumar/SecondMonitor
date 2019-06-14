@@ -246,6 +246,9 @@
       <Component Id="cmpcbd241843a4b42039d487ecb57545183" Directory="dirb781d9a060914609a4d5b9fe2684ed60" Guid="a5a81156-5f1b-4bb6-a377-6dcea70c6e1f">
         <File Id="file03639ea9ff044766835841526dce7577" KeyPath="yes" Source="..\Deployment\Connectors\AssettoCorsa\smshared_mem.py" />
       </Component>
+      <Component Id="cmpf122dbf2773d4b4d99e219f4b18cb64a" Directory="dirb781d9a060914609a4d5b9fe2684ed60" Guid="f122dbf2-773d-4b4d-99e2-19f4b18cb64a">
+        <File Id="filef122dbf2773d4b4d99e219f4b18cb64a" KeyPath="yes" Source="..\Deployment\Connectors\AssettoCorsa\AcTyreProperties.xml" />
+      </Component>
       <Component Id="cmpdirAcStdLibctypes" Directory="dirAcStdLib" Guid="2dae91a8-03bf-4b12-9fc8-f29f28689b9e">
         <File Id="fileAcStdLibctypes" KeyPath="yes" Source="..\Deployment\Connectors\AssettoCorsa\stdLib\_ctypes.pyd" />
       </Component>
@@ -258,6 +261,7 @@
       <Component Id="cmp6263c4e9fe334bb19cfb5bf8fdcee9f8" Directory="dir700ab31efeba489c8f7985492bbbf109" Guid="6cf3d908-1661-488c-b588-310751fa306c">
         <File Id="filedbb78ec26f024183855fc84a5409cf02" KeyPath="yes" Source="..\Deployment\Connectors\PCars2\PCars2Connector.dll" />
       </Component>
+
 
 
       <Component Id="cmpEB26E633F9CC905530555F13A03F7D26" Directory="dir77863955766C658BE4B8389A0ECFC377" Guid="70bddfb6-351e-49dd-996a-56bef2028bfc">

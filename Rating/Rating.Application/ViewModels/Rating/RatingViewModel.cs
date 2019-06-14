@@ -9,6 +9,8 @@
         private int _ratingChange;
         private string _mainRating;
         private bool _ratingChangeVisible;
+        private int _difficulty;
+        private int _rating;
 
         public string SecondaryRating
         {
@@ -28,6 +30,21 @@
             set => SetProperty(ref _ratingChangeVisible, value);
         }
 
+        public int Difficulty
+        {
+            get => _difficulty;
+            set
+            {
+                SetProperty(ref _difficulty, value);
+                RefreshMainRating();
+            }
+        }
+
+        private void RefreshMainRating()
+        {
+            MainRating = $"{_rating}-{_difficulty}";
+        }
+
         public string MainRating
         {
             get => _mainRating;
@@ -36,7 +53,9 @@
 
         protected override void ApplyModel(DriversRating model)
         {
-            MainRating = $"{model.Rating}-{model.Difficulty}";
+            _rating = model.Rating;
+            _difficulty = model.Difficulty;
+            RefreshMainRating();
             SecondaryRating = $"{model.Deviation}-{model.Volatility:F2}";
         }
 

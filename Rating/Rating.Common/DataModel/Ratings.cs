@@ -10,5 +10,7 @@
         }
 
         public List<SimulatorRating> SimulatorsRatings { get; set; }
+
+        public bool DifficultyRatingsMigrated { get; set; }
     }
 }

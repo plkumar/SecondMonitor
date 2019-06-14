@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Common.Repository
 {
     using System.IO;
+    using System.Linq;
     using System.Xml.Serialization;
     using DataModel;
     using ViewModels.Settings;
@@ -40,7 +41,8 @@
 
                 using (FileStream file = File.Open(_fileName, FileMode.Open))
                 {
-                    return _xmlSerializer.Deserialize(file) as Ratings;
+                    var ratings = _xmlSerializer.Deserialize(file) as Ratings;
+                    return MigrateUp(ratings);
                 }
             }
         }
@@ -75,6 +77,22 @@
             {
                 File.Copy(_fileName, $"{_fileName}.0", true);
             }
+        }
+
+        private Ratings MigrateUp(Ratings ratings)
+        {
+            if (ratings.DifficultyRatingsMigrated)
+            {
+                return ratings;
+            }
+
+            foreach (ClassRating classRating in ratings.SimulatorsRatings.SelectMany(x => x.ClassRatings).Where(x => x.DifficultyRating == null))
+            {
+                classRating.DifficultyRating = classRating.PlayersRating;
+            }
+
+            ratings.DifficultyRatingsMigrated = true;
+            return ratings;
         }
     }
 }

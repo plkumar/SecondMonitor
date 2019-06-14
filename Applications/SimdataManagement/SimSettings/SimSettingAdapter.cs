@@ -20,12 +20,12 @@
         {
             string execPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string configPath = Path.Combine(execPath, "Config");
-            _simSettingsLoader = new SimSettingsLoader(configPath, userConfigPath);
+            _simSettingsLoader = new SimSettingsLoader(userConfigPath);
         }
 
         public SimSettingAdapter(string baseConfigPath, string userConfigPath)
         {
-            _simSettingsLoader = new SimSettingsLoader(baseConfigPath, userConfigPath);
+            _simSettingsLoader = new SimSettingsLoader(userConfigPath);
         }
 
         public CarModelProperties LastUsedCarProperties => _lastCarProperties.Value;
@@ -44,12 +44,6 @@
             }
         }
 
-        public string UserConfigPath
-        {
-            get => _simSettingsLoader.OverridingPath;
-            set => _simSettingsLoader.OverridingPath = value;
-        }
-
         public void Visit(SimulatorDataSet simulatorDataSet)
         {
             if (simulatorDataSet?.PlayerInfo?.CarName == null)
@@ -60,6 +54,10 @@
             if (_dataSourceProperties?.SourceName != simulatorDataSet.Source)
             {
                 ReloadDataSourceProperties(simulatorDataSet.Source);
+                if (!simulatorDataSet.SimulatorSourceInfo.GlobalTyreCompounds && _dataSourceProperties.TyreCompoundsProperties.Count > 0)
+                {
+                    _dataSourceProperties.TyreCompoundsProperties.Clear();
+                }
             }
 
             CarModelProperties carModel = GetCarModelProperties(simulatorDataSet);
