@@ -607,7 +607,11 @@
                 return;
             }
 
-            TimingDataGridViewModel.MatchDriversList(_sessionTiming.Drivers.Values.ToList());
+            if (data.SessionInfo.SessionType != SessionType.Na)
+            {
+                TimingDataGridViewModel.MatchDriversList(_sessionTiming.Drivers.Values.ToList());
+            }
+
             SituationOverviewProvider.ApplyDateSet(data);
         }
 

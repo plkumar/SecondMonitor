@@ -21,16 +21,28 @@
 
         private DataSourceProperties DataSourceProperties => _dataSourceProperties.Value;
 
-        protected override OptimalQuantity<Pressure> GetIdealTyrePressure(DriverInfo driver)
+        protected override OptimalQuantity<Pressure> GetIdealTyrePressureFront(DriverInfo driver)
         {
             var tyreProperties = GetTyreProperties(driver);
-            return tyreProperties != null ? new OptimalQuantity<Pressure>() {IdealQuantity = tyreProperties.IdealPressure, IdealQuantityWindow = tyreProperties.IdealPressureWindow} : null;
+            return tyreProperties != null ? new OptimalQuantity<Pressure>() {IdealQuantity = tyreProperties.FrontIdealPressure, IdealQuantityWindow = tyreProperties.FrontIdealPressureWindow} : null;
         }
 
-        protected override OptimalQuantity<Temperature> GetIdealTyreTemperatures(DriverInfo driver)
+        protected override OptimalQuantity<Temperature> GetIdealTyreTemperaturesFront(DriverInfo driver)
         {
             var tyreProperties = GetTyreProperties(driver);
-            return tyreProperties != null ? new OptimalQuantity<Temperature>() { IdealQuantity = tyreProperties.IdealTemperature, IdealQuantityWindow = tyreProperties.IdealTemperatureWindow } : null;
+            return tyreProperties != null ? new OptimalQuantity<Temperature>() { IdealQuantity = tyreProperties.FrontIdealTemperature, IdealQuantityWindow = tyreProperties.FrontIdealTemperatureWindow } : null;
+        }
+
+        protected override OptimalQuantity<Pressure> GetIdealTyrePressureRear(DriverInfo driver)
+        {
+            var tyreProperties = GetTyreProperties(driver);
+            return tyreProperties != null ? new OptimalQuantity<Pressure>() { IdealQuantity = tyreProperties.RearIdealPressure, IdealQuantityWindow = tyreProperties.RearIdealPressureWindow } : null;
+        }
+
+        protected override OptimalQuantity<Temperature> GetIdealTyreTemperaturesRear(DriverInfo driver)
+        {
+            var tyreProperties = GetTyreProperties(driver);
+            return tyreProperties != null ? new OptimalQuantity<Temperature>() { IdealQuantity = tyreProperties.RearIdealTemperature, IdealQuantityWindow = tyreProperties.RearIdealTemperatureWindow } : null;
         }
 
         private TyreCompoundProperties GetTyreProperties(DriverInfo driver)
@@ -51,7 +63,9 @@
 
             using (FileStream file = File.Open(_fileName, FileMode.Open))
             {
-                return xmlSerializer.Deserialize(file) as DataSourceProperties;
+                var properties = (DataSourceProperties)xmlSerializer.Deserialize(file);
+                properties.MigrateUp();
+                return properties;
             }
         }
     }

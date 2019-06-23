@@ -4,13 +4,17 @@
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
+    using DataModel.Snapshot.Systems;
 
     public abstract class AbstractIdealWheelQuantitiesFiller : IIdealWheelQuantitiesFiller
     {
         private string _lastCarName;
         private string _lastTyreCompound;
-        private OptimalQuantity<Pressure> _optimalPressure;
-        private OptimalQuantity<Temperature> _optimalTemperature;
+        private OptimalQuantity<Pressure> _optimalPressureFront;
+        private OptimalQuantity<Temperature> _optimalTemperatureFront;
+
+        private OptimalQuantity<Pressure> _optimalPressureRear;
+        private OptimalQuantity<Temperature> _optimalTemperatureRear;
 
         public void FillWheelIdealQuantities(SimulatorDataSet dataSet)
         {
@@ -22,35 +26,41 @@
 
             CheckAndRetrieveIdealQuantities(driver);
 
-            if (_optimalPressure == null && _optimalTemperature == null)
+            if (_optimalPressureFront == null && _optimalTemperatureFront == null)
             {
                 return;
             }
 
             dataSet.SimulatorSourceInfo.TelemetryInfo.ContainsOptimalTemperatures = true;
+            Wheels wheels = driver.CarInfo.WheelsInfo;
+            FillWheelIdealQuantities(wheels.FrontLeft, _optimalPressureFront, _optimalTemperatureFront);
+            FillWheelIdealQuantities(wheels.FrontRight, _optimalPressureFront, _optimalTemperatureFront);
 
-            foreach (var wheel in driver.CarInfo.WheelsInfo.AllWheels)
+            FillWheelIdealQuantities(wheels.RearLeft, _optimalPressureRear, _optimalTemperatureRear);
+            FillWheelIdealQuantities(wheels.RearRight, _optimalPressureRear, _optimalTemperatureRear);
+        }
+
+        private void FillWheelIdealQuantities(WheelInfo wheel, OptimalQuantity<Pressure> optimalPressure, OptimalQuantity<Temperature> optimalTemperature)
+        {
+            if (optimalPressure != null)
             {
-                if (_optimalPressure != null)
-                {
-                    wheel.TyrePressure.IdealQuantity.InKpa = _optimalPressure.IdealQuantity.InKpa;
-                    wheel.TyrePressure.IdealQuantityWindow.InKpa = _optimalPressure.IdealQuantityWindow.InKpa;
-                }
+                wheel.TyrePressure.IdealQuantity.InKpa = optimalPressure.IdealQuantity.InKpa;
+                wheel.TyrePressure.IdealQuantityWindow.InKpa = optimalPressure.IdealQuantityWindow.InKpa;
+            }
 
-                if (_optimalTemperature != null)
-                {
-                    wheel.TyreCoreTemperature.IdealQuantity.InCelsius = _optimalTemperature.IdealQuantity.InCelsius;
-                    wheel.TyreCoreTemperature.IdealQuantityWindow.InCelsius = _optimalTemperature.IdealQuantityWindow.InCelsius;
+            if (optimalTemperature != null)
+            {
+                wheel.TyreCoreTemperature.IdealQuantity.InCelsius = optimalTemperature.IdealQuantity.InCelsius;
+                wheel.TyreCoreTemperature.IdealQuantityWindow.InCelsius = optimalTemperature.IdealQuantityWindow.InCelsius;
 
-                    wheel.LeftTyreTemp.IdealQuantity.InCelsius = _optimalTemperature.IdealQuantity.InCelsius;
-                    wheel.LeftTyreTemp.IdealQuantityWindow.InCelsius = _optimalTemperature.IdealQuantityWindow.InCelsius;
+                wheel.LeftTyreTemp.IdealQuantity.InCelsius = optimalTemperature.IdealQuantity.InCelsius;
+                wheel.LeftTyreTemp.IdealQuantityWindow.InCelsius = optimalTemperature.IdealQuantityWindow.InCelsius;
 
-                    wheel.CenterTyreTemp.IdealQuantity.InCelsius = _optimalTemperature.IdealQuantity.InCelsius;
-                    wheel.CenterTyreTemp.IdealQuantityWindow.InCelsius = _optimalTemperature.IdealQuantityWindow.InCelsius;
+                wheel.CenterTyreTemp.IdealQuantity.InCelsius = optimalTemperature.IdealQuantity.InCelsius;
+                wheel.CenterTyreTemp.IdealQuantityWindow.InCelsius = optimalTemperature.IdealQuantityWindow.InCelsius;
 
-                    wheel.RightTyreTemp.IdealQuantity.InCelsius = _optimalTemperature.IdealQuantity.InCelsius;
-                    wheel.RightTyreTemp.IdealQuantityWindow.InCelsius = _optimalTemperature.IdealQuantityWindow.InCelsius;
-                }
+                wheel.RightTyreTemp.IdealQuantity.InCelsius = optimalTemperature.IdealQuantity.InCelsius;
+                wheel.RightTyreTemp.IdealQuantityWindow.InCelsius = optimalTemperature.IdealQuantityWindow.InCelsius;
             }
         }
 
@@ -61,14 +71,20 @@
                 return;
             }
 
-            _optimalPressure = GetIdealTyrePressure(driver);
-            _optimalTemperature = GetIdealTyreTemperatures(driver);
+            _optimalPressureFront = GetIdealTyrePressureFront(driver);
+            _optimalTemperatureFront = GetIdealTyreTemperaturesFront(driver);
+
+            _optimalPressureRear = GetIdealTyrePressureRear(driver);
+            _optimalTemperatureRear = GetIdealTyreTemperaturesRear(driver);
 
             _lastCarName = driver.CarName;
             _lastTyreCompound = driver.CarInfo.WheelsInfo.AllWheels[0].TyreType;
         }
 
-        protected abstract OptimalQuantity<Pressure> GetIdealTyrePressure(DriverInfo driver);
-        protected abstract OptimalQuantity<Temperature> GetIdealTyreTemperatures(DriverInfo driver);
+        protected abstract OptimalQuantity<Pressure> GetIdealTyrePressureFront(DriverInfo driver);
+        protected abstract OptimalQuantity<Temperature> GetIdealTyreTemperaturesFront(DriverInfo driver);
+
+        protected abstract OptimalQuantity<Pressure> GetIdealTyrePressureRear(DriverInfo driver);
+        protected abstract OptimalQuantity<Temperature> GetIdealTyreTemperaturesRear(DriverInfo driver);
     }
 }

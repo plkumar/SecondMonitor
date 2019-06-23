@@ -72,6 +72,7 @@
     <Compile Include="GameConnector\MessageArgs.cs" />
     <Compile Include="GameConnector\SharedMemory\MappedBuffer.cs" />
     <Compile Include="GameConnector\WheelInformation\AbstractIdealWheelQuantitiesFiller.cs" />
+    <Compile Include="GameConnector\WheelInformation\AbstractCodeDefinedIdealWheelQuantitiesByClass.cs" />
     <Compile Include="GameConnector\WheelInformation\IdealWheelQuantitiesFromXml.cs" />
     <Compile Include="PluginsManagerModule.cs" />
     <Compile Include="PluginsManagerModuleBootstrapper.cs" />

@@ -248,7 +248,11 @@
 
             if(PositionCircleInformationProvider!= null && PositionCircleInformationProvider.TryGetCustomOutline(driverInfo, out ColorDto outlineColor))
             {
-                if (outlineColor != null && (driverPositionControl.OutLineColor == null || driverPositionControl.OutLineColor.Color.A != outlineColor.Alpha || driverPositionControl.OutLineColor.Color.B != outlineColor.Blue
+                if (outlineColor == null && driverPositionControl.OutLineColor != Brushes.Transparent)
+                {
+                    driverPositionControl.OutLineColor = Brushes.Transparent;
+                }
+                else if (outlineColor != null && (driverPositionControl.OutLineColor == null || driverPositionControl.OutLineColor.Color.A != outlineColor.Alpha || driverPositionControl.OutLineColor.Color.B != outlineColor.Blue
                                              || driverPositionControl.OutLineColor.Color.G != outlineColor.Green || driverPositionControl.OutLineColor.Color.R != outlineColor.Red))
                 {
                     driverPositionControl.OutLineColor = new SolidColorBrush(Color.FromArgb(outlineColor.Alpha, outlineColor.Red, outlineColor.Green, outlineColor.Blue));
@@ -276,7 +280,7 @@
                 return;
             }
 
-            driverPositionControl.OutLineColor = Brushes.Transparent;
+
             driverPositionControl.CircleBrush = DriverBackgroundBrush;
             driverPositionControl.TextBrush = DriverForegroundBrush;
         }

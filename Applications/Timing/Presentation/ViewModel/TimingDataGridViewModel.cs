@@ -35,6 +35,8 @@
         private readonly Stopwatch _refreshGapWatch;
         private Task _pitBoardTask;
         private CancellationTokenSource _cancellationTokenSource;
+        private readonly Dictionary<string, ColorDto> _driverColorMap;
+        private readonly Stopwatch _refreshDriverColorMap;
 
         public TimingDataGridViewModel(DriverPresentationsManager driverPresentationsManager, DisplaySettingsViewModel displaySettingsViewModel, IClassColorProvider classColorProvider )
         {
@@ -47,6 +49,8 @@
             DriversViewModels = new ObservableCollection<DriverTimingViewModel>();
             PitBoardViewModel = new PitBoardViewModel();
             PitBoardViewModel.PitBoard.Lap = "L0";
+            _driverColorMap = new Dictionary<string, ColorDto>();
+            _refreshDriverColorMap = Stopwatch.StartNew();
 
         }
 
@@ -76,6 +80,17 @@
                     }
                 }
                 DriversViewModels.ForEach(x => x.RefreshProperties());
+
+                if (_refreshDriverColorMap.ElapsedMilliseconds > 5000)
+                {
+                    lock (_driverColorMap)
+                    {
+                        DriversViewModels.ForEach(x => _driverColorMap[x.Name] = x.HasCustomOutline ? x.OutLineColor : null);
+                    }
+
+                    _refreshDriverColorMap.Restart();
+                }
+
                 if (_refreshGapWatch.ElapsedMilliseconds < 500)
                 {
                     return;
@@ -181,7 +196,7 @@
             _pitBoardTask = PitBoardViewModel.ShowPitBoard(TimeSpan.FromSeconds(_displaySettingsViewModel.PitBoardSettingsViewModel.DisplaySeconds), _cancellationTokenSource.Token);
         }
 
-        private void RemoveAllDrivers()
+        /*private void RemoveAllDrivers()
         {
             if (!Application.Current.Dispatcher.CheckAccess())
             {
@@ -194,7 +209,7 @@
                 _driverNameTimingMap.Clear();
                 DriversViewModels.Clear();
             };
-        }
+        }*/
 
         public void AddDriver(DriverTiming driver)
         {
@@ -231,18 +246,26 @@
 
             lock (_lockObject)
             {
-                IEnumerable<DriverTiming> driversToRemove = _driverNameTimingMap.Values.Where(x => drivers.FirstOrDefault(y => y.Name == x.Name) == null).ToList();
-                IEnumerable<DriverTiming> driversToAdd = drivers.Where(x => !_driverNameTimingMap.ContainsKey(x.Name)).ToList();
-                IEnumerable<DriverTiming> driversToRebind = drivers.Where(x => _driverNameTimingMap.ContainsKey(x.Name)).ToList();
-
-                driversToRemove.ForEach(RemoveDriver);
-                AddDrivers(driversToAdd);
+                List<DriverTiming> driversToRemove = _driverNameTimingMap.Values.Where(x => drivers.FirstOrDefault(y => y.Name == x.Name) == null).ToList();
+                List<DriverTiming> driversToAdd = drivers.Where(x => !_driverNameTimingMap.ContainsKey(x.Name)).ToList();
+                List<DriverTiming> driversToRebind = drivers.Where(x => _driverNameTimingMap.ContainsKey(x.Name)).ToList();
 
                 foreach (DriverTiming driverToRebind in driversToRebind)
                 {
                     _driverNameTimingMap[driverToRebind.Name] = driverToRebind;
                     RebindViewModel(DriversViewModels.First(x => x.Name == driverToRebind.Name), driverToRebind);
                 }
+
+                int i = 0;
+                for (i = 0; i < driversToAdd.Count && i < driversToRemove.Count; i++)
+                {
+                    _driverNameTimingMap.Remove(driversToRemove[i].Name);
+                    _driverNameTimingMap.Add(driversToAdd[i].Name, driversToAdd[i]);
+                    RebindViewModel(DriversViewModels.First(x => x.Name == driversToRemove[i].Name), driversToAdd[i]);
+                }
+
+                driversToRemove.Skip(i).ForEach(RemoveDriver);
+                AddDrivers(driversToAdd.Skip(i));
             }
         }
 
@@ -365,14 +388,11 @@
                 outlineColor = null;
                 return false;
             }
-            DriverTimingViewModel viewModel;
-            lock (DriversViewModels)
-            {
-                viewModel = DriversViewModels.FirstOrDefault(x => x.Name == driverInfo.DriverName);
-            }
 
-            outlineColor = viewModel?.OutLineColor;
-            return viewModel?.HasCustomOutline ?? false;
+            lock (_driverColorMap)
+            {
+                return _driverColorMap.TryGetValue(driverInfo.DriverName, out outlineColor);
+            }
         }
 
         public ColorDto GetClassColor(IDriverInfo driverInfo)

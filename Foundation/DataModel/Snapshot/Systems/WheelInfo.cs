@@ -13,40 +13,40 @@
         public WheelInfo()
         {
             BrakeTemperature = new OptimalQuantity<Temperature>()
-                                   {
-                                       IdealQuantity = Temperature.FromCelsius(350),
-                                       IdealQuantityWindow = Temperature.FromCelsius(200),
-                                       ActualQuantity = Temperature.Zero
-                                   };
+            {
+                IdealQuantity = Temperature.FromCelsius(350),
+                IdealQuantityWindow = Temperature.FromCelsius(200),
+                ActualQuantity = Temperature.Zero
+            };
             TyrePressure = new OptimalQuantity<Pressure>()
-                               {
-                                   IdealQuantity = Pressure.Zero,
-                                   IdealQuantityWindow = Pressure.Zero,
-                                   ActualQuantity = Pressure.Zero
-                               };
+            {
+                IdealQuantity = Pressure.Zero,
+                IdealQuantityWindow = Pressure.Zero,
+                ActualQuantity = Pressure.Zero
+            };
             LeftTyreTemp = new OptimalQuantity<Temperature>()
-                               {
-                                   IdealQuantity = OptimalTemperature,
-                                   IdealQuantityWindow = OptimalTemperatureWindow
-                               };
+            {
+                IdealQuantity = Temperature.FromCelsius(OptimalTemperature.InCelsius),
+                IdealQuantityWindow = Temperature.FromCelsius(OptimalTemperatureWindow.InCelsius),
+            };
             RightTyreTemp = new OptimalQuantity<Temperature>()
-                                 {
-                                     IdealQuantity = OptimalTemperature,
-                                     IdealQuantityWindow = OptimalTemperatureWindow
-                                 };
+            {
+                IdealQuantity = Temperature.FromCelsius(OptimalTemperature.InCelsius),
+                IdealQuantityWindow = Temperature.FromCelsius(OptimalTemperatureWindow.InCelsius),
+            };
             CenterTyreTemp = new OptimalQuantity<Temperature>()
-                                 {
-                                     IdealQuantity = OptimalTemperature,
-                                     IdealQuantityWindow = OptimalTemperatureWindow
-                                 };
+            {
+                IdealQuantity = Temperature.FromCelsius(OptimalTemperature.InCelsius),
+                IdealQuantityWindow = Temperature.FromCelsius(OptimalTemperatureWindow.InCelsius),
+            };
 
             TyreCoreTemperature = new OptimalQuantity<Temperature>()
-                                 {
-                                     IdealQuantity = OptimalTemperature,
-                                     IdealQuantityWindow = OptimalTemperatureWindow
-                                 };
+            {
+                IdealQuantity = Temperature.FromCelsius(OptimalTemperature.InCelsius),
+                IdealQuantityWindow = Temperature.FromCelsius(OptimalTemperatureWindow.InCelsius),
+            };
 
-            TyreWear = new TyreWear(){ActualWear = 0.0, NoWearWearLimit = 0.03, LightWearLimit = 0.25, HeavyWearLimit = 0.7};
+            TyreWear = new TyreWear() {ActualWear = 0.0, NoWearWearLimit = 0.03, LightWearLimit = 0.25, HeavyWearLimit = 0.7};
             TyreType = string.Empty;
             RideHeight = Distance.FromMeters(0);
             SuspensionTravel = Distance.FromMeters(0);

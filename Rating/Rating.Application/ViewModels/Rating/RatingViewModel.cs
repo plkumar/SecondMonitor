@@ -56,7 +56,7 @@
             _rating = model.Rating;
             _difficulty = model.Difficulty;
             RefreshMainRating();
-            SecondaryRating = $"{model.Deviation}-{model.Volatility:F2}";
+            SecondaryRating = $"{model.Deviation}";
         }
 
         public override DriversRating SaveToNewModel()

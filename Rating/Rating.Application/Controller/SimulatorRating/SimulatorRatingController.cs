@@ -255,6 +255,7 @@
             }
 
             driversRating.Deviation = (int) newDeviation;
+            driversRating.Volatility = 0.06;
             return driversRating;
         }
 
