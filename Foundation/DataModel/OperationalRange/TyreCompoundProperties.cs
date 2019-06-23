@@ -27,13 +27,25 @@
         [XmlAttribute]
         public double HeavyWearLimit { get; set; }
 
-        public Pressure IdealPressure { get; set; }
+        [XmlElement(ElementName = "IdealPressure")]
+        public Pressure FrontIdealPressure { get; set; }
 
-        public Pressure IdealPressureWindow { get; set; }
+        [XmlElement(ElementName = "IdealPressureWindow")]
+        public Pressure FrontIdealPressureWindow { get; set; }
 
-        public Temperature IdealTemperature { get; set; }
+        public Pressure RearIdealPressure { get; set; }
 
-        public Temperature IdealTemperatureWindow { get; set; }
+        public Pressure RearIdealPressureWindow { get; set; }
+
+        [XmlElement(ElementName = "IdealTemperature")]
+        public Temperature FrontIdealTemperature { get; set; }
+
+        [XmlElement(ElementName = "IdealTemperatureWindow")]
+        public Temperature FrontIdealTemperatureWindow { get; set; }
+
+        public Temperature RearIdealTemperature { get; set; }
+
+        public Temperature RearIdealTemperatureWindow { get; set; }
 
     }
 }

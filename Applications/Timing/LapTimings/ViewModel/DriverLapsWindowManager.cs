@@ -40,6 +40,10 @@
 
         private void OpenWindow(DriverTiming driverTiming, Window ownerWindow )
         {
+            if (driverTiming == null)
+            {
+                return;
+            }
             DriverLapsWindow lapsWindow = new DriverLapsWindow()
                                               {
                                                   Owner = ownerWindow,

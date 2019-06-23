@@ -21,6 +21,10 @@ namespace SecondMonitor.SimdataManagement.ViewModel
         private Temperature _maximumIdealTyreTemperature;
 
         private bool _isGlobalCompound;
+        private Temperature _rearMinimalIdealTyreTemperature;
+        private Temperature _rearMaximumIdealTyreTemperature;
+        private Pressure _rearMinimalIdealTyrePressure;
+        private Pressure _rearMaximumIdealTyrePressure;
 
         public bool IsGlobalCompound
         {
@@ -42,7 +46,7 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             }
         }
 
-        public Pressure MinimalIdealTyrePressure
+        public Pressure FrontMinimalIdealTyrePressure
         {
             get => _minimumIdealTyrePressure;
             set
@@ -52,7 +56,7 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             }
         }
 
-        public Pressure MaximumIdealTyrePressure
+        public Pressure FrontMaximumIdealTyrePressure
         {
             get => _maximumIdealTyrePressure;
             set
@@ -60,6 +64,30 @@ namespace SecondMonitor.SimdataManagement.ViewModel
                 _maximumIdealTyrePressure = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public Temperature RearMinimalIdealTyreTemperature
+        {
+            get => _rearMinimalIdealTyreTemperature;
+            set => SetProperty(ref _rearMinimalIdealTyreTemperature, value);
+        }
+
+        public Temperature RearMaximumIdealTyreTemperature
+        {
+            get => _rearMaximumIdealTyreTemperature;
+            set => SetProperty(ref _rearMaximumIdealTyreTemperature, value);
+        }
+
+        public Pressure RearMinimalIdealTyrePressure
+        {
+            get => _rearMinimalIdealTyrePressure;
+            set => SetProperty(ref _rearMinimalIdealTyrePressure, value);
+        }
+
+        public Pressure RearMaximumIdealTyrePressure
+        {
+            get => _rearMaximumIdealTyrePressure;
+            set => SetProperty(ref _rearMaximumIdealTyrePressure, value);
         }
 
         public double NoWearLimit
@@ -80,7 +108,7 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             set => SetValue(HeavyWearLimitProperty, value);
         }
 
-        public Temperature MinimalIdealTyreTemperature
+        public Temperature FrontMinimalIdealTyreTemperature
         {
             get => _minimumIdealTyreTemperature;
             set
@@ -90,7 +118,7 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             }
         }
 
-        public Temperature MaximumIdealTyreTemperature
+        public Temperature FrontMaximumIdealTyreTemperature
         {
             get => _maximumIdealTyreTemperature;
             set
@@ -107,11 +135,17 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             LowWearLimit = model.LowWearLimit * 100.0;
             HeavyWearLimit = model.HeavyWearLimit * 100.0;
 
-            MinimalIdealTyrePressure = Pressure.FromKiloPascals(model.IdealPressure.InKpa - model.IdealPressureWindow.InKpa);
-            MaximumIdealTyrePressure = Pressure.FromKiloPascals(model.IdealPressure.InKpa + model.IdealPressureWindow.InKpa);
+            FrontMinimalIdealTyrePressure = Pressure.FromKiloPascals(model.FrontIdealPressure.InKpa - model.FrontIdealPressureWindow.InKpa);
+            FrontMaximumIdealTyrePressure = Pressure.FromKiloPascals(model.FrontIdealPressure.InKpa + model.FrontIdealPressureWindow.InKpa);
 
-            MinimalIdealTyreTemperature = Temperature.FromCelsius(model.IdealTemperature.InCelsius - model.IdealTemperatureWindow.InCelsius);
-            MaximumIdealTyreTemperature = Temperature.FromCelsius(model.IdealTemperature.InCelsius + model.IdealTemperatureWindow.InCelsius);
+            FrontMinimalIdealTyreTemperature = Temperature.FromCelsius(model.FrontIdealTemperature.InCelsius - model.FrontIdealTemperatureWindow.InCelsius);
+            FrontMaximumIdealTyreTemperature = Temperature.FromCelsius(model.FrontIdealTemperature.InCelsius + model.FrontIdealTemperatureWindow.InCelsius);
+
+            RearMinimalIdealTyrePressure = Pressure.FromKiloPascals(model.RearIdealPressure.InKpa - model.RearIdealPressureWindow.InKpa);
+            RearMaximumIdealTyrePressure = Pressure.FromKiloPascals(model.RearIdealPressure.InKpa + model.RearIdealPressureWindow.InKpa);
+
+            RearMinimalIdealTyreTemperature = Temperature.FromCelsius(model.RearIdealTemperature.InCelsius - model.RearIdealTemperatureWindow.InCelsius);
+            RearMaximumIdealTyreTemperature = Temperature.FromCelsius(model.RearIdealTemperature.InCelsius + model.RearIdealTemperatureWindow.InCelsius);
         }
 
         public override TyreCompoundProperties SaveToNewModel()
@@ -122,12 +156,16 @@ namespace SecondMonitor.SimdataManagement.ViewModel
                            LowWearLimit =  LowWearLimit / 100.0,
                            NoWearLimit = NoWearLimit / 100.0,
                            HeavyWearLimit = HeavyWearLimit / 100.0,
-                           IdealPressure = Pressure.FromKiloPascals((MinimalIdealTyrePressure.InKpa + MaximumIdealTyrePressure.InKpa) * 0.5),
-                           IdealPressureWindow = Pressure.FromKiloPascals((MaximumIdealTyrePressure.InKpa - MinimalIdealTyrePressure.InKpa) * 0.5),
+                           FrontIdealPressure = Pressure.FromKiloPascals((FrontMinimalIdealTyrePressure.InKpa + FrontMaximumIdealTyrePressure.InKpa) * 0.5),
+                           FrontIdealPressureWindow = Pressure.FromKiloPascals((FrontMaximumIdealTyrePressure.InKpa - FrontMinimalIdealTyrePressure.InKpa) * 0.5),
+                           FrontIdealTemperature = Temperature.FromCelsius((FrontMinimalIdealTyreTemperature.InCelsius + FrontMaximumIdealTyreTemperature.InCelsius) * 0.5),
+                           FrontIdealTemperatureWindow = Temperature.FromCelsius((FrontMaximumIdealTyreTemperature.InCelsius - FrontMinimalIdealTyreTemperature.InCelsius) * 0.5),
 
-                           IdealTemperature = Temperature.FromCelsius((MinimalIdealTyreTemperature.InCelsius + MaximumIdealTyreTemperature.InCelsius) * 0.5),
-                           IdealTemperatureWindow = Temperature.FromCelsius((MaximumIdealTyreTemperature.InCelsius - MinimalIdealTyreTemperature.InCelsius) * 0.5),
-                        };
+                           RearIdealPressure = Pressure.FromKiloPascals((RearMinimalIdealTyrePressure.InKpa + RearMaximumIdealTyrePressure.InKpa) * 0.5),
+                           RearIdealPressureWindow = Pressure.FromKiloPascals((RearMaximumIdealTyrePressure.InKpa - RearMinimalIdealTyrePressure.InKpa) * 0.5),
+                           RearIdealTemperature = Temperature.FromCelsius((RearMinimalIdealTyreTemperature.InCelsius + RearMaximumIdealTyreTemperature.InCelsius) * 0.5),
+                           RearIdealTemperatureWindow = Temperature.FromCelsius((RearMaximumIdealTyreTemperature.InCelsius - RearMinimalIdealTyreTemperature.InCelsius) * 0.5),
+            };
         }
     }
 }

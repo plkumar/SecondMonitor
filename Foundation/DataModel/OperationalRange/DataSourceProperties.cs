@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using BasicProperties;
     using Extensions;
 
     [Serializable]
@@ -18,6 +18,7 @@
         public List<TyreCompoundProperties> TyreCompoundsProperties { get; set; }
         public List<CarModelProperties> CarModelsProperties { get; set; }
         public string SourceName { get; set; }
+        public bool ContainsRearTyres { get; set; }
 
         public void OverrideWith(DataSourceProperties overridingProperties)
         {
@@ -58,6 +59,26 @@
         public void AddTyreCompound(TyreCompoundProperties newCompound)
         {
             TyreCompoundsProperties.Add(newCompound);
+        }
+
+        public void MigrateUp()
+        {
+            if (!ContainsRearTyres)
+            {
+                foreach (var tyreCompound in TyreCompoundsProperties.Concat(CarModelsProperties.SelectMany(x => x.TyreCompoundsProperties)))
+                {
+                    tyreCompound.RearIdealPressure = Pressure.FromKiloPascals(tyreCompound.FrontIdealPressure.InKpa);
+                    tyreCompound.RearIdealPressureWindow = Pressure.FromKiloPascals(tyreCompound.FrontIdealPressureWindow.InKpa);
+
+                    if (tyreCompound.FrontIdealTemperature == null)
+                    {
+                        continue;
+                    }
+                    tyreCompound.RearIdealTemperature = Temperature.FromCelsius(tyreCompound.FrontIdealTemperature.InCelsius);
+                    tyreCompound.RearIdealTemperatureWindow = Temperature.FromCelsius(tyreCompound.FrontIdealTemperatureWindow.InCelsius);
+                }
+                ContainsRearTyres = true;
+            }
         }
     }
 }

@@ -35,7 +35,8 @@
             DataSourceProperties acProperties = new DataSourceProperties()
             {
                 CarModelsProperties = carModelsProperties,
-                SourceName = "AC_DEFAULT"
+                SourceName = "AC_DEFAULT",
+                ContainsRearTyres = true
             };
             var xmlSerializer = new XmlSerializer(typeof(DataSourceProperties));
             var fileName = Path.Combine(folder, "AcTyreProperties.xml");

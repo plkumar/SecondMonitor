@@ -7,11 +7,17 @@
         string CompoundName { get; set; }
         bool IsGlobalCompound { get; }
 
-        Temperature MinimalIdealTyreTemperature { get; set; }
-        Temperature MaximumIdealTyreTemperature { get; set; }
+        Temperature FrontMinimalIdealTyreTemperature { get; set; }
+        Temperature FrontMaximumIdealTyreTemperature { get; set; }
 
-        Pressure MinimalIdealTyrePressure { get; set; }
-        Pressure MaximumIdealTyrePressure { get; set; }
+        Pressure FrontMinimalIdealTyrePressure { get; set; }
+        Pressure FrontMaximumIdealTyrePressure { get; set; }
+
+        Temperature RearMinimalIdealTyreTemperature { get; set; }
+        Temperature RearMaximumIdealTyreTemperature { get; set; }
+
+        Pressure RearMinimalIdealTyrePressure { get; set; }
+        Pressure RearMaximumIdealTyrePressure { get; set; }
 
         double NoWearLimit { get; set; }
         double LowWearLimit { get; set; }

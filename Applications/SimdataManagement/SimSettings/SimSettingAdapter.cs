@@ -78,14 +78,16 @@
 
         private void ApplyCarMode(SimulatorDataSet simulatorDataSet, CarModelProperties carModel)
         {
+            Wheels wheels = simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo;
             simulatorDataSet.InputInfo.WheelAngle = ((carModel.WheelRotation) / 2.0) * simulatorDataSet.InputInfo.SteeringInput;
-            ApplyWheelProperty(simulatorDataSet, simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.FrontLeft, carModel);
-            ApplyWheelProperty(simulatorDataSet, simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.FrontRight, carModel);
-            ApplyWheelProperty(simulatorDataSet, simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.RearLeft, carModel);
-            ApplyWheelProperty(simulatorDataSet, simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.RearRight, carModel);
+            TyreCompoundProperties tyreCompound = GetTyreCompound(simulatorDataSet, wheels.FrontLeft, wheels.RearLeft, carModel);
+            ApplyWheelProperty(wheels.FrontLeft, true, carModel, tyreCompound);
+            ApplyWheelProperty(wheels.FrontRight, true, carModel, tyreCompound);
+            ApplyWheelProperty(wheels.RearLeft, false, carModel, tyreCompound);
+            ApplyWheelProperty(wheels.RearRight, false, carModel, tyreCompound);
         }
 
-        private void ApplyWheelProperty(SimulatorDataSet simulatorDataSet, WheelInfo wheelInfo, CarModelProperties carModel)
+        private void ApplyWheelProperty(WheelInfo wheelInfo, bool isFront, CarModelProperties carModel, TyreCompoundProperties tyreCompound)
         {
             wheelInfo.BrakeTemperature.IdealQuantity.InCelsius = carModel.OptimalBrakeTemperature.InCelsius;
             wheelInfo.BrakeTemperature.IdealQuantityWindow.InCelsius = carModel.OptimalBrakeTemperatureWindow.InCelsius;
@@ -95,31 +97,29 @@
                 return;
             }
 
-            TyreCompoundProperties tyreCompound = GetTyreCompound(simulatorDataSet, wheelInfo, carModel);
+            wheelInfo.TyrePressure.IdealQuantity.InKpa = isFront ? tyreCompound.FrontIdealPressure.InKpa : tyreCompound.RearIdealPressure.InKpa;
+            wheelInfo.TyrePressure.IdealQuantityWindow.InKpa = isFront ? tyreCompound.FrontIdealPressureWindow.InKpa : tyreCompound.RearIdealPressureWindow.InKpa;
 
-            wheelInfo.TyrePressure.IdealQuantity.InKpa = tyreCompound.IdealPressure.InKpa;
-            wheelInfo.TyrePressure.IdealQuantityWindow.InKpa = tyreCompound.IdealPressureWindow.InKpa;
+            wheelInfo.LeftTyreTemp.IdealQuantity.InCelsius = isFront ? tyreCompound.FrontIdealTemperature.InCelsius : tyreCompound.RearIdealTemperature.InCelsius;
+            wheelInfo.LeftTyreTemp.IdealQuantityWindow.InCelsius = isFront ? tyreCompound.FrontIdealTemperatureWindow.InCelsius : tyreCompound.RearIdealTemperatureWindow.InCelsius;
 
-            wheelInfo.LeftTyreTemp.IdealQuantity.InCelsius = tyreCompound.IdealTemperature.InCelsius;
-            wheelInfo.LeftTyreTemp.IdealQuantityWindow.InCelsius = tyreCompound.IdealTemperatureWindow.InCelsius;
+            wheelInfo.RightTyreTemp.IdealQuantity.InCelsius = isFront ? tyreCompound.FrontIdealTemperature.InCelsius : tyreCompound.RearIdealTemperature.InCelsius;
+            wheelInfo.RightTyreTemp.IdealQuantityWindow.InCelsius = isFront ? tyreCompound.FrontIdealTemperatureWindow.InCelsius : tyreCompound.RearIdealTemperatureWindow.InCelsius;
 
-            wheelInfo.RightTyreTemp.IdealQuantity.InCelsius = tyreCompound.IdealTemperature.InCelsius;
-            wheelInfo.RightTyreTemp.IdealQuantityWindow.InCelsius = tyreCompound.IdealTemperatureWindow.InCelsius;
+            wheelInfo.CenterTyreTemp.IdealQuantity.InCelsius = isFront ? tyreCompound.FrontIdealTemperature.InCelsius : tyreCompound.RearIdealTemperature.InCelsius;
+            wheelInfo.CenterTyreTemp.IdealQuantityWindow.InCelsius = isFront ? tyreCompound.FrontIdealTemperatureWindow.InCelsius : tyreCompound.RearIdealTemperatureWindow.InCelsius;
 
-            wheelInfo.CenterTyreTemp.IdealQuantity.InCelsius = tyreCompound.IdealTemperature.InCelsius;
-            wheelInfo.CenterTyreTemp.IdealQuantityWindow.InCelsius = tyreCompound.IdealTemperatureWindow.InCelsius;
-
-            wheelInfo.TyreCoreTemperature.IdealQuantity.InCelsius = tyreCompound.IdealTemperature.InCelsius;
-            wheelInfo.TyreCoreTemperature.IdealQuantityWindow.InCelsius = tyreCompound.IdealTemperatureWindow.InCelsius;
+            wheelInfo.TyreCoreTemperature.IdealQuantity.InCelsius = isFront ? tyreCompound.FrontIdealTemperature.InCelsius : tyreCompound.RearIdealTemperature.InCelsius;
+            wheelInfo.TyreCoreTemperature.IdealQuantityWindow.InCelsius = isFront ? tyreCompound.FrontIdealTemperatureWindow.InCelsius : tyreCompound.RearIdealTemperatureWindow.InCelsius;
 
             wheelInfo.TyreWear.NoWearWearLimit = tyreCompound.NoWearLimit;
             wheelInfo.TyreWear.LightWearLimit = tyreCompound.LowWearLimit;
             wheelInfo.TyreWear.HeavyWearLimit = tyreCompound.HeavyWearLimit;
         }
 
-        private TyreCompoundProperties GetTyreCompound(SimulatorDataSet simulatorDataSet, WheelInfo wheelInfo, CarModelProperties carModel)
+        private TyreCompoundProperties GetTyreCompound(SimulatorDataSet simulatorDataSet, WheelInfo frontWheel, WheelInfo rearWheel, CarModelProperties carModel)
         {
-            string compoundName = wheelInfo.TyreType;
+            string compoundName = frontWheel.TyreType;
             if (_lastCompound.Key == compoundName)
             {
                 return _lastCompound.Value;
@@ -138,7 +138,7 @@
             tyreCompound = _dataSourceProperties.GetTyreCompound(compoundName);
             if (tyreCompound == null)
             {
-                tyreCompound = CreateTyreCompound(wheelInfo);
+                tyreCompound = CreateTyreCompound(frontWheel, rearWheel);
                 if (simulatorDataSet.SimulatorSourceInfo.GlobalTyreCompounds)
                 {
                     _dataSourceProperties.AddTyreCompound(tyreCompound);
@@ -168,6 +168,7 @@
 
             if (carModelProperties == null || carModelProperties.OriginalContainsOptimalTemperature != simulatorDataSet.SimulatorSourceInfo.TelemetryInfo.ContainsOptimalTemperatures)
             {
+                _dataSourceProperties.CarModelsProperties.RemoveAll(x => x.Name == carName);
                 carModelProperties = CreateNewCarModelProperties(carName, simulatorDataSet);
             }
 
@@ -183,18 +184,24 @@
             return newCarModelProperties;
         }
 
-        private TyreCompoundProperties CreateTyreCompound(WheelInfo wheel)
+        private TyreCompoundProperties CreateTyreCompound(WheelInfo frontWheel, WheelInfo rearWheel)
         {
-            TyreCompoundProperties tyreCompound = new TyreCompoundProperties() { CompoundName = wheel.TyreType };
-            tyreCompound.IdealPressure = wheel.TyrePressure.IdealQuantity;
-            tyreCompound.IdealPressureWindow = wheel.TyrePressure.IdealQuantityWindow;
+            TyreCompoundProperties tyreCompound = new TyreCompoundProperties() { CompoundName = frontWheel.TyreType };
+            tyreCompound.FrontIdealPressure = frontWheel.TyrePressure.IdealQuantity;
+            tyreCompound.FrontIdealPressureWindow = frontWheel.TyrePressure.IdealQuantityWindow;
 
-            tyreCompound.IdealTemperature = wheel.CenterTyreTemp.IdealQuantity;
-            tyreCompound.IdealTemperatureWindow = wheel.CenterTyreTemp.IdealQuantityWindow;
+            tyreCompound.RearIdealPressure = rearWheel.TyrePressure.IdealQuantity;
+            tyreCompound.RearIdealPressureWindow = rearWheel.TyrePressure.IdealQuantityWindow;
 
-            tyreCompound.NoWearLimit = wheel.TyreWear.NoWearWearLimit;
-            tyreCompound.LowWearLimit = wheel.TyreWear.LightWearLimit;
-            tyreCompound.HeavyWearLimit = wheel.TyreWear.HeavyWearLimit;
+            tyreCompound.RearIdealTemperature = rearWheel.CenterTyreTemp.IdealQuantity;
+            tyreCompound.RearIdealTemperatureWindow = rearWheel.CenterTyreTemp.IdealQuantityWindow;
+
+            tyreCompound.FrontIdealTemperature = frontWheel.CenterTyreTemp.IdealQuantity;
+            tyreCompound.FrontIdealTemperatureWindow = frontWheel.CenterTyreTemp.IdealQuantityWindow;
+
+            tyreCompound.NoWearLimit = frontWheel.TyreWear.NoWearWearLimit;
+            tyreCompound.LowWearLimit = frontWheel.TyreWear.LightWearLimit;
+            tyreCompound.HeavyWearLimit = frontWheel.TyreWear.HeavyWearLimit;
 
             return tyreCompound;
         }

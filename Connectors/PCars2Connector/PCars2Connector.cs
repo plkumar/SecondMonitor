@@ -8,12 +8,14 @@ namespace SecondMonitor.PCars2Connector
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataConvertor;
+    using NLog;
     using SharedMemory;
     using PluginManager.GameConnector;
     using SecondMonitor.PluginManager.GameConnector.SharedMemory;
 
     public class PCars2Connector : AbstractGameConnector
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static readonly string[] PCars2Executables = { "pCARS2", "pCARS2AVX" };
         private static readonly string SharedMemoryName = "$pcars2$";
 
@@ -135,6 +137,7 @@ namespace SecondMonitor.PCars2Connector
         {
             if (_lastRawPCars2SessionType != (PCars2SessionType)rawData.mSessionState || _lastSessionType != dataSet.SessionInfo.SessionType)
             {
+                Logger.Info($"Session doesn match, last packet session: {_lastSessionType}, current session: {dataSet.SessionInfo.SessionType} ");
                 _lastSessionType = dataSet.SessionInfo.SessionType;
                 _lastRawPCars2SessionType = (PCars2SessionType)rawData.mSessionState;
                 return true;

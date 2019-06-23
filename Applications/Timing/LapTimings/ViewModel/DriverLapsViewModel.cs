@@ -91,6 +91,10 @@
 
         private void BuildLapsViewModel()
         {
+            if (_driverTiming == null)
+            {
+                return;
+            }
             foreach (var lap in _driverTiming.Laps)
             {
                 if (Laps.Any() && Laps.Last().LapNumber == lap.LapNumber)

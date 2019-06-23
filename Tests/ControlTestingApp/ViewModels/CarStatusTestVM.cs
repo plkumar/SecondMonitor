@@ -25,7 +25,7 @@
             TyreCoreRawTemperature = 50;
             BrakeRawTemperature = 200;
             _copyCompoundCommand = new RelayCommandWithCondition(CopyCompound, () => SelectedTyreSettingsViewModel?.IsGlobalCompound ?? false);
-            _tyres = new ObservableCollection<ITyreSettingsViewModel>() { new TestTyreViewModel("Compound 1"), new TestTyreViewModel("Compound 2") { IsGlobalCompound = true, MinimalIdealTyreTemperature = Temperature.FromCelsius(120) }, new TestTyreViewModel("Compound 3") };
+            _tyres = new ObservableCollection<ITyreSettingsViewModel>() { new TestTyreViewModel("Compound 1"), new TestTyreViewModel("Compound 2") { IsGlobalCompound = true, FrontMinimalIdealTyreTemperature = Temperature.FromCelsius(120) }, new TestTyreViewModel("Compound 3") };
             SelectedTyreSettingsViewModel = _tyres.First();
         }
 
@@ -84,10 +84,10 @@
         {
             TestTyreViewModel newViewModel = new TestTyreViewModel(SelectedTyreSettingsViewModel.CompoundName)
                                                  {
-                                                     IsGlobalCompound = false, MinimalIdealTyreTemperature = Temperature.FromCelsius(SelectedTyreSettingsViewModel.MinimalIdealTyreTemperature.InCelsius),
-                                                     MaximumIdealTyreTemperature = Temperature.FromCelsius(SelectedTyreSettingsViewModel.MaximumIdealTyreTemperature.InCelsius),
-                                                     MinimalIdealTyrePressure = Pressure.FromKiloPascals(SelectedTyreSettingsViewModel.MinimalIdealTyrePressure.InKpa),
-                                                     MaximumIdealTyrePressure = Pressure.FromKiloPascals(SelectedTyreSettingsViewModel.MaximumIdealTyrePressure.InKpa)
+                                                     IsGlobalCompound = false, FrontMinimalIdealTyreTemperature = Temperature.FromCelsius(SelectedTyreSettingsViewModel.FrontMinimalIdealTyreTemperature.InCelsius),
+                                                     FrontMaximumIdealTyreTemperature = Temperature.FromCelsius(SelectedTyreSettingsViewModel.FrontMaximumIdealTyreTemperature.InCelsius),
+                                                     FrontMinimalIdealTyrePressure = Pressure.FromKiloPascals(SelectedTyreSettingsViewModel.FrontMinimalIdealTyrePressure.InKpa),
+                                                     FrontMaximumIdealTyrePressure = Pressure.FromKiloPascals(SelectedTyreSettingsViewModel.FrontMaximumIdealTyrePressure.InKpa)
                                                  };
             Tyres.Add(newViewModel);
             ITyreSettingsViewModel previouslySelected = SelectedTyreSettingsViewModel;
@@ -171,11 +171,11 @@
             public TestTyreViewModel(string name)
             {
                 CompoundName = name;
-                MinimalIdealTyreTemperature = Temperature.FromCelsius(80);
-                MaximumIdealTyreTemperature = Temperature.FromCelsius(20);
+                FrontMinimalIdealTyreTemperature = Temperature.FromCelsius(80);
+                FrontMaximumIdealTyreTemperature = Temperature.FromCelsius(20);
 
-                MinimalIdealTyrePressure = Pressure.FromKiloPascals(120);
-                MaximumIdealTyrePressure = Pressure.FromKiloPascals(10);
+                FrontMinimalIdealTyrePressure = Pressure.FromKiloPascals(120);
+                FrontMaximumIdealTyrePressure = Pressure.FromKiloPascals(10);
                 NoWearLimit = 10;
                 LowWearLimit = 25;
                 HeavyWearLimit = 70;
@@ -185,13 +185,17 @@
 
             public bool IsGlobalCompound { get; internal set; }
 
-            public Temperature MinimalIdealTyreTemperature { get; set; }
+            public Temperature FrontMinimalIdealTyreTemperature { get; set; }
 
-            public Temperature MaximumIdealTyreTemperature { get; set; }
+            public Temperature FrontMaximumIdealTyreTemperature { get; set; }
 
-            public Pressure MinimalIdealTyrePressure { get; set; }
+            public Pressure FrontMinimalIdealTyrePressure { get; set; }
 
-            public Pressure MaximumIdealTyrePressure { get; set; }
+            public Pressure FrontMaximumIdealTyrePressure { get; set; }
+            public Temperature RearMinimalIdealTyreTemperature { get; set; }
+            public Temperature RearMaximumIdealTyreTemperature { get; set; }
+            public Pressure RearMinimalIdealTyrePressure { get; set; }
+            public Pressure RearMaximumIdealTyrePressure { get; set; }
             public double NoWearLimit { get; set; }
             public double LowWearLimit { get; set; }
             public double HeavyWearLimit { get; set; }

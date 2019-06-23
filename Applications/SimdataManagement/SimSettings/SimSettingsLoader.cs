@@ -5,6 +5,7 @@ namespace SecondMonitor.SimdataManagement.SimSettings
 {
     using DataModel.OperationalRange;
     using System.IO;
+    using System.Linq;
     using System.Xml.Serialization;
 
     public class SimSettingsLoader
@@ -24,7 +25,7 @@ namespace SecondMonitor.SimdataManagement.SimSettings
         public DataSourceProperties GetDataSourcePropertiesAsync(string sourceName)
         {
             string primaryFilePath = System.IO.Path.Combine(Path, sourceName + FileSuffix);
-            DataSourceProperties baseProperties = File.Exists(primaryFilePath) ? LoadDataSourceProperties(primaryFilePath) : new DataSourceProperties() { SourceName = sourceName };
+            DataSourceProperties baseProperties = File.Exists(primaryFilePath) ? LoadDataSourceProperties(primaryFilePath) : new DataSourceProperties() { SourceName = sourceName, ContainsRearTyres = true};
             return baseProperties;
         }
 
@@ -48,6 +49,7 @@ namespace SecondMonitor.SimdataManagement.SimSettings
 
                     XmlReader reader = XmlReader.Create(file, new XmlReaderSettings() { CheckCharacters = false });
                     var foo = (DataSourceProperties)_xmlSerializer.Deserialize(reader);
+                    foo.MigrateUp();
                     return foo;
                 }
 

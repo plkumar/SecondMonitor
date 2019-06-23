@@ -23,7 +23,7 @@
                                     </Border>
                                 </TabItem.Header>
                                 <Grid Background="{StaticResource Anthracite01Brush}" MinWidth="300">
-                                    <ListBox Background="{StaticResource Anthracite01Brush}" ItemsSource="{Binding HistogramChartNames}" SelectedItem="{Binding SelectedHistogramChartName}" Grid.IsSharedSizeScope="True">
+                                    <ListBox Background="{StaticResource Anthracite01Brush}" ItemsSource="{Binding HistogramChartNames}" MaxHeight="600" SelectedItem="{Binding SelectedHistogramChartName}" Grid.IsSharedSizeScope="True">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Background="{StaticResource Anthracite01Brush}" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -54,7 +54,7 @@
                                     </Grid>
                                 </TabItem.Header>
                                 <Grid Background="{StaticResource Anthracite01Brush}">
-                                    <ListBox Background="{StaticResource Anthracite01Brush}" ItemsSource="{Binding ScatterPlotChartNames}" SelectedItem="{Binding SelectedScatterPlotChartName}" MinWidth="300" Grid.IsSharedSizeScope="True">
+                                    <ListBox Background="{StaticResource Anthracite01Brush}" ItemsSource="{Binding ScatterPlotChartNames}" MaxHeight="600" SelectedItem="{Binding SelectedScatterPlotChartName}" MinWidth="300" Grid.IsSharedSizeScope="True">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Background="{StaticResource Anthracite01Brush}" Margin="10">

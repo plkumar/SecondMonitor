@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Windows.Media;
     using DataModel.BasicProperties;
 
     using NLog;
@@ -457,10 +458,7 @@
             Name = DriverTiming.Name;
             HasCustomOutline = _driverPresentationsManager.IsCustomOutlineEnabled(Name);
             IsClassIndicationEnabled = DriverTiming.Session?.LastSet?.SessionInfo?.IsMultiClass == true;
-            if (_driverPresentationsManager.TryGetOutLineColor(Name, out ColorDto color))
-            {
-                OutLineColor = color;
-            }
+            OutLineColor = _driverPresentationsManager.TryGetOutLineColor(Name, out ColorDto color) ? color : null;
         }
 
         private string FormatSectorTiming(SectorTiming sectorTiming)

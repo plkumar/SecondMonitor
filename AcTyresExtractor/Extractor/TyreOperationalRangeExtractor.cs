@@ -43,15 +43,19 @@
             List<TyreCompoundProperties> compounds = new List<TyreCompoundProperties>();
 
             int i = 0;
-            string sectionName = i > 0 ? $"FRONT_{i}" : "FRONT";
+            string sectionNameFront = i > 0 ? $"FRONT_{i}" : "FRONT";
+            string sectionNameRear = i > 0 ? $"REAR_{i}" : "REAR";
 
-            while (data.Sections.ContainsSection(sectionName))
+            while (data.Sections.ContainsSection(sectionNameFront))
             {
-                var sectionData = data.Sections.GetSectionData(sectionName);
-                var temperatureData = data.Sections.GetSectionData("THERMAL_" + sectionName);
-                compounds.Add(CreateTyreCompoundProperties(sectionData, temperatureData));
+                var sectionData = data.Sections.GetSectionData(sectionNameFront);
+                var sectionRearData = data.Sections.GetSectionData(sectionNameRear);
+                var tyreThermalDataFront = data.Sections.GetSectionData("THERMAL_" + sectionNameFront);
+                var tyreThermalDataRear = data.Sections.GetSectionData("THERMAL_" + sectionNameFront);
+                compounds.Add(CreateTyreCompoundProperties(sectionData, tyreThermalDataFront, sectionRearData, tyreThermalDataRear));
                 i++;
-                sectionName = i > 0 ? $"FRONT_{i}" : "FRONT";
+                sectionNameFront = i > 0 ? $"FRONT_{i}" : "FRONT";
+                sectionNameRear = i > 0 ? $"REAR_{i}" : "REAR";
             }
 
             return compounds;
@@ -70,36 +74,58 @@
             return curveRaw.Select(x => x.Split('|')).Where(x => x.Length == 2).Select(x => new KeyValuePair<double, double>(double.Parse(x[0]), double.Parse(x[1]))).OrderBy(x => x.Key).ToList();
         }
 
-        private TyreCompoundProperties CreateTyreCompoundProperties(SectionData tyreSectionData, SectionData tyreThermalData)
+        private TyreCompoundProperties CreateTyreCompoundProperties(SectionData tyreSectionDataFront, SectionData tyreThermalDataFront, SectionData tyreSectionDataRear, SectionData tyreThermalDataRear)
         {
             TyreCompoundProperties newCompoundProperties = new TyreCompoundProperties();
-            string shortName = tyreSectionData.Keys.ContainsKey("SHORT_NAME") ? tyreSectionData.Keys.GetKeyData("SHORT_NAME").Value : string.Empty;
-            newCompoundProperties.CompoundName = Trim($"{tyreSectionData.Keys.GetKeyData("NAME").Value}");
+            string shortName = tyreSectionDataFront.Keys.ContainsKey("SHORT_NAME") ? tyreSectionDataFront.Keys.GetKeyData("SHORT_NAME").Value : string.Empty;
+            newCompoundProperties.CompoundName = Trim($"{tyreSectionDataFront.Keys.GetKeyData("NAME").Value}");
             if (!string.IsNullOrEmpty(shortName))
             {
                 newCompoundProperties.CompoundName += $" ({shortName})";
             }
-            newCompoundProperties.IdealPressureWindow = Pressure.FromKiloPascals(10);
-            newCompoundProperties.IdealPressure = ExtractPressureFromKeyData(tyreSectionData.Keys.GetKeyData("PRESSURE_IDEAL"));
-            var temperatureCurve = GetTemperatureCurve(tyreThermalData.Keys.GetKeyData("PERFORMANCE_CURVE").Value);
+            newCompoundProperties.FrontIdealPressureWindow = Pressure.FromKiloPascals(10);
+            newCompoundProperties.FrontIdealPressure = ExtractPressureFromKeyData(tyreSectionDataFront.Keys.GetKeyData("PRESSURE_IDEAL"));
 
+            newCompoundProperties.RearIdealPressureWindow = Pressure.FromKiloPascals(10);
+            newCompoundProperties.RearIdealPressure = ExtractPressureFromKeyData(tyreSectionDataRear.Keys.GetKeyData("PRESSURE_IDEAL"));
+
+            var temperatureCurveFront = GetTemperatureCurve(tyreThermalDataFront.Keys.GetKeyData("PERFORMANCE_CURVE").Value);
+            var temperatureCurveRear = GetTemperatureCurve(tyreThermalDataRear.Keys.GetKeyData("PERFORMANCE_CURVE").Value);
+
+            (Temperature idealTemperature, Temperature window) temperatureRange = GetTemperatureProperties(temperatureCurveFront);
+            if (temperatureRange.idealTemperature != null &&temperatureRange.window != null)
+            {
+                newCompoundProperties.FrontIdealTemperature = temperatureRange.idealTemperature;
+                newCompoundProperties.FrontIdealTemperatureWindow = temperatureRange.window;
+            }
+
+            temperatureRange = GetTemperatureProperties(temperatureCurveRear );
+            if (temperatureRange.idealTemperature != null && temperatureRange.window != null)
+            {
+                newCompoundProperties.RearIdealTemperature = temperatureRange.idealTemperature;
+                newCompoundProperties.RearIdealTemperatureWindow = temperatureRange.window;
+            }
+
+            return newCompoundProperties;
+        }
+
+        private (Temperature idealTemperature, Temperature window) GetTemperatureProperties(List<KeyValuePair<double, double>> temperatureCurve)
+        {
             if (temperatureCurve.Count < 2)
             {
-                return newCompoundProperties;
+                return (null, null);
             }
 
             double minimalTemperature = temperatureCurve.FirstOrDefault(x => x.Value == 1).Key;
 
             if (minimalTemperature == 0)
             {
-                return newCompoundProperties;
+                return (null, null);
             }
 
             double maximumTemperature = temperatureCurve.Last(x => x.Value == 1).Key;
-            double window = ( maximumTemperature - minimalTemperature) /2;
-            newCompoundProperties.IdealTemperature = Temperature.FromCelsius(minimalTemperature + window);
-            newCompoundProperties.IdealTemperatureWindow = Temperature.FromCelsius(window);
-            return newCompoundProperties;
+            double window = (maximumTemperature - minimalTemperature) / 2;
+            return (Temperature.FromCelsius(minimalTemperature + window), Temperature.FromCelsius(window));
         }
 
         private Pressure ExtractPressureFromKeyData(KeyData pressureData)

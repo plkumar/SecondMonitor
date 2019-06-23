@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application.Controller.RaceObserver.States
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Context;
     using DataModel.BasicProperties;
@@ -12,9 +13,11 @@
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private bool _sessionCompleted;
+        private readonly Stopwatch _timeoutStopwatch;
         public QualificationState(SharedContext sharedContext) : base(sharedContext)
         {
             _sessionCompleted = false;
+            _timeoutStopwatch = new Stopwatch();
         }
 
         public override SessionKind SessionKind { get; protected set; } = SessionKind.Qualification;
@@ -27,6 +30,21 @@
         {
             SharedContext.QualificationContext = new QualificationContext() { QualificationDifficulty = SharedContext.UserSelectedDifficulty };
             SessionDescription = SharedContext.QualificationContext.QualificationDifficulty.ToString();
+        }
+
+        public override bool DoDataLoaded(SimulatorDataSet simulatorDataSet)
+        {
+            if (simulatorDataSet.SessionInfo.SessionType == SessionType.Race && !_timeoutStopwatch.IsRunning)
+            {
+                _timeoutStopwatch.Start();
+                return false;
+            }
+            if (simulatorDataSet.SessionInfo.SessionType == SessionType.Race && !_sessionCompleted && _timeoutStopwatch.ElapsedMilliseconds < 5000)
+            {
+                return false;
+            }
+
+            return base.DoDataLoaded(simulatorDataSet);
         }
 
         public override bool DoSessionCompletion(SessionSummary sessionSummary)
