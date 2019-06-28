@@ -1,10 +1,11 @@
 ﻿namespace SecondMonitor.DataModel.Snapshot.Systems
 {
     using System;
-    using System.Collections.Generic;
     using System.Xml.Serialization;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Wheels
     {
         public Wheels()
@@ -18,12 +19,16 @@
         [XmlIgnore]
         public WheelInfo[] AllWheels => new WheelInfo[] { FrontLeft, FrontRight, RearLeft, RearRight };
 
+        [ProtoMember(1)]
         public WheelInfo FrontLeft { get; set; }
 
+        [ProtoMember(2)]
         public WheelInfo FrontRight { get; set; }
 
+        [ProtoMember(3)]
         public WheelInfo RearLeft { get; set; }
 
+        [ProtoMember(4)]
         public WheelInfo RearRight { get; set; }
     }
 }

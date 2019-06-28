@@ -3,7 +3,10 @@ using Newtonsoft.Json;
 
 namespace SecondMonitor.DataModel.BasicProperties
 {
+    using ProtoBuf;
+
     [Serializable]
+    [ProtoContract]
     public class Force : IQuantity
     {
         public Force()
@@ -18,6 +21,7 @@ namespace SecondMonitor.DataModel.BasicProperties
             InNewtons = inNewtons;
         }
 
+        [ProtoMember(1, IsRequired = true)]
         public double InNewtons { get; set; }
 
         [JsonIgnore]

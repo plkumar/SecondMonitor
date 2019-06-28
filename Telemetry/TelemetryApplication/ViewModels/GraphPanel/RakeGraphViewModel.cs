@@ -9,11 +9,10 @@
     public class RakeGraphViewModel : AbstractSingleSeriesGraphViewModel
     {
         private double _maxRake;
-        private double _minRake;
+
         public RakeGraphViewModel(IEnumerable<ISingleSeriesDataExtractor> dataExtractors) : base(dataExtractors)
         {
             _maxRake = 0;
-            _minRake = double.MaxValue;
         }
 
         public override string Title => "Rake";

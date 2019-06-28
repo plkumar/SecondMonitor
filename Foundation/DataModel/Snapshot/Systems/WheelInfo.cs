@@ -3,8 +3,10 @@
     using System;
     using System.Xml.Serialization;
     using BasicProperties;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class WheelInfo
     {
         private static readonly Temperature OptimalTemperature = Temperature.FromCelsius(85);
@@ -55,38 +57,53 @@
             TyreLoad = new Force();
         }
 
+        [ProtoMember(1)]
         public double Rps { get; set; } //Currently in Radians / s
 
+        [ProtoMember(2)]
         public Distance SuspensionTravel { get; set; }
 
+        [ProtoMember(3)]
         public Distance RideHeight { get; set; }
 
+        [ProtoMember(4)]
         public OptimalQuantity<Temperature> BrakeTemperature { get; set; }
 
+        [ProtoMember(5)]
         public OptimalQuantity<Pressure> TyrePressure { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(6)]
         public string TyreType { get; set; }
 
-
+        [ProtoMember(7)]
         public TyreWear TyreWear { get; set; }
 
+        [ProtoMember(8)]
         public bool Detached { get; set; }
 
+        [ProtoMember(9)]
         public double DirtLevel { get; set; } = 0;
 
+        [ProtoMember(10)]
         public OptimalQuantity<Temperature> LeftTyreTemp { get; set; }
 
+        [ProtoMember(11)]
         public OptimalQuantity<Temperature> RightTyreTemp{ get; set; }
 
+        [ProtoMember(12)]
         public OptimalQuantity<Temperature> CenterTyreTemp { get; set; }
 
+        [ProtoMember(13)]
         public OptimalQuantity<Temperature> TyreCoreTemperature { get; set; }
 
+        [ProtoMember(14)]
         public Velocity SuspensionVelocity { get; set; }
 
+        [ProtoMember(15)]
         public Angle Camber { get; set; }
 
+        [ProtoMember(16)]
         public Force TyreLoad { get; set; }
 
     }

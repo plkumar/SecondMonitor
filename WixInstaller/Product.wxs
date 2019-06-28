@@ -175,6 +175,10 @@
         <File Id="f4b0392c949134aeea6b9e652433c3678" KeyPath="yes" Source="..\Deployment\Rating.Presentation.dll" />
       </Component>
 
+      <Component Id="c2f8051749a9347ee89f1c2a9a3a925ea" Directory="APPLICATIONROOTDIRECTORY" Guid="80d6f6e5-a73d-441b-bb9b-cf49107e8d27">
+        <File Id="f2f8051749a9347ee89f1c2a9a3a925ea" KeyPath="yes" Source="..\Deployment\protobuf-net.dll" />
+      </Component>
+
 
       <Component Id="cmp44450B3EA8BEA00A3085509BFE17EA56" Directory="dirF09AC222E5E846B669ECCC3285BC0D7B" Guid="62ae6c28-044b-4029-a248-9b04ee5b0abf">
         <File Id="filCD83CF2407F23ADF1015E2352A06DD75" KeyPath="yes" Source="..\Deployment\Connectors\Pcars\Newtonsoft.Json.dll" />

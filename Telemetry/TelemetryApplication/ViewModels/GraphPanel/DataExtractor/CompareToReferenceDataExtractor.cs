@@ -14,8 +14,6 @@
 
     public class CompareToReferenceDataExtractor : ISingleSeriesDataExtractor
     {
-
-        private static int counter = 0;
         private readonly ITelemetryViewsSynchronization _telemetryViewsSynchronization;
         private readonly TelemetryStoryBoardFactory _telemetryStoryBoardFactory;
         private readonly ILoadedLapsCache _loadedLapsCache;
@@ -26,7 +24,6 @@
 
         public CompareToReferenceDataExtractor(ITelemetryViewsSynchronization telemetryViewsSynchronization, TelemetryStoryBoardFactory telemetryStoryBoardFactory, ILoadedLapsCache loadedLapsCache)
         {
-            counter++;
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
             _telemetryStoryBoardFactory = telemetryStoryBoardFactory;
             _loadedLapsCache = loadedLapsCache;
@@ -106,8 +103,6 @@
 
         public void Dispose()
         {
-            counter--;
-            Console.WriteLine($"Counter {counter}");
             UnSubscribe();
             _loadedTelemetries.Clear();
         }

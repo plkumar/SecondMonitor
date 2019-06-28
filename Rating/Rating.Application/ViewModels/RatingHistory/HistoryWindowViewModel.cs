@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.ViewModels.RatingHistory
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Common.DataModel;
@@ -9,24 +10,31 @@
     public class HistoryWindowViewModel : AbstractViewModel<Ratings>, IHistoryWindowViewModel
     {
         private readonly IViewModelFactory _viewModelFactory;
+        private ICollection<IRaceHistoriesViewModel> _simulatorHistories;
 
         public HistoryWindowViewModel(IViewModelFactory viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
             SimulatorHistories = new ObservableCollection<IRaceHistoriesViewModel>();
         }
-        public ObservableCollection<IRaceHistoriesViewModel> SimulatorHistories { get; set; }
+        public ICollection<IRaceHistoriesViewModel> SimulatorHistories
+        {
+            get => _simulatorHistories;
+            set => SetProperty(ref _simulatorHistories, value);
+        }
 
         protected override void ApplyModel(Ratings model)
         {
-            SimulatorHistories.Clear();
+            List<IRaceHistoriesViewModel> newRaceHistoriesViewModels = new List<IRaceHistoriesViewModel>();
             foreach (SimulatorRating modelSimulatorsRating in model.SimulatorsRatings.OrderBy(x => x.SimulatorName))
             {
                 IRaceHistoriesViewModel newHistoryViewModel = _viewModelFactory.Create<IRaceHistoriesViewModel>();
                 newHistoryViewModel.FromModel(modelSimulatorsRating.Results);
                 newHistoryViewModel.Title = modelSimulatorsRating.SimulatorName;
-                SimulatorHistories.Add(newHistoryViewModel);
+                newRaceHistoriesViewModels.Add(newHistoryViewModel);
             }
+
+            SimulatorHistories = newRaceHistoriesViewModels;
         }
 
         public override Ratings SaveToNewModel()

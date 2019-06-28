@@ -12,7 +12,7 @@
             TelemetryStoryboard telemetryStoryboard = new TelemetryStoryboard(lapTelemetryDto.LapSummary);
             List<TelemetryFrame> telemetryFrames = new List<TelemetryFrame>();
             TelemetryFrame previousFrame = null;
-            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.TimedTelemetrySnapshots.OrderBy(x => x.LapTimeSeconds))
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.DataPoints.OrderBy(x => x.LapTimeSeconds))
             {
                 TelemetryFrame currentFrame = new TelemetryFrame(timedTelemetrySnapshot, telemetryStoryboard) {PreviousFrame = previousFrame};
                 if (previousFrame == null)

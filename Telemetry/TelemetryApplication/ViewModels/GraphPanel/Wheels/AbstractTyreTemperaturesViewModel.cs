@@ -114,7 +114,7 @@
             GraphViewSynchronization.TyreTempVisibilityChanged -= GraphViewSynchronization_TyreTempVisibilityChanged;
         }
 
-        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color)
+        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, List<TimedTelemetrySnapshot> dataPoints, OxyColor color)
         {
             LineSeries[] lineSeries = new LineSeries[4];
 

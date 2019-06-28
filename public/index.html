@@ -4,6 +4,16 @@
 	<title></title>
 </head>
 <body>
+<h2>Version 5.4.0</h2>
+<b>Main Application:</b>
+<ul>	
+	<li><b>Rating Fix:</b> Rating should be more robust in detecting erroneous session switches from telemetry.</li>
+	<li><b>Fix:</b> Drivers outlining settings will no longer get cleared when the application gets closed without connecting to any simulator.</li>
+</ul>
+<b>Telemetry:</b>
+<ul>	
+	<li><b>Reworked serialization: </b>Serialization now uses protobuf-net. This should bring significant loading times improvements (should be instant on most tracks). Old telemetry files will still work, and will be migrated to the new format during first load.</li>	
+</ul>
 <h2>Version 5.3.0</h2>
 <b>Main Application:</b>
 <ul>

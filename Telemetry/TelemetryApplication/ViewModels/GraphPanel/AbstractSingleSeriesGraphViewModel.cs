@@ -34,7 +34,7 @@
             }
         }
 
-        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color)
+        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, List<TimedTelemetrySnapshot> dataPoints, OxyColor color)
         {
             if (!_selectedDataExtractor.ShowLapGraph(lapSummary))
             {

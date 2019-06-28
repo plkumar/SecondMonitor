@@ -19,7 +19,6 @@
                                 <Grid>
                                 <TextBlock Text="{Binding Title}"></TextBlock>
                                 </Grid>
-
                             </DataTemplate>
                         </TabControl.ItemTemplate>
                     </TabControl>

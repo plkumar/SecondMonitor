@@ -2,8 +2,10 @@
 {
     using System;
     using System.Xml.Serialization;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Distance : IQuantity
     {
 
@@ -21,9 +23,10 @@
         }
 
         [XmlIgnore]
-        public static Distance ZeroDistance { get; } = new Distance(0, true);
+        public static Distance ZeroDistance => new Distance(0, true);
 
         [XmlAttribute]
+        [ProtoMember(1, IsRequired = true)]
         public double InMeters { get; set; }
 
         [XmlIgnore]

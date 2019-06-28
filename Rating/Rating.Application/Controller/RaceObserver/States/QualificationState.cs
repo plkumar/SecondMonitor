@@ -49,6 +49,12 @@
 
         public override bool DoSessionCompletion(SessionSummary sessionSummary)
         {
+            if (ElapsedStateTime.TotalSeconds < 20)
+            {
+                Logger.Info("Session time too short.");
+                return false;
+            }
+
             if (_sessionCompleted)
             {
                 Logger.Info("Session already completed");
@@ -72,6 +78,13 @@
             }
 
             Logger.Info("Seesion is acceptable to be used by rating calculations.");
+            if (SharedContext.QualificationContext == null)
+            {
+                SharedContext.QualificationContext = new QualificationContext()
+                {
+                    QualificationDifficulty = SharedContext.UserSelectedDifficulty
+                };
+            }
             SharedContext.QualificationContext.LastQualificationResult = eligibleDrivers;
             _sessionCompleted = true;
             return false;

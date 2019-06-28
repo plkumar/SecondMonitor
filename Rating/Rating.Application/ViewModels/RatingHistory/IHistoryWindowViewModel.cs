@@ -1,11 +1,11 @@
 ﻿namespace SecondMonitor.Rating.Application.ViewModels.RatingHistory
 {
-    using System.Collections.ObjectModel;
+    using System.Collections.Generic;
     using Common.DataModel;
     using SecondMonitor.ViewModels;
 
     public interface IHistoryWindowViewModel : IViewModel<Ratings>
     {
-        ObservableCollection<IRaceHistoriesViewModel> SimulatorHistories { get; set; }
+        ICollection<IRaceHistoriesViewModel> SimulatorHistories { get; set; }
     }
 }

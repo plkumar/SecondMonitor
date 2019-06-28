@@ -3,7 +3,9 @@
     using System;
     using System.Xml.Serialization;
     using Drivers;
+    using ProtoBuf;
 
+    [ProtoContract]
     [Serializable]
     public sealed class SimulatorSourceInfo
     {
@@ -58,6 +60,7 @@
         [XmlAttribute]
         public GapInformationKind GapInformationProvided { get; set; }
 
+        [ProtoMember(1)]
         public TelemetryInfo TelemetryInfo { get; set; }
     }
 }

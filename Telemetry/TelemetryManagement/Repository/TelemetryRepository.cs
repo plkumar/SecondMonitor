@@ -12,11 +12,13 @@
     using DataModel.Extensions;
     using DTO;
     using NLog;
+    using ProtoBuf;
 
     public class TelemetryRepository : ITelemetryRepository
     {
         private const string SessionInfoFile = "_Session.xml";
-        private const string FileSuffix = ".Lap";
+        private const string FileOldSuffix = ".Lap";
+        private const string FileSuffix = ".pLap";
         private const string RecentDir = "Recent";
         private const string ArchiveDir = "Archive";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -161,13 +163,48 @@
 
         public LapTelemetryDto LoadLapTelemetryDto(FileInfo file)
         {
+            file = CheckForMigration(file);
             Logger.Info($"Loading from file: {file.Name}");
-
-            using (FileStream fileStream = File.Open(file.FullName, FileMode.Open))
+            using (var fileProtoBuf = File.OpenRead(file.FullName))
             {
-                //return xmlSerializer.Deserialize(file) as LapTelemetryDto;
+                var dto = Serializer.Deserialize<LapTelemetryDto>(fileProtoBuf);
+                return dto;
+            }
+        }
+
+        private FileInfo CheckForMigration(FileInfo file)
+        {
+            if (file.FullName.EndsWith(FileOldSuffix))
+            {
+                FileInfo newFileName = new FileInfo($"{file.FullName.Replace(FileOldSuffix, "")}{FileSuffix}");
+                MigrateToProtobuff(file,newFileName);
+                return newFileName;
+            }
+
+            if (!File.Exists(file.FullName))
+            {
+                FileInfo oldFileName = new FileInfo($"{file.FullName.Replace(FileSuffix, "")}{FileOldSuffix}");
+                if (File.Exists(oldFileName.FullName))
+                {
+                    MigrateToProtobuff(oldFileName, file);
+                    return file;
+                }
+            }
+
+            return file;
+        }
+
+        private void MigrateToProtobuff(FileSystemInfo oldFile, FileSystemInfo newFile)
+        {
+            using (FileStream fileStream = File.Open(oldFile.FullName, FileMode.Open))
+            {
                 BinaryFormatter bf = new BinaryFormatter();
-                return (LapTelemetryDto)bf.Deserialize(fileStream);
+                LapTelemetryDto dto = (LapTelemetryDto) bf.Deserialize(fileStream);
+                dto.MigrateToProtoBuf();
+                using (var fileProtoBuf = File.Create(newFile.FullName))
+                {
+                    Serializer.Serialize(fileProtoBuf, dto);
+                }
             }
         }
 
@@ -214,10 +251,9 @@
                 xmlSerializer.Serialize(file, lapTelemetryDto);
             }*/
 
-            using (FileStream file = File.Exists(path) ? File.Open(path, FileMode.Truncate) : File.Create(path))
+            using (var fileProtoBuf = File.Create(path))
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(file, lapTelemetryDto);
+                Serializer.Serialize(fileProtoBuf, lapTelemetryDto);
             }
         }
 

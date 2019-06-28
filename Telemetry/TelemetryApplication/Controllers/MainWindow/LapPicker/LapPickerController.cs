@@ -122,7 +122,10 @@
             }
 
             LapSummaryDto bestLap = _loadedLaps.Where(x => x.LapTime != TimeSpan.Zero). OrderBy(x => x.LapTime).FirstOrDefault();
-            _lapSelectionViewModel.BestLap = $"{bestLap?.CustomDisplayName} - {bestLap.LapTime.FormatToDefault()}";
+            if (bestLap != null)
+            {
+                _lapSelectionViewModel.BestLap = $"{bestLap?.CustomDisplayName} - {bestLap.LapTime.FormatToDefault()}";
+            }
 
             LapSummaryDto bestSector1Lap = _loadedLaps.Where(x => x.Sector1Time > TimeSpan.Zero).OrderBy(x => x.Sector1Time).FirstOrDefault();
             _lapSelectionViewModel.BestSector1 = bestSector1Lap?.Sector1Time > TimeSpan.Zero ? $"{bestSector1Lap.CustomDisplayName} - {bestSector1Lap.Sector1Time.FormatToDefault()}" : string.Empty;
@@ -157,7 +160,7 @@
 
         private async Task AddCustomLap()
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog {DefaultExt = ".lap", Filter = "Lap Files (*.lap)|*.lap"};
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog {DefaultExt = ".lap; .plap", Filter = "Lap Files (*.lap, *.plap)|*.lap; *.plap" };
             bool? result = dlg.ShowDialog();
             if (result == false)
             {

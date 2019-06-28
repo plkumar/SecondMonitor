@@ -15,13 +15,13 @@
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Title}" />
-                    <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="True" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding RaceResults}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
+                    <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="False" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding RaceResults, IsAsync=True}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding CreationTime, Converter={StaticResource DateTimeToCurrentConverter} }" Foreground="{StaticResource LightGrey01Brush}"/>
-                            <DataGridTextColumn Header="Class" Binding="{Binding ClassName }" Foreground="{StaticResource LightGrey01Brush}"/>
-                            <DataGridTextColumn Header="Car" Binding="{Binding CarName }" Foreground="{StaticResource LightGrey01Brush}"/>
-                            <DataGridTextColumn Header="Track" Binding="{Binding TrackName }" Foreground="{StaticResource LightGrey01Brush}"/>
-                            <DataGridTextColumn Header="Sim Rating" Binding="{Binding SimRatingAfterRace }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding CreationTime, Converter={StaticResource DateTimeToCurrentConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Class" Binding="{Binding ClassName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Car" Binding="{Binding CarName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Track" Binding="{Binding TrackName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Sim Rating" Binding="{Binding SimRatingAfterRace, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
                             <DataGridTemplateColumn Header="Sim Rating Δ">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type ratingHistory:RaceResultViewModel}">

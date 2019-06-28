@@ -24,7 +24,7 @@
 
         public ScatterPlotSeries ExtractSeries(IEnumerable<LapTelemetryDto> loadedLaps, IReadOnlyCollection<ITelemetryFilter> filters, string seriesTitle, OxyColor color)
         {
-            TimedTelemetrySnapshot[] timedTelemetrySnapshots = loadedLaps.SelectMany(x => x.TimedTelemetrySnapshots).Where(x => filters.All(y => y.Accepts(x))).ToArray();
+            TimedTelemetrySnapshot[] timedTelemetrySnapshots = loadedLaps.SelectMany(x => x.DataPoints).Where(x => filters.All(y => y.Accepts(x))).ToArray();
 
             if (timedTelemetrySnapshots.Length == 0)
             {

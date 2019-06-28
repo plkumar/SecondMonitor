@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application.Controller.RaceObserver.States
 {
     using System;
+    using System.Diagnostics;
     using Common.DataModel.Player;
     using Common.Factories;
     using Context;
@@ -12,11 +13,15 @@
 
     public abstract class AbstractSessionTypeState : IRaceState
     {
+        private Stopwatch _stateStopwatch;
         protected AbstractSessionTypeState(SharedContext sharedContext)
         {
             SharedContext = sharedContext;
             SessionDescription = string.Empty;
+            _stateStopwatch = Stopwatch.StartNew();
         }
+
+        public TimeSpan ElapsedStateTime => _stateStopwatch.Elapsed;
 
         public abstract SessionKind SessionKind { get; protected set; }
         public abstract SessionPhaseKind SessionPhaseKind { get; protected set; }

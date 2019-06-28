@@ -36,14 +36,14 @@
 
         protected TimedValue[] ExtractTimedValuesOfLoadedLaps(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractionFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters)
         {
-            IEnumerable<TimedValue> timedValues = loadedLaps.SelectMany(x => ExtractTimedValues(x.TimedTelemetrySnapshots, extractionFunc, filters));
+            IEnumerable<TimedValue> timedValues = loadedLaps.SelectMany(x => ExtractTimedValues(x.DataPoints, extractionFunc, filters));
             return timedValues.ToArray();
         }
 
-        private static List<TimedValue> ExtractTimedValues(TimedTelemetrySnapshot[] snapshots, Func<TimedTelemetrySnapshot, double> extractDataFunc, IReadOnlyCollection<ITelemetryFilter> filters)
+        private static List<TimedValue> ExtractTimedValues(List<TimedTelemetrySnapshot> snapshots, Func<TimedTelemetrySnapshot, double> extractDataFunc, IReadOnlyCollection<ITelemetryFilter> filters)
         {
-            List<TimedValue> timedValues = new List<TimedValue>(snapshots.Length);
-            for (int i = 0; i < snapshots.Length - 1; i++)
+            List<TimedValue> timedValues = new List<TimedValue>(snapshots.Count);
+            for (int i = 0; i < snapshots.Count - 1; i++)
             {
                 TimedTelemetrySnapshot firstSnapshot = snapshots[i];
                 TimedTelemetrySnapshot secondSnapshot = snapshots[i + 1];

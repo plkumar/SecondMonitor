@@ -59,7 +59,7 @@
 
         }*/
 
-        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color)
+        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, List<TimedTelemetrySnapshot> dataPoints, OxyColor color)
         {
             LineSeries[] lineSeries = new LineSeries[2];
             string baseTitle = $"Lap {lapSummary.CustomDisplayName}";

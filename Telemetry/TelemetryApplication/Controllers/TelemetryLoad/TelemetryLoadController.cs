@@ -10,7 +10,6 @@
     using NLog;
     using Repository;
     using SecondMonitor.ViewModels.Settings;
-    using Settings;
     using Synchronization;
     using TelemetryManagement.DTO;
     using TelemetryManagement.Repository;
@@ -151,21 +150,27 @@
             try
             {
                 AddToActiveLapJob();
-                if (!_cachedTelemetries.TryGetValue(lapSummaryDto.Id, out LapTelemetryDto lapTelemetryDto))
-                {
-                    lapTelemetryDto = await Task.Run(() => _telemetryRepository.LoadLapTelemetryDtoFromAnySession(lapSummaryDto));
-                    FillCustomDisplayName(lapTelemetryDto.LapSummary);
-                    _cachedTelemetries[lapTelemetryDto.LapSummary.Id] = lapTelemetryDto;
-                }
+                LapTelemetryDto lapTelemetryDto = null;
+                await Task.Run(() => lapTelemetryDto = _cachedTelemetries.GetOrAdd(lapSummaryDto.Id, LoadLapTelemetryDto, lapSummaryDto));
                 _telemetryViewsSynchronization.NotifyLapLoaded(lapTelemetryDto);
-                RemoveFromActiveLapJob();
                 return lapTelemetryDto;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex,"Error while loading lap telemetry");
+                Logger.Error(ex, "Error while loading lap telemetry");
                 return null;
             }
+            finally
+            {
+                RemoveFromActiveLapJob();
+            }
+        }
+
+        private LapTelemetryDto LoadLapTelemetryDto(string lapId, LapSummaryDto lapSummaryDto)
+        {
+            LapTelemetryDto lapTelemetryDto = _telemetryRepository.LoadLapTelemetryDtoFromAnySession(lapSummaryDto);
+            FillCustomDisplayName(lapTelemetryDto.LapSummary);
+            return lapTelemetryDto;
         }
 
         public async Task<LapTelemetryDto> LoadLap(FileInfo file, string customDisplayName)
@@ -179,14 +184,18 @@
                     lapTelemetryDto.LapSummary.CustomDisplayName = customDisplayName;
                     _cachedTelemetries[lapTelemetryDto.LapSummary.Id] = lapTelemetryDto;
                 }
+
                 _telemetryViewsSynchronization.NotifyLappAddedToSession(lapTelemetryDto.LapSummary);
-                RemoveFromActiveLapJob();
                 return lapTelemetryDto;
             }
             catch (Exception ex)
             {
                 Logger.Error(ex, "Error while loading lap telemetry");
                 return null;
+            }
+            finally
+            {
+                RemoveFromActiveLapJob();
             }
         }
 

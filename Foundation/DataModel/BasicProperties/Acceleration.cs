@@ -4,8 +4,10 @@
     using System.Xml.Serialization;
 
     using Newtonsoft.Json;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Acceleration
     {
 
@@ -41,12 +43,15 @@
         }
 
         [XmlAttribute]
+        [ProtoMember(1, IsRequired = true)]
         public double XinMs { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(2, IsRequired = true)]
         public double YinMs { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(3, IsRequired = true)]
         public double ZinMs { get; set; }
     }
 }
