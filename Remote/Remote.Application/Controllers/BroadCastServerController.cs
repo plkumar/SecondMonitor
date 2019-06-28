@@ -3,7 +3,6 @@ using SecondMonitor.Remote.Common.Adapter;
 
 namespace SecondMonitor.Remote.Application.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;

@@ -79,9 +79,9 @@
                         DefaultPlayerDeviation = 350,
                         DefaultPlayerVolatility = 0.06,
                         MinimumRating = 100,
-                        AiTimeDifferencePerLevel = 1,
+                        AiTimeDifferencePerLevel = 0.5,
                         AiRatingNoise = 25,
-                        QuickRaceAiRatingForPlace = 10,
+                        QuickRaceAiRatingForPlace = 20,
                     }
                 }
             };

@@ -4,8 +4,10 @@
     using System.Xml.Serialization;
 
     using Newtonsoft.Json;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Pressure : IQuantity
     {
         private static readonly Pressure _zero = new Pressure();
@@ -25,6 +27,7 @@
         public static Pressure Zero => new Pressure();
 
         [XmlAttribute]
+        [ProtoMember(1, IsRequired = true)]
         public double InKpa { get; set; }
 
         [JsonIgnore]

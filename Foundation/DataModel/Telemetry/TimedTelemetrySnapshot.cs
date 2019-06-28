@@ -7,8 +7,10 @@ namespace SecondMonitor.DataModel.Telemetry
     using System.Diagnostics;
     using System.Xml.Serialization;
     using BasicProperties;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     [DebuggerDisplay("Lap time: {LapTime}")]
     public class TimedTelemetrySnapshot : TelemetrySnapshot
     {
@@ -26,6 +28,7 @@ namespace SecondMonitor.DataModel.Telemetry
         public TimeSpan LapTime { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(1, IsRequired = true)]
         public double LapTimeSeconds
         {
             get => LapTime.TotalSeconds;

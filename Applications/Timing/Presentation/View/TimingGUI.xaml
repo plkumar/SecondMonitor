@@ -114,7 +114,7 @@
                     <TextBlock Style="{StaticResource StandardText}" Text="{Binding NotUniqueNamesMessage}" HorizontalAlignment="Center"></TextBlock>
                 </Grid>
                 <timingGridControl:TimingGrid Grid.Row="1" x:Name="DtTimig" EnableColumnVirtualization="False" EnableRowVirtualization="False"
-                                              ItemsSource="{Binding TimingDataGridViewModel.DriversViewModels}" ScrollViewer.CanContentScroll="True"
+                                              ItemsSource="{Binding TimingDataGridViewModel.DriversViewModels, IsAsync=True}" ScrollViewer.CanContentScroll="True"
                                               SelectedItem="{Binding SelectedDriverTimingViewModel}" MinColumnWidth="5">
                     <timingGridControl:TimingGrid.InputBindings>
                         <MouseBinding Command="{Binding DataContext.RightClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Gesture="RightClick" />

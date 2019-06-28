@@ -3,7 +3,10 @@ using Newtonsoft.Json;
 
 namespace SecondMonitor.DataModel.BasicProperties
 {
+    using ProtoBuf;
+
     [Serializable]
+    [ProtoContract]
     public class Angle : IQuantity
     {
         public Angle()
@@ -17,7 +20,8 @@ namespace SecondMonitor.DataModel.BasicProperties
             InDegrees = inDegrees;
             IsZero = false;
         }
-        
+
+        [ProtoMember(1, IsRequired = true)]
         public double InDegrees { get; set; }
 
         [JsonIgnore]

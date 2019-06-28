@@ -1,8 +1,10 @@
 ﻿namespace SecondMonitor.DataModel.BasicProperties
 {
     using System;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Point3D
     {
         public Point3D()
@@ -17,10 +19,13 @@
             Z = z;
         }
 
+        [ProtoMember(1)]
         public Distance X { get; set; }
 
+        [ProtoMember(2)]
         public Distance Y { get; set; }
 
+        [ProtoMember(3)]
         public Distance Z { get; set; }
 
         public Distance GetDistance(Point3D p2)

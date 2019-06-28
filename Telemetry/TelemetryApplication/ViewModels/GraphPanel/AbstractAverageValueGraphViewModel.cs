@@ -8,12 +8,12 @@
 
     public abstract class AbstractAverageValueGraphViewModel : AbstractGraphViewModel
     {
-        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color)
+        protected override List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, List<TimedTelemetrySnapshot> dataPoints, OxyColor color)
         {
             LineSeries newLineSeries = CreateLineSeries($"Lap {lapSummary.CustomDisplayName}", color);
-            List<DataPoint> points = new List<DataPoint>(dataPoints.Length - 1);
+            List<DataPoint> points = new List<DataPoint>(dataPoints.Count);
             DataPoint oldPoint = new DataPoint();
-            for (int i = 0; i < dataPoints.Length - 1; i++)
+            for (int i = 0; i < dataPoints.Count - 1; i++)
             {
                 var dp1 = dataPoints[i];
                 var dp2 = dataPoints[i + 1];

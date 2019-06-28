@@ -4,11 +4,13 @@
     using System.Xml.Serialization;
 
     using Newtonsoft.Json;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Temperature : IQuantity
     {
-        public static Temperature Zero = new Temperature();
+        public static Temperature Zero => new Temperature();
         private bool _isZero;
         private double _inCelsius;
 
@@ -24,6 +26,7 @@
         }
 
         [XmlAttribute]
+        [ProtoMember(1, IsRequired = true)]
         public double InCelsius
         {
             get => _inCelsius;

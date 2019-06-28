@@ -2,7 +2,10 @@
 {
     using System;
     using System.Xml.Serialization;
+    using ProtoBuf;
+
     [Serializable]
+    [ProtoContract]
     public class LapSummaryDto
     {
 
@@ -10,15 +13,19 @@
         public string Id => $"{SessionIdentifier}-L{LapNumber}";
 
         [XmlAttribute]
+        [ProtoMember(1)]
         public int LapNumber { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(2)]
         public string Simulator { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(3)]
         public string TrackName { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(4)]
         public string LayoutName { get; set; }
 
         [XmlIgnore]
@@ -34,9 +41,11 @@
         public TimeSpan Sector3Time { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(5)]
         public string SessionIdentifier { get; set; }
 
         [XmlAttribute]
+        [ProtoMember(6, IsRequired = true)]
         public double LapTimeSeconds
         {
             get => LapTime.TotalSeconds;
@@ -44,6 +53,7 @@
         }
 
         [XmlAttribute]
+        [ProtoMember(7, IsRequired = true)]
         public double Sector1TimeSeconds
         {
             get => Sector1Time.TotalSeconds;
@@ -51,6 +61,7 @@
         }
 
         [XmlAttribute]
+        [ProtoMember(8, IsRequired = true)]
         public double Sector2TimeSeconds
         {
             get => Sector2Time.TotalSeconds;
@@ -58,6 +69,7 @@
         }
 
         [XmlAttribute]
+        [ProtoMember(9, IsRequired = true)]
         public double Sector3TimeSeconds
         {
             get => Sector3Time.TotalSeconds;

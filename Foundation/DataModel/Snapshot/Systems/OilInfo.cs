@@ -3,8 +3,10 @@
     using System;
 
     using BasicProperties;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class OilInfo
     {
         public OilInfo()
@@ -18,8 +20,10 @@
             };
         }
 
+        [ProtoMember(1)]
         public OptimalQuantity<Temperature> OptimalOilTemperature { get; set; }
 
+        [ProtoMember(2)]
         public Pressure OilPressure { get; set; }
     }
 }

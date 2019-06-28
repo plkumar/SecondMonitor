@@ -220,7 +220,7 @@
 
         private async Task InitializeGeometryCollection(ILapCustomPathsCollection geometryCollection, LapTelemetryDto lapTelemetry, TrackMapDto trackMapDto)
         {
-            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.TimedTelemetrySnapshots.ToList(), false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
+            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.DataPoints, false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
             Path geometryPath = new Path { Data = Geometry.Parse(baseGeometry), StrokeThickness = 0.5, Stroke = new SolidColorBrush() };
             if (!LapColorSynchronization.TryGetColorForLap(lapTelemetry.LapSummary.Id, out Color color))
             {
@@ -295,10 +295,10 @@
 
             int previousBrakeBand = -1;
             List<TimedTelemetrySnapshot> currentSnapShot = new List<TimedTelemetrySnapshot>();
-            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.TimedTelemetrySnapshots)
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.DataPoints)
             {
                 int currentBrakeBand = ((int)(pedalValueFunc(timedTelemetrySnapshot.InputInfo) * 100)) / PedalStep;
-                if (previousBrakeBand != -1 && previousBrakeBand != currentBrakeBand)
+                if (previousBrakeBand >= 0 && previousBrakeBand != currentBrakeBand)
                 {
                     currentSnapShot.Add(timedTelemetrySnapshot);
                     geometries[previousBrakeBand] += $" {TrackMapFromTelemetryFactory.GetGeometry(currentSnapShot, false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis)}";
@@ -319,7 +319,7 @@
             StringBuilder sb = new StringBuilder();
             List<TimedTelemetrySnapshot> shiftPoints = new List<TimedTelemetrySnapshot>();
             string currentGear = string.Empty;
-            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.TimedTelemetrySnapshots)
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.DataPoints)
             {
                 if (!string.IsNullOrEmpty(currentGear) && currentGear != "N" && currentGear != timedTelemetrySnapshot.PlayerData.CarInfo.CurrentGear)
                 {

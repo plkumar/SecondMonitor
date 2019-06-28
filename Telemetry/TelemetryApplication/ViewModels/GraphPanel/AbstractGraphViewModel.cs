@@ -181,7 +181,7 @@
 
             CheckAndCreateAxis();
 
-            TimedTelemetrySnapshot[] dataPoints = lapTelemetryDto.TimedTelemetrySnapshots.OrderBy(x => x.PlayerData.LapDistance).ToArray();
+            List<TimedTelemetrySnapshot> dataPoints = lapTelemetryDto.DataPoints.OrderBy(x => x.PlayerData.LapDistance).ToList();
             //TimedTelemetrySnapshot[] dataPoints = lapTelemetryDto.TimedTelemetrySnapshots.OrderBy(x => x.PlayerData.LapDistance).WhereWithPrevious(FilterFunction).ToArray();
             List<LineSeries> series = GetLineSeries(lapTelemetryDto.LapSummary, dataPoints, OxyColor.Parse(color.ToString()));
 
@@ -234,7 +234,7 @@
             loadedLaps.ForEach(AddLapTelemetry);
         }
 
-        private void InitializeSectorDistance(TimedTelemetrySnapshot[] dataPoints)
+        private void InitializeSectorDistance(List<TimedTelemetrySnapshot> dataPoints)
         {
             _lapDistanceSector1 = dataPoints.LastOrDefault(x => x.PlayerData.Timing.CurrentSector == 1)?.PlayerData.LapDistance;
             _lapDistanceSector2 = dataPoints.LastOrDefault(x => x.PlayerData.Timing.CurrentSector == 2)?.PlayerData.LapDistance;
@@ -524,7 +524,7 @@
             return color;
         }
 
-        protected abstract List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, TimedTelemetrySnapshot[] dataPoints, OxyColor color);
+        protected abstract List<LineSeries> GetLineSeries(LapSummaryDto lapSummary, List<TimedTelemetrySnapshot> dataPoints, OxyColor color);
 
         protected LineSeries CreateLineSeries(string title, OxyColor color, LineStyle lineStyle = LineStyle.Solid)
         {

@@ -61,11 +61,11 @@
                 LapTelemetryDto lapTelemetryDto = new LapTelemetryDto()
                 {
                     LapSummary = lapSummaryDto,
-                    TimedTelemetrySnapshots = lapInfo.LapTelemetryInfo.TimedTelemetrySnapshots.Snapshots.Skip(lapInfo.LapTelemetryInfo.TimedTelemetrySnapshots.Snapshots.ToList().IndexOf(fistSnapshotsByDistance)).ToArray()
+                    DataPoints = lapInfo.LapTelemetryInfo.TimedTelemetrySnapshots.Snapshots.Skip(lapInfo.LapTelemetryInfo.TimedTelemetrySnapshots.Snapshots.ToList().IndexOf(fistSnapshotsByDistance)).ToList()
                 };
 
 
-                Interpolate(lapTelemetryDto, lapTelemetryDto.TimedTelemetrySnapshots.First().SimulatorSourceInfo.TelemetryInfo.RequiresDistanceInterpolation, lapTelemetryDto.TimedTelemetrySnapshots.First().SimulatorSourceInfo.TelemetryInfo.RequiresPositionInterpolation);
+                Interpolate(lapTelemetryDto, lapTelemetryDto.DataPoints.First().SimulatorSourceInfo.TelemetryInfo.RequiresDistanceInterpolation, lapTelemetryDto.DataPoints.First().SimulatorSourceInfo.TelemetryInfo.RequiresPositionInterpolation);
 
                 LapSummaryDto previousLapInfo = _sessionInfoDto.LapsSummary.FirstOrDefault(x => x.LapNumber == lapSummaryDto.LapNumber);
                 if (previousLapInfo != null)
@@ -113,7 +113,7 @@
             TimedTelemetrySnapshot lastNonInterpolatedSnapshot = null;
             List<TimedTelemetrySnapshot> snapshotsToInterpolate = new List<TimedTelemetrySnapshot>();
 
-            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.TimedTelemetrySnapshots)
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.DataPoints)
             {
                 if (!timedTelemetrySnapshot.SimulatorSourceInfo.TimeInterpolated && lastNonInterpolatedSnapshot == null)
                 {

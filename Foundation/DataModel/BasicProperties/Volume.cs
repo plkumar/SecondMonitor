@@ -4,8 +4,10 @@
     using System.Xml.Serialization;
 
     using Newtonsoft.Json;
+    using ProtoBuf;
 
     [Serializable]
+    [ProtoContract]
     public sealed class Volume : IQuantity
     {
         public Volume()
@@ -18,6 +20,7 @@
             InLiters = valueInLiters;
         }
 
+        [ProtoMember(1, IsRequired = true)]
         public double InLiters { get; set; }
 
         [JsonIgnore]

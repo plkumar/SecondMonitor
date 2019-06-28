@@ -1,18 +1,17 @@
 ﻿namespace SecondMonitor.DataModel.BasicProperties
 {
     using System;
-    using System.Xml.Serialization;
-
-    using Newtonsoft.Json;
+    using ProtoBuf;
 
     [Serializable]
-    public sealed class Velocity : IQuantity
+    [ProtoContract]
+    public class Velocity : IQuantity
     {
-        public static readonly Velocity Zero = FromMs(0);
+        public static Velocity Zero => FromMs(0);
 
         public Velocity()
         {
-
+            InMs = 0;
         }
 
         private Velocity(double ms)
@@ -20,47 +19,39 @@
             InMs = ms;
         }
 
-        [XmlAttribute]
+
         public double InKph
         {
             get => InMs * 3.6;
             set => InMs = value / 3.6;
         }
 
-        [JsonIgnore]
-        [XmlIgnore]
+
+        [ProtoMember(1, IsRequired = true)]
         public double InMs { get; set; }
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double InMph => InMs * 2.23694;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public IQuantity ZeroQuantity => Zero;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public bool IsZero => this == Zero;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double RawValue => InMs;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double InFps => InMs * 3.28084;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double InInPerSecond => InMs * 39.3701;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double InCentimeterPerSecond => InMs * 100;
 
-        [JsonIgnore]
-        [XmlIgnore]
+
         public double InMillimeterPerSecond => InMs * 1000;
 
         public static Velocity FromMs(double inMs)
@@ -125,6 +116,36 @@
         public static Velocity operator -(Velocity v1, Velocity v2)
         {
             return FromMs(v1.InMs - v2.InMs);
+        }
+
+        protected bool Equals(Velocity other)
+        {
+            return InMs.Equals(other.InMs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return Equals((Velocity) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return InMs.GetHashCode();
         }
 
         public double GetValueInUnits(VelocityUnits units)

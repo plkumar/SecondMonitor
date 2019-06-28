@@ -67,7 +67,10 @@ namespace SecondMonitor.SimdataManagement.DriverPresentation
 
         public void SavePresentations()
         {
-            _driverPresentationsLoader.Save(_driverPresentationsDto);
+            if (_driverPresentationsDto != null)
+            {
+                _driverPresentationsLoader.Save(_driverPresentationsDto);
+            }
         }
 
         private DriverPresentationsDto LoadDriverPresentations()
