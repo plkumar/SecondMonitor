@@ -3,7 +3,8 @@
                     xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:histogram="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram;assembly=TelemetryApplication"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:behavior="clr-namespace:SecondMonitor.TelemetryPresentation.Behavior">
+                    xmlns:behavior="clr-namespace:SecondMonitor.TelemetryPresentation.Behavior"
+                    xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
         <ResourceDictionary Source="../Template/GraphDataTemplates.xaml" />
@@ -40,13 +41,13 @@
                             <TextBlock Style="{StaticResource StandardText}"
                                        Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2"
                                        VerticalAlignment="Top" HorizontalAlignment="Right" />
-                            <oxy:PlotView Model="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                            <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
                                           Foreground="{StaticResource DarkRed01Brush}"
-                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}" >
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                                 <i:Interaction.Behaviors>
                                     <behavior:BandSelectionByClickBehavior HistogramChartViewModel="{Binding .}" />
                                 </i:Interaction.Behaviors>
-                            </oxy:PlotView>
+                            </template:HostChartWrapper>
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,10">
                             <ItemsControl ItemsSource="{Binding BandsStatistics}" ></ItemsControl>
@@ -58,13 +59,13 @@
                 <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                     <Grid>
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                        <oxy:PlotView Model="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
-                                      Foreground="{StaticResource DarkRed01Brush}" DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}"
+                        <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                                      Foreground="{StaticResource DarkRed01Brush}"
                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <i:Interaction.Behaviors>
                                 <behavior:BandSelectionByClickBehavior HistogramChartViewModel="{Binding .}" />
                             </i:Interaction.Behaviors>
-                        </oxy:PlotView>
+                        </template:HostChartWrapper>
                     </Grid>
                 </Border>
             </DataTemplate>

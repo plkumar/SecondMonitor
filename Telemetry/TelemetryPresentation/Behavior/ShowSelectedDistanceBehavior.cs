@@ -12,11 +12,12 @@
     using OxyPlot;
     using OxyPlot.Axes;
     using Telemetry.TelemetryApplication.ViewModels.GraphPanel;
+    using Template;
     using Axis = OxyPlot.Axes.Axis;
     using HorizontalAlignment = System.Windows.HorizontalAlignment;
     using VerticalAlignment = System.Windows.VerticalAlignment;
 
-    public class ShowSelectedDistanceBehavior : Behavior<PlotView>
+    public class ShowSelectedDistanceBehavior : Behavior<HostChartWrapper>
     {
         private Dictionary<string, (Rectangle rectangle, TranslateTransform transform)> _lapRectangles;
 
@@ -84,12 +85,12 @@
 
         private void SubscribeToPlot()
         {
-            if (AssociatedObject?.Model == null)
+            if (AssociatedObject?.PlotModel == null)
             {
                 return;
             }
 
-            AssociatedObject.Model.Axes.CollectionChanged += AxesOnCollectionChanged;
+            AssociatedObject.PlotModel.Axes.CollectionChanged += AxesOnCollectionChanged;
         }
 
         private void AxesOnCollectionChanged(object sender, ElementCollectionChangedEventArgs<Axis> e)
@@ -200,7 +201,7 @@
 
         private PlotModel GetPlotModel()
         {
-            return AssociatedObject.Model;
+            return AssociatedObject.PlotModel;
         }
     }
 }

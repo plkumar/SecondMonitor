@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="WPF\Converters\TimeSpanToSecondsConverter.cs" />
     <Compile Include="WPF\WheelStatusControl\WheelStatusControl.cs" />
+    <Compile Include="WPF\WindowFormHost\ScrollViewerWindowsFormsHost.cs" />
     <Compile Include="WPF\ZoomAndPan\AnimationHelper.cs" />
     <Compile Include="WPF\ZoomAndPan\MouseHandlingMode.cs" />
     <Compile Include="WPF\ZoomAndPan\ZoomAndPanControl.cs" />

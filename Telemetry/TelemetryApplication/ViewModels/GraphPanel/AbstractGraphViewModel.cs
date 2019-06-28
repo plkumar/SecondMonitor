@@ -39,7 +39,7 @@
 
         protected AbstractGraphViewModel()
         {
-            SyncWithOtherGraphs = true;
+            SyncWithOtherGraphs = false;
             _lastChangeRequest = DateTime.MinValue;
             LoadedSeries = new Dictionary<string,(LapTelemetryDto telemetry, List<LineSeries> lineSeries)>();
             _selectedXValue = new Dictionary<string, (double x, Color color)>();
@@ -537,8 +537,9 @@
                 CanTrackerInterpolatePoints = false,
                 StrokeThickness = 2,
                 LineStyle = lineStyle,
-                TrackerFormatString = "{0}\n"+ (XAxisKind == XAxisKind.LapTime ? "s" : Distance.GetUnitsSymbol(DistanceUnits)) + ": {2}\n" +YUnits +": {4}"
+                TrackerFormatString = "{0}\n"+ (XAxisKind == XAxisKind.LapTime ? "s" : Distance.GetUnitsSymbol(DistanceUnits)) + ": {2}\n" +YUnits +": {4}",
             };
+
         }
 
         //protected abstract bool FilterFunction(TimedTelemetrySnapshot previousSnapshot, TimedTelemetrySnapshot currentSnapshot);
