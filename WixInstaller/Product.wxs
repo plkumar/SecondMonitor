@@ -86,11 +86,8 @@
       <Component Id="cmpd70d492504ff4882bf50cece32ff71e1" Directory="APPLICATIONROOTDIRECTORY" Guid="5ffab2df-2e7b-4f74-b687-bab0e1abdd4f">
         <File Id="fil5677d5f3cd364264b015461f75f2bfc9" KeyPath="yes" Source="..\Deployment\OxyPlot.dll" />
       </Component>
-      <Component Id="cmp938f868bbc044759a0d76f0b30fd8367" Directory="APPLICATIONROOTDIRECTORY" Guid="768b1642-c186-4fdc-b24e-7dca9689072f">
-        <File Id="fil938f868bbc044759a0d76f0b30fd8367" KeyPath="yes" Source="..\Deployment\OxyPlot.Wpf.dll"/>
-      </Component>
-      <Component Id="cmpd8653f8714a4c469d8d85902a8a9c0c33" Directory="APPLICATIONROOTDIRECTORY" Guid="eee12913-927c-4ac5-a24d-49d203278acb">
-        <File Id="fild8653f8714a4c469d8d85902a8a9c0c33" KeyPath="yes" Source="..\Deployment\OxyPlot.Wpf.xml" />
+      <Component Id="cmpa23fcf936528475ca4ff9d67ce8ef39d" Directory="APPLICATIONROOTDIRECTORY" Guid="d0cedb5c-4240-4188-86ba-8918b583a7a2">
+        <File Id="fila23fcf936528475ca4ff9d67ce8ef39d" KeyPath="yes" Source="..\Deployment\OxyPlot.WindowsForms.dll"/>
       </Component>
       <Component Id="cmpccf131b1862d4b79b8983eddb103d6a4" Directory="APPLICATIONROOTDIRECTORY" Guid="565178c9-56af-4672-a47c-9fc3f5d0abcf">
         <File Id="filccf131b1862d4b79b8983eddb103d6a4" KeyPath="yes" Source="..\Deployment\Ninject.dll" />
