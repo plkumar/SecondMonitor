@@ -29,5 +29,23 @@
         {
             DataPoints = TimedTelemetrySnapshots.ToList();
         }
+
+        public List<TimedTelemetrySnapshot> GetReducedSet(TimeSpan pointGap)
+        {
+            List<TimedTelemetrySnapshot> reducedSet = new List<TimedTelemetrySnapshot>(DataPoints.Count / 2);
+            TimedTelemetrySnapshot lastSnapshot = DataPoints[0];
+            reducedSet.Add(lastSnapshot);
+            for (int i = 1; i < DataPoints.Count; i++)
+            {
+                var currentSnapshot = DataPoints[i];
+                if (currentSnapshot.LapTime - lastSnapshot.LapTime < pointGap)
+                {
+                    continue;
+                }
+                reducedSet.Add(currentSnapshot);
+                lastSnapshot = currentSnapshot;
+            }
+            return reducedSet;
+        }
     }
 }

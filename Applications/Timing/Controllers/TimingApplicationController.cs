@@ -269,7 +269,6 @@ namespace SecondMonitor.Timing.Controllers
             mainWindow.Closed += async (sender, args) =>
             {
                 await controller.StopControllerAsync();
-                mainWindow.Content = null;
             };
             await controller.OpenLastSessionFromRepository();
         }

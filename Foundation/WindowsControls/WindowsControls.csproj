@@ -66,6 +66,10 @@
       <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=0.0.1.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Artifacts\OxyPlot\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
@@ -115,6 +119,12 @@
     <Compile Include="Extension\ItemsControlExtensions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SituationOverview\SituationOverviewProvider.cs" />
+    <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.Designer.cs">
+      <DependentUpon>PlotViewWrapper.cs</DependentUpon>
+    </Compile>
     <Compile Include="WPF\Behaviors\RefreshBindingOnVisibilityChangeBehavior.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorAbleIconByLimits.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorByLinearLimitsBehavior.cs" />
@@ -232,6 +242,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PlotViewWrapper\PlotViewWrapper.resx">
+      <DependentUpon>PlotViewWrapper.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

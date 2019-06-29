@@ -303,6 +303,8 @@
                 ExtraGridlineColor = OxyColors.Red,
                 ExtraGridlines = new[] { 0.0 },
                 ExtraGridlineThickness = 1.5,
+                TicklineColor = OxyColor.Parse("#FFD6D6D6"),
+                MinorTicklineColor = OxyColor.Parse("#FFD6D6D6"),
 
             };
             if (YTickInterval > 0)
@@ -330,6 +332,8 @@
                 Unit = XAxisKind == XAxisKind.LapTime ? "s" : Distance.GetUnitsSymbol(DistanceUnits),
                 AxisTitleDistance = 0,
                 AxisDistance = 0,
+                TicklineColor = OxyColor.Parse("#FFD6D6D6"),
+                MinorTicklineColor = OxyColor.Parse("#FFD6D6D6"),
                 ExtraGridlineColor = OxyColors.Red,
                 ExtraGridlineThickness = 1,
             };

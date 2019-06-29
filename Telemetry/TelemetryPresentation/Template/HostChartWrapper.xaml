@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:SecondMonitor.TelemetryPresentation.Template"
              xmlns:windowsForms="clr-namespace:OxyPlot.WindowsForms;assembly=OxyPlot.WindowsForms"
              xmlns:windowFormHost="clr-namespace:SecondMonitor.WindowsControls.WPF.WindowFormHost;assembly=WindowsControls"
+             xmlns:plotViewWrapper="clr-namespace:SecondMonitor.WindowsControls.WinForms.PlotViewWrapper;assembly=WindowsControls"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Transparent">
+    <Grid Background="Transparent" SnapsToDevicePixels="True">
         <windowFormHost:ScrollViewerWindowsFormsHost x:Name="FormsHost">
-            <windowsForms:PlotView >
-            </windowsForms:PlotView>
+            <plotViewWrapper:PlotViewWrapper>
+            </plotViewWrapper:PlotViewWrapper>
 
         </windowFormHost:ScrollViewerWindowsFormsHost>
     </Grid>

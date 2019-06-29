@@ -5,10 +5,9 @@ namespace SecondMonitor.TelemetryPresentation.Template
     using System.Linq;
     using System.Windows;
     using System.Windows.Forms.Integration;
-    using System.Windows.Media;
+    using WindowsControls.WinForms.PlotViewWrapper;
     using WindowsControls.WPF;
     using OxyPlot;
-    using OxyPlot.WindowsForms;
 
     /// <summary>
     /// Interaction logic for HostChartWrapper.xaml
@@ -22,24 +21,27 @@ namespace SecondMonitor.TelemetryPresentation.Template
         {
             HostChartWrapper hostChartWrapper = (HostChartWrapper) d;
             WindowsFormsHost formHost = hostChartWrapper.FormsHost;
-            if (formHost == null)
+            PlotViewWrapper pvWrapper = formHost?.Child as PlotViewWrapper;
+
+            if (pvWrapper == null)
             {
                 return;
             }
-            PlotView pv = formHost.Child as OxyPlot.WindowsForms.PlotView;
-            pv.Model = e.NewValue as PlotModel;
+            pvWrapper.GetPlotView().Model = e.NewValue as PlotModel;
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             WindowsFormsHost formHost = VisualHelper.FindVisualChildren<WindowsFormsHost>(this).FirstOrDefault();
-            if (formHost == null)
+
+            PlotViewWrapper pvWrapper = formHost?.Child as PlotViewWrapper ;
+
+            if (pvWrapper == null)
             {
                 return;
             }
-            PlotView pv = formHost.Child as OxyPlot.WindowsForms.PlotView;
-            pv.Model = PlotModel;
+            pvWrapper.GetPlotView().Model = PlotModel;
         }
 
         public PlotModel PlotModel

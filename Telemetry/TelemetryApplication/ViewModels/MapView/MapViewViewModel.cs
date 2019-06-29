@@ -220,7 +220,7 @@
 
         private async Task InitializeGeometryCollection(ILapCustomPathsCollection geometryCollection, LapTelemetryDto lapTelemetry, TrackMapDto trackMapDto)
         {
-            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.DataPoints, false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
+            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.GetReducedSet(TimeSpan.FromMilliseconds(300)), false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
             Path geometryPath = new Path { Data = Geometry.Parse(baseGeometry), StrokeThickness = 0.5, Stroke = new SolidColorBrush() };
             if (!LapColorSynchronization.TryGetColorForLap(lapTelemetry.LapSummary.Id, out Color color))
             {
@@ -295,7 +295,7 @@
 
             int previousBrakeBand = -1;
             List<TimedTelemetrySnapshot> currentSnapShot = new List<TimedTelemetrySnapshot>();
-            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.DataPoints)
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in lapTelemetryDto.GetReducedSet(TimeSpan.FromMilliseconds(200)))
             {
                 int currentBrakeBand = ((int)(pedalValueFunc(timedTelemetrySnapshot.InputInfo) * 100)) / PedalStep;
                 if (previousBrakeBand >= 0 && previousBrakeBand != currentBrakeBand)
