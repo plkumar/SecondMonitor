@@ -1,22 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:graphPanel="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel;assembly=TelemetryApplication"
-                    xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:behavior="clr-namespace:SecondMonitor.TelemetryPresentation.Behavior"
+                    xmlns:oxy2="clr-namespace:OxyPlot.WindowsForms;assembly=OxyPlot.WindowsForms"
                     xmlns:wheels="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel.Wheels;assembly=TelemetryApplication"
-                    xmlns:chassis="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel.Chassis;assembly=TelemetryApplication">
+                    xmlns:chassis="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel.Chassis;assembly=TelemetryApplication"
+                    xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <ControlTemplate x:Key="DefaultTrackerTemplate" x:Shared="False">
-        <oxy:TrackerControl Background="{StaticResource Anthracite01Brush}"  Position="{Binding Position}" LineStroke="{StaticResource DarkRed01Brush}" LineExtents="{Binding PlotModel.PlotArea}" BorderBrush="{StaticResource DarkGrey05Brush}" BorderThickness="3">
-            <oxy:TrackerControl.Content>
-                <TextBlock Style="{StaticResource StandardText}" Text="{Binding}" Margin="3" />
-            </oxy:TrackerControl.Content>
-        </oxy:TrackerControl>
-    </ControlTemplate>
-
     <DataTemplate x:Key="DefaultGraphDataTemplate" DataType="graphPanel:AbstractSingleSeriesGraphViewModel">
         <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey01Brush}">
             <Expander IsExpanded="True" Header="{Binding Title}" Foreground="{StaticResource LightGrey01Brush}">
@@ -41,15 +34,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <oxy:PlotView Model="{Binding PlotModel}" Background="Black"
-                                              Foreground="{StaticResource Anthracite01Brush}"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}">
+                                <template:HostChartWrapper PlotModel="{Binding PlotModel}">
                                     <i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
                                     </i:Interaction.Behaviors>
-                                </oxy:PlotView>
+                                </template:HostChartWrapper>
                             </Grid>
-                            <DockPanel Grid.Row="1" Margin="0,-20,0,0" LastChildFill="False">
+                            <DockPanel Grid.Row="1" Margin="0,0,0,0" LastChildFill="False">
                                 <CheckBox Content="Sync With Other Charts"
                                           Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0"
                                           IsChecked="{Binding SyncWithOtherGraphs}" VerticalAlignment="Center" DockPanel.Dock="Left" />
@@ -96,15 +87,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <oxy:PlotView Model="{Binding PlotModel}" Background="Black"
-                                              Foreground="{StaticResource Anthracite01Brush}"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}">
+                                <template:HostChartWrapper PlotModel="{Binding PlotModel}">
                                     <i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
                                     </i:Interaction.Behaviors>
-                                </oxy:PlotView>
+                                </template:HostChartWrapper>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,-20,0,0">
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 0,0,0">
                                 <CheckBox Content="Sync With Other Charts"
                                           Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0"
                                           IsChecked="{Binding SyncWithOtherGraphs}" />
@@ -154,15 +143,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <oxy:PlotView Model="{Binding PlotModel}" Background="Black"
-                                              Foreground="{StaticResource Anthracite01Brush}"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}">
+                                <template:HostChartWrapper PlotModel="{Binding PlotModel}">
                                     <i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
                                     </i:Interaction.Behaviors>
-                                </oxy:PlotView>
+                                </template:HostChartWrapper>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,-20,0,0">
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 0,0,0">
                                 <CheckBox Content="Sync With Other Charts"
                                           Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0"
                                           IsChecked="{Binding SyncWithOtherGraphs}" />
@@ -212,15 +199,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <oxy:PlotView Model="{Binding PlotModel}" Background="Black"
-                                              Foreground="{StaticResource Anthracite01Brush}"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}">
+                                <template:HostChartWrapper PlotModel="{Binding PlotModel}">
                                     <i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
                                     </i:Interaction.Behaviors>
-                                </oxy:PlotView>
+                                </template:HostChartWrapper>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,-20,0,0">
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0">
                                 <CheckBox Content="Sync With Other Charts"
                                           Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0"
                                           IsChecked="{Binding SyncWithOtherGraphs}" />

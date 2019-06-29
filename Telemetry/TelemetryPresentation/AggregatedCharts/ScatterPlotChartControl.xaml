@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
-                    xmlns:scatterPlot="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.ScatterPlot;assembly=TelemetryApplication">
+                    xmlns:scatterPlot="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.ScatterPlot;assembly=TelemetryApplication"
+                    xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
         <ResourceDictionary Source="../Template/GraphDataTemplates.xaml" />
@@ -18,12 +19,11 @@
                             <TextBlock Style="{StaticResource StandardText}"
                                        Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2"
                                        VerticalAlignment="Top" HorizontalAlignment="Right" />
-                            <oxy:PlotView Model="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                            <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
                                           Foreground="{StaticResource DarkRed01Brush}"
-                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                          DefaultTrackerTemplate="{StaticResource DefaultTrackerTemplate}" />
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
-                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-15,0,0">
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0, 0,0,0">
                             <TextBlock Style="{StaticResource StandardText}" Text="Average Band Size:" Margin="5" VerticalAlignment="Center" />
                             <TextBox Style="{StaticResource StandardTextBox}" MinWidth="60" VerticalAlignment="Center"
                                      Text="{Binding AverageBand, Converter={StaticResource DoubleToScalableDecimalsConverter}}"
@@ -33,7 +33,7 @@
                                     Command="{Binding RefreshAverageCommand}"
                                     Style="{StaticResource StandardButton}" ToolTip="Refreshes the Average Line.">
                                 <Button.Content>
-                                    <wpf:ColorAbleIcon Margin="-5"
+                                    <wpf:ColorAbleIcon Margin="0"
                                                        StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
                                         <ContentPresenter Margin="15" Content="{StaticResource RefreshIcon}" />
                                     </wpf:ColorAbleIcon>

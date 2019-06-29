@@ -23,7 +23,6 @@
     <converters:TyreCompoundToBrushConverter x:Key="TyreCompoundToBrushConverter"/>
     <converters:FormattedTimeToBrushConverter x:Key="FormattedTimeToBrushConverter"/>
     <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
-    <oxy:OxyColorConverter x:Key="OxyColorConverter" />
 
 
     <Style x:Key="StandardText" TargetType="TextBlock">

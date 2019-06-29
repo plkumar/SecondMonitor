@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SecondMonitor.TelemetryPresentation.Template.HostChartWrapper"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SecondMonitor.TelemetryPresentation.Template"
+             xmlns:windowsForms="clr-namespace:OxyPlot.WindowsForms;assembly=OxyPlot.WindowsForms"
+             xmlns:windowFormHost="clr-namespace:SecondMonitor.WindowsControls.WPF.WindowFormHost;assembly=WindowsControls"
+             xmlns:plotViewWrapper="clr-namespace:SecondMonitor.WindowsControls.WinForms.PlotViewWrapper;assembly=WindowsControls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent" SnapsToDevicePixels="True">
+        <windowFormHost:ScrollViewerWindowsFormsHost x:Name="FormsHost">
+            <plotViewWrapper:PlotViewWrapper>
+            </plotViewWrapper:PlotViewWrapper>
+
+        </windowFormHost:ScrollViewerWindowsFormsHost>
+    </Grid>
+</UserControl>

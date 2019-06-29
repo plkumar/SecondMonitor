@@ -66,9 +66,9 @@
       <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="OxyPlot.Wpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\OxyPlot.Wpf.2.0.0-unstable1035\lib\net452\OxyPlot.Wpf.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="OxyPlot.WindowsForms, Version=0.0.1.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Artifacts\OxyPlot\OxyPlot.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -119,6 +119,13 @@
     <Compile Include="Extension\ItemsControlExtensions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SituationOverview\SituationOverviewProvider.cs" />
+    <Compile Include="WinForms\ColorExtenstion\ColorExtension.cs" />
+    <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.Designer.cs">
+      <DependentUpon>PlotViewWrapper.cs</DependentUpon>
+    </Compile>
     <Compile Include="WPF\Behaviors\RefreshBindingOnVisibilityChangeBehavior.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorAbleIconByLimits.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorByLinearLimitsBehavior.cs" />
@@ -225,6 +232,7 @@
     </Compile>
     <Compile Include="WPF\Converters\TimeSpanToSecondsConverter.cs" />
     <Compile Include="WPF\WheelStatusControl\WheelStatusControl.cs" />
+    <Compile Include="WPF\WindowFormHost\ScrollViewerWindowsFormsHost.cs" />
     <Compile Include="WPF\ZoomAndPan\AnimationHelper.cs" />
     <Compile Include="WPF\ZoomAndPan\MouseHandlingMode.cs" />
     <Compile Include="WPF\ZoomAndPan\ZoomAndPanControl.cs" />
@@ -235,6 +243,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PlotViewWrapper\PlotViewWrapper.resx">
+      <DependentUpon>PlotViewWrapper.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

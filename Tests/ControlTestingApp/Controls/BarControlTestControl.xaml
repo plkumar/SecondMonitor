@@ -12,9 +12,5 @@
         <viewModels:BarChartViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <oxy:PlotView Model="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
-                      Foreground="{StaticResource DarkRed01Brush}"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        </oxy:PlotView>
     </Grid>
 </UserControl>

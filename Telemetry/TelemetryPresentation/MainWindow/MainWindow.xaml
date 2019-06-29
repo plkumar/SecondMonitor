@@ -29,7 +29,7 @@
                                                 ChassisGraphTemplate="{StaticResource ChassisGraphDataTemplate}"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="{StaticResource Anthracite01Brush}">
+    <Grid Background="{StaticResource Anthracite01Brush}" SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
@@ -40,8 +40,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Row="0">
-                <ScrollViewer CanContentScroll="True">
-                <ItemsControl ItemsSource="{Binding LeftPanelGraphs}" ItemTemplateSelector="{StaticResource GraphDataTemplateSelector}"/>
+                <ScrollViewer CanContentScroll="False" SnapsToDevicePixels="True">
+                    <ItemsControl ItemsSource="{Binding LeftPanelGraphs}" ItemTemplateSelector="{StaticResource GraphDataTemplateSelector}" SnapsToDevicePixels="True"/>
                 </ScrollViewer>
             </Grid>
             <Grid Grid.Row="1" Visibility="Visible" x:Name="LapSelectorGrid">
@@ -66,7 +66,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Row="0">
-            <ScrollViewer CanContentScroll="True">
+            <ScrollViewer CanContentScroll="False">
                 <ItemsControl ItemsSource="{Binding RightPanelGraphs}" ItemTemplateSelector="{StaticResource GraphDataTemplateSelector}"/>
             </ScrollViewer>
         </Grid>
