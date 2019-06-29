@@ -1,16 +1,23 @@
 ﻿namespace SecondMonitor.WindowsControls.WPF.WindowFormHost
 {
     using System;
+    using System.Drawing;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Forms.Integration;
     using System.Windows.Media;
+    using Point = System.Windows.Point;
+    using Size = System.Windows.Size;
 
     public class ScrollViewerWindowsFormsHost : WindowsFormsHost
     {
         private Rect _lastBoundingBox;
         private bool _fullyIntersect = true;
+
+        public ScrollViewerWindowsFormsHost()
+        {
+        }
 
         protected override void OnWindowPositionChanged(Rect rcBoundingBox)
         {
@@ -18,17 +25,21 @@
             {
                 return;
             }
-
+            _lastBoundingBox = rcBoundingBox;
+            Graphics g = this.Child.CreateGraphics();
+            double xScale = g.DpiX / 96.0;
+            double yScale = g.DpiY / 96.0;
             base.OnWindowPositionChanged(rcBoundingBox);
-
+            //rcBoundingBox = new Rect(new Point(rcBoundingBox.X, rcBoundingBox.Y), new Size( rcBoundingBox.Width, rcBoundingBox.Height));
             if (ParentScrollViewer == null && !TryFindScrollViewer())
             {
                 return;
             }
 
             GeneralTransform tr = ParentScrollViewer.TransformToAncestor(MainWindow);
-            var scrollRect = new Rect(new Size(ParentScrollViewer.ViewportWidth, ParentScrollViewer.ViewportHeight));
+            var scrollRect = new Rect( new Size(ParentScrollViewer.ViewportWidth, ParentScrollViewer.ViewportHeight));
             scrollRect = tr.TransformBounds(scrollRect);
+            scrollRect = new Rect(new Point(scrollRect.X * xScale, scrollRect.Y * yScale), new Size(scrollRect.Width * xScale, scrollRect.Height * yScale));
             var intersect = Rect.Intersect(scrollRect, rcBoundingBox);
             if (intersect.Equals(rcBoundingBox))
             {
@@ -47,11 +58,11 @@
             if (!intersect.IsEmpty)
             {
                 tr = MainWindow.TransformToDescendant(this);
+                intersect = new Rect(new Point(intersect.X / xScale, intersect.Y / yScale), new Size(intersect.Width / xScale, intersect.Height / yScale));
                 intersect = tr.TransformBounds(intersect);
+                intersect = new Rect(new Point(intersect.X * xScale, intersect.Y * yScale), new Size(intersect.Width * xScale, intersect.Height * yScale));
                 //InvalidateVisual();
             }
-
-            _lastBoundingBox = rcBoundingBox;
             SetRegion(intersect);
         }
 

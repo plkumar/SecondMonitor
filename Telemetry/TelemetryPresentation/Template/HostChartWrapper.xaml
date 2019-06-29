@@ -15,5 +15,11 @@
             </plotViewWrapper:PlotViewWrapper>
 
         </windowFormHost:ScrollViewerWindowsFormsHost>
+        <!--<WindowsFormsHost x:Name="FormsHost" SnapsToDevicePixels="True">
+            <plotViewWrapper:PlotViewWrapper>
+            </plotViewWrapper:PlotViewWrapper>
+
+        </WindowsFormsHost>-->
+
     </Grid>
 </UserControl>

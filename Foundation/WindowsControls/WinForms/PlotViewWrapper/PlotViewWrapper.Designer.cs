@@ -37,13 +37,13 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.Gray;
+            this.MainPanel.BackColor = System.Drawing.Color.Maroon;
             this.MainPanel.Controls.Add(this.plotView);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Margin = new System.Windows.Forms.Padding(0);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(150, 150);
+            this.MainPanel.Size = new System.Drawing.Size(200, 185);
             this.MainPanel.TabIndex = 0;
             // 
             // plotView
@@ -54,7 +54,7 @@
             this.plotView.Margin = new System.Windows.Forms.Padding(0);
             this.plotView.Name = "plotView";
             this.plotView.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotView.Size = new System.Drawing.Size(150, 150);
+            this.plotView.Size = new System.Drawing.Size(200, 185);
             this.plotView.TabIndex = 0;
             this.plotView.Text = "plotView";
             this.plotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -63,12 +63,14 @@
             // 
             // PlotViewWrapper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.MainPanel);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "PlotViewWrapper";
+            this.Size = new System.Drawing.Size(200, 185);
             this.MainPanel.ResumeLayout(false);
-            this.MainPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
