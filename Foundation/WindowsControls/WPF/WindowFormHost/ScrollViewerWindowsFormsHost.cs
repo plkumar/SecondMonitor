@@ -9,9 +9,16 @@
 
     public class ScrollViewerWindowsFormsHost : WindowsFormsHost
     {
+        private Rect _lastBoundingBox;
+        private bool _fullyIntersect = true;
 
         protected override void OnWindowPositionChanged(Rect rcBoundingBox)
         {
+            if (_lastBoundingBox.Equals(rcBoundingBox))
+            {
+                return;
+            }
+
             base.OnWindowPositionChanged(rcBoundingBox);
 
             if (ParentScrollViewer == null && !TryFindScrollViewer())
@@ -22,14 +29,29 @@
             GeneralTransform tr = ParentScrollViewer.TransformToAncestor(MainWindow);
             var scrollRect = new Rect(new Size(ParentScrollViewer.ViewportWidth, ParentScrollViewer.ViewportHeight));
             scrollRect = tr.TransformBounds(scrollRect);
-
             var intersect = Rect.Intersect(scrollRect, rcBoundingBox);
+            if (intersect.Equals(rcBoundingBox))
+            {
+                if (!_fullyIntersect)
+                {
+                    InvalidateVisual();
+                }
+
+                _fullyIntersect = true;
+            }
+            else
+            {
+                _fullyIntersect = false;
+            }
+
             if (!intersect.IsEmpty)
             {
                 tr = MainWindow.TransformToDescendant(this);
                 intersect = tr.TransformBounds(intersect);
+                //InvalidateVisual();
             }
 
+            _lastBoundingBox = rcBoundingBox;
             SetRegion(intersect);
         }
 

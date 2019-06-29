@@ -39,7 +39,7 @@
 
         protected AbstractGraphViewModel()
         {
-            SyncWithOtherGraphs = false;
+            SyncWithOtherGraphs = true;
             _lastChangeRequest = DateTime.MinValue;
             LoadedSeries = new Dictionary<string,(LapTelemetryDto telemetry, List<LineSeries> lineSeries)>();
             _selectedXValue = new Dictionary<string, (double x, Color color)>();
