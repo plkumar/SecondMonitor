@@ -4,7 +4,6 @@
     using System.Windows.Forms;
     using System.Windows.Input;
     using System.Windows.Interactivity;
-    using OxyPlot.Wpf;
     using Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram;
     using Template;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;

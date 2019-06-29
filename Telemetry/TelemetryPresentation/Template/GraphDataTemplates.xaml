@@ -6,19 +6,10 @@
                     xmlns:oxy2="clr-namespace:OxyPlot.WindowsForms;assembly=OxyPlot.WindowsForms"
                     xmlns:wheels="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel.Wheels;assembly=TelemetryApplication"
                     xmlns:chassis="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel.Chassis;assembly=TelemetryApplication"
-                    xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <ControlTemplate x:Key="DefaultTrackerTemplate" x:Shared="False">
-        <oxy:TrackerControl Background="{StaticResource Anthracite01Brush}"  Position="{Binding Position}" LineStroke="{StaticResource DarkRed01Brush}" LineExtents="{Binding PlotModel.PlotArea}" BorderBrush="{StaticResource DarkGrey05Brush}" BorderThickness="3">
-            <oxy:TrackerControl.Content>
-                <TextBlock Style="{StaticResource StandardText}" Text="{Binding}" Margin="3" />
-            </oxy:TrackerControl.Content>
-        </oxy:TrackerControl>
-    </ControlTemplate>
-
     <DataTemplate x:Key="DefaultGraphDataTemplate" DataType="graphPanel:AbstractSingleSeriesGraphViewModel">
         <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey01Brush}">
             <Expander IsExpanded="True" Header="{Binding Title}" Foreground="{StaticResource LightGrey01Brush}">
