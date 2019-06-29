@@ -119,6 +119,7 @@
     <Compile Include="Extension\ItemsControlExtensions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SituationOverview\SituationOverviewProvider.cs" />
+    <Compile Include="WinForms\ColorExtenstion\ColorExtension.cs" />
     <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.cs">
       <SubType>UserControl</SubType>
     </Compile>

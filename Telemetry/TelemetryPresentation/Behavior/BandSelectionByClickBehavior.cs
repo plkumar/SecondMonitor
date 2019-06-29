@@ -4,6 +4,7 @@
     using System.Windows.Forms;
     using System.Windows.Input;
     using System.Windows.Interactivity;
+    using WindowsControls.WinForms.PlotViewWrapper;
     using Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram;
     using Template;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
@@ -24,7 +25,7 @@
             base.OnAttached();
             if (AssociatedObject != null)
             {
-                AssociatedObject.FormsHost.Child.MouseClick += AssociatedObjectOnMouseUp;
+                ((PlotViewWrapper) AssociatedObject.FormsHost.Child).GetPlotView().MouseClick += AssociatedObjectOnMouseUp;
             }
         }
 
