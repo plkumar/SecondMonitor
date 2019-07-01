@@ -7,7 +7,145 @@ namespace SecondMonitor.PCars2Connector.SharedMemory
     using System.Runtime.InteropServices;
 
 
+    [Serializable]
+    public struct UDPTelemetryData
+    {
+        // starts with packet base (0-12)
+        public uint mPacketNumber;						//0 counter reflecting all the packets that have been sent during the game run
+        public uint mCategoryPacketNumber;		//4 counter of the packet groups belonging to the given category
+        public byte mPartialPacketIndex;			//8 If the data from this class had to be sent in several packets, the index number
+        public byte mPartialPacketNumber;			//9 If the data from this class had to be sent in several packets, the total number
+        public byte mPacketType;							//10 what is the type of this packet (see EUDPStreamerPacketHanlderType for details)
+        public byte mPacketVersion;						//11 what is the version of protocol for this handler, to be bumped with data structure change
 
+        // Participant info
+        public sbyte sViewedParticipantIndex;	// 12
+
+        public byte sUnfilteredThrottle;                            // 13 1
+        public byte sUnfilteredBrake;                                   // 14 1
+        public sbyte sUnfilteredSteering;                           // 15 1
+        public byte sUnfilteredClutch;								// 16 1
+
+        public byte sCarFlags;												// 17 1
+        public short sOilTempCelsius;									// 18 2
+        public ushort sOilPressureKPa;									// 20 2
+        public short sWaterTempCelsius;								// 22 2
+        public ushort sWaterPressureKpa;								// 24 2
+        public ushort sFuelPressureKpa;									// 26 2
+        public byte sFuelCapacity;										// 28 1
+        public byte sBrake;														// 29 1
+        public byte sThrottle;												// 30 1
+        public byte sClutch;													// 31 1
+        public float sFuelLevel;												// 32 4
+        public float sSpeed;														// 36 4
+        public ushort sRpm;															// 40 2
+        public ushort sMaxRpm;													// 42 2
+        public sbyte sSteering;												// 44 1
+        public byte sGearNumGears;										// 45 1
+        public byte sBoostAmount;											// 46 1
+        public byte sCrashState;											// 47 1
+        public float sOdometerKM;											// 48 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sOrientation;									// 52 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sLocalVelocity;
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sWorldVelocity;								// 76 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sAngularVelocity;							// 88 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sLocalAcceleration;						// 100 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sWorldAcceleration;						// 112 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sExtentsCentre;								// 124 12
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sTyreFlags;										// 136 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sTerrain;											// 140 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sTyreY;												// 144 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sTyreRPS;											// 160 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sTyreTemp;											// 176 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sTyreHeightAboveGround;				// 180 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sTyreWear;											// 196 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sBrakeDamage;									// 200 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] sSuspensionDamage;							// 204 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public short[] sBrakeTempCelsius;							// 208 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreTreadTemp;								// 216 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreLayerTemp;								// 224 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreCarcassTemp;							// 232 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreRimTemp;									// 240 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreInternalAirTemp;					// 248 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreTempLeft;									// 256 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreTempCenter;								// 264 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sTyreTempRight;								// 272 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sWheelLocalPositionY;					// 280 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sRideHeight;										// 296 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sSuspensionTravel;							// 312 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public float[] sSuspensionVelocity;						// 328 16
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sSuspensionRideHeight;					// 344 8
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 4)]
+        public ushort[] sAirPressure;									// 352 8
+        public float sEngineSpeed;											// 360 4
+        public float sEngineTorque;										// 364 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 2)]
+        public byte[] sWings;												// 368 2
+        public byte sHandBrake;												// 370 1
+        // Car damage
+        public byte sAeroDamage;											// 371 1
+        public byte sEngineDamage;										// 372 1
+        //  HW state
+        public byte sJoyPad1;													// 376 4
+        public byte sJoyPad2;													// 376 4
+        public byte sDPad;														// 377 1
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 40)]
+        public byte[] lfTyreCompound;
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 40)]
+        public byte[] rfTyreCompound;
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 40)]
+        public byte[] lrTyreCompound;
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 40)]
+        public byte[] rrTyreCompound;
+
+        public float sTurboBoostPressure;	// 538 4
+        [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] sFullPosition;	// 542 12 -- position of the viewed participant with "full" precision (full? but it's a float[])
+        public byte sBrakeBias;	// 554 1 -- quantized brake bias
+    }
+
+    public enum UdpPacketType
+    {
+        eCarPhysics = 0,
+        eRaceDefinition = 1,
+        eParticipants = 2,
+        eTimings = 3,
+        eGameState = 4,
+        eWeatherState = 5, // not sent at the moment, information can be found in the game state packet
+        eVehicleNames = 6, //not sent at the moment
+        eTimeStats = 7,
+        eParticipantVehicleNames = 8
+    };
 
     // WheelIndex
     public enum WheelIndex

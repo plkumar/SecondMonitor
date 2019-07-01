@@ -4,35 +4,44 @@
     using System.Linq;
     using Common.DataModel;
     using Common.DataModel.Player;
+    using DataModel.Extensions;
     using DataModel.Summary;
     using Glicko2;
+    using NLog;
+    using NLog.Fluent;
 
     public class RatingUpdater : IRatingUpdater
     {
         private readonly ISimulatorRatingController _ratingController;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public RatingUpdater(ISimulatorRatingController ratingController)
         {
             _ratingController = ratingController;
         }
 
-        public void UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating, SessionFinishState sessionFinishState, int difficulty)
+        public (DriversRating newSimulatorRating, DriversRating newClassRating, DriversRating newDifficultyRating) UpdateRatingsByResults(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating, SessionFinishState sessionFinishState, int difficulty)
         {
             DriverFinishState player = sessionFinishState.DriverFinishStates.First(x => x.IsPlayer);
-            GlickoPlayer newClassRating = CalculateNewRatingByResult(ratings, ratings.First(x => x.Key == player.Name).Value, sessionFinishState, player);
+            Logger.Info("---- CALCULATING NEW CLASS RATINGS ---");
+            GlickoPlayer newClassRating = CalculateNewRatingByResult(ratings, ratings[player.Name], sessionFinishState, player);
+            Logger.Info("---- CALCULATING NEW SIM RATINGS ---");
             GlickoPlayer newSimRating = CalculateNewRatingByResult(ratings, simulatorRating, sessionFinishState, player);
+            Logger.Info("---- CALCULATING NEW DIFFICULTY RATINGS ---");
             GlickoPlayer newDifficultyRating = CalculateNewRatingByResult(ratings, difficultyRating, sessionFinishState, player);
 
             ComputeNewRatingsAndNotify(newClassRating.FromGlicko(), newDifficultyRating.FromGlicko(), newSimRating.FromGlicko(), difficulty, player, sessionFinishState.TrackName);
+            return (newSimRating.FromGlicko(), newClassRating.FromGlicko(), newDifficultyRating.FromGlicko());
         }
 
-        public void UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating,int difficulty, Driver player, string trackName)
+        public (DriversRating newSimulatorRating, DriversRating newClassRating, DriversRating newDifficultyRating) UpdateRatingsAsLoss(Dictionary<string, DriversRating> ratings, DriversRating difficultyRating, DriversRating simulatorRating,int difficulty, Driver player, string trackName)
         {
             DriverFinishState playerFinishState = new DriverFinishState(true, player.DriverName, player.CarName, player.ClassName, ratings.Count);
-            GlickoPlayer newClassRating = CalculateNewAsLoss(ratings, ratings.First(x => x.Key == player.DriverName).Value, player);
+            GlickoPlayer newClassRating = CalculateNewAsLoss(ratings, ratings[player.DriverName], player);
             GlickoPlayer newSimRating = CalculateNewAsLoss(ratings, simulatorRating, player);
 
             ComputeNewRatingsAndNotify(newClassRating.FromGlicko(), difficultyRating, newSimRating.FromGlicko(), difficulty, playerFinishState, trackName);
+            return (newSimRating.FromGlicko(), newClassRating.FromGlicko(), difficultyRating);
         }
 
         private GlickoPlayer CalculateNewAsLoss(Dictionary<string, DriversRating> ratings, DriversRating rating,  Driver player)
@@ -45,6 +54,9 @@
 
         private GlickoPlayer CalculateNewRatingByResult(Dictionary<string, DriversRating> ratings, DriversRating rating, SessionFinishState sessionFinishState, DriverFinishState player)
         {
+            Logger.Info("---- CALCULATING NEW RATINGS ---");
+            Logger.Info($"Players Rating: {rating.Rating}-{rating.Deviation}-{rating.Volatility}");
+            LogRatings(ratings);
             var playerRating = rating.ToGlicko(player.Name);
             var glickoRatings = TransformToGlickoPlayers(ratings);
             DriverFinishState[] eligibleDrivers = sessionFinishState.DriverFinishStates.Where(x => !x.IsPlayer && ratings.ContainsKey(x.Name)).ToArray();
@@ -65,6 +77,11 @@
         private static Dictionary<string, GlickoPlayer> TransformToGlickoPlayers(Dictionary<string, DriversRating> ratings)
         {
             return ratings.Select(x => new KeyValuePair<string, GlickoPlayer>(x.Key, x.Value.ToGlicko(x.Key))).ToDictionary(x => x.Key, x=> x.Value);
+        }
+
+        private static void LogRatings(Dictionary<string, DriversRating> ratings)
+        {
+            ratings.ForEach(x => Logger.Info($"Rating for {x.Key} : {x.Value.Rating} - {x.Value.Deviation} -  {x.Value.Volatility}"));
         }
     }
 }

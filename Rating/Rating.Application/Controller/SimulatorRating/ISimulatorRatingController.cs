@@ -10,6 +10,7 @@
     public interface ISimulatorRatingController : IController
     {
         event EventHandler<RatingChangeArgs> ClassRatingChanged;
+        event EventHandler<RatingChangeArgs> ClassDifficultyRatingChanged;
         event EventHandler<RatingChangeArgs> SimulatorRatingChanged;
 
         int MinimumAiDifficulty { get; }

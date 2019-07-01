@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DataConvertor\PCars2DataConvertor.cs" />
     <Compile Include="PCars2Connector.cs" />
+    <Compile Include="PCars2UdpReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedMemory\PCars2SharedMemory.cs" />
     <Compile Include="TyreProperties\PCars2TyreProperties.cs" />

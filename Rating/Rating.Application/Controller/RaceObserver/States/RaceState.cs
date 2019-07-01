@@ -176,17 +176,18 @@
             {
                 return;
             }
-            _ratingUpdater.UpdateRatingsAsLoss(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating, SharedContext.RaceContext.UsedDifficulty, player, sessionSummary.TrackInfo.TrackFullName);
+            var newRatings = _ratingUpdater.UpdateRatingsAsLoss(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating, SharedContext.RaceContext.UsedDifficulty, player, sessionSummary.TrackInfo.TrackFullName);
+            SharedContext.RaceContext.FieldRating[player.DriverName] = newRatings.newClassRating;
         }
 
         private void ComputeRatingFromResults(SessionSummary sessionSummary)
         {
-            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(sessionSummary), SharedContext.RaceContext.UsedDifficulty);
+            var newRatings = _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(sessionSummary), SharedContext.RaceContext.UsedDifficulty);
         }
 
         private void ComputeRatingFromResults(SimulatorDataSet simulatorDataSet)
         {
-            _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(simulatorDataSet), SharedContext.RaceContext.UsedDifficulty);
+            var newRatings = _ratingUpdater.UpdateRatingsByResults(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating,  _finishStateFactory.Create(simulatorDataSet), SharedContext.RaceContext.UsedDifficulty);
         }
 
         private bool CanUseQualification(DriverInfo[] eligibleDrivers)

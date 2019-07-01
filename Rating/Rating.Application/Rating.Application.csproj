@@ -86,7 +86,10 @@
     <Compile Include="Controller\SimulatorRating\SimulatorRatingController.cs" />
     <Compile Include="Controller\SimulatorRating\SimulatorRatingControllerFactory.cs" />
     <Compile Include="RatingProvider\FieldRatingProvider\IQualificationResultRatingProvider.cs" />
+    <Compile Include="RatingProvider\FieldRatingProvider\IReferenceRatingProvider.cs" />
+    <Compile Include="RatingProvider\FieldRatingProvider\IReferenceRatingProviderFactory.cs" />
     <Compile Include="RatingProvider\FieldRatingProvider\QualificationResultRatingProvider.cs" />
+    <Compile Include="RatingProvider\FieldRatingProvider\ReferenceRatingProviderFactory.cs" />
     <Compile Include="RatingProvider\IRatingProvider.cs" />
     <Compile Include="Controller\RatingApplicationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -28,6 +28,7 @@
         }
 
         public event EventHandler<RatingChangeArgs> ClassRatingChanged;
+        public event EventHandler<RatingChangeArgs> ClassDifficultyRatingChanged;
         public event EventHandler<RatingChangeArgs> SimulatorRatingChanged;
         public int MinimumAiDifficulty => _simulatorRatingConfiguration.MinimumAiLevel;
         public int MaximumAiDifficulty => _simulatorRatingConfiguration.MaximumAiLevel;
@@ -188,7 +189,7 @@
             _simulatorRating.Results.Add(result);
             _simulatorRating.Results = _simulatorRating.Results.Take(500).ToList();
             _ratingRepository.SaveRatings(_ratings);
-            NotifyRatingsChanges(CreateChangeArgs(oldClassRating, classRating.PlayersRating, driverFinishState.CarClass), CreateChangeArgs(oldSimRating, _simulatorRating.PlayersRating, SimulatorName));
+            NotifyRatingsChanges(CreateChangeArgs(oldClassRating, classRating.PlayersRating, driverFinishState.CarClass), CreateChangeArgs(oldSimRating, _simulatorRating.PlayersRating, SimulatorName), CreateChangeArgs(oldDifficultyRating, newDifficultyRating, driverFinishState.CarClass));
         }
 
         public int GetSuggestedDifficulty(int rating)
@@ -216,7 +217,7 @@
         {
             return new DriverWithoutRating()
             {
-                Deviation = 80, Volatility = 0.06, Name = aiDriverName
+                Deviation = 40, Volatility = 0.06, Name = aiDriverName
             };
         }
 
@@ -235,13 +236,16 @@
             return _simulatorRating.ClassRatings.FirstOrDefault(x => x.ClassName == className) ?? CreateClassRating(className);
         }
 
-        private void NotifyRatingsChanges(RatingChangeArgs classRatingChange, RatingChangeArgs simRatingChange)
+        private void NotifyRatingsChanges(RatingChangeArgs classRatingChange, RatingChangeArgs simRatingChange, RatingChangeArgs difficultyRatingChange)
         {
             Logger.Info("New Simulator Rating:");
             LogRating(simRatingChange.NewRating);
             Logger.Info("New Class Rating:");
             LogRating(classRatingChange.NewRating);
+            Logger.Info("New Dfficulty Rating:");
+            LogRating(difficultyRatingChange.NewRating);
             ClassRatingChanged?.Invoke(this, classRatingChange);
+            ClassDifficultyRatingChanged?.Invoke(this, difficultyRatingChange);
             SimulatorRatingChanged?.Invoke(this, simRatingChange);
         }
 

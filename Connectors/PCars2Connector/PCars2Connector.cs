@@ -23,6 +23,9 @@ namespace SecondMonitor.PCars2Connector
         private readonly PCars2DataConvertor _pCars2DataConvertor;
         private readonly Stopwatch _stopwatch;
 
+        private Task _udpReceiverTask;
+        private CancellationTokenSource _udpCancellationTokenSource;
+        private readonly PCars2UdpReceiver _udpReceiver;
 
         private bool _isConnected;
 
@@ -40,6 +43,7 @@ namespace SecondMonitor.PCars2Connector
             _lastRawPCars2SessionType = PCars2SessionType.SessionInvalid;
             _lastSessionType = SessionType.Na;
             _stopwatch = new Stopwatch();
+            _udpReceiver = new PCars2UdpReceiver();
         }
 
         public override bool IsConnected => _isConnected;
@@ -56,12 +60,19 @@ namespace SecondMonitor.PCars2Connector
             {
                 _sharedMemory.Connect();
                 _isConnected = true;
+                _udpCancellationTokenSource = new CancellationTokenSource();
+                _udpReceiverTask = _udpReceiver.ReceiveLoop(OnNewUdpData, _udpCancellationTokenSource.Token);
             }
             catch (Exception)
             {
                 Disconnect();
                 throw;
             }
+        }
+
+        private void OnNewUdpData(UDPTelemetryData obj)
+        {
+
         }
 
         protected override void ResetConnector()
@@ -111,6 +122,17 @@ namespace SecondMonitor.PCars2Connector
                     ShouldDisconnect = true;
                 }
             }
+
+            try
+            {
+                _udpCancellationTokenSource.Cancel();
+                await _udpReceiverTask;
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+
             Disconnect();
             RaiseDisconnectedEvent();
         }
