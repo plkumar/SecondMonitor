@@ -1,6 +1,9 @@
 ﻿namespace SecondMonitor.ManagePlugins
 {
     using System;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using Contracts.NInject;
     using Ninject.Parameters;
@@ -21,6 +24,7 @@
             try
             {
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+                LoadAssemblies();
                 PluginsSettingsWindow pluginsSettingsWindow = new PluginsSettingsWindow();
                 IPluginConfigurationController pluginConfigurationController = new KernelWrapper().Get<IPluginConfigurationController>(new ConstructorArgument("mainWindow", pluginsSettingsWindow));
                 pluginsSettingsWindow.Closed += async (sender, args) =>
@@ -36,6 +40,16 @@
                 Logger.Error(ex, "Error Occured");
                 Environment.Exit(1);
             }
+        }
+
+        private static void LoadAssemblies()
+        {
+            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
+
+            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+            var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
+            toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
         }
 
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
