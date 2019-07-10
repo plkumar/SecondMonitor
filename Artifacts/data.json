@@ -5695,31 +5695,6 @@
 				}
 			]
 		},
-		"2272": {
-			"Name": "BL 850",
-			"BrandName": "BMW",
-			"CarManufacturer": 2643,
-			"DefaultLivery": 2274,
-			"Id": 2272,
-			"Class": 2322,
-			"liveries": [
-				{
-					"Name": "#1",
-					"Team": 2273,
-					"Car": 2272,
-					"Id": 2274,
-					"Class": 2322,
-					"TeamName": "PCI Nano",
-					"drivers": [
-						{
-							"Forename": "Bruce",
-							"Surname": "Lannister",
-							"Id": 2961
-						}
-					]
-				}
-			]
-		},
 		"2275": {
 			"Name": "Volvo 240 Turbo",
 			"BrandName": "Volvo",
@@ -28144,6 +28119,31 @@
 					]
 				}
 			]
+		},
+		"8006": {
+			"Name": "Cupra TCR",
+			"BrandName": "Cupra",
+			"CarManufacturer": 7159,
+			"DefaultLivery": 8008,
+			"Id": 8006,
+			"Class": 6172,
+			"liveries": [
+				{
+					"Name": "#0",
+					"Team": 8007,
+					"Car": 8006,
+					"Id": 8008,
+					"Class": 6172,
+					"TeamName": "CUPRA TCR",
+					"drivers": [
+						{
+							"Forename": "Sebastian",
+							"Surname": "Stahl",
+							"Id": 7961
+						}
+					]
+				}
+			]
 		}
 	},
 	"liveries": {
@@ -29254,21 +29254,6 @@
 					"Forename": "John",
 					"Surname": "McFarley",
 					"Id": 3064
-				}
-			]
-		},
-		"2274": {
-			"Name": "#1",
-			"Team": 2273,
-			"Car": 2272,
-			"Id": 2274,
-			"Class": 2322,
-			"TeamName": "PCI Nano",
-			"drivers": [
-				{
-					"Forename": "Bruce",
-					"Surname": "Lannister",
-					"Id": 2961
 				}
 			]
 		},
@@ -54451,6 +54436,21 @@
 					"Id": 7959
 				}
 			]
+		},
+		"8008": {
+			"Name": "#0",
+			"Team": 8007,
+			"Car": 8006,
+			"Id": 8008,
+			"Class": 6172,
+			"TeamName": "CUPRA TCR",
+			"drivers": [
+				{
+					"Forename": "Sebastian",
+					"Surname": "Stahl",
+					"Id": 7961
+				}
+			]
 		}
 	},
 	"tracks": {
@@ -56198,15 +56198,6 @@
 			],
 			"Id": 1923
 		},
-		"2322": {
-			"Name": "BL Cup",
-			"Cars": [
-				{
-					"Id": 2272
-				}
-			],
-			"Id": 2322
-		},
 		"2378": {
 			"Name": "Procar",
 			"Cars": [
@@ -56544,13 +56535,16 @@
 			"Id": 6036
 		},
 		"6172": {
-			"Name": "eSports Touring",
+			"Name": "RaceRoom Esports",
 			"Cars": [
 				{
 					"Id": 6177
 				},
 				{
 					"Id": 6187
+				},
+				{
+					"Id": 8006
 				},
 				{
 					"Id": 6195
@@ -56894,10 +56888,6 @@
 			"Name": "134 BMW Judd",
 			"Id": 2642
 		},
-		"2643": {
-			"Name": "BL 850",
-			"Id": 2643
-		},
 		"2738": {
 			"Name": "Honda",
 			"Id": 2738
@@ -57179,11 +57169,6 @@
 			"Type": "CarTeam",
 			"Name": "BMW Team Bigazzi",
 			"Id": 2202
-		},
-		"2273": {
-			"Type": "CarTeam",
-			"Name": "PCI Nano",
-			"Id": 2273
 		},
 		"2276": {
 			"Type": "CarTeam",
@@ -62184,6 +62169,11 @@
 			"Type": "CarTeam",
 			"Name": "Super Racer",
 			"Id": 7981
+		},
+		"8007": {
+			"Type": "CarTeam",
+			"Name": "CUPRA TCR",
+			"Id": 8007
 		}
 	}
 }
