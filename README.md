@@ -56,7 +56,10 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
  - [x] Telemetry - Allow the application to track and view advanced telemetry for individual laps.
  - [x] Client/Server - Ability to show second monitor on different computer than the simulator is running.
  - [ ] Improve Telemetry Viewer 
- - [ ] F1 2018 Support
+ - [ ] Track Recods tracking
+ - [ ] Championship module (tied to Rating)
+ - [ ] Basic setup "sanity check"
+ - [ ] F1 2018/F1 2019 Support
  
 ## Support
 For Support please use the application topic on r3e forums : https://forum.sector3studios.com/index.php?threads/secondmonitor-timing-status-app.9587/
