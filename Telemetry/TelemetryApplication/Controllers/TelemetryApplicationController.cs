@@ -5,6 +5,7 @@
     using Contracts.NInject;
     using MainWindow;
     using SecondMonitor.ViewModels.Controllers;
+    using Settings;
 
     public class TelemetryApplicationController : IController
     {

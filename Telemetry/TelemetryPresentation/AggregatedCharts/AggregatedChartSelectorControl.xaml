@@ -78,6 +78,16 @@
                                     </ListBox>
                                 </Grid>
                             </TabItem>
+                            <TabItem Background="{StaticResource Anthracite01Brush}">
+                                <TabItem.Header>
+                                    <Grid Background="{StaticResource Anthracite01Brush}" ToolTip="Aggregated Chart Settings">
+                                        <ContentPresenter Content="{StaticResource SettingsIcon}" Width="48" Margin="10"/>
+                                    </Grid>
+                                </TabItem.Header>
+                                <Grid Background="{StaticResource Anthracite01Brush}">
+                                    <ContentPresenter Content="{Binding AggregatedChartSettingsViewModel}"></ContentPresenter>
+                                </Grid>
+                            </TabItem>
                             <TabControl.Resources>
                                 <Style TargetType="{x:Type TabPanel}">
                                     <Setter Property="Background" Value="{StaticResource Anthracite01Brush}"></Setter>

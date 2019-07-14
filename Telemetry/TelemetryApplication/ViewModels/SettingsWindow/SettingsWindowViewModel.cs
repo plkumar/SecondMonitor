@@ -92,7 +92,9 @@
             return new TelemetrySettingsDto()
             {
                 GraphSettings = newGraphSettingsDto,
-                XAxisKind = XAxisKind
+                XAxisKind = XAxisKind,
+                AggregatedChartSettings = OriginalModel.AggregatedChartSettings,
+                CarsProperties = OriginalModel.CarsProperties
             };
         }
 

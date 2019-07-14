@@ -99,12 +99,14 @@
                                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding LapNumber}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         <TextBlock Style="{StaticResource StandardText}" Margin="10,0,0,0" Text="{Binding LapTime, Mode=OneWay, Converter={StaticResource TimeSpanToMinutesSecondMilisecondsConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         <CheckBox IsChecked="{Binding Selected}" Margin="5"></CheckBox>
-                                        <Grid Height="20" Width="50" Grid.Column="0" Background="{Binding LapColorBrush}"/>
+                                        <Grid Height="20" Width="20" Grid.Column="0" Background="{Binding LapColorBrush}"/>
                                         <xctk:ColorPicker Width="25" Height="25" Margin="2" HorizontalAlignment="Left" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                           Background="{StaticResource Anthracite01Brush}"
                                                           ButtonStyle="{StaticResource ComboBoxToggleButton2}"
                                                           Foreground="{StaticResource LightGrey01Brush}"
                                                           SelectedColor="{Binding LapColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <ComboBox Style="{StaticResource StandardComboBoxStyle}" SelectedItem="{Binding Stint}" ItemsSource="{Binding AvailableStintGroups}" Width="40" Height="25" ></ComboBox>
+
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource StandardText}" Margin="0,0,0,0" Text="S1: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource SmallFontSize}"/>

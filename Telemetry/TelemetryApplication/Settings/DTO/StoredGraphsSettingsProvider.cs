@@ -1,20 +1,21 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.Settings.DTO
 {
     using System.Linq;
+    using Controllers.Settings;
     using ViewModels.GraphPanel;
 
     public class StoredGraphsSettingsProvider : IGraphsSettingsProvider
     {
         private readonly IGraphsSettingsProvider _backupProvider;
-        private readonly ITelemetrySettingsRepository _telemetrySettingsRepository;
+        private readonly ISettingsController _settingsProvider;
 
-        public StoredGraphsSettingsProvider(IGraphsSettingsProvider backupProvider, ITelemetrySettingsRepository telemetrySettingsRepository)
+        public StoredGraphsSettingsProvider(IGraphsSettingsProvider backupProvider, ISettingsController settingsProvider)
         {
             _backupProvider = backupProvider;
-            _telemetrySettingsRepository = telemetrySettingsRepository;
+            _settingsProvider = settingsProvider;
         }
 
-        public TelemetrySettingsDto TelemetrySettings => _telemetrySettingsRepository.LoadOrCreateNew();
+        public TelemetrySettingsDto TelemetrySettings => _settingsProvider.TelemetrySettings;
 
         public bool IsGraphViewModelLeft(IGraphViewModel graphViewModel)
         {
@@ -43,7 +44,7 @@
                     GraphPriority = _backupProvider.GetGraphPriority(graphViewModel)
                 };
                 TelemetrySettings.GraphSettings.Add(graphSettings);
-                _telemetrySettingsRepository.SaveTelemetrySettings(TelemetrySettings);
+                _settingsProvider.SetTelemetrySettings(TelemetrySettings, RequestedAction.RefreshCharts);
             }
 
             return graphSettings;

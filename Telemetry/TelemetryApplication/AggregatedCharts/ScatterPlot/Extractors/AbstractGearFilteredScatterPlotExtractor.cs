@@ -5,7 +5,6 @@
     using Filter;
     using OxyPlot;
     using SecondMonitor.ViewModels.Settings;
-    using Settings;
     using TelemetryManagement.DTO;
 
     public abstract class AbstractGearFilteredScatterPlotExtractor : AbstractScatterPlotExtractor
@@ -39,9 +38,13 @@
                 color = OxyColors.Azure;
             }
 
-            _gearTelemetryFilter.FilterGear = gear;
+            return ExtractSeriesForGear(loadedLaps, gear, $"Gear {gear}", color);
+        }
 
-            return ExtractSeries(loadedLaps, _allFilters, $"Gear {gear}", color);
+        public ScatterPlotSeries ExtractSeriesForGear(IEnumerable<LapTelemetryDto> loadedLaps, string gear, string title, OxyColor color)
+        {
+            _gearTelemetryFilter.FilterGear = gear;
+            return ExtractSeries(loadedLaps, _allFilters, title, color);
         }
     }
 }

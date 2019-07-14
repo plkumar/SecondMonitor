@@ -2,11 +2,11 @@
 using System.Windows;
 using System.Windows.Interactivity;
 using System.Windows.Media;
-using SecondMonitor.WindowsControls.Colors;
 
 namespace SecondMonitor.WindowsControls.WPF.Behaviors.TyreWear
 {
     using System.Threading.Tasks;
+    using ViewModels.Colors.Extensions;
 
     public abstract class ColorByLinearLimitsBehavior<T> : Behavior<T> where T : UIElement
     {

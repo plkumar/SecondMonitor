@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     using Newtonsoft.Json;
@@ -21,7 +22,12 @@
 
         public void Load()
         {
-            JObject jsonDb = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(Path.Combine(AssemblyDirectory, "data.json")));
+            Load(Path.Combine(AssemblyDirectory, "data.json"));
+        }
+
+        public void Load(string filePath)
+        {
+            JObject jsonDb = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(filePath));
             JToken cars = jsonDb.GetValue("cars");
             JToken classes = jsonDb.GetValue("classes");
             LoadCarNames(cars);
@@ -81,6 +87,11 @@
             }
 
             return _classNames[id];
+        }
+
+        public IEnumerable<string> GetAllCars()
+        {
+            return _carNames.Values;
         }
     }
 }

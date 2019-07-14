@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:settingsWindow="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.SettingsWindow;assembly=TelemetryApplication">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../TelemetryPresentation.xaml" />
+        <ResourceDictionary Source="../Template/GraphDataTemplates.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type settingsWindow:AggregatedChartSettingsViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey05Brush}">
+                    <Grid VerticalAlignment="Top">
+                        <StackPanel Margin="10">
+                            <TextBlock Style="{StaticResource StandardText}" Text="Stint Groups Rendering:"></TextBlock>
+                            <ComboBox Style="{StaticResource StandardComboBoxStyle}" SelectedItem="{Binding SelectedStintRenderingKind}" ItemsSource="{Binding AllowedStintRenderingKind}" Margin="0,3,0,0" Width="200"></ComboBox>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.LapPicker
 {
     using System;
+    using System.Linq;
     using System.Windows.Media;
     using Controllers.Synchronization;
     using SecondMonitor.ViewModels;
@@ -8,6 +9,7 @@
 
     public class LapSummaryViewModel : AbstractViewModel<LapSummaryDto>, ILapSummaryViewModel
     {
+        private readonly ILapStintSynchronization _lapStintSynchronization;
 
         private TimeSpan _lapTime;
         private string _lapNumber;
@@ -16,6 +18,14 @@
         private TimeSpan _sector1Time;
         private TimeSpan _sector2Time;
         private TimeSpan _sector3Time;
+        private int _stint;
+
+        public LapSummaryViewModel(ILapColorSynchronization lapColorSynchronization, ILapStintSynchronization lapStintSynchronization)
+        {
+            _lapStintSynchronization = lapStintSynchronization;
+            LapColorSynchronization = lapColorSynchronization;
+            AvailableStintGroups = Enumerable.Range(0, 10).ToArray();
+        }
 
         public ILapColorSynchronization LapColorSynchronization { get; set; }
 
@@ -70,6 +80,18 @@
         }
 
         public SolidColorBrush LapColorBrush => new SolidColorBrush(LapColor);
+        public int Stint
+        {
+            get => _stint;
+            set
+            {
+                SetProperty(ref _stint, value);
+                _lapStintSynchronization.SetStintNumberForLap(OriginalModel.Id, value);
+            }
+
+        }
+
+        public int[] AvailableStintGroups { get; }
 
         public string LapNumber
         {
@@ -88,6 +110,7 @@
             Sector1Time = model.Sector1Time;
             Sector2Time = model.Sector2Time;
             Sector3Time = model.Sector3Time;
+            Stint = model.Stint;
         }
 
         public override LapSummaryDto SaveToNewModel()

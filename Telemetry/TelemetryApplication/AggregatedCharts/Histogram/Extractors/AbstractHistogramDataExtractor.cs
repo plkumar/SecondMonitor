@@ -6,10 +6,8 @@
     using WindowsControls.Properties;
     using DataModel.Telemetry;
     using Filter;
-    using OxyPlot;
     using Providers;
     using SecondMonitor.ViewModels.Settings;
-    using Settings;
     using TelemetryManagement.DTO;
     using TelemetryManagement.StoryBoard;
 
@@ -33,7 +31,7 @@
             TimedValue[] data = ExtractTimedValuesOfLoadedLaps(loadedLaps, extractFunc, filters).Where(x => x.ValueTime.TotalSeconds < 2).OrderBy(x => x.Value).ToArray();
             if (data.Length == 0)
             {
-                return null;
+                return new Histogram();
             }
             double minBand = GetBandMiddleValue(data[0].Value, bandSize);
             double maxBand = GetBandMiddleValue(data[data.Length - 1].Value, bandSize);
@@ -57,6 +55,10 @@
 
                 double bandTime = currentGrouping?.Sum(x => x.ValueTime.TotalSeconds) ?? 0;
                 double percentage = bandTime / totalSeconds * 100;
+                if (percentage < 0.25)
+                {
+                    continue;
+                }
                 HistogramBar currentBar = new HistogramBar(currentGrouping?.ToArray() ?? new TimedValue[0], i, percentage);
                 histogramBand.AddItem(currentBar);
             }

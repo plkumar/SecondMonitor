@@ -4,7 +4,7 @@
     using System.Linq;
     using DataModel.Extensions;
     using SecondMonitor.ViewModels.Factory;
-    using Settings;
+    using TelemetryApplication.Settings;
     using ViewModels.GraphPanel;
 
     public class GraphViewModelsProvider : IGraphViewModelsProvider

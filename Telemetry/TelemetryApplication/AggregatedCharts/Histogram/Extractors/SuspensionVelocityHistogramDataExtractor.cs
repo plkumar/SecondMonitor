@@ -23,20 +23,19 @@
         protected override bool ZeroBandInMiddle => false;
         public override double DefaultBandSize => Math.Round(Velocity.FromMs(0.005).GetValueInUnits(VelocityUnitsSmall), 2);
         public override string YUnit => Velocity.GetUnitSymbol(VelocityUnitsSmall);
-        public double DefaultMinimum => Math.Round(Velocity.FromMs(-0.2).GetValueInUnits(VelocityUnitsSmall), 0);
-        public double DefaultMaximum => Math.Round(Velocity.FromMs(0.2).GetValueInUnits(VelocityUnitsSmall), 0);
+
+        public double BumpTransition { get; set; }
+
+        public double ReboundTransition { get; set; }
+
         protected override Func<WheelInfo, double> WheelValueExtractor => (x) => x.SuspensionVelocity?.GetValueInUnits(VelocityUnitsSmall) ?? 0;
-
-        public double DefaultFastSlowBoundary => Math.Round(Velocity.FromMs(0.030).GetValueInUnits(VelocityUnitsSmall), 0);
-
-        public double FastSlowBoundary { get; set; }
 
         protected override Histogram ExtractHistogram(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters, double bandSize, string title)
         {
             TimedValue[] data = ExtractTimedValuesOfLoadedLaps(loadedLaps, extractFunc, filters).Where(x => x.ValueTime.TotalSeconds < 2).OrderBy(x => x.Value).ToArray();
             if (data.Length == 0)
             {
-                return null;
+                return new Histogram();
             }
             double minBand = GetBandMiddleValue(data[0].Value, bandSize);
             double maxBand = GetBandMiddleValue(data[data.Length - 1].Value, bandSize);
@@ -63,7 +62,7 @@
                 double bandTime = currentGrouping?.Sum(x => x.ValueTime.TotalSeconds) ?? 0;
                 double percentage = bandTime / totalSeconds * 100;
                 HistogramBar currentBar = new HistogramBar(currentGrouping?.ToArray() ?? new TimedValue[0], i, percentage);
-                if (Math.Abs(i) < FastSlowBoundary)
+                if (ReboundTransition < i && i < BumpTransition)
                 {
                     slowBand.AddItem(currentBar);
                 }

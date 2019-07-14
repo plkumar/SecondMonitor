@@ -53,6 +53,10 @@
                 {
                     XmlReader reader = XmlReader.Create(file, new XmlReaderSettings() { CheckCharacters = false });
                     telemetrySettings = (TelemetrySettingsDto)_xmlSerializer.Deserialize(reader);
+                    if (telemetrySettings.AggregatedChartSettings == null)
+                    {
+                        telemetrySettings.AggregatedChartSettings = new AggregatedChartSettingsDto();
+                    }
                     _cachedSettings = telemetrySettings;
                 }
                 return true;

@@ -30,9 +30,10 @@
         private readonly IAggregatedChartsController _aggregatedChartsController;
         private readonly IGraphPanelController _leftGraphPanelController;
         private readonly IGraphPanelController _rightGraphPanelController;
+        private readonly ISettingsController _settingsController;
 
         public MainWindowController(ISettingsProvider settingsProvider, ITelemetryLoadController telemetryLoadController, ILapPickerController lapPickerController, IViewModelFactory viewModelFactory, IMainWindowViewModel mainWindowViewModel,
-            ISnapshotSectionController snapshotSectionController, IMapViewController mapViewController, ITelemetryViewsSynchronization telemetryViewsSynchronization, IGraphPanelController[] graphPanelControllers, IAggregatedChartsController aggregatedChartsController)
+            ISnapshotSectionController snapshotSectionController, IMapViewController mapViewController, ITelemetryViewsSynchronization telemetryViewsSynchronization, IGraphPanelController[] graphPanelControllers, IAggregatedChartsController aggregatedChartsController, ISettingsController settingsController)
         {
             _settingsProvider = settingsProvider;
             _telemetryLoadController = telemetryLoadController;
@@ -43,6 +44,7 @@
             _mapViewController = mapViewController;
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
             _aggregatedChartsController = aggregatedChartsController;
+            _settingsController = settingsController;
 
             _leftGraphPanelController = graphPanelControllers.First(x => x.IsLetPanel);
             _rightGraphPanelController = graphPanelControllers.First(x => !x.IsLetPanel);
@@ -78,6 +80,7 @@
         private async Task StartChildControllers()
         {
             Subscribe();
+            await _settingsController.StartControllerAsync();
             await _telemetryLoadController.StartControllerAsync();
             await _leftGraphPanelController.StartControllerAsync();;
             await _rightGraphPanelController.StartControllerAsync();;
@@ -96,6 +99,7 @@
             await _snapshotSectionController.StopControllerAsync();
             await _mapViewController.StopControllerAsync();;
             await _aggregatedChartsController.StopControllerAsync();
+            await _settingsController.StopControllerAsync();
             UnSubscribe();
         }
 

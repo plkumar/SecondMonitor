@@ -1,61 +1,36 @@
 ﻿namespace SecondMonitor.ViewModels.Colors
 {
-    using System.Windows.Media;
     using DataModel.BasicProperties;
 
-    public class BasicColorPaletteProvider : IColorPaletteProvider
+    public class BasicColorPaletteProvider : AbstractColorPaletteProvider
     {
-        private static readonly Color[] Colors = new[]
-        {
-            (Color) ColorConverter.ConvertFromString("#e6194B"),
-            (Color) ColorConverter.ConvertFromString("#3cb44b"),
-            (Color) ColorConverter.ConvertFromString("#ffe119"),
-            (Color) ColorConverter.ConvertFromString("#4363d8"),
-            (Color) ColorConverter.ConvertFromString("#f58231"),
-            (Color) ColorConverter.ConvertFromString("#911eb4"),
-            (Color) ColorConverter.ConvertFromString("#42d4f4"),
-            (Color) ColorConverter.ConvertFromString("#f032e6"),
-            (Color) ColorConverter.ConvertFromString("#bfef45"),
-            (Color) ColorConverter.ConvertFromString("#fabebe"),
-            (Color) ColorConverter.ConvertFromString("#469990"),
-            (Color) ColorConverter.ConvertFromString("#e6beff"),
-            (Color) ColorConverter.ConvertFromString("#9A6324"),
-            (Color) ColorConverter.ConvertFromString("#fffac8"),
-            (Color) ColorConverter.ConvertFromString("#800000"),
-            (Color) ColorConverter.ConvertFromString("#aaffc3"),
-            (Color) ColorConverter.ConvertFromString("#808000"),
-            (Color) ColorConverter.ConvertFromString("#ffd8b1"),
-            (Color) ColorConverter.ConvertFromString("#000075"),
-
-        };
-
-        private int _currentIndex;
-
         public BasicColorPaletteProvider()
         {
-            _currentIndex = 0;
-        }
-
-        public Color GetNext()
-        {
-            try
+            Colors = new[]
             {
-                return Colors[_currentIndex];
-            }
-            finally
-            {
-                _currentIndex = (_currentIndex + 1) % Colors.Length;
-            }
+                ColorDto.FromHex("#ffe6194B"),
+                ColorDto.FromHex("#ff3cb44b"),
+                ColorDto.FromHex("#ffffe119"),
+                ColorDto.FromHex("#ff4363d8"),
+                ColorDto.FromHex("#fff58231"),
+                ColorDto.FromHex("#ff911eb4"),
+                ColorDto.FromHex("#ff42d4f4"),
+                ColorDto.FromHex("#fff032e6"),
+                ColorDto.FromHex("#ffbfef45"),
+                ColorDto.FromHex("#fffabebe"),
+                ColorDto.FromHex("#ff469990"),
+                ColorDto.FromHex("#ffe6beff"),
+                ColorDto.FromHex("#ff9A6324"),
+                ColorDto.FromHex("#fffffac8"),
+                ColorDto.FromHex("#ff800000"),
+                ColorDto.FromHex("#ffaaffc3"),
+                ColorDto.FromHex("#ff808000"),
+                ColorDto.FromHex("#ffffd8b1"),
+                ColorDto.FromHex("#ff000075"),
+
+            };
         }
 
-        public ColorDto GetNextAsDto()
-        {
-            return ColorDto.FromColor(GetNext());
-        }
-
-        public void Reset()
-        {
-            _currentIndex = 0;
-        }
+        protected override ColorDto[] Colors { get; }
     }
 }

@@ -7,20 +7,23 @@
     using Controller.SimulatorRating;
     using DataModel.Snapshot.Drivers;
     using DataModel.Summary;
+    using ReferenceRatingProviders;
 
     public class QualificationResultRatingProvider : IQualificationResultRatingProvider
     {
         private readonly ISimulatorRatingController _simulatorRatingController;
+        private readonly IReferenceRatingProviderFactory _referenceRatingProviderFactory;
         private readonly int _maxNoise;
         private readonly Random _random;
         private readonly int _minimumRating;
         private TimeSpan _referenceTime;
         private int _referenceRating;
 
-        public QualificationResultRatingProvider(ISimulatorRatingController simulatorRatingController)
+        public QualificationResultRatingProvider(ISimulatorRatingController simulatorRatingController, IReferenceRatingProviderFactory referenceRatingProviderFactory)
         {
             _random = new Random();
             _simulatorRatingController = simulatorRatingController;
+            _referenceRatingProviderFactory = referenceRatingProviderFactory;
             _maxNoise = (int)(_simulatorRatingController.RatingPerLevel * _simulatorRatingController.AiRatingNoise / 100);
             _minimumRating = _simulatorRatingController.MinimumAiDifficulty;
         }
@@ -69,7 +72,7 @@
             InitializeReferenceRating(difficulty);
             fieldDrivers = fieldDrivers.OrderBy(x => x.Position).ToArray();
             Dictionary<string, DriversRating> ratings = new Dictionary<string, DriversRating>();
-            int middleDriverIndex = fieldDrivers.Length > 3 ? 3 : fieldDrivers.Length - 1;
+            int middleDriverIndex = _referenceRatingProviderFactory.CreateReferenceRatingProvider().GetReferenceDriverIndex(fieldDrivers.Length);
             int ratingBetweenPlaces = _simulatorRatingController.QuickRaceAiRatingForPlace;
             for(int i = 0; i < fieldDrivers.Length; i++)
             {
@@ -113,8 +116,7 @@
 
         private void InitializeReferenceTime(List<Driver> drivers)
         {
-            List<Driver> driversWithTime = drivers.Where(x => x.BestPersonalLap != null && x.IsPlayer == false).ToList();
-            _referenceTime = driversWithTime.Count <= 3 ? driversWithTime[0].BestPersonalLap.LapTime : driversWithTime[3].BestPersonalLap.LapTime;
+            _referenceTime = _referenceRatingProviderFactory.CreateReferenceRatingProvider().GetReferenceTime(drivers);
         }
     }
 }

@@ -35,7 +35,7 @@
                     return new T();
                 }
 
-                using (FileStream file = File.Open(fileName, FileMode.Open))
+                using (FileStream file = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 {
                     return _xmlSerializer.Deserialize(file) as T;
                 }

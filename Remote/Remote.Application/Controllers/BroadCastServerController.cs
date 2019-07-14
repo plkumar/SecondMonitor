@@ -166,9 +166,6 @@ namespace SecondMonitor.Remote.Application.Controllers
             {
                 _newPeers.Enqueue(peer);
             }
-
-
-
         }
 
         private async Task ServerLoop(CancellationToken token)

@@ -70,9 +70,9 @@ namespace SecondMonitor.PCars2Connector
             }
         }
 
-        private void OnNewUdpData(UDPTelemetryData obj)
+        private void OnNewUdpData(UDPTelemetryData data)
         {
-
+            _pCars2DataConvertor.UdpTelemetryData = data;
         }
 
         protected override void ResetConnector()

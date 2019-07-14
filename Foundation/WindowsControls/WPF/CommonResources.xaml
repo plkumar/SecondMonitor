@@ -5,6 +5,7 @@
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="Icons.xaml" />
         <ResourceDictionary Source="Constants.xaml" />
+        <ResourceDictionary Source="Layouts/Layouts.xaml" />
         <ResourceDictionary Source="DataGrid/DataGridStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -23,6 +24,7 @@
     <converters:TyreCompoundToBrushConverter x:Key="TyreCompoundToBrushConverter"/>
     <converters:FormattedTimeToBrushConverter x:Key="FormattedTimeToBrushConverter"/>
     <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+    <converters:NonNegativeIntToStringConverter x:Key="NonNegativeIntToStringConverter"/>
 
 
     <Style x:Key="StandardText" TargetType="TextBlock">

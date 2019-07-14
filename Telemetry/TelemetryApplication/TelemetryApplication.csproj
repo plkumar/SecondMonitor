@@ -67,33 +67,42 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedCharts\AbstractAggregatedChartProvider.cs" />
     <Compile Include="AggregatedCharts\AbstractTelemetryDataExtractor.cs" />
     <Compile Include="AggregatedCharts\Filter\FullThrottleFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\GearTelemetryFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\IGearTelemetryFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\ITelemetryFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\LateralAccFilter.cs" />
+    <Compile Include="AggregatedCharts\Filter\LoadedWheelFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoBrakeFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoClutchFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoHorizontalAccelerationFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\NoLateralAccelerationFilter.cs" />
+    <Compile Include="AggregatedCharts\Filter\CamberFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\SuspensionVelocityFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\ThrottlePositionFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\IWheelTelemetryFilter.cs" />
+    <Compile Include="AggregatedCharts\Histogram\Extractors\CamberHistogramExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\RideHeightHistogramExtractor.cs" />
+    <Compile Include="AggregatedCharts\Histogram\Extractors\TyreLoadHistogramExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\AbstractWheelHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\AggregatedChartKind.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\AbstractWheelHistogramDataExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\RpmHistogramDataExtractor.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\SuspensionVelocityHistogramDataExtractor.cs" />
+    <Compile Include="AggregatedCharts\Histogram\Providers\CamberHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\HistogramBand.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\RideHeightHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\Histogram\Providers\RpmHistogramProvider.cs" />
+    <Compile Include="AggregatedCharts\Histogram\Providers\TyreLoadHistogramProvider.cs" />
     <Compile Include="AggregatedCharts\IAggregatedChartProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractGearFilteredScatterPlotExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractMultiPointScatterPlotExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractScatterPlotExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\AxisDefinition.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractWheelScatterPlotDataExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\CamberToLateralGExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\HorizontalAccelerationToRideHeightExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\LateralAccelerationToRideHeightExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\LateralToLongGExtractor.cs" />
@@ -103,7 +112,12 @@
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\SpeedToHorizontalGExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\SpeedToRakeExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\SpeedToRideHeightExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\TyreLoadToCamberExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\TyreLoadToLatGExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\TyreLoadToLongGExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\AbstractGearsChartProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\AbstractWheelChartProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\CamberToLateralGChartProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\LatToLogGProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\RearRollAngleToFrontRollAngleProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\RideHeightToHorizontalAccProvider.cs" />
@@ -113,6 +127,10 @@
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedHorizontalAccelerationChartProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedToDownforceProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedToRakeProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\AbstractStintScatterPlotProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToCamberProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToLatGProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToLongGProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlot.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlotSeries.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedToRpmChartProvider.cs" />
@@ -143,6 +161,13 @@
     <Compile Include="Controllers\OpenWindow\OpenWindowController.cs" />
     <Compile Include="Controllers\SettingsWindow\ISettingsWindowController.cs" />
     <Compile Include="Controllers\SettingsWindow\SettingsWindowController.cs" />
+    <Compile Include="Controllers\Settings\DefaultCarProperties\DefaultR3ECarSettingsRepository.cs" />
+    <Compile Include="Controllers\Settings\DefaultCarProperties\IDefaultCarPropertiesProvider.cs" />
+    <Compile Include="Controllers\Settings\DefaultCarProperties\R3EDefaultCarPropertiesProvider.cs" />
+    <Compile Include="Controllers\Settings\ISettingsController.cs" />
+    <Compile Include="Controllers\Settings\RequestedAction.cs" />
+    <Compile Include="Controllers\Settings\SettingChangedArgs.cs" />
+    <Compile Include="Controllers\Settings\SettingsController.cs" />
     <Compile Include="Controllers\Synchronization\DataPointSelectionSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\Graphs\GraphViewSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\Graphs\IGraphViewSynchronization.cs" />
@@ -152,9 +177,12 @@
     <Compile Include="Controllers\Synchronization\Graphs\WheelVisibilityArgs.cs" />
     <Compile Include="Controllers\Synchronization\IDataPointSelectionSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\ILapColorSynchronization.cs" />
+    <Compile Include="Controllers\Synchronization\ILapStintSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\ITelemetryViewsSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\LapColorArgs.cs" />
     <Compile Include="Controllers\Synchronization\LapColorSynchronization.cs" />
+    <Compile Include="Controllers\Synchronization\LapStintArg.cs" />
+    <Compile Include="Controllers\Synchronization\LapStintSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\LapSummaryArgs.cs" />
     <Compile Include="Controllers\Synchronization\LapTelemetryArgs.cs" />
     <Compile Include="Controllers\Synchronization\TelemetrySessionArgs.cs" />
@@ -172,8 +200,19 @@
     <Compile Include="Repository\ITelemetryRepositoryFactory.cs" />
     <Compile Include="Repository\TelemetryRepositoryFactory.cs" />
     <Compile Include="Settings\DefaultGraphsSettingsProvider.cs" />
+    <Compile Include="Settings\DTO\AggregatedChartSettingsDto.cs" />
+    <Compile Include="Settings\DTO\CarProperties\CarPropertiesDto.cs" />
+    <Compile Include="Settings\DTO\CarProperties\WheelPropertiesDto.cs" />
+    <Compile Include="Settings\DTO\CarsProperties.cs" />
+    <Compile Include="Settings\DTO\ChartProperties\CamberHistogram.cs" />
+    <Compile Include="Settings\DTO\ChartProperties\ChartsProperties.cs" />
+    <Compile Include="Settings\DTO\ChartProperties\SuspensionVelocityHistogram.cs" />
+    <Compile Include="Settings\DTO\DefaultCarProperties\DefaultR3ECarProperties.cs" />
+    <Compile Include="Settings\DTO\DefaultCarProperties\DefaultR3ECarsProperties.cs" />
     <Compile Include="Settings\DTO\GraphLocationKind.cs" />
     <Compile Include="Settings\DTO\GraphSettingsDto.cs" />
+    <Compile Include="Settings\DTO\StintRenderingKind.cs" />
+    <Compile Include="Settings\DTO\StintRenderingKindMap.cs" />
     <Compile Include="Settings\DTO\StoredGraphsSettingsProvider.cs" />
     <Compile Include="Settings\DTO\TelemetrySettingsDto.cs" />
     <Compile Include="Settings\DTO\XAxisKind.cs" />
@@ -183,6 +222,11 @@
     <Compile Include="TelemetryApplicationModule.cs" />
     <Compile Include="TelemetryApplicationModuleBootstrapper.cs" />
     <Compile Include="ViewModels\AggregatedCharts\AggregatedChartSelectorViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\CamberHistogramChartViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\CamberWheelsChartViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\CamberStatsViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\HistogramChartWithStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\HistogramStatisticsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityStatsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityWheelsChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\WheelsHistogramChartViewModel.cs" />
@@ -241,6 +285,8 @@
     <Compile Include="ViewModels\LoadedLapCache\LoadedLapsCache.cs" />
     <Compile Include="ViewModels\OpenWindow\IOpenWindowSessionInformationViewModel.cs" />
     <Compile Include="ViewModels\OpenWindow\OpenWindowSessionInformationViewModel.cs" />
+    <Compile Include="ViewModels\SettingsWindow\AggregatedChartSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsWindow\IAggregatedChartSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindow\GraphSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindow\IGraphSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindow\ISettingsWindowViewModel.cs" />
@@ -307,4 +353,7 @@
     <Folder Include="IOC\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(SolutionDir)Artifacts\Data\R3E\R3EDefaultProperties.xml" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

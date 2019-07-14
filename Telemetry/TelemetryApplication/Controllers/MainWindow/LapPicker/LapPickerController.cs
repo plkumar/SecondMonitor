@@ -24,7 +24,6 @@
         private readonly ITelemetryViewsSynchronization _telemetryViewsSynchronization;
         private readonly ITelemetryLoadController _telemetryLoadController;
         private readonly IViewModelFactory _viewModelFactory;
-        private readonly ILapColorSynchronization _lapColorSynchronization;
         private readonly IColorPaletteProvider _colorPaletteProvider;
         private readonly IOpenWindowController _openWindowController;
         private readonly ISettingsWindowController _settingsWindowController;
@@ -33,14 +32,13 @@
         private readonly List<LapSummaryDto> _loadedLaps;
 
         public LapPickerController(ITelemetryViewsSynchronization telemetryViewsSynchronization, ITelemetryLoadController telemetryLoadController, IMainWindowViewModel mainWindowViewModel, IViewModelFactory viewModelFactory,
-            ILapColorSynchronization lapColorSynchronization, IColorPaletteProvider colorPaletteProvider, IOpenWindowController openWindowController, ISettingsWindowController settingsWindowController, IUserInputProvider userInputProvider)
+             IColorPaletteProvider colorPaletteProvider, IOpenWindowController openWindowController, ISettingsWindowController settingsWindowController, IUserInputProvider userInputProvider)
         {
             _loadedLaps = new List<LapSummaryDto>();
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
             _telemetryLoadController = telemetryLoadController;
             _lapSelectionViewModel = mainWindowViewModel.LapSelectionViewModel;
             _viewModelFactory = viewModelFactory;
-            _lapColorSynchronization = lapColorSynchronization;
             _colorPaletteProvider = colorPaletteProvider;
             _openWindowController = openWindowController;
             _settingsWindowController = settingsWindowController;
@@ -114,7 +112,6 @@
             foreach (LapSummaryDto lapSummaryDto in lapsSummary)
             {
                 ILapSummaryViewModel newViewModel = _viewModelFactory.Create<ILapSummaryViewModel>();
-                newViewModel.LapColorSynchronization = _lapColorSynchronization;
                 newViewModel.FromModel(lapSummaryDto);
                 newViewModel.LapColor = _colorPaletteProvider.GetNext();
                 _lapSelectionViewModel.AddLapSummaryViewModel(newViewModel);

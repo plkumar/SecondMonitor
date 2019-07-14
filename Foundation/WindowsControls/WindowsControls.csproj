@@ -113,8 +113,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors\HSLColor .cs" />
-    <Compile Include="Colors\MediaColorExtension.cs" />
     <Compile Include="Extension\DependencyObjectExtension.cs" />
     <Compile Include="Extension\ItemsControlExtensions.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -164,6 +162,7 @@
     <Compile Include="WPF\Converters\InvertedBooleanToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\IntegerToStringConverter.cs" />
     <Compile Include="WPF\Converters\InvertedDoubleConverter.cs" />
+    <Compile Include="WPF\Converters\NonNegativeIntToStringConverter.cs" />
     <Compile Include="WPF\Converters\ScaleToPercentConverter.cs" />
     <Compile Include="WPF\Converters\TemperatureToDoubleConverter.cs" />
     <Compile Include="WPF\Converters\TimeSpanToBrushConverter.cs" />
@@ -314,6 +313,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WPF\CommonResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Layouts\Layouts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

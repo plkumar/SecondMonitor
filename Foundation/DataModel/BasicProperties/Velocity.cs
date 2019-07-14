@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.DataModel.BasicProperties
 {
     using System;
+    using System.Xml.Serialization;
     using ProtoBuf;
 
     [Serializable]
@@ -20,6 +21,7 @@
         }
 
 
+        [XmlIgnore]
         public double InKph
         {
             get => InMs * 3.6;
@@ -28,6 +30,7 @@
 
 
         [ProtoMember(1, IsRequired = true)]
+        [XmlAttribute]
         public double InMs { get; set; }
 
 
@@ -174,6 +177,29 @@
         public string GetValueInUnits(VelocityUnits units, int decimalPlaces)
         {
             return GetValueInUnits(units).ToString($"F{decimalPlaces}");
+        }
+
+        public static Velocity FromUnits(double value, VelocityUnits units)
+        {
+            switch (units)
+            {
+                case VelocityUnits.Kph:
+                    return FromKph(value);
+                case VelocityUnits.Mph:
+                    return FromMph(value);
+                case VelocityUnits.Ms:
+                    return FromMs(value);
+                case VelocityUnits.Fps:
+                    return FromMs(value / 3.28084);
+                case VelocityUnits.CmPerSecond:
+                    return FromMs(value / 100);
+                case VelocityUnits.InPerSecond:
+                    return FromMs(value / 39.3701);
+                case VelocityUnits.MMPerSecond:
+                    return FromMs(value / 1000);
+                default:
+                    throw new ArgumentException("Unable to return value in" + units);
+            }
         }
     }
 }

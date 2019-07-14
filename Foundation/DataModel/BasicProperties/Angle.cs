@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace SecondMonitor.DataModel.BasicProperties
 {
+    using System.Xml.Serialization;
     using ProtoBuf;
 
     [Serializable]
@@ -22,6 +23,7 @@ namespace SecondMonitor.DataModel.BasicProperties
         }
 
         [ProtoMember(1, IsRequired = true)]
+        [XmlAttribute]
         public double InDegrees { get; set; }
 
         [JsonIgnore]
@@ -31,6 +33,8 @@ namespace SecondMonitor.DataModel.BasicProperties
         public double InMilliRadians => InRadians * 1000;
 
         public IQuantity ZeroQuantity => new Angle();
+
+        [XmlIgnore]
         public bool IsZero { get; private  set; }
         public double RawValue => InDegrees;
 
@@ -89,6 +93,21 @@ namespace SecondMonitor.DataModel.BasicProperties
             unchecked
             {
                 return (InDegrees.GetHashCode() * 397) ^ IsZero.GetHashCode();
+            }
+        }
+
+        public static Angle GetFromValue(double value, AngleUnits units)
+        {
+            switch (units)
+            {
+                case AngleUnits.Degrees:
+                    return GetFromDegrees(value);
+                case AngleUnits.Radians:
+                    return GetFromRadians(value);
+                case AngleUnits.MilliRadians:
+                    return GetFromRadians(value / 1000);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(units), units, null);
             }
         }
     }

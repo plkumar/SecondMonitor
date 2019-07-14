@@ -1,22 +1,21 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.Controllers.SettingsWindow
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts.Commands;
     using SecondMonitor.ViewModels.Factory;
     using Settings;
-    using Settings.DTO;
+    using TelemetryApplication.Settings.DTO;
     using ViewModels;
     using ViewModels.SettingsWindow;
 
     public class SettingsWindowController : ISettingsWindowController
     {
-        private readonly ITelemetrySettingsRepository _telemetrySettingsRepository;
+        private readonly ISettingsController _settingsController;
         private readonly ISettingsWindowViewModel _settingsWindowViewModel;
 
-        public SettingsWindowController(IMainWindowViewModel mainWindowViewModel, IViewModelFactory viewModelFactory, ITelemetrySettingsRepository telemetrySettingsRepository)
+        public SettingsWindowController(IMainWindowViewModel mainWindowViewModel, IViewModelFactory viewModelFactory, ISettingsController settingsController)
         {
-            _telemetrySettingsRepository = telemetrySettingsRepository;
+            _settingsController = settingsController;
             _settingsWindowViewModel = viewModelFactory.Create<ISettingsWindowViewModel>();
             mainWindowViewModel.LapSelectionViewModel.SettingsWindowViewModel = _settingsWindowViewModel;
             BindCommands();
@@ -34,7 +33,7 @@
 
         private void OpenWindow()
         {
-            TelemetrySettingsDto telemetrySettingsDto = _telemetrySettingsRepository.LoadOrCreateNew();
+            TelemetrySettingsDto telemetrySettingsDto = _settingsController.TelemetrySettings;
             _settingsWindowViewModel.FromModel(telemetrySettingsDto);
             _settingsWindowViewModel.IsWindowOpened = true;
         }
@@ -42,7 +41,7 @@
         private void SaveAndClose()
         {
             TelemetrySettingsDto newTelemetrySettingsDto = _settingsWindowViewModel.SaveToNewModel();
-            _telemetrySettingsRepository.SaveTelemetrySettings(newTelemetrySettingsDto);
+            _settingsController.SetTelemetrySettings(newTelemetrySettingsDto, RequestedAction.RefreshCharts);
             CloseWindow();
         }
 

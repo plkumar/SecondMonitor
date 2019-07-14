@@ -8,13 +8,15 @@
     using DataModel.Snapshot;
     using DataModel.Summary;
     using NLog;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
 
     public class QualificationState : AbstractSessionTypeState
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private bool _sessionCompleted;
         private readonly Stopwatch _timeoutStopwatch;
-        public QualificationState(SharedContext sharedContext) : base(sharedContext)
+        public QualificationState(SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
             _sessionCompleted = false;
             _timeoutStopwatch = new Stopwatch();

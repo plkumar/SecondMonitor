@@ -40,5 +40,17 @@ namespace SecondMonitor.DataModel.BasicProperties
                 Red = color.R,
             };
         }
+
+        public static ColorDto FromHex(string hex)
+        {
+            hex = hex.Replace("#", "");
+            return new ColorDto()
+            {
+                Alpha = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier),
+                Red = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier),
+                Green = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier),
+                Blue = byte.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier),
+            };
+        }
     }
 }

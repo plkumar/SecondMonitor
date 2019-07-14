@@ -20,7 +20,7 @@
 
     using DataModel.Extensions;
     using DataModel.Snapshot.Systems;
-    using WindowsControls.Colors;
+    using ViewModels.Colors.Extensions;
 
     public class SessionSummaryExporter
     {

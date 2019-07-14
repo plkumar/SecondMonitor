@@ -4,6 +4,7 @@
     using Controller.RaceObserver;
     using Controller.SimulatorRating;
     using Ninject.Modules;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ViewModels;
     using ViewModels.Rating;
     using ViewModels.RatingHistory;
@@ -30,6 +31,14 @@
 
             Bind<IRatingApplicationViewModel>().To<RatingApplicationViewModel>();
             Bind<IRatingViewModel>().To<RatingViewModel>();
+
+            Bind<IReferenceRatingProviderFactory>().To<ReferenceRatingProviderFactory>();
+            Bind<IReferenceRatingProvider>().To<LeadPackReferenceRatingProvider>().Named("Leading Group");
+            Bind<IReferenceRatingProvider>().To<LeaderReferenceRatingProvider>().Named("Leader");
+            Bind<IReferenceRatingProvider>().To<MidfieldReferenceRatingProvider>().Named("Midfield");
+            Bind<IReferenceRatingProvider>().To<AverageTimeReferenceRatingProvider>().Named("Average Time");
+            Bind<IReferenceRatingProvider>().To<LeaderPlus1ReferenceRatingProvider>().Named("Leader - 1%");
+            Bind<IReferenceRatingProvider>().To<LeaderPlus3ReferenceRatingProvider>().Named("Leader - 3%");
         }
     }
 }

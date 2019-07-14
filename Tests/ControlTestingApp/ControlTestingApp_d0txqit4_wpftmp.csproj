@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F441147B-8EA3-4A32-8E04-D8F6DA89E95F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ControlTestingApp</RootNamespace>
+    <AssemblyName>ControlTestingApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\BarControlTestControl.xaml.cs">
+      <DependentUpon>BarControlTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CarSettingsTestControl.xaml.cs">
+      <DependentUpon>CarSettingsTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FuelCalculatorTestControl.xaml.cs">
+      <DependentUpon>FuelCalculatorTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GeometryTestControl.xaml.cs">
+      <DependentUpon>GeometryTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PedalGearTestControl.xaml.cs">
+      <DependentUpon>PedalGearTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlayerPositionTestControl.xaml.cs">
+      <DependentUpon>PlayerPositionTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PositionCircleTestControl.xaml.cs">
+      <DependentUpon>PositionCircleTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusIconTC.xaml.cs">
+      <DependentUpon>StatusIconTC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TrackInfoTestControl.xaml.cs">
+      <DependentUpon>TrackInfoTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TestFuelControl.xaml.cs">
+      <DependentUpon>TestFuelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WheelStatusTestControl.xaml.cs">
+      <DependentUpon>WheelStatusTestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModels\BarChartViewModel.cs" />
+    <Compile Include="ViewModels\CarStatusTestVM.cs" />
+    <Compile Include="ViewModels\FuelCalculatorTestViewModel.cs" />
+    <Compile Include="ViewModels\FuelOverviewTestViewModel.cs" />
+    <Compile Include="ViewModels\StatusIconTcVm.cs" />
+    <Compile Include="ViewModels\TemperatureTestViewModel.cs" />
+    <Compile Include="ViewModels\WheelStatusTestVM.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\Contracts\Contracts.csproj">
+      <Project>{55275247-8D2E-421F-AB35-4BA77449B05A}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\DataModel\DataModel.csproj">
+      <Project>{30dea773-f579-4a77-9c73-3d58c81612d0}</Project>
+      <Name>DataModel</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\SecondMonitor.ViewModels\SecondMonitor.ViewModels.csproj">
+      <Project>{b43064b9-d120-4dd9-9902-e2b8f6006985}</Project>
+      <Name>SecondMonitor.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\WindowsControls\WindowsControls.csproj">
+      <Project>{ea13af3c-a4e0-4ad2-94ae-78006b04fc41}</Project>
+      <Name>WindowsControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ReferencePath Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Deployment\Contracts.dll" />
+    <ReferencePath Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Deployment\DataModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\mscorlib.dll" />
+    <ReferencePath Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.Aero2.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Deployment\SecondMonitor.ViewModels.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\WindowsBase.dll" />
+    <ReferencePath Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Deployment\WindowsControls.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\BarControlTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\CarSettingsTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\FuelCalculatorTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\GeometryTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\PedalGearTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\PlayerPositionTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\PositionCircleTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\StatusIconTC.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\TrackInfoTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\TestFuelControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\Controls\WheelStatusTestControl.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\MainWindow.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\App.g.cs" />
+    <Compile Include="C:\Users\Darkman\Documents\Visual Studio 2015\Projects\SecondMonitor\Tests\ControlTestingApp\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+</Project>

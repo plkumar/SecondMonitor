@@ -2,13 +2,11 @@
 {
     using System;
     using System.Windows.Media;
-    using Controllers.Synchronization;
     using SecondMonitor.ViewModels;
     using TelemetryManagement.DTO;
 
     public interface ILapSummaryViewModel : IViewModel<LapSummaryDto>
     {
-        ILapColorSynchronization LapColorSynchronization { get; set; }
         string LapNumber { get; }
         TimeSpan LapTime { get; }
         TimeSpan Sector1Time { get; }
@@ -17,6 +15,8 @@
         bool Selected { get; set; }
         Color LapColor { get; set; }
         SolidColorBrush LapColorBrush { get; }
+
+        int Stint { get; set; }
 
     }
 }

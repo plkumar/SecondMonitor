@@ -45,6 +45,10 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -88,9 +92,14 @@
     <Compile Include="CarStatus\SessionRemainingCalculator.cs" />
     <Compile Include="CarStatus\TyreLifeTimeMonitor.cs" />
     <Compile Include="CarStatus\WheelStatusViewModel.cs" />
+    <Compile Include="Colors\AbstractColorPaletteProvider.cs" />
     <Compile Include="Colors\BasicColorPaletteProvider.cs" />
+    <Compile Include="Colors\BlueGreenGradientPallete.cs" />
     <Compile Include="Colors\ClassColorProvider.cs" />
+    <Compile Include="Colors\Extensions\MediaColorExtension.cs" />
+    <Compile Include="Colors\HSLColor .cs" />
     <Compile Include="Colors\IClassColorProvider.cs" />
+    <Compile Include="Colors\RedGreenGradientPalette.cs" />
     <Compile Include="Controllers\AutoUpdateController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Colors\IColorPaletteProvider.cs" />
@@ -101,6 +110,7 @@
     <Compile Include="ISimulatorDataSetViewModel.cs" />
     <Compile Include="IWheelStatusViewModel.cs" />
     <Compile Include="IWindowService.cs" />
+    <Compile Include="Layouts\TwoViewModelsLayout.cs" />
     <Compile Include="PitBoard\RacePitboardViewModel.cs" />
     <Compile Include="PluginsSettings\BroadcastLimitSettingsViewModel.cs" />
     <Compile Include="PluginsSettings\IBroadcastLimitSettingsViewModel.cs" />

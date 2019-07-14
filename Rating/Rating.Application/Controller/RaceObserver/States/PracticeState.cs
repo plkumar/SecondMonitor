@@ -4,10 +4,12 @@
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Summary;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
 
     public class PracticeState : AbstractSessionTypeState
     {
-        public PracticeState(SharedContext sharedContext) : base(sharedContext)
+        public PracticeState(SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
             SharedContext.QualificationContext = null;
             SharedContext.RaceContext = null;

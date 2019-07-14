@@ -7,81 +7,120 @@
     using Extractors;
     using Filter;
     using SecondMonitor.ViewModels.Factory;
+    using Settings.DTO;
     using TelemetryManagement.DTO;
     using ViewModels.AggregatedCharts;
     using ViewModels.AggregatedCharts.Histogram;
     using ViewModels.LoadedLapCache;
 
-    public abstract class AbstractWheelHistogramProvider<T, TX> : IAggregatedChartProvider where T : WheelsHistogramChartViewModel, new() where TX : HistogramChartViewModel
+    public abstract class AbstractWheelHistogramProvider<T, TX> : AbstractAggregatedChartProvider where T : WheelsHistogramChartViewModel, new() where TX : HistogramChartViewModel
     {
-        private readonly AbstractWheelHistogramDataExtractor _abstractWheelHistogramDataExtractor;
-        private readonly ILoadedLapsCache _loadedLapsCache;
         private readonly IViewModelFactory _viewModelFactory;
-        private readonly List<IWheelTelemetryFilter> _filters;
 
-        protected AbstractWheelHistogramProvider(AbstractWheelHistogramDataExtractor abstractWheelHistogramDataExtractor, ILoadedLapsCache loadedLapsCache, IViewModelFactory viewModelFactory, IEnumerable<IWheelTelemetryFilter> filters)
+        protected AbstractWheelHistogramProvider(AbstractWheelHistogramDataExtractor abstractWheelHistogramDataExtractor, ILoadedLapsCache loadedLapsCache, IViewModelFactory viewModelFactory, IEnumerable<IWheelTelemetryFilter> filters) : base(loadedLapsCache)
         {
-            _abstractWheelHistogramDataExtractor = abstractWheelHistogramDataExtractor;
-            _loadedLapsCache = loadedLapsCache;
+            AbstractWheelHistogramDataExtractor = abstractWheelHistogramDataExtractor;
             _viewModelFactory = viewModelFactory;
-            _filters = filters.ToList();
+            Filters = filters.ToList();
         }
 
-        public abstract string ChartName { get; }
-        public abstract AggregatedChartKind Kind { get; }
+        protected abstract bool ResetCommandVisible { get; }
 
-        public virtual IAggregatedChartViewModel CreateAggregatedChartViewModel()
+        protected List<IWheelTelemetryFilter> Filters { get; }
+        protected AbstractWheelHistogramDataExtractor AbstractWheelHistogramDataExtractor { get; }
+
+
+        public override IReadOnlyCollection<IAggregatedChartViewModel> CreateAggregatedChartViewModels(AggregatedChartSettingsDto aggregatedChartSettings)
         {
-            List<LapTelemetryDto> loadedLaps = _loadedLapsCache.LoadedLaps.ToList();
-            string title = $"{ChartName} - Laps: {string.Join(", ", loadedLaps.Select(x => x.LapSummary.CustomDisplayName))}";
+            List<IAggregatedChartViewModel> charts = new List<IAggregatedChartViewModel>();
+            var groupedByStint = GetLapsGrouped(aggregatedChartSettings);
+            foreach (IGrouping<int, LapTelemetryDto> lapsInStint in groupedByStint)
+            {
+                string title = BuildChartTitle(lapsInStint, aggregatedChartSettings);
 
-            T wheelsHistogram = _viewModelFactory.Create<T>();
+                T wheelsHistogram = _viewModelFactory.Create<T>();
 
-            wheelsHistogram.Title = title;
-            wheelsHistogram.BandSize = _abstractWheelHistogramDataExtractor.DefaultBandSize;
-            wheelsHistogram.Unit = _abstractWheelHistogramDataExtractor.YUnit;
+                wheelsHistogram.Title = title;
+                wheelsHistogram.BandSize = AbstractWheelHistogramDataExtractor.DefaultBandSize;
+                wheelsHistogram.Unit = AbstractWheelHistogramDataExtractor.YUnit;
 
-            wheelsHistogram.RefreshCommand = new RelayCommand(() => FillHistogramViewmodel(loadedLaps, wheelsHistogram.BandSize, wheelsHistogram));
-            OnNewViewModel(wheelsHistogram);
+                TX flViewModel = _viewModelFactory.Create<TX>();
+                TX frViewModel = _viewModelFactory.Create<TX>();
+                TX rlViewModel = _viewModelFactory.Create<TX>();
+                TX rrViewModel = _viewModelFactory.Create<TX>();
 
-            FillHistogramViewmodel(loadedLaps, _abstractWheelHistogramDataExtractor.DefaultBandSize, wheelsHistogram);
+                wheelsHistogram.FrontLeftChartViewModel = flViewModel;
+                wheelsHistogram.FrontRightChartViewModel = frViewModel;
+                wheelsHistogram.RearLeftChartViewModel = rlViewModel;
+                wheelsHistogram.RearRightChartViewModel = rrViewModel;
 
-            return wheelsHistogram;
+                OnNewViewModel(wheelsHistogram);
+                wheelsHistogram.RefreshCommand = new RelayCommand(() => RefreshHistogram(lapsInStint.ToList(), wheelsHistogram.BandSize, wheelsHistogram));
+                wheelsHistogram.ResetParametersCommand = new RelayCommand(() => ResetHistogramParameters(lapsInStint.ToList(), wheelsHistogram.BandSize, wheelsHistogram));
+                wheelsHistogram.IsResetParametersCommandVisible = ResetCommandVisible;
+
+
+                FillHistogramViewmodel(lapsInStint.ToList(), AbstractWheelHistogramDataExtractor.DefaultBandSize, wheelsHistogram);
+
+                charts.Add(wheelsHistogram);
+            }
+
+            return charts;
+        }
+
+        protected virtual void  ResetHistogramParameters(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            RefreshHistogram(loadedLaps, bandSize, wheelsChart);
         }
 
         protected abstract void OnNewViewModel(T newViewModel);
 
+        protected virtual void RefreshHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            FillHistogramViewmodel(loadedLaps, bandSize, wheelsChart);
+        }
 
         protected void FillHistogramViewmodel(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
         {
             BeforeHistogramFilling(wheelsChart);
-            _filters.ForEach(x => x.FilterFrontLeft());
-            Histogram flHistogram = _abstractWheelHistogramDataExtractor.ExtractHistogramFrontLeft(loadedLaps, bandSize, _filters);
-            _filters.ForEach(x => x.FilterFrontRight());
-            Histogram frHistogram = _abstractWheelHistogramDataExtractor.ExtractHistogramFrontRight(loadedLaps, bandSize, _filters);
-            _filters.ForEach(x => x.FilterRearLeft());
-            Histogram rlHistogram = _abstractWheelHistogramDataExtractor.ExtractHistogramRearLeft(loadedLaps, bandSize, _filters);
-            _filters.ForEach(x => x.FilterRearRight());
-            Histogram rrHistogram = _abstractWheelHistogramDataExtractor.ExtractHistogramRearRight(loadedLaps, bandSize, _filters);
+            ExtractFlHistogram(loadedLaps, bandSize, wheelsChart);
+
+
+            Histogram flHistogram = ExtractFlHistogram(loadedLaps, bandSize, wheelsChart);
+            Histogram frHistogram = ExtractFrHistogram(loadedLaps, bandSize, wheelsChart);
+            Histogram rlHistogram = ExtractRlHistogram(loadedLaps, bandSize, wheelsChart);
+            Histogram rrHistogram = ExtractRrHistogram(loadedLaps, bandSize, wheelsChart);
 
             ApplyHistogramLimits(flHistogram, frHistogram, rlHistogram, rrHistogram, wheelsChart);
 
-            TX flViewModel = _viewModelFactory.Create<TX>();
-            flViewModel.FromModel(flHistogram);
+            ((TX)wheelsChart.FrontLeftChartViewModel).FromModel(flHistogram);
+            ((TX)wheelsChart.FrontRightChartViewModel).FromModel(frHistogram);
+            ((TX)wheelsChart.RearLeftChartViewModel).FromModel(rlHistogram);
+            ((TX)wheelsChart.RearRightChartViewModel).FromModel(rrHistogram);
+        }
 
-            TX frViewModel = _viewModelFactory.Create<TX>();
-            frViewModel.FromModel(frHistogram);
+        protected virtual Histogram ExtractFlHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            Filters.ForEach(x => x.FilterFrontLeft());
+            return AbstractWheelHistogramDataExtractor.ExtractHistogramFrontLeft(loadedLaps, bandSize, Filters);
+        }
 
-            TX rlViewModel = _viewModelFactory.Create<TX>();
-            rlViewModel.FromModel(rlHistogram);
+        protected virtual Histogram ExtractFrHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            Filters.ForEach(x => x.FilterFrontRight());
+            return AbstractWheelHistogramDataExtractor.ExtractHistogramFrontRight(loadedLaps, bandSize, Filters);
+        }
 
-            TX rrViewModel = _viewModelFactory.Create<TX>();
-            rrViewModel.FromModel(rrHistogram);
+        protected virtual Histogram ExtractRlHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            Filters.ForEach(x => x.FilterRearLeft());
+            return AbstractWheelHistogramDataExtractor.ExtractHistogramRearLeft(loadedLaps, bandSize, Filters);
+        }
 
-            wheelsChart.FrontLeftChartViewModel = flViewModel;
-            wheelsChart.FrontRightChartViewModel = frViewModel;
-            wheelsChart.RearLeftChartViewModel = rlViewModel;
-            wheelsChart.RearRightChartViewModel = rrViewModel;
+        protected virtual Histogram ExtractRrHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize, T wheelsChart)
+        {
+            Filters.ForEach(x => x.FilterRearRight());
+            return AbstractWheelHistogramDataExtractor.ExtractHistogramRearRight(loadedLaps, bandSize, Filters);
         }
 
         protected virtual void BeforeHistogramFilling(T wheelsChart)

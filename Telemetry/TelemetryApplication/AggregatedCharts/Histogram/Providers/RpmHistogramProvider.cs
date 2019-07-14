@@ -4,61 +4,67 @@
     using System.Linq;
     using Extractors;
     using SecondMonitor.ViewModels.Factory;
+    using Settings.DTO;
     using TelemetryManagement.DTO;
     using ViewModels.AggregatedCharts;
     using ViewModels.AggregatedCharts.Histogram;
     using ViewModels.LoadedLapCache;
 
-    public class RpmHistogramProvider : IAggregatedChartProvider
+    public class RpmHistogramProvider : AbstractAggregatedChartProvider
     {
-        private readonly ILoadedLapsCache _loadedLapsCache;
         private readonly RpmHistogramDataExtractor _rpmHistogramDataExtractor;
         private readonly IViewModelFactory _viewModelFactory;
-        public string ChartName => "RPM Histogram";
-        public AggregatedChartKind Kind => AggregatedChartKind.Histogram;
+        public override string ChartName => "RPM Histogram";
+        public override AggregatedChartKind Kind => AggregatedChartKind.Histogram;
 
-        public RpmHistogramProvider(ILoadedLapsCache loadedLapsCache, RpmHistogramDataExtractor rpmHistogramDataExtractor, IViewModelFactory viewModelFactory)
+        public RpmHistogramProvider(ILoadedLapsCache loadedLapsCache, RpmHistogramDataExtractor rpmHistogramDataExtractor, IViewModelFactory viewModelFactory) : base(loadedLapsCache)
         {
-            _loadedLapsCache = loadedLapsCache;
             _rpmHistogramDataExtractor = rpmHistogramDataExtractor;
             _viewModelFactory = viewModelFactory;
         }
 
-        public IAggregatedChartViewModel CreateAggregatedChartViewModel()
+        public override IReadOnlyCollection<IAggregatedChartViewModel> CreateAggregatedChartViewModels(AggregatedChartSettingsDto aggregatedChartSettings)
         {
-            IReadOnlyCollection<LapTelemetryDto> loadedLaps = _loadedLapsCache.LoadedLaps;
-            string title = $"{ChartName} - Laps: {string.Join(", ", loadedLaps.Select(x => x.LapSummary.CustomDisplayName))}";
-
-            int maxGear = loadedLaps.SelectMany(x => x.DataPoints).Where(x => !string.IsNullOrWhiteSpace(x.PlayerData.CarInfo.CurrentGear) && x.PlayerData.CarInfo.CurrentGear != "R" && x.PlayerData.CarInfo.CurrentGear != "N").Max(x => int.Parse(x.PlayerData.CarInfo.CurrentGear));
-
-            CompositeAggregatedChartsViewModel viewModel = new CompositeAggregatedChartsViewModel() { Title = title };
-
-            HistogramChartViewModel mainViewModel = _viewModelFactory.Create<HistogramChartViewModel>();
-            mainViewModel.FromModel(CreateHistogramAllGears(loadedLaps, _rpmHistogramDataExtractor.DefaultBandSize));
-
-            viewModel.MainAggregatedChartViewModel = mainViewModel;
-
-            for (int i = 1; i <= maxGear; i++)
+            List<IAggregatedChartViewModel> charts = new List<IAggregatedChartViewModel>();
+            var groupedByStint = GetLapsGrouped(aggregatedChartSettings);
+            foreach (IGrouping<int, LapTelemetryDto> lapsInStint in groupedByStint)
             {
-                Histogram histogram = CreateHistogram(loadedLaps, i, _rpmHistogramDataExtractor.DefaultBandSize);
-                if (histogram == null)
+                string title = BuildChartTitle(lapsInStint, aggregatedChartSettings);
+
+                int maxGear = lapsInStint.SelectMany(x => x.DataPoints).Where(x => !string.IsNullOrWhiteSpace(x.PlayerData.CarInfo.CurrentGear) && x.PlayerData.CarInfo.CurrentGear != "R" && x.PlayerData.CarInfo.CurrentGear != "N").Max(x => int.Parse(x.PlayerData.CarInfo.CurrentGear));
+
+                CompositeAggregatedChartsViewModel viewModel = new CompositeAggregatedChartsViewModel() {Title = title};
+
+                HistogramChartViewModel mainViewModel = _viewModelFactory.Create<HistogramChartViewModel>();
+                mainViewModel.FromModel(CreateHistogramAllGears(lapsInStint, _rpmHistogramDataExtractor.DefaultBandSize));
+
+                viewModel.MainAggregatedChartViewModel = mainViewModel;
+
+                for (int i = 1; i <= maxGear; i++)
                 {
-                    continue;
+                    Histogram histogram = CreateHistogram(lapsInStint, i, _rpmHistogramDataExtractor.DefaultBandSize);
+                    if (histogram == null)
+                    {
+                        continue;
+                    }
+
+                    HistogramChartViewModel child = _viewModelFactory.Create<HistogramChartViewModel>();
+                    child.FromModel(histogram);
+                    viewModel.AddChildAggregatedChildViewModel(child);
+
                 }
-                HistogramChartViewModel child = _viewModelFactory.Create<HistogramChartViewModel>();
-                child.FromModel(histogram);
-                viewModel.AddChildAggregatedChildViewModel(child);
+                charts.Add(viewModel);
             }
 
-            return viewModel;
+            return charts;
         }
 
-        protected Histogram CreateHistogram(IReadOnlyCollection<LapTelemetryDto> loadedLaps, int gear, double bandSize)
+        protected Histogram CreateHistogram(IEnumerable<LapTelemetryDto> loadedLaps, int gear, double bandSize)
         {
             return _rpmHistogramDataExtractor.ExtractSeriesForGear(loadedLaps, bandSize, gear.ToString());
         }
 
-        protected Histogram CreateHistogramAllGears(IReadOnlyCollection<LapTelemetryDto> loadedLaps, double bandSize)
+        protected Histogram CreateHistogramAllGears(IEnumerable<LapTelemetryDto> loadedLaps, double bandSize)
         {
             return _rpmHistogramDataExtractor.ExtractSeriesForAllGear(loadedLaps, bandSize);
         }
