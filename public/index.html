@@ -7,14 +7,14 @@
 <h2>Version 5.6.0</h2>
 <b>Main Application:</b>
 <ul>	
-	<li><b>Rating:</b> Added the possibility, in options, to set "rating reference", affecting where the rating module would expect the player to finish (leading pack, midfield..etc).</li>
-	<li><b>Rating:</b> Added the possibility to define the amount of "grace laps", where rating will not be affected by a restart.</li>
+	<li><b>Rating:</b> Added the possibility, in options, to set "rating reference", affecting where the rating module would expect the player to finish (leading pack, midfield..etc). <a href="https://gitlab.com/winzarten/SecondMonitor/wikis/Rating-Settings">See the wiki</a></li>
+	<li><b>Rating:</b> Added the possibility to define the amount of "grace laps", during which rating will not be affected by a restart.</li>
 	<li><b>PCars 2:</b> Some of the previously missed data - left/right/center tyre temperatures and right height, are now filled from the UDP data provided by PCars 2. UDP protocol needs to be enabled in PCars 2.</li>
 </ul>
 <b>Telemetry:</b>
 <ul>	
 	<li><b>Basic Histogram Filtering: </b> Added basic data filtering for most histograms. Bands which contribute less than 0.25% will be discarted. This will be replaced in later version with proper outlier removal.</li>
-	<li><b>New Camber Histogram: </b>Added a new histogram showing %time each wheel spents at the given camber. The 0 value of this histogram choosable camber angle.</li>
+	<li><b>New Camber Histogram: </b>Added a new histogram showing %time each wheel spents at the given camber. The 0 value of this histogram is choosable ideal camber angle.</li>
 	<li><b>New Camber to Lateral G scatterplot: </b>Added a new scatterplot showing the relationship between lateral G and camber, for each wheel.</li>
 	<li><b>New Tyre Load Charts: </b>Added series of charts for tyre loads analysis. This includes tyre load histogram, tyre load vs camber scatter plot, tyre load vs lateral acceleration scatter plot, tyre load vs longitudinal acceleration scatter plot.</li>	
 	<li><b>Stints:</b> Laps can now be organized into groups, called stints. Stint can be set next to the lap color in the lap picker. New telemetry files will have the stints automatically filled so laps between pit entries belong to the same stint. Stints can affect how aggregated charts present data. <b>Histograms</b> can be opened either as now - one chart for all selected laps, or separate chart window for each stint. Scatterplots present data in three ways - as now, all selected laps in a single chart, or separate window for each stint, or having a separate series for each stint, combined in a single chart. The prefered presentation can be changed in the third tab of the aggregated charts picker window. This setting is preserved.</li>
@@ -324,10 +324,7 @@ telemetry). This update adapts the existing functionality to the new Shared Memo
 	<li>
 		<b>New Feature - Client - Server: </b> It is now possible to run Second Monitor from separate computer. See
 		the
-		<a
-			href="https://github.com/Winzarten/SecondMonitor/wiki/Setting-up-Second-Monitor-on-separate-computer">
-			Wiki
-		</a>
+		<a href="https://github.com/Winzarten/SecondMonitor/wiki/Setting-up-Second-Monitor-on-separate-computer">Wiki</a>
 	</li>
 	<li>R3E : Added id information for ADAC GT Masters 2018</li>
 	<li><b>Fix: </b> Fixed swap of "Car Name" and "Class Name" columns visbility settings</li>
