@@ -6,9 +6,10 @@
     using DataModel.Extensions;
     using SecondMonitor.ViewModels.Settings;
     using Settings;
-    using Settings.DTO;
     using Synchronization;
     using Synchronization.Graphs;
+    using TelemetryApplication.Settings;
+    using TelemetryApplication.Settings.DTO;
     using TelemetryManagement.DTO;
     using ViewModels;
     using ViewModels.GraphPanel;
@@ -19,19 +20,19 @@
         private readonly ILapColorSynchronization _lapColorSynchronization;
         private readonly ISettingsProvider _settingsProvider;
         private readonly IGraphViewSynchronization _graphViewSynchronization;
-        private readonly ITelemetrySettingsRepository _telemetrySettingsRepository;
+        private readonly ISettingsController _telemetrySettings;
         private readonly List<LapTelemetryDto> _loadedLaps;
         private TelemetrySettingsDto _telemetrySettingsDto;
 
         protected AbstractGraphPanelController(IMainWindowViewModel mainWindowViewModel, ITelemetryViewsSynchronization telemetryViewsSynchronization, ILapColorSynchronization lapColorSynchronization, ISettingsProvider settingsProvider,
-            IGraphViewSynchronization graphViewSynchronization, ITelemetrySettingsRepository telemetrySettingsRepository)
+            IGraphViewSynchronization graphViewSynchronization, ISettingsController telemetrySettings)
         {
             MainWindowViewModel = mainWindowViewModel;
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
             _lapColorSynchronization = lapColorSynchronization;
             _settingsProvider = settingsProvider;
             _graphViewSynchronization = graphViewSynchronization;
-            _telemetrySettingsRepository = telemetrySettingsRepository;
+            _telemetrySettings = telemetrySettings;
             _loadedLaps = new List<LapTelemetryDto>();
         }
 
@@ -43,7 +44,7 @@
         public Task StartControllerAsync()
         {
             Subscribe();
-            _telemetrySettingsDto = _telemetrySettingsRepository.LoadOrCreateNew();
+            _telemetrySettingsDto = _telemetrySettings.TelemetrySettings;
             ReloadGraphCollection();
             Graphs.ForEach(InitializeViewModel);
             return Task.CompletedTask;
@@ -78,7 +79,7 @@
             _telemetryViewsSynchronization.SyncTelemetryView += TelemetryViewsSynchronizationOnSyncTelemetryView;
             _telemetryViewsSynchronization.LapLoaded += TelemetryViewsSynchronizationOnLapLoaded;
             _telemetryViewsSynchronization.LapUnloaded += TelemetryViewsSynchronizationOnLapUnloaded;
-            _telemetrySettingsRepository.SettingsChanged += TelemetrySettingsRepositoryOnSettingsChanged;
+            _telemetrySettings.SettingsChanged += TelemetrySettingsRepositoryOnSettingsChanged;
         }
 
         private void Unsubscribe()
@@ -86,12 +87,16 @@
             _telemetryViewsSynchronization.SyncTelemetryView -= TelemetryViewsSynchronizationOnSyncTelemetryView;
             _telemetryViewsSynchronization.LapLoaded -= TelemetryViewsSynchronizationOnLapLoaded;
             _telemetryViewsSynchronization.LapUnloaded -= TelemetryViewsSynchronizationOnLapUnloaded;
-            _telemetrySettingsRepository.SettingsChanged -= TelemetrySettingsRepositoryOnSettingsChanged;
+            _telemetrySettings.SettingsChanged -= TelemetrySettingsRepositoryOnSettingsChanged;
         }
 
-        private void TelemetrySettingsRepositoryOnSettingsChanged(object sender, EventArgs e)
+        private void TelemetrySettingsRepositoryOnSettingsChanged(object sender, SettingChangedArgs e)
         {
-            _telemetrySettingsDto = _telemetrySettingsRepository.LoadOrCreateNew();
+            if (e.RequestedAction != RequestedAction.RefreshCharts)
+            {
+                return;
+            }
+            _telemetrySettingsDto = _telemetrySettings.TelemetrySettings;
             ReloadGraphCollection();
             Graphs.ForEach(InitializeViewModel);
         }

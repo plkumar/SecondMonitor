@@ -4,6 +4,8 @@
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Summary;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
 
     public class WarmupState : AbstractSessionTypeState
     {
@@ -27,7 +29,7 @@
 
         protected override SessionType SessionType => SessionType.WarmUp;
 
-        public WarmupState(SharedContext sharedContext) : base(sharedContext)
+        public WarmupState(SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
         }
     }

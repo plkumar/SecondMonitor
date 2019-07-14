@@ -13,6 +13,8 @@
     using NLog;
     using NLog.Fluent;
     using RatingProvider.FieldRatingProvider;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
     using SimulatorRating.RatingUpdater;
 
     public class RaceState : AbstractSessionTypeState
@@ -21,15 +23,17 @@
         private readonly IQualificationResultRatingProvider _qualificationResultRatingProvider;
         private readonly IRatingUpdater _ratingUpdater;
         private readonly ISessionFinishStateFactory _finishStateFactory;
+        private readonly int _graceLaps;
         private bool _isFlashing;
         private readonly Stopwatch _flashStopwatch;
         private bool _ratingComputed;
 
-        public RaceState(IQualificationResultRatingProvider qualificationResultRatingProvider, IRatingUpdater ratingUpdater, ISessionFinishStateFactory finishStateFactory, SharedContext sharedContext) : base(sharedContext)
+        public RaceState(IQualificationResultRatingProvider qualificationResultRatingProvider, IRatingUpdater ratingUpdater, ISessionFinishStateFactory finishStateFactory, SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
             _qualificationResultRatingProvider = qualificationResultRatingProvider;
             _ratingUpdater = ratingUpdater;
             _finishStateFactory = finishStateFactory;
+            _graceLaps = settingsProvider.DisplaySettingsViewModel.RatingSettingsViewModel.GraceLapsCount;
             _flashStopwatch = new Stopwatch();
             _ratingComputed = false;
         }
@@ -105,7 +109,7 @@
             {
                 SessionPhaseKind = SessionPhaseKind.NotStarted;
             }
-            else if (simulatorDataSet.PlayerInfo.CompletedLaps < 1)
+            else if (simulatorDataSet.PlayerInfo.CompletedLaps < _graceLaps)
             {
                 SessionPhaseKind = SessionPhaseKind.FreeRestartPeriod;
             }

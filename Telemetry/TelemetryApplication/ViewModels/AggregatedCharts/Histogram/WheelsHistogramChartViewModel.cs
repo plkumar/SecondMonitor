@@ -25,5 +25,9 @@
             get => _refreshCommand;
             set => SetProperty(ref _refreshCommand, value);
         }
+
+        public ICommand ResetParametersCommand { get; set; }
+
+        public bool IsResetParametersCommandVisible { get; set; }
     }
 }

@@ -76,6 +76,10 @@
             set => Sector3Time = TimeSpan.FromSeconds(value);
         }
 
+        [XmlAttribute]
+        [ProtoMember(10, IsRequired = true)]
+        public int Stint { get; set; }
+
         [XmlIgnore]
         public string CustomDisplayName
         {

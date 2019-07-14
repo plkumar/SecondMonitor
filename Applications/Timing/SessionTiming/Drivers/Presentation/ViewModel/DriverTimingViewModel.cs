@@ -324,11 +324,17 @@
             private set => SetProperty(ref _isLastSector3SessionBest, value);
         }
 
-        private int _rating;
         public int Rating
         {
-            get => _rating;
-            set => SetProperty(ref _rating, value);
+            get;
+            private set;
+        }
+
+        private string _ratingFormatted;
+        public string RatingFormatted
+        {
+            get => _ratingFormatted;
+            private set => SetProperty(ref _ratingFormatted, value);
         }
 
         private bool _isPlayersRatingBetter;
@@ -351,7 +357,7 @@
             try
             {
                 IsClassIndicationEnabled = DriverTiming.Session?.LastSet?.SessionInfo?.IsMultiClass == true;
-                Rating = GetRating();
+                SetRating();
                 Position = DriverTiming.Position.ToString();
                 PositionInClass = FormatPositionInClass();
                 CompletedLaps = DriverTiming.CompletedLaps.ToString();
@@ -393,15 +399,18 @@
             }
         }
 
-        private int GetRating()
+        private void SetRating()
         {
             if (IsPlayer || DriverTiming.Rating == 0 || DriverTiming?.Session?.Player == null)
             {
                 IsPlayersRatingBetter = true;
-                return DriverTiming.Rating;
+                Rating = DriverTiming.Rating;
+                RatingFormatted = Rating == 0 ? string.Empty : Rating.ToString();
+                return;
             }
             IsPlayersRatingBetter = DriverTiming.Session.Player.Rating >= DriverTiming.Rating;
-            return DriverTiming.Rating;
+            Rating = DriverTiming.Rating;
+            RatingFormatted = $"{Rating - DriverTiming.Session.Player.Rating} / {Rating}";
         }
 
         private string FormatPositionInClass()

@@ -13,5 +13,10 @@
 
         [XmlElement(ElementName = "GraphSettings")]
         public List<GraphSettingsDto> GraphSettings { get; set; }
+
+        [XmlElement(ElementName = "AggregatedChartSettings")]
+        public AggregatedChartSettingsDto AggregatedChartSettings { get; set; }
+
+        public CarsProperties CarsProperties { get; set;}
     }
 }

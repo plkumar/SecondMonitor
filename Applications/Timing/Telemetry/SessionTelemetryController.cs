@@ -35,7 +35,7 @@
                 return Task.FromResult(false);
             }
 
-           Task<bool> returnTask = Task.Run(() => SaveLapTelemetrySync(lapInfo));
+            Task<bool> returnTask = Task.Run(() => SaveLapTelemetrySync(lapInfo));
             returnTask.ConfigureAwait(false);
             return returnTask;
         }
@@ -88,6 +88,7 @@
 
         private LapSummaryDto CreateLapSummary(LapInfo lapInfo)
         {
+            int stintNumber = lapInfo.Driver.Laps.Count(x => x.PitLap);
             LapSummaryDto lapSummaryDto = new LapSummaryDto()
             {
                 LapNumber = lapInfo.LapNumber,
@@ -99,6 +100,7 @@
                 Simulator = _sessionInfoDto.Simulator,
                 TrackName = _sessionInfoDto.TrackName,
                 LayoutName = _sessionInfoDto.LayoutName,
+                Stint = stintNumber,
             };
             return lapSummaryDto;
         }

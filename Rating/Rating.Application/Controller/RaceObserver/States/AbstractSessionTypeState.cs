@@ -9,13 +9,19 @@
     using DataModel.Snapshot;
     using DataModel.Summary;
     using RatingProvider.FieldRatingProvider;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
     using SimulatorRating.RatingUpdater;
 
     public abstract class AbstractSessionTypeState : IRaceState
     {
-        private Stopwatch _stateStopwatch;
-        protected AbstractSessionTypeState(SharedContext sharedContext)
+        private readonly IReferenceRatingProviderFactory _referenceRatingProviderFactory;
+        private readonly ISettingsProvider _settingsProvider;
+        private readonly Stopwatch _stateStopwatch;
+        protected AbstractSessionTypeState(SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider)
         {
+            _referenceRatingProviderFactory = referenceRatingProviderFactory;
+            _settingsProvider = settingsProvider;
             SharedContext = sharedContext;
             SessionDescription = string.Empty;
             _stateStopwatch = Stopwatch.StartNew();
@@ -60,19 +66,19 @@
             switch (simulatorDataSet.SessionInfo.SessionType)
             {
                 case SessionType.Na:
-                    NextState = new IdleState(SharedContext);
+                    NextState = new IdleState(SharedContext, _referenceRatingProviderFactory, _settingsProvider);
                     break;
                 case SessionType.WarmUp:
-                    NextState = new WarmupState(SharedContext);
+                    NextState = new WarmupState(SharedContext, _referenceRatingProviderFactory, _settingsProvider);
                     break;
                 case SessionType.Practice:
-                    NextState = new PracticeState(SharedContext);
+                    NextState = new PracticeState(SharedContext, _referenceRatingProviderFactory, _settingsProvider);
                     break;
                 case SessionType.Qualification:
-                    NextState = new QualificationState(SharedContext);
+                    NextState = new QualificationState(SharedContext, _referenceRatingProviderFactory, _settingsProvider);
                     break;
                 case SessionType.Race:
-                    NextState = new RaceState(new QualificationResultRatingProvider(SharedContext.SimulatorRatingController), new RatingUpdater(SharedContext.SimulatorRatingController), new SessionFinishStateFactory(), SharedContext);
+                    NextState = new RaceState(new QualificationResultRatingProvider(SharedContext.SimulatorRatingController, _referenceRatingProviderFactory), new RatingUpdater(SharedContext.SimulatorRatingController), new SessionFinishStateFactory(), SharedContext, _referenceRatingProviderFactory, _settingsProvider);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

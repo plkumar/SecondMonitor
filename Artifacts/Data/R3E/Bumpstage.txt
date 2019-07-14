@@ -1,0 +1,2120 @@
+Search "BumpStage2" (2015 hits in 465 files)
+  \alfaromeo_giuliettatcr\Physics\alfaromeo_giuliettatcr.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.08
+	Line 434: BumpStage2=0.08
+  \alfaromeo_giuliettatcr2019\Physics\alfaromeo_giuliettatcr_2019.hdc (4 hits)
+	Line 274: BumpStage2=0.065
+	Line 322: BumpStage2=0.065
+	Line 370: BumpStage2=0.05
+	Line 418: BumpStage2=0.05
+  \Alpina B6\Physics\Alpina_B6_GT3.hdc (4 hits)
+	Line 290: BumpStage2=0.027
+	Line 338: BumpStage2=0.027
+	Line 386: BumpStage2=0.03
+	Line 434: BumpStage2=0.03
+  \Aquila CR1 Sports GT\Physics\Aquila_CR1.hdc (4 hits)
+	Line 286: BumpStage2=0.42
+	Line 334: BumpStage2=0.42
+	Line 382: BumpStage2=0.42
+	Line 430: BumpStage2=0.42
+  \Audi R8 LMS\Physics\Audi_R8_LMS.hdc (4 hits)
+	Line 273: BumpStage2=0.060
+	Line 321: BumpStage2=0.060
+	Line 369: BumpStage2=0.060
+	Line 417: BumpStage2=0.060
+  \audi_90_q_gto\Physics\audi_90_q_gto.hdc (4 hits)
+	Line 297: BumpStage2=0.131
+	Line 345: BumpStage2=0.131
+	Line 393: BumpStage2=0.131
+	Line 441: BumpStage2=0.131
+  \audi_r18\Physics\audi_r18.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \audi_r8lms2015\Physics\audi_r8lms2015.hdc (4 hits)
+	Line 290: BumpStage2=0.025
+	Line 338: BumpStage2=0.025
+	Line 386: BumpStage2=0.025
+	Line 434: BumpStage2=0.025
+  \audi_r8_lms_ultra\Physics\audi_r8_lms_ultra_GTM_2015.hdc (4 hits)
+	Line 288: BumpStage2=0.19
+	Line 336: BumpStage2=0.19
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \audi_rs3tcr\Physics\audi_rs3tcr.hdc (4 hits)
+	Line 283: BumpStage2=0.1
+	Line 331: BumpStage2=0.1
+	Line 379: BumpStage2=0.08
+	Line 427: BumpStage2=0.08
+  \audi_rs3tcr\Physics\audi_rs3tcr_2019.hdc (4 hits)
+	Line 270: BumpStage2=0.065
+	Line 318: BumpStage2=0.065
+	Line 366: BumpStage2=0.05
+	Line 414: BumpStage2=0.05
+  \audi_rs5dtm2016\Physics\Audi_RS_5_DTM_2016.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \Audi_RS_5_DTM\Physics\Audi_RS_5_DTM.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \Audi_RS_5_DTM\Physics\Audi_RS_5_DTM_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \Audi_RS_5_DTM\Physics\Audi_RS_5_DTM_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2014.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2014_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2014_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2015.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2015_Ai.hdc (6 hits)
+	Line 197: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 217: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 346: BumpStage2=0.08
+	Line 394: BumpStage2=0.08
+	Line 442: BumpStage2=0.08
+	Line 490: BumpStage2=0.08
+  \Audi_RS_5_DTM_2014\Physics\Audi_RS_5_DTM_2015_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \audi_tt_cup\Physics\audi_tt_cup.hdc (4 hits)
+	Line 293: BumpStage2=0.131
+	Line 341: BumpStage2=0.131
+	Line 389: BumpStage2=0.131
+	Line 437: BumpStage2=0.131
+  \audi_tt_cup\Physics\audi_tt_cup_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.131
+	Line 328: BumpStage2=0.131
+	Line 376: BumpStage2=0.131
+	Line 424: BumpStage2=0.131
+  \audi_tt_cup\Physics\audi_tt_cup_Ama.hdc (4 hits)
+	Line 284: BumpStage2=0.131
+	Line 332: BumpStage2=0.131
+	Line 380: BumpStage2=0.131
+	Line 428: BumpStage2=0.131
+  \audi_tt_rs_vln\Physics\audi_tt_rs_vln.hdc (4 hits)
+	Line 288: BumpStage2=0.131
+	Line 336: BumpStage2=0.131
+	Line 384: BumpStage2=0.131
+	Line 432: BumpStage2=0.131
+  \audi_tt_rs_vln\Physics\audi_tt_rs_vln_Ai.hdc (4 hits)
+	Line 287: BumpStage2=0.131
+	Line 335: BumpStage2=0.131
+	Line 383: BumpStage2=0.131
+	Line 431: BumpStage2=0.131
+  \audi_tt_rs_vln\Physics\audi_tt_rs_vln_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \audi_v8_dtm\Physics\audi_v8_dtm.hdc (4 hits)
+	Line 283: BumpStage2=0.026
+	Line 331: BumpStage2=0.026
+	Line 379: BumpStage2=0.03
+	Line 427: BumpStage2=0.03
+  \audi_v8_dtm\Physics\audi_v8_dtm_Ai.hdc (4 hits)
+	Line 292: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 388: BumpStage2=0.060
+	Line 436: BumpStage2=0.060
+  \audi_v8_dtm\Physics\audi_v8_dtm_Ama.hdc (4 hits)
+	Line 289: BumpStage2=0.060
+	Line 337: BumpStage2=0.060
+	Line 385: BumpStage2=0.060
+	Line 433: BumpStage2=0.060
+  \bentley_continentalgt3\Physics\bentley_continentalgt3.hdc (4 hits)
+	Line 290: BumpStage2=0.035
+	Line 338: BumpStage2=0.035
+	Line 386: BumpStage2=0.025
+	Line 434: BumpStage2=0.025
+  \bentley_continentalgt3\Physics\bentley_continentalgt3_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.05
+	Line 428: BumpStage2=0.08
+  \bentley_continentalgt3\Physics\bentley_continentalgt3_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.1
+	Line 326: BumpStage2=0.1
+	Line 374: BumpStage2=0.05
+	Line 422: BumpStage2=0.08
+  \Bmw 320 Turbo\Physics\Bmw_320_Turbo.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \Bmw 320 Turbo\Physics\Bmw_320_Turbo_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.262
+	Line 328: BumpStage2=0.262
+	Line 376: BumpStage2=0.262
+	Line 424: BumpStage2=0.262
+  \Bmw 320 Turbo\Physics\Bmw_320_Turbo_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \bmw 635 csi\Physics\bmw_635_csi.hdc (4 hits)
+	Line 272: BumpStage2=0.03
+	Line 320: BumpStage2=0.03
+	Line 368: BumpStage2=0.035
+	Line 416: BumpStage2=0.035
+  \bmw 635 csi\Physics\bmw_635_csi_Ai.hdc (4 hits)
+	Line 269: BumpStage2=0.060
+	Line 317: BumpStage2=0.060
+	Line 365: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+  \bmw 635 csi\Physics\bmw_635_csi_Ama.hdc (4 hits)
+	Line 284: BumpStage2=0.08
+	Line 332: BumpStage2=0.08
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \Bmw Judd V8\Physics\Bmw_Judd_V8.hdc (4 hits)
+	Line 296: BumpStage2=0.0325
+	Line 344: BumpStage2=0.0325
+	Line 392: BumpStage2=0.0325
+	Line 440: BumpStage2=0.0325
+  \Bmw Judd V8\Physics\Bmw_Judd_V8_Ai.hdc (4 hits)
+	Line 286: BumpStage2=0.1
+	Line 334: BumpStage2=0.1
+	Line 382: BumpStage2=0.05
+	Line 430: BumpStage2=0.05
+  \Bmw Judd V8\Physics\Bmw_Judd_V8_Ama.hdc (4 hits)
+	Line 287: BumpStage2=0.1
+	Line 335: BumpStage2=0.1
+	Line 383: BumpStage2=0.05
+	Line 431: BumpStage2=0.05
+  \Bmw Z4 GT3\Physics\Bmw_Z4_GT3.hdc (4 hits)
+	Line 273: BumpStage2=0.060
+	Line 321: BumpStage2=0.060
+	Line 369: BumpStage2=0.060
+	Line 417: BumpStage2=0.060
+  \Bmw Z4 GT3\Physics\Bmw_Z4_GT3_Ama.hdc (4 hits)
+	Line 266: BumpStage2=0.060
+	Line 314: BumpStage2=0.060
+	Line 362: BumpStage2=0.060
+	Line 410: BumpStage2=0.060
+  \Bmw Z4 GT3_2012\Physics\Bmw_Z4_GT3_2012_GTM_2015.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.1
+	Line 434: BumpStage2=0.1
+  \bmw_e30_m3_gr_a\Physics\bmw_e30_m3_DTM92.hdc (4 hits)
+	Line 269: BumpStage2=0.025
+	Line 317: BumpStage2=0.025
+	Line 365: BumpStage2=0.025
+	Line 413: BumpStage2=0.025
+  \bmw_e30_m3_gr_a\Physics\bmw_e30_m3_DTM92_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.060
+	Line 325: BumpStage2=0.060
+	Line 373: BumpStage2=0.060
+	Line 421: BumpStage2=0.060
+  \bmw_e30_m3_gr_a\Physics\bmw_e30_m3_gr_a.hdc (4 hits)
+	Line 278: BumpStage2=0.03
+	Line 326: BumpStage2=0.03
+	Line 374: BumpStage2=0.03
+	Line 422: BumpStage2=0.03
+  \bmw_e30_m3_gr_a\Physics\bmw_e30_m3_gr_a_Ai.hdc (4 hits)
+	Line 271: BumpStage2=0.060
+	Line 319: BumpStage2=0.060
+	Line 367: BumpStage2=0.060
+	Line 415: BumpStage2=0.060
+  \bmw_e30_m3_gr_a\Physics\bmw_e30_m3_gr_a_Ama.hdc (4 hits)
+	Line 282: BumpStage2=0.08
+	Line 330: BumpStage2=0.08
+	Line 378: BumpStage2=0.08
+	Line 426: BumpStage2=0.08
+  \bmw_e90_320_tc\Physics\bmw_e90_320_tc.hdc (4 hits)
+	Line 290: BumpStage2=0.060
+	Line 349: BumpStage2=0.060
+	Line 408: BumpStage2=0.060
+	Line 467: BumpStage2=0.060
+  \bmw_e90_320_tc\Physics\bmw_e90_320_tc_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \bmw_e90_320_tc\Physics\bmw_e90_320_tc_Ama.hdc (4 hits)
+	Line 288: BumpStage2=0.060
+	Line 347: BumpStage2=0.060
+	Line 406: BumpStage2=0.060
+	Line 465: BumpStage2=0.060
+  \bmw_m1_procar\Physics\bmw_m1_Gr4.hdc (4 hits)
+	Line 265: BumpStage2=1.0
+	Line 313: BumpStage2=1.0
+	Line 361: BumpStage2=1.0
+	Line 409: BumpStage2=1.0
+  \bmw_m1_procar\Physics\bmw_m1_Gr4_AI.hdc (4 hits)
+	Line 273: BumpStage2=1.0
+	Line 321: BumpStage2=1.0
+	Line 369: BumpStage2=1.0
+	Line 417: BumpStage2=1.0
+  \bmw_m1_procar\Physics\bmw_m1_procar.hdc (4 hits)
+	Line 265: BumpStage2=1.0
+	Line 313: BumpStage2=1.0
+	Line 361: BumpStage2=1.0
+	Line 409: BumpStage2=1.0
+  \bmw_m1_procar\Physics\bmw_m1_procar_Ai.hdc (4 hits)
+	Line 273: BumpStage2=1.0
+	Line 321: BumpStage2=1.0
+	Line 369: BumpStage2=1.0
+	Line 417: BumpStage2=1.0
+  \bmw_m1_procar\Physics\bmw_m1_procar_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.42
+	Line 325: BumpStage2=0.42
+	Line 373: BumpStage2=0.42
+	Line 421: BumpStage2=0.42
+  \bmw_m235i\Physics\bmw_m235i.hdc (4 hits)
+	Line 268: BumpStage2=0.13
+	Line 316: BumpStage2=0.13
+	Line 364: BumpStage2=0.13
+	Line 412: BumpStage2=0.13
+  \bmw_m235i\Physics\bmw_m235i_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \bmw_m235i\Physics\bmw_m235i_Ama.hdc (4 hits)
+	Line 281: BumpStage2=0.13
+	Line 329: BumpStage2=0.13
+	Line 377: BumpStage2=0.13
+	Line 425: BumpStage2=0.13
+  \BMW_M3_DTM\Physics\BMW_M3_DTM.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \BMW_M3_DTM\Physics\BMW_M3_DTM_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 343: BumpStage2=0.08
+	Line 391: BumpStage2=0.08
+	Line 439: BumpStage2=0.08
+	Line 487: BumpStage2=0.08
+  \BMW_M3_DTM\Physics\BMW_M3_DTM_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 340: BumpStage2=0.08
+	Line 388: BumpStage2=0.08
+	Line 436: BumpStage2=0.08
+	Line 484: BumpStage2=0.08
+  \bmw_m3_gt_2012\Physics\bmw_m3_gt_2012.hdc (4 hits)
+	Line 297: BumpStage2=0.1
+	Line 345: BumpStage2=0.1
+	Line 393: BumpStage2=0.1
+	Line 441: BumpStage2=0.1
+  \bmw_m3_gt_2012\Physics\bmw_m3_gt_2012_Ai.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \bmw_m3_gt_2012\Physics\bmw_m3_gt_2012_Ama.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \BMW_M4_DTM\Physics\BMW_M4_DTM.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2015.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2015_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2015_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2016.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2016_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \BMW_M4_DTM\Physics\BMW_M4_DTM_2016_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \bmw_m6gt3\Physics\bmw_m6gt3.hdc (4 hits)
+	Line 290: BumpStage2=0.025
+	Line 338: BumpStage2=0.025
+	Line 386: BumpStage2=0.0275
+	Line 434: BumpStage2=0.0275
+  \bmw_m6gt3\Physics\bmw_m6gt3_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.05
+	Line 428: BumpStage2=0.05
+  \bmw_m6gt3\Physics\bmw_m6gt3_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.1
+	Line 326: BumpStage2=0.1
+	Line 374: BumpStage2=0.05
+	Line 422: BumpStage2=0.05
+  \cadillac_cts_v_r\Physics\cadillac_cts_v_r.hdc (4 hits)
+	Line 297: BumpStage2=0.1
+	Line 345: BumpStage2=0.1
+	Line 393: BumpStage2=0.1
+	Line 441: BumpStage2=0.1
+  \cadillac_cts_v_r\Physics\cadillac_cts_v_r_Ai.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \cadillac_cts_v_r\Physics\cadillac_cts_v_r_Ama.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \callaway_corvettec7r\Physics\callaway_corvettec7r.hdc (4 hits)
+	Line 290: BumpStage2=0.035
+	Line 338: BumpStage2=0.035
+	Line 386: BumpStage2=0.025
+	Line 434: BumpStage2=0.025
+  \canhard_r51\Physics\canhard_r51.hdc (4 hits)
+	Line 285: BumpStage2=0.42
+	Line 333: BumpStage2=0.42
+	Line 381: BumpStage2=0.42
+	Line 429: BumpStage2=0.42
+  \canhard_r52\Physics\canhard_r52.hdc (4 hits)
+	Line 285: BumpStage2=0.42
+	Line 333: BumpStage2=0.42
+	Line 381: BumpStage2=0.42
+	Line 429: BumpStage2=0.42
+  \Carlsson C25 GT\Physics\Carlsson_C25.hdc (4 hits)
+	Line 282: BumpStage2=0.060
+	Line 330: BumpStage2=0.060
+	Line 378: BumpStage2=0.060
+	Line 426: BumpStage2=0.060
+  \Carlsson C25 GT\Physics\Carlsson_C25_Ai.hdc (4 hits)
+	Line 271: BumpStage2=0.060
+	Line 319: BumpStage2=0.060
+	Line 367: BumpStage2=0.060
+	Line 415: BumpStage2=0.060
+  \Carlsson C25 GT\Physics\Carlsson_C25_Ama.hdc (4 hits)
+	Line 276: BumpStage2=0.060
+	Line 324: BumpStage2=0.060
+	Line 372: BumpStage2=0.060
+	Line 420: BumpStage2=0.060
+  \Carlsson_SLK_340_JUDD\Physics\Carlsson_SLK_340_JUDD.hdc (4 hits)
+	Line 296: BumpStage2=0.1
+	Line 344: BumpStage2=0.1
+	Line 392: BumpStage2=0.05
+	Line 440: BumpStage2=0.05
+  \Carlsson_SLK_340_JUDD\Physics\Carlsson_SLK_340_JUDD_Ai.hdc (4 hits)
+	Line 286: BumpStage2=0.1
+	Line 334: BumpStage2=0.1
+	Line 382: BumpStage2=0.05
+	Line 430: BumpStage2=0.05
+  \Carlsson_SLK_340_JUDD\Physics\Carlsson_SLK_340_JUDD_Ama.hdc (4 hits)
+	Line 303: BumpStage2=0.1
+	Line 351: BumpStage2=0.1
+	Line 399: BumpStage2=0.05
+	Line 447: BumpStage2=0.05
+  \Chevrolet Corvette C6R GT2\Physics\Chevrolet_Corvette_C6R_GT2.hdc (4 hits)
+	Line 297: BumpStage2=0.1
+	Line 345: BumpStage2=0.1
+	Line 393: BumpStage2=0.1
+	Line 441: BumpStage2=0.1
+  \Chevrolet Corvette C6R GT2\Physics\Chevrolet_Corvette_C6R_GT2_Ai.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \Chevrolet Corvette C6R GT2\Physics\Chevrolet_Corvette_C6R_GT2_Ama.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \chevrolet_camaro_gt3\Physics\chevrolet_camaro_gt3_GTM_2015.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.1
+	Line 434: BumpStage2=0.1
+  \chevrolet_camaro_gt3\Physics\chevrolet_camaro_gt3_GTM_2015_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.05
+	Line 428: BumpStage2=0.05
+  \chevrolet_camaro_gt3\Physics\chevrolet_camaro_gt3_GTM_2015_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.1
+	Line 328: BumpStage2=0.1
+	Line 376: BumpStage2=0.05
+	Line 424: BumpStage2=0.05
+  \chevrolet_corvette_greenwood_1977\Physics\chevrolet_corvette_greenwood_1977.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \chevrolet_corvette_greenwood_1977\Physics\chevrolet_corvette_greenwood_1977_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.262
+	Line 329: BumpStage2=0.262
+	Line 377: BumpStage2=0.262
+	Line 425: BumpStage2=0.262
+  \chevrolet_corvette_greenwood_1977\Physics\chevrolet_corvette_greenwood_1977_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \chevrolet_corvette_z06r_gt3\Physics\chevrolet_corvette_z06r_gt3_GTM_2015.hdc (4 hits)
+	Line 284: BumpStage2=0.05
+	Line 332: BumpStage2=0.05
+	Line 380: BumpStage2=0.1
+	Line 428: BumpStage2=0.1
+  \chevrolet_corvette_z06r_gt3\Physics\chevrolet_corvette_z06r_gt3_GTM_2015_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.05
+	Line 332: BumpStage2=0.05
+	Line 380: BumpStage2=0.1
+	Line 428: BumpStage2=0.1
+  \chevrolet_corvette_z06r_gt3\Physics\chevrolet_corvette_z06r_gt3_GTM_2015_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.05
+	Line 326: BumpStage2=0.05
+	Line 374: BumpStage2=0.1
+	Line 422: BumpStage2=0.1
+  \chevrolet_cruze_wtcc_2013\Physics\Chevrolet_Cruze_WTCC_2013.hdc (4 hits)
+	Line 291: BumpStage2=0.060
+	Line 350: BumpStage2=0.060
+	Line 409: BumpStage2=0.060
+	Line 468: BumpStage2=0.060
+  \chevrolet_cruze_wtcc_2013\Physics\Chevrolet_Cruze_WTCC_2013_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.090
+	Line 340: BumpStage2=0.090
+	Line 399: BumpStage2=0.090
+	Line 458: BumpStage2=0.090
+  \chevrolet_cruze_wtcc_2013\Physics\Chevrolet_Cruze_WTCC_2013_Ama.hdc (4 hits)
+	Line 288: BumpStage2=0.060
+	Line 347: BumpStage2=0.060
+	Line 406: BumpStage2=0.060
+	Line 464: BumpStage2=0.060
+  \chevrolet_daytona_prototype\Physics\Chevrolet_Daytona_Prototype.hdc (4 hits)
+	Line 283: BumpStage2=0.131
+	Line 331: BumpStage2=0.131
+	Line 379: BumpStage2=0.131
+	Line 427: BumpStage2=0.131
+  \chevrolet_daytona_prototype\Physics\Chevrolet_Daytona_Prototype_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \chevrolet_daytona_prototype\Physics\Chevrolet_Daytona_Prototype_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \chevrolet_dekon_monza\Physics\chevrolet_dekon_monza.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \chevrolet_dekon_monza\Physics\chevrolet_dekon_monza_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.262
+	Line 329: BumpStage2=0.262
+	Line 377: BumpStage2=0.262
+	Line 425: BumpStage2=0.262
+  \chevrolet_dekon_monza\Physics\chevrolet_dekon_monza_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \chevrolet_rml_cruze_tc1\Physics\Chevrolet_RML_Cruze_TC1.hdc (4 hits)
+	Line 295: BumpStage2=0.060
+	Line 354: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+	Line 472: BumpStage2=0.060
+  \chevrolet_rml_cruze_tc1\Physics\Chevrolet_RML_Cruze_TC1_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \chevrolet_rml_cruze_tc1\Physics\Chevrolet_RML_Cruze_TC1_Ama.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2015.hdc (4 hits)
+	Line 286: BumpStage2=0.131
+	Line 334: BumpStage2=0.131
+	Line 382: BumpStage2=0.131
+	Line 430: BumpStage2=0.131
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2015_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2015_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2016.hdc (4 hits)
+	Line 291: BumpStage2=0.13
+	Line 339: BumpStage2=0.13
+	Line 387: BumpStage2=0.13
+	Line 435: BumpStage2=0.13
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2016_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \chevrolet_rml_cruze_tc1_2015\Physics\chevrolet_rml_cruze_tc1_2016_Ama.hdc (4 hits)
+	Line 282: BumpStage2=0.13
+	Line 330: BumpStage2=0.13
+	Line 378: BumpStage2=0.13
+	Line 426: BumpStage2=0.13
+  \citroen_c_elysee_wtcc\Physics\Citroen_C_Elysee_WTCC.hdc (4 hits)
+	Line 295: BumpStage2=0.060
+	Line 354: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+	Line 472: BumpStage2=0.060
+  \citroen_c_elysee_wtcc\Physics\Citroen_C_Elysee_WTCC_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \citroen_c_elysee_wtcc\Physics\Citroen_C_Elysee_WTCC_Ama.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2015.hdc (4 hits)
+	Line 286: BumpStage2=0.131
+	Line 334: BumpStage2=0.131
+	Line 382: BumpStage2=0.131
+	Line 430: BumpStage2=0.131
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2015_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2015_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2016.hdc (4 hits)
+	Line 291: BumpStage2=0.13
+	Line 339: BumpStage2=0.13
+	Line 387: BumpStage2=0.13
+	Line 435: BumpStage2=0.13
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2016_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \citroen_c_elysee_wtcc_2015\Physics\citroen_c_elysee_wtcc_2016_Ama.hdc (4 hits)
+	Line 282: BumpStage2=0.13
+	Line 330: BumpStage2=0.13
+	Line 378: BumpStage2=0.13
+	Line 426: BumpStage2=0.13
+  \cougar_c14-1\Physics\cougar_c14-1.hdc (4 hits)
+	Line 285: BumpStage2=0.42
+	Line 333: BumpStage2=0.42
+	Line 381: BumpStage2=0.42
+	Line 429: BumpStage2=0.42
+  \cougar_c14-1\Physics\cougar_c14-1_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.42
+	Line 328: BumpStage2=0.42
+	Line 376: BumpStage2=0.42
+	Line 424: BumpStage2=0.42
+  \cougar_c14-1\Physics\cougar_c14-1_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.42
+	Line 325: BumpStage2=0.42
+	Line 373: BumpStage2=0.42
+	Line 421: BumpStage2=0.42
+  \cougar_c14-2\Physics\cougar_c14-2.hdc (4 hits)
+	Line 285: BumpStage2=0.42
+	Line 333: BumpStage2=0.42
+	Line 381: BumpStage2=0.42
+	Line 429: BumpStage2=0.42
+  \cougar_c14-2\Physics\cougar_c14-2_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.42
+	Line 328: BumpStage2=0.42
+	Line 376: BumpStage2=0.42
+	Line 424: BumpStage2=0.42
+  \cougar_c14-2\Physics\cougar_c14-2_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.42
+	Line 325: BumpStage2=0.42
+	Line 373: BumpStage2=0.42
+	Line 421: BumpStage2=0.42
+  \DMD_P20\Physics\DMD_P20.hdc (6 hits)
+	Line 172: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 192: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+	Line 469: BumpStage2=0.131
+  \DMD_P20\Physics\DMD_P20_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 321: BumpStage2=0.131
+	Line 369: BumpStage2=0.131
+	Line 417: BumpStage2=0.131
+	Line 465: BumpStage2=0.131
+  \DMD_P20\Physics\DMD_P20_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \DMD_P21\Physics\DMD_P21.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \DMD_P21\Physics\DMD_P21_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 322: BumpStage2=0.131
+	Line 370: BumpStage2=0.131
+	Line 418: BumpStage2=0.131
+	Line 466: BumpStage2=0.131
+  \DMD_P21\Physics\DMD_P21_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \DTM_Mercedes_AMG_C_Coupe\Physics\DTM_Mercedes_AMG_C_Coupe.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe\Physics\DTM_Mercedes_AMG_C_Coupe_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe\Physics\DTM_Mercedes_AMG_C_Coupe_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_14.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_14_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_14_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_15.hdc (4 hits)
+	Line 298: BumpStage2=0.060
+	Line 346: BumpStage2=0.060
+	Line 394: BumpStage2=0.060
+	Line 442: BumpStage2=0.060
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_15_Ai.hdc (4 hits)
+	Line 296: BumpStage2=0.060
+	Line 344: BumpStage2=0.060
+	Line 392: BumpStage2=0.060
+	Line 440: BumpStage2=0.060
+  \DTM_Mercedes_AMG_C_Coupe_14\Physics\DTM_Mercedes_AMG_C_Coupe_15_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.060
+	Line 343: BumpStage2=0.060
+	Line 391: BumpStage2=0.060
+	Line 439: BumpStage2=0.060
+  \DTM_Mercedes_AMG_C_Coupe_2014\Physics\DTM_Mercedes_AMG_C_Coupe_2014.hdc (4 hits)
+	Line 291: BumpStage2=0.060
+	Line 339: BumpStage2=0.060
+	Line 387: BumpStage2=0.060
+	Line 435: BumpStage2=0.060
+  \DTM_Mercedes_AMG_C_Coupe_2014\Physics\DTM_Mercedes_AMG_C_Coupe_2014_Ai.hdc (4 hits)
+	Line 287: BumpStage2=0.060
+	Line 335: BumpStage2=0.060
+	Line 383: BumpStage2=0.060
+	Line 431: BumpStage2=0.060
+  \DTM_Mercedes_AMG_C_Coupe_2014\Physics\DTM_Mercedes_AMG_C_Coupe_2014_Ama.hdc (4 hits)
+	Line 286: BumpStage2=0.060
+	Line 334: BumpStage2=0.060
+	Line 382: BumpStage2=0.060
+	Line 430: BumpStage2=0.060
+  \fabcar_935\Physics\fabcar_935.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \fabcar_935\Physics\fabcar_935_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.262
+	Line 328: BumpStage2=0.262
+	Line 376: BumpStage2=0.262
+	Line 424: BumpStage2=0.262
+  \fabcar_935\Physics\fabcar_935_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \Ford GT GT1\Physics\Ford_GT_GT1.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Ford GT GT1\Physics\Ford_GT_GT1_Ai.hdc (4 hits)
+	Line 301: BumpStage2=0.1
+	Line 349: BumpStage2=0.1
+	Line 397: BumpStage2=0.1
+	Line 445: BumpStage2=0.1
+  \Ford GT GT1\Physics\Ford_GT_GT1_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \Ford Mustang FR500 GT3\Physics\Ford_Mustang_FR500_GT3.hdc (4 hits)
+	Line 287: BumpStage2=0.1
+	Line 335: BumpStage2=0.1
+	Line 383: BumpStage2=0.05
+	Line 431: BumpStage2=0.05
+  \Ford Mustang FR500 GT3\Physics\Ford_Mustang_FR500_GT3_Ai.hdc (4 hits)
+	Line 285: BumpStage2=0.1
+	Line 333: BumpStage2=0.1
+	Line 381: BumpStage2=0.05
+	Line 429: BumpStage2=0.05
+  \Ford Mustang FR500 GT3\Physics\Ford_Mustang_FR500_GT3_Ama.hdc (4 hits)
+	Line 279: BumpStage2=0.1
+	Line 327: BumpStage2=0.1
+	Line 375: BumpStage2=0.05
+	Line 423: BumpStage2=0.05
+  \Ford_GT_GT3\Physics\Ford_GT_GT3_Ai.hdc (4 hits)
+	Line 267: BumpStage2=0.060
+	Line 315: BumpStage2=0.060
+	Line 363: BumpStage2=0.060
+	Line 411: BumpStage2=0.060
+  \Ford_GT_GT3\Physics\Ford_GT_GT3_Ama.hdc (4 hits)
+	Line 272: BumpStage2=0.060
+	Line 320: BumpStage2=0.060
+	Line 368: BumpStage2=0.060
+	Line 416: BumpStage2=0.060
+  \Ford_GT_GT3\Physics\Ford_GT_GT3_GTM.hdc (4 hits)
+	Line 288: BumpStage2=0.19
+	Line 336: BumpStage2=0.19
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \Ford_GT_GT3\Physics\Ford_GT_GT3_GTM_Ai.hdc (4 hits)
+	Line 283: BumpStage2=0.19
+	Line 331: BumpStage2=0.19
+	Line 379: BumpStage2=0.13
+	Line 427: BumpStage2=0.13
+  \Ford_GT_GT3\Physics\Ford_GT_GT3_GTM_Ama.hdc (4 hits)
+	Line 276: BumpStage2=0.19
+	Line 324: BumpStage2=0.19
+	Line 372: BumpStage2=0.13
+	Line 420: BumpStage2=0.13
+  \ford_mustang_gr_a\Physics\ford_mustang_gr_a.hdc (4 hits)
+	Line 281: BumpStage2=0.023
+	Line 329: BumpStage2=0.023
+	Line 377: BumpStage2=0.03
+	Line 425: BumpStage2=0.03
+  \ford_mustang_gr_a\Physics\ford_mustang_gr_a_Ai.hdc (4 hits)
+	Line 272: BumpStage2=0.060
+	Line 320: BumpStage2=0.060
+	Line 368: BumpStage2=0.060
+	Line 416: BumpStage2=0.060
+  \ford_mustang_gr_a\Physics\ford_mustang_gr_a_Ama.hdc (4 hits)
+	Line 279: BumpStage2=0.060
+	Line 327: BumpStage2=0.060
+	Line 375: BumpStage2=0.060
+	Line 423: BumpStage2=0.060
+  \ford_mustang_imsa_gto\Physics\ford_mustang_imsa_gto.hdc (4 hits)
+	Line 285: BumpStage2=0.131
+	Line 333: BumpStage2=0.131
+	Line 381: BumpStage2=0.131
+	Line 429: BumpStage2=0.131
+  \ford_mustang_imsa_gto\Physics\ford_mustang_imsa_gto_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \ford_mustang_imsa_gto\Physics\ford_mustang_imsa_gto_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \Gumpert Apollo Sport\Physics\Gumpert_Apollo.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Gumpert Apollo Sport\Physics\Gumpert_Apollo_Ai.hdc (4 hits)
+	Line 301: BumpStage2=0.1
+	Line 349: BumpStage2=0.1
+	Line 397: BumpStage2=0.1
+	Line 445: BumpStage2=0.1
+  \Gumpert Apollo Sport\Physics\Gumpert_Apollo_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \honda_civictcr\Physics\honda_civictcr.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.08
+	Line 434: BumpStage2=0.08
+  \honda_civictcr\Physics\honda_civictcr_2019.hdc (4 hits)
+	Line 277: BumpStage2=0.065
+	Line 325: BumpStage2=0.065
+	Line 373: BumpStage2=0.05
+	Line 421: BumpStage2=0.05
+  \honda_civictcr\Physics\honda_civictcr_2019_Ai.hdc (4 hits)
+	Line 277: BumpStage2=0.065
+	Line 325: BumpStage2=0.065
+	Line 373: BumpStage2=0.05
+	Line 421: BumpStage2=0.05
+  \honda_civictcr\Physics\honda_civictcr_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \honda_civictcr\Physics\honda_civictcr_Ama.hdc (4 hits)
+	Line 285: BumpStage2=0.1
+	Line 333: BumpStage2=0.1
+	Line 381: BumpStage2=0.08
+	Line 429: BumpStage2=0.08
+  \honda_civic_s2000_tc\Physics\honda_civic_s2000_tc.hdc (4 hits)
+	Line 291: BumpStage2=0.060
+	Line 350: BumpStage2=0.060
+	Line 409: BumpStage2=0.060
+	Line 468: BumpStage2=0.060
+  \honda_civic_s2000_tc\Physics\honda_civic_s2000_tc_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \honda_civic_s2000_tc\Physics\honda_civic_s2000_tc_Ama.hdc (4 hits)
+	Line 286: BumpStage2=0.060
+	Line 345: BumpStage2=0.060
+	Line 404: BumpStage2=0.060
+	Line 463: BumpStage2=0.060
+  \honda_civic_wtcc\Physics\honda_civic_wtcc.hdc (4 hits)
+	Line 295: BumpStage2=0.060
+	Line 354: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+	Line 472: BumpStage2=0.060
+  \honda_civic_wtcc\Physics\honda_civic_wtcc_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \honda_civic_wtcc\Physics\honda_civic_wtcc_Ama.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2015.hdc (4 hits)
+	Line 286: BumpStage2=0.131
+	Line 334: BumpStage2=0.131
+	Line 382: BumpStage2=0.131
+	Line 430: BumpStage2=0.131
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2015_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2015_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2016.hdc (4 hits)
+	Line 291: BumpStage2=0.13
+	Line 339: BumpStage2=0.13
+	Line 387: BumpStage2=0.13
+	Line 435: BumpStage2=0.13
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2016_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \honda_civic_wtcc_2015\Physics\honda_civic_wtcc_2016_Ama.hdc (4 hits)
+	Line 282: BumpStage2=0.13
+	Line 330: BumpStage2=0.13
+	Line 378: BumpStage2=0.13
+	Line 426: BumpStage2=0.13
+  \hyundai_i30_wtcr\Physics\hyundai_i30_wtcr.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.08
+	Line 434: BumpStage2=0.08
+  \hyundai_i30_wtcr\Physics\hyundai_i30_wtcr_2019.hdc (4 hits)
+	Line 279: BumpStage2=0.065
+	Line 327: BumpStage2=0.065
+	Line 375: BumpStage2=0.05
+	Line 423: BumpStage2=0.05
+  \hyundai_i30_wtcr\Physics\hyundai_i30_wtcr_2019_AI.hdc (4 hits)
+	Line 279: BumpStage2=0.065
+	Line 327: BumpStage2=0.065
+	Line 375: BumpStage2=0.05
+	Line 423: BumpStage2=0.05
+  \hyundai_i30_wtcr\Physics\hyundai_i30_wtcr_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \hyundai_i30_wtcr\Physics\hyundai_i30_wtcr_Ama.hdc (4 hits)
+	Line 285: BumpStage2=0.1
+	Line 333: BumpStage2=0.1
+	Line 381: BumpStage2=0.08
+	Line 429: BumpStage2=0.08
+  \Koenigsegg CCGT\Physics\Koenigsegg_CCGT.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Koenigsegg CCGT\Physics\Koenigsegg_CCGT_Ai.hdc (4 hits)
+	Line 301: BumpStage2=0.1
+	Line 349: BumpStage2=0.1
+	Line 397: BumpStage2=0.1
+	Line 445: BumpStage2=0.1
+  \Koenigsegg CCGT\Physics\Koenigsegg_CCGT_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \ktm_xbowgt4\Physics\ktm_xbowgt4.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.1
+	Line 434: BumpStage2=0.1
+  \ktm_xbowgt4\Physics\ktm_xbowgt4_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.1
+	Line 336: BumpStage2=0.1
+	Line 384: BumpStage2=0.1
+	Line 432: BumpStage2=0.1
+  \ktm_xbowgt4\Physics\ktm_xbowgt4_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \ktm_xbowrr\Physics\ktm_xbowrr.hdc (4 hits)
+	Line 287: BumpStage2=0.1
+	Line 335: BumpStage2=0.1
+	Line 383: BumpStage2=0.074
+	Line 431: BumpStage2=0.074
+  \ktm_xbowrr\Physics\ktm_xbowrr_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.1
+	Line 328: BumpStage2=0.1
+	Line 376: BumpStage2=0.074
+	Line 424: BumpStage2=0.074
+  \ktm_xbowrr\Physics\ktm_xbowrr_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.1
+	Line 328: BumpStage2=0.1
+	Line 376: BumpStage2=0.074
+	Line 424: BumpStage2=0.074
+  \lada_granta_16t\Physics\lada_granta_16t.hdc (4 hits)
+	Line 295: BumpStage2=0.060
+	Line 354: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+	Line 472: BumpStage2=0.060
+  \lada_granta_16t\Physics\lada_granta_16t_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \lada_granta_16t\Physics\lada_granta_16t_Ama.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \lada_granta_wtcc_2013\Physics\lada_granta_wtcc_2013.hdc (4 hits)
+	Line 291: BumpStage2=0.060
+	Line 350: BumpStage2=0.060
+	Line 409: BumpStage2=0.060
+	Line 468: BumpStage2=0.060
+  \lada_granta_wtcc_2013\Physics\lada_granta_wtcc_2013_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \lada_granta_wtcc_2013\Physics\lada_granta_wtcc_2013_Ama.hdc (4 hits)
+	Line 288: BumpStage2=0.060
+	Line 347: BumpStage2=0.060
+	Line 406: BumpStage2=0.060
+	Line 465: BumpStage2=0.060
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2015.hdc (4 hits)
+	Line 286: BumpStage2=0.131
+	Line 334: BumpStage2=0.131
+	Line 382: BumpStage2=0.131
+	Line 430: BumpStage2=0.131
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2015_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.131
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.131
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2015_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.131
+	Line 325: BumpStage2=0.131
+	Line 373: BumpStage2=0.131
+	Line 421: BumpStage2=0.131
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2016.hdc (4 hits)
+	Line 291: BumpStage2=0.13
+	Line 339: BumpStage2=0.13
+	Line 387: BumpStage2=0.13
+	Line 435: BumpStage2=0.13
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2016_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \lada_vesta_wtcc_2015\Physics\lada_vesta_wtcc_2016_Ama.hdc (4 hits)
+	Line 285: BumpStage2=0.13
+	Line 333: BumpStage2=0.13
+	Line 381: BumpStage2=0.13
+	Line 429: BumpStage2=0.13
+  \lotus_evoragt4\Physics\lotus_evoragt4.hdc (4 hits)
+	Line 290: BumpStage2=0.18
+	Line 338: BumpStage2=0.18
+	Line 386: BumpStage2=0.125
+	Line 434: BumpStage2=0.125
+  \lotus_evoragt4\Physics\lotus_evoragt4_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.18
+	Line 336: BumpStage2=0.18
+	Line 384: BumpStage2=0.125
+	Line 432: BumpStage2=0.125
+  \lotus_evoragt4\Physics\lotus_evoragt4_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.18
+	Line 328: BumpStage2=0.18
+	Line 376: BumpStage2=0.15
+	Line 424: BumpStage2=0.15
+  \McLaren SLR 722 GT\Physics\Mclaren_SLR_722_GT.hdc (4 hits)
+	Line 282: BumpStage2=0.060
+	Line 330: BumpStage2=0.060
+	Line 378: BumpStage2=0.060
+	Line 426: BumpStage2=0.060
+  \McLaren SLR 722 GT\Physics\Mclaren_SLR_722_GT_Ai.hdc (4 hits)
+	Line 271: BumpStage2=0.060
+	Line 319: BumpStage2=0.060
+	Line 367: BumpStage2=0.060
+	Line 415: BumpStage2=0.060
+  \McLaren SLR 722 GT\Physics\Mclaren_SLR_722_GT_Ama.hdc (4 hits)
+	Line 275: BumpStage2=0.060
+	Line 323: BumpStage2=0.060
+	Line 371: BumpStage2=0.060
+	Line 419: BumpStage2=0.060
+  \mclaren_650sgt3\Physics\mclaren_650sgt3.hdc (4 hits)
+	Line 288: BumpStage2=0.19
+	Line 336: BumpStage2=0.19
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \mclaren_650sgt3\Physics\mclaren_650sgt3_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.19
+	Line 332: BumpStage2=0.19
+	Line 380: BumpStage2=0.13
+	Line 428: BumpStage2=0.13
+  \mclaren_650sgt3\Physics\mclaren_650sgt3_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.19
+	Line 326: BumpStage2=0.19
+	Line 374: BumpStage2=0.13
+	Line 422: BumpStage2=0.13
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3.hdc (4 hits)
+	Line 288: BumpStage2=0.19
+	Line 336: BumpStage2=0.19
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.19
+	Line 332: BumpStage2=0.19
+	Line 380: BumpStage2=0.13
+	Line 428: BumpStage2=0.13
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.19
+	Line 326: BumpStage2=0.19
+	Line 374: BumpStage2=0.13
+	Line 422: BumpStage2=0.13
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3_GTM.hdc (4 hits)
+	Line 281: BumpStage2=0.08
+	Line 329: BumpStage2=0.08
+	Line 377: BumpStage2=0.08
+	Line 425: BumpStage2=0.08
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3_GTM_Ai.hdc (4 hits)
+	Line 268: BumpStage2=0.060
+	Line 316: BumpStage2=0.060
+	Line 364: BumpStage2=0.060
+	Line 412: BumpStage2=0.060
+  \mclaren_mp4_12c_gt3\Physics\mclaren_mp4_12c_gt3_GTM_Ama.hdc (4 hits)
+	Line 274: BumpStage2=0.060
+	Line 322: BumpStage2=0.060
+	Line 370: BumpStage2=0.060
+	Line 418: BumpStage2=0.060
+  \Mercedes SLS GT3\Physics\Mercedes_SLS_GTM_2015.hdc (4 hits)
+	Line 288: BumpStage2=0.05
+	Line 336: BumpStage2=0.05
+	Line 384: BumpStage2=0.1
+	Line 432: BumpStage2=0.1
+  \Mercedes SLS GT3\Physics\Mercedes_SLS_GTM_2015_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.05
+	Line 332: BumpStage2=0.05
+	Line 380: BumpStage2=0.1
+	Line 428: BumpStage2=0.1
+  \Mercedes SLS GT3\Physics\Mercedes_SLS_GTM_2015_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.05
+	Line 326: BumpStage2=0.05
+	Line 374: BumpStage2=0.1
+	Line 422: BumpStage2=0.1
+  \mercedes_190e_evo_ii_dtm\Physics\mercedes_190e_evo_ii_dtm.hdc (4 hits)
+	Line 272: BumpStage2=0.03
+	Line 320: BumpStage2=0.03
+	Line 368: BumpStage2=0.03
+	Line 416: BumpStage2=0.03
+  \mercedes_190e_evo_ii_dtm\Physics\mercedes_190e_evo_ii_dtm_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.08
+	Line 328: BumpStage2=0.08
+	Line 376: BumpStage2=0.08
+	Line 424: BumpStage2=0.08
+  \mercedes_190e_evo_ii_dtm\Physics\mercedes_190e_evo_ii_dtm_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.060
+	Line 325: BumpStage2=0.060
+	Line 373: BumpStage2=0.060
+	Line 421: BumpStage2=0.060
+  \mercedes_amgc63dtm2016\Physics\mercedes_amgc63dtm_16.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \mercedes_amgc63dtm2016\Physics\mercedes_amgc63dtm_16_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \mercedes_amgc63dtm2016\Physics\mercedes_amgc63dtm_16_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \mercedes_amgc63dtm2017\Physics\mercedes_amgc63dtm_16.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \mercedes_amgc63dtm2017\Physics\mercedes_amgc63dtm_16_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \mercedes_amgc63dtm2017\Physics\mercedes_amgc63dtm_16_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \mercedes_amgcdtm1995\Physics\mercedes_amgcdtm1995.hdc (4 hits)
+	Line 282: BumpStage2=0.03
+	Line 330: BumpStage2=0.03
+	Line 378: BumpStage2=0.03
+	Line 426: BumpStage2=0.03
+  \mercedes_amgcdtm1995\Physics\mercedes_amgcdtm1995_Ai.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \mercedes_amgcdtm1995\Physics\mercedes_amgcdtm1995_Ama.hdc (4 hits)
+	Line 283: BumpStage2=0.08
+	Line 331: BumpStage2=0.08
+	Line 379: BumpStage2=0.08
+	Line 427: BumpStage2=0.08
+  \mercedes_amgcdtm2005\Physics\mercedes_amgcdtm2005.hdc (4 hits)
+	Line 293: BumpStage2=0.08
+	Line 341: BumpStage2=0.08
+	Line 389: BumpStage2=0.08
+	Line 437: BumpStage2=0.08
+  \mercedes_amgcdtm2005\Physics\mercedes_amgcdtm2005_Ai.hdc (4 hits)
+	Line 294: BumpStage2=0.08
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+  \mercedes_amgcdtm2005\Physics\mercedes_amgcdtm2005_Ama.hdc (4 hits)
+	Line 286: BumpStage2=0.08
+	Line 334: BumpStage2=0.08
+	Line 382: BumpStage2=0.08
+	Line 430: BumpStage2=0.08
+  \mercedes_amgclkdtm2003\Physics\mercedes_amgclkdtm2003.hdc (4 hits)
+	Line 293: BumpStage2=0.08
+	Line 341: BumpStage2=0.08
+	Line 389: BumpStage2=0.08
+	Line 437: BumpStage2=0.08
+  \mercedes_amgclkdtm2003\Physics\mercedes_amgclkdtm2003_Ai.hdc (4 hits)
+	Line 294: BumpStage2=0.08
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+  \mercedes_amgclkdtm2003\Physics\mercedes_amgclkdtm2003_Ama.hdc (4 hits)
+	Line 286: BumpStage2=0.08
+	Line 334: BumpStage2=0.08
+	Line 382: BumpStage2=0.08
+	Line 430: BumpStage2=0.08
+  \mercedes_amggt3\Physics\mercedes_amggt3.hdc (4 hits)
+	Line 288: BumpStage2=0.1
+	Line 336: BumpStage2=0.1
+	Line 384: BumpStage2=0.1
+	Line 432: BumpStage2=0.1
+  \mercedes_amggt3\Physics\mercedes_amggt3_Ai.hdc (4 hits)
+	Line 286: BumpStage2=0.05
+	Line 334: BumpStage2=0.05
+	Line 382: BumpStage2=0.05
+	Line 430: BumpStage2=0.05
+  \mercedes_amggt3\Physics\mercedes_amggt3_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.05
+	Line 328: BumpStage2=0.05
+	Line 376: BumpStage2=0.05
+	Line 424: BumpStage2=0.05
+  \mercedes_amg_c63_dtm\Physics\mercedes_amg_c63_dtm.hdc (6 hits)
+	Line 193: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 213: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.08
+	Line 395: BumpStage2=0.08
+	Line 443: BumpStage2=0.08
+	Line 491: BumpStage2=0.08
+  \mercedes_amg_c63_dtm\Physics\mercedes_amg_c63_dtm_Ai.hdc (6 hits)
+	Line 196: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 216: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 345: BumpStage2=0.08
+	Line 393: BumpStage2=0.08
+	Line 441: BumpStage2=0.08
+	Line 489: BumpStage2=0.08
+  \mercedes_amg_c63_dtm\Physics\mercedes_amg_c63_dtm_Ama.hdc (6 hits)
+	Line 192: Front3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 212: Rear3rdBumpStage2=0.08 // speed where damper bump moves from slow to fast
+	Line 342: BumpStage2=0.08
+	Line 390: BumpStage2=0.08
+	Line 438: BumpStage2=0.08
+	Line 486: BumpStage2=0.08
+  \Mistral M530\Physics\Mistral_M530.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \Mistral M530\Physics\Mistral_M530_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 321: BumpStage2=0.131
+	Line 369: BumpStage2=0.131
+	Line 417: BumpStage2=0.131
+	Line 465: BumpStage2=0.131
+  \Mistral M530\Physics\Mistral_M530_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \Mistral M531\Physics\Mistral_M531.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \Mistral M531\Physics\Mistral_M531_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 322: BumpStage2=0.131
+	Line 370: BumpStage2=0.131
+	Line 418: BumpStage2=0.131
+	Line 466: BumpStage2=0.131
+  \Mistral M531\Physics\Mistral_M531_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \Nissan GTR GT1\Physics\Nissan_GTR_GT1.hdc (4 hits)
+	Line 301: BumpStage2=0.1
+	Line 349: BumpStage2=0.1
+	Line 397: BumpStage2=0.1
+	Line 445: BumpStage2=0.1
+  \Nissan GTR GT1\Physics\Nissan_GTR_GT1_Ai.hdc (4 hits)
+	Line 296: BumpStage2=0.1
+	Line 344: BumpStage2=0.1
+	Line 392: BumpStage2=0.1
+	Line 440: BumpStage2=0.1
+  \Nissan GTR GT1\Physics\Nissan_GTR_GT1_Ama.hdc (4 hits)
+	Line 292: BumpStage2=0.1
+	Line 340: BumpStage2=0.1
+	Line 388: BumpStage2=0.1
+	Line 436: BumpStage2=0.1
+  \Nissan GTR GT3\Physics\Nissan_GTR_GT3_GTM_2015.hdc (4 hits)
+	Line 290: BumpStage2=0.03
+	Line 338: BumpStage2=0.03
+	Line 386: BumpStage2=0.0325
+	Line 434: BumpStage2=0.0325
+  \Nissan GTR GT3\Physics\Nissan_GTR_GT3_GTM_2015_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.05
+	Line 428: BumpStage2=0.05
+  \Nissan GTR GT3\Physics\Nissan_GTR_GT3_GTM_2015_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.1
+	Line 326: BumpStage2=0.1
+	Line 374: BumpStage2=0.05
+	Line 422: BumpStage2=0.05
+  \Nissan Silvia Turbo\Physics\Nissan_Sylvia_Turbo.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \Nissan Silvia Turbo\Physics\Nissan_Sylvia_Turbo_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.262
+	Line 328: BumpStage2=0.262
+	Line 376: BumpStage2=0.262
+	Line 424: BumpStage2=0.262
+  \Nissan Silvia Turbo\Physics\Nissan_Sylvia_Turbo_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \Nissan Skyline 2000RS\Physics\Nissan_Skyline_2000RS.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \Nissan Skyline 2000RS\Physics\Nissan_Skyline_2000RS_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.262
+	Line 328: BumpStage2=0.262
+	Line 376: BumpStage2=0.262
+	Line 424: BumpStage2=0.262
+  \Nissan Skyline 2000RS\Physics\Nissan_Skyline_2000RS_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262
+  \nissan_300zx\Physics\nissan_300zx.hdc (4 hits)
+	Line 285: BumpStage2=0.131
+	Line 333: BumpStage2=0.131
+	Line 381: BumpStage2=0.131
+	Line 429: BumpStage2=0.131
+  \nissan_r90ck\Physics\nissan_r90ck.hdc (4 hits)
+	Line 283: BumpStage2=0.1
+	Line 331: BumpStage2=0.1
+	Line 379: BumpStage2=0.1
+	Line 427: BumpStage2=0.1
+  \nissan_skyline_gtr_r32\Physics\nissan_skyline_gtr_r32.hdc (4 hits)
+	Line 294: BumpStage2=0.03
+	Line 342: BumpStage2=0.03
+	Line 390: BumpStage2=0.03
+	Line 438: BumpStage2=0.03
+  \nissan_skyline_gtr_r32\Physics\nissan_skyline_gtr_r32_Ai.hdc (4 hits)
+	Line 282: BumpStage2=0.060
+	Line 330: BumpStage2=0.060
+	Line 378: BumpStage2=0.060
+	Line 426: BumpStage2=0.060
+  \nissan_skyline_gtr_r32\Physics\nissan_skyline_gtr_r32_Ama.hdc (4 hits)
+	Line 279: BumpStage2=0.08
+	Line 327: BumpStage2=0.08
+	Line 375: BumpStage2=0.08
+	Line 423: BumpStage2=0.08
+  \nissan_skyline_gtr_r32\Physics\nissan_skyline_gtr_r32_GrA.hdc (4 hits)
+	Line 294: BumpStage2=0.03
+	Line 342: BumpStage2=0.03
+	Line 390: BumpStage2=0.03
+	Line 438: BumpStage2=0.03
+  \nsu_tts\Physics\nsu_tts.hdc (4 hits)
+	Line 282: BumpStage2=0.42
+	Line 330: BumpStage2=0.42
+	Line 378: BumpStage2=0.42
+	Line 426: BumpStage2=0.42
+  \nsu_tts\Physics\nsu_tts_Ai.hdc (4 hits)
+	Line 277: BumpStage2=0.42
+	Line 325: BumpStage2=0.42
+	Line 373: BumpStage2=0.42
+	Line 421: BumpStage2=0.42
+  \nsu_tts\Physics\nsu_tts_Ama.hdc (4 hits)
+	Line 275: BumpStage2=0.42
+	Line 323: BumpStage2=0.42
+	Line 371: BumpStage2=0.42
+	Line 419: BumpStage2=0.42
+  \opel_omega_evo_500_dtm\Physics\opel_omega_evo_500_dtm.hdc (4 hits)
+	Line 270: BumpStage2=0.026
+	Line 318: BumpStage2=0.026
+	Line 366: BumpStage2=0.03
+	Line 414: BumpStage2=0.03
+  \opel_omega_evo_500_dtm\Physics\opel_omega_evo_500_dtm_Ai.hdc (4 hits)
+	Line 273: BumpStage2=0.060
+	Line 321: BumpStage2=0.060
+	Line 369: BumpStage2=0.060
+	Line 417: BumpStage2=0.060
+  \opel_omega_evo_500_dtm\Physics\opel_omega_evo_500_dtm_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.060
+	Line 325: BumpStage2=0.060
+	Line 373: BumpStage2=0.060
+	Line 421: BumpStage2=0.060
+  \P4-5 Competizione\Physics\P4_5_Competizione.hdc (4 hits)
+	Line 288: BumpStage2=0.08
+	Line 336: BumpStage2=0.08
+	Line 384: BumpStage2=0.08
+	Line 432: BumpStage2=0.08
+  \P4-5 Competizione\Physics\P4_5_Competizione_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.08
+	Line 332: BumpStage2=0.08
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \P4-5 Competizione\Physics\P4_5_Competizione_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.08
+	Line 326: BumpStage2=0.08
+	Line 374: BumpStage2=0.08
+	Line 422: BumpStage2=0.08
+  \P4-5 Competizione\Physics\P4_5_Competizione_GTR2.hdc (4 hits)
+	Line 297: BumpStage2=0.1
+	Line 345: BumpStage2=0.1
+	Line 393: BumpStage2=0.1
+	Line 441: BumpStage2=0.1
+  \P4-5 Competizione\Physics\P4_5_Competizione_GTR2_Ai.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \P4-5 Competizione\Physics\P4_5_Competizione_GTR2_Ama.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Pagani Zonda R\Physics\Pagani_Zonda_R.hdc (4 hits)
+	Line 287: BumpStage2=0.1
+	Line 335: BumpStage2=0.1
+	Line 383: BumpStage2=0.1
+	Line 431: BumpStage2=0.1
+  \Pagani Zonda R\Physics\Pagani_Zonda_R_Ai.hdc (4 hits)
+	Line 291: BumpStage2=0.1
+	Line 339: BumpStage2=0.1
+	Line 387: BumpStage2=0.1
+	Line 435: BumpStage2=0.1
+  \Pagani Zonda R\Physics\Pagani_Zonda_R_Ama.hdc (4 hits)
+	Line 294: BumpStage2=0.1
+	Line 342: BumpStage2=0.1
+	Line 390: BumpStage2=0.1
+	Line 438: BumpStage2=0.1
+  \Panoz Esperante GT\Physics\Panoz_Esperante_GT.hdc (4 hits)
+	Line 270: BumpStage2=0.060
+	Line 318: BumpStage2=0.060
+	Line 366: BumpStage2=0.060
+	Line 414: BumpStage2=0.060
+  \peugeot_308tcr\Physics\peugeot_308tcr.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.08
+	Line 434: BumpStage2=0.08
+  \peugeot_308tcr\Physics\peugeot_308tcr_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \peugeot_308tcr\Physics\peugeot_308tcr_Ama.hdc (4 hits)
+	Line 285: BumpStage2=0.1
+	Line 333: BumpStage2=0.1
+	Line 381: BumpStage2=0.08
+	Line 429: BumpStage2=0.08
+  \porsche_934turborsr\Physics\porsche_934turborsr.hdc (4 hits)
+	Line 275: BumpStage2=1.0
+	Line 323: BumpStage2=1.0
+	Line 371: BumpStage2=1.0
+	Line 419: BumpStage2=1.0
+  \porsche_934turborsr\Physics\porsche_934turborsr_Ai.hdc (4 hits)
+	Line 274: BumpStage2=1.0
+	Line 322: BumpStage2=1.0
+	Line 370: BumpStage2=1.0
+	Line 418: BumpStage2=1.0
+  \porsche_934turborsr\Physics\porsche_934turborsr_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.18
+	Line 330: BumpStage2=0.18
+	Line 378: BumpStage2=0.15
+	Line 426: BumpStage2=0.15
+  \porsche_962\Physics\porsche_962.hdc (4 hits)
+	Line 282: BumpStage2=0.01
+	Line 330: BumpStage2=0.01
+	Line 378: BumpStage2=0.012
+	Line 426: BumpStage2=0.012
+  \porsche_962\Physics\porsche_962_Ai.hdc (4 hits)
+	Line 282: BumpStage2=0.1
+	Line 330: BumpStage2=0.1
+	Line 378: BumpStage2=0.1
+	Line 426: BumpStage2=0.1
+  \porsche_962\Physics\porsche_962_Ama.hdc (4 hits)
+	Line 272: BumpStage2=0.050
+	Line 320: BumpStage2=0.050
+	Line 368: BumpStage2=0.1
+	Line 416: BumpStage2=0.1
+  \porsche_964carreracup\Physics\porsche_964carreracup.hdc (4 hits)
+	Line 275: BumpStage2=0.1
+	Line 323: BumpStage2=0.1
+	Line 371: BumpStage2=0.1
+	Line 419: BumpStage2=0.1
+  \porsche_964carreracup\Physics\porsche_964carreracup_Ai.hdc (4 hits)
+	Line 275: BumpStage2=0.1
+	Line 323: BumpStage2=0.1
+	Line 371: BumpStage2=0.1
+	Line 419: BumpStage2=0.1
+  \porsche_964carreracup\Physics\porsche_964carreracup_Ama.hdc (4 hits)
+	Line 272: BumpStage2=0.050
+	Line 320: BumpStage2=0.050
+	Line 368: BumpStage2=0.1
+	Line 416: BumpStage2=0.1
+  \porsche_991_gt3_cup\Physics\porsche_991_gt3_cup.hdc (4 hits)
+	Line 280: BumpStage2=0.29
+	Line 328: BumpStage2=0.29
+	Line 376: BumpStage2=0.29
+	Line 424: BumpStage2=0.29
+  \porsche_991_gt3_cup\Physics\porsche_991_gt3_cup_Ai.hdc (4 hits)
+	Line 268: BumpStage2=0.060
+	Line 316: BumpStage2=0.060
+	Line 364: BumpStage2=0.060
+	Line 412: BumpStage2=0.060
+  \porsche_991_gt3_cup\Physics\porsche_991_gt3_cup_Ama.hdc (4 hits)
+	Line 273: BumpStage2=0.060
+	Line 321: BumpStage2=0.060
+	Line 369: BumpStage2=0.060
+	Line 417: BumpStage2=0.060
+  \porsche_caymangt4clubsport\Physics\porsche_caymangt4clubsport.hdc (4 hits)
+	Line 275: BumpStage2=0.1
+	Line 323: BumpStage2=0.1
+	Line 371: BumpStage2=0.15
+	Line 419: BumpStage2=0.15
+  \porsche_caymangt4clubsport\Physics\porsche_caymangt4clubsport_Ai.hdc (4 hits)
+	Line 273: BumpStage2=0.1
+	Line 321: BumpStage2=0.1
+	Line 369: BumpStage2=0.15
+	Line 417: BumpStage2=0.15
+  \porsche_caymangt4clubsport\Physics\porsche_caymangt4clubsport_Ama.hdc (4 hits)
+	Line 272: BumpStage2=0.050
+	Line 320: BumpStage2=0.050
+	Line 368: BumpStage2=0.1
+	Line 416: BumpStage2=0.1
+  \porsche_caymangt4mr\Physics\porsche_caymangt4mr.hdc (4 hits)
+	Line 275: BumpStage2=0.1
+	Line 323: BumpStage2=0.1
+	Line 371: BumpStage2=0.15
+	Line 419: BumpStage2=0.15
+  \porsche_caymangt4mr\Physics\porsche_caymangt4mr_Ai.hdc (4 hits)
+	Line 273: BumpStage2=0.1
+	Line 321: BumpStage2=0.1
+	Line 369: BumpStage2=0.15
+	Line 417: BumpStage2=0.15
+  \porsche_caymangt4mr\Physics\porsche_caymangt4mr_Ama.hdc (4 hits)
+	Line 280: BumpStage2=0.18
+	Line 330: BumpStage2=0.18
+	Line 378: BumpStage2=0.15
+	Line 426: BumpStage2=0.15
+  \porsche_gt3cup\Physics\porsche_gt3cup.hdc (4 hits)
+	Line 273: BumpStage2=0.03
+	Line 321: BumpStage2=0.03
+	Line 369: BumpStage2=0.0275
+	Line 417: BumpStage2=0.0275
+  \porsche_gt3cup\Physics\porsche_gt3cup_Ai.hdc (4 hits)
+	Line 270: BumpStage2=0.1
+	Line 318: BumpStage2=0.1
+	Line 366: BumpStage2=0.1
+	Line 414: BumpStage2=0.1
+  \porsche_gt3cup\Physics\porsche_gt3cup_Ama.hdc (4 hits)
+	Line 264: BumpStage2=0.18
+	Line 312: BumpStage2=0.18
+	Line 360: BumpStage2=0.15
+	Line 408: BumpStage2=0.15
+  \porsche_gt3r\Physics\porsche_gt3r.hdc (4 hits)
+	Line 290: BumpStage2=0.0325
+	Line 338: BumpStage2=0.0325
+	Line 386: BumpStage2=0.0275
+	Line 434: BumpStage2=0.0275
+  \porsche_gt3r\Physics\porsche_gt3r_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.19
+	Line 332: BumpStage2=0.19
+	Line 380: BumpStage2=0.13
+	Line 428: BumpStage2=0.13
+  \porsche_gt3r\Physics\porsche_gt3r_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.19
+	Line 326: BumpStage2=0.19
+	Line 374: BumpStage2=0.13
+	Line 422: BumpStage2=0.13
+  \raceroom_fr1\Physics\raceroom_fr1.hdc (6 hits)
+	Line 199: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 219: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 354: BumpStage2=0.131
+	Line 402: BumpStage2=0.131
+	Line 450: BumpStage2=0.15
+	Line 498: BumpStage2=0.15
+  \raceroom_fr1\Physics\raceroom_fr1_Ai.hdc (6 hits)
+	Line 204: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 224: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 352: BumpStage2=0.131
+	Line 400: BumpStage2=0.131
+	Line 448: BumpStage2=0.15
+	Line 496: BumpStage2=0.15
+  \raceroom_fr1\Physics\raceroom_fr1_Ama.hdc (6 hits)
+	Line 197: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 217: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 347: BumpStage2=0.131
+	Line 395: BumpStage2=0.131
+	Line 443: BumpStage2=0.15
+	Line 491: BumpStage2=0.15
+  \raceroom_fr2\Physics\raceroom_fr2.hdc (6 hits)
+	Line 173: Front3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 193: Rear3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 326: BumpStage2=0.12
+	Line 374: BumpStage2=0.12
+	Line 422: BumpStage2=0.12
+	Line 470: BumpStage2=0.12
+  \raceroom_fr2\Physics\raceroom_fr2_Ai.hdc (6 hits)
+	Line 176: Front3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 196: Rear3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 322: BumpStage2=0.12
+	Line 370: BumpStage2=0.12
+	Line 418: BumpStage2=0.12
+	Line 466: BumpStage2=0.12
+  \raceroom_fr2\Physics\raceroom_fr2_Ama.hdc (6 hits)
+	Line 172: Front3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 192: Rear3rdBumpStage2=0.12 // speed where damper bump moves from slow to fast
+	Line 320: BumpStage2=0.12
+	Line 368: BumpStage2=0.12
+	Line 416: BumpStage2=0.12
+	Line 464: BumpStage2=0.12
+  \raceroom_fr3\Physics\raceroom_fr3.hdc (6 hits)
+	Line 177: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 197: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 329: BumpStage2=0.131
+	Line 377: BumpStage2=0.131
+	Line 425: BumpStage2=0.15
+	Line 473: BumpStage2=0.15
+  \raceroom_fr3\Physics\raceroom_fr3_Ai.hdc (6 hits)
+	Line 180: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 200: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 327: BumpStage2=0.131
+	Line 375: BumpStage2=0.131
+	Line 423: BumpStage2=0.15
+	Line 471: BumpStage2=0.15
+  \raceroom_fr3\Physics\raceroom_fr3_Ama.hdc (6 hits)
+	Line 176: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 196: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.15
+	Line 468: BumpStage2=0.15
+  \raceroom_fr90\Physics\raceroom_fr90_v10.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_v10_AI.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_v10_Ama.hdc (6 hits)
+	Line 176: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 196: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.15
+	Line 468: BumpStage2=0.15
+  \raceroom_fr90\Physics\raceroom_fr90_v12.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_v12_AI.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_v12_Ama.hdc (6 hits)
+	Line 176: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 196: Rear3rdBumpStage2=0.15 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.15
+	Line 468: BumpStage2=0.15
+  \raceroom_fr90\Physics\raceroom_fr90_V8.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_V8_AI.hdc (4 hits)
+	Line 289: BumpStage2=0.1
+	Line 337: BumpStage2=0.1
+	Line 385: BumpStage2=0.1
+	Line 433: BumpStage2=0.1
+  \raceroom_fr90\Physics\raceroom_fr90_V8_Ama.hdc (4 hits)
+	Line 283: BumpStage2=0.1
+	Line 331: BumpStage2=0.1
+	Line 379: BumpStage2=0.05
+	Line 427: BumpStage2=0.05
+  \raceroom_frj\Physics\raceroom_frj.hdc (4 hits)
+	Line 224: BumpStage2=0.0362
+	Line 272: BumpStage2=0.0362
+	Line 320: BumpStage2=0.0362
+	Line 368: BumpStage2=0.0362
+  \raceroom_frj\Physics\raceroom_frj_Ai.hdc (3 hits)
+	Line 233: BumpStage2=0.0362
+	Line 281: BumpStage2=0.0362
+	Line 329: BumpStage2=0.0362
+  \raceroom_frj\Physics\raceroom_frj_Ama.hdc (4 hits)
+	Line 234: BumpStage2=0.1
+	Line 282: BumpStage2=0.1
+	Line 330: BumpStage2=0.1
+	Line 378: BumpStage2=0.1
+  \raceroom_us\Physics\raceroom_us.hdc (6 hits)
+	Line 180: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 200: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 334: BumpStage2=0.131
+	Line 382: BumpStage2=0.131
+	Line 430: BumpStage2=0.15
+	Line 478: BumpStage2=0.15
+  \raceroom_us\Physics\raceroom_us_Ai.hdc (6 hits)
+	Line 183: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 203: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 330: BumpStage2=0.131
+	Line 378: BumpStage2=0.131
+	Line 426: BumpStage2=0.15
+	Line 474: BumpStage2=0.15
+  \raceroom_us\Physics\raceroom_us_Ama.hdc (6 hits)
+	Line 179: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 199: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 327: BumpStage2=0.131
+	Line 375: BumpStage2=0.131
+	Line 423: BumpStage2=0.15
+	Line 471: BumpStage2=0.15
+  \Radical SR9 Turbo\Physics\Radical_SR9_Turbo.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \Radical SR9 Turbo\Physics\Radical_SR9_Turbo_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 322: BumpStage2=0.131
+	Line 370: BumpStage2=0.131
+	Line 418: BumpStage2=0.131
+	Line 466: BumpStage2=0.131
+  \Radical SR9 Turbo\Physics\Radical_SR9_Turbo_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \Radical SR9 V8\Physics\Radical_SR9_V8.hdc (6 hits)
+	Line 171: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 191: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 324: BumpStage2=0.131
+	Line 372: BumpStage2=0.131
+	Line 420: BumpStage2=0.131
+	Line 468: BumpStage2=0.131
+  \Radical SR9 V8\Physics\Radical_SR9_V8_Ai.hdc (6 hits)
+	Line 175: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 195: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 322: BumpStage2=0.131
+	Line 370: BumpStage2=0.131
+	Line 418: BumpStage2=0.131
+	Line 466: BumpStage2=0.131
+  \Radical SR9 V8\Physics\Radical_SR9_V8_Ama.hdc (6 hits)
+	Line 170: Front3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 190: Rear3rdBumpStage2=0.131 // speed where damper bump moves from slow to fast
+	Line 318: BumpStage2=0.131
+	Line 366: BumpStage2=0.131
+	Line 414: BumpStage2=0.131
+	Line 462: BumpStage2=0.131
+  \Ruf CTR3\Physics\Ruf_CTR3.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Ruf CTR3\Physics\Ruf_CTR3_Ai.hdc (4 hits)
+	Line 300: BumpStage2=0.1
+	Line 348: BumpStage2=0.1
+	Line 396: BumpStage2=0.1
+	Line 444: BumpStage2=0.1
+  \Ruf CTR3\Physics\Ruf_CTR3_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \Ruf RT12R\Physics\Ruf_RT12R.hdc (4 hits)
+	Line 297: BumpStage2=0.18
+	Line 345: BumpStage2=0.18
+	Line 393: BumpStage2=0.15
+	Line 441: BumpStage2=0.15
+  \Ruf RT12R\Physics\Ruf_RT12R_Ai.hdc (4 hits)
+	Line 295: BumpStage2=0.18
+	Line 343: BumpStage2=0.18
+	Line 391: BumpStage2=0.15
+	Line 439: BumpStage2=0.15
+  \Ruf RT12R\Physics\Ruf_RT12R_Ama.hdc (4 hits)
+	Line 304: BumpStage2=0.18
+	Line 352: BumpStage2=0.18
+	Line 400: BumpStage2=0.15
+	Line 448: BumpStage2=0.15
+  \Ruf RT12R GTM\Physics\Ruf_RT12R_GTM.hdc (4 hits)
+	Line 287: BumpStage2=0.19
+	Line 335: BumpStage2=0.19
+	Line 383: BumpStage2=0.013
+	Line 431: BumpStage2=0.013
+  \Ruf RT12R GTM\Physics\Ruf_RT12R_GTM_Ai.hdc (4 hits)
+	Line 283: BumpStage2=0.19
+	Line 331: BumpStage2=0.19
+	Line 379: BumpStage2=0.013
+	Line 427: BumpStage2=0.013
+  \Ruf RT12R GTM\Physics\Ruf_RT12R_GTM_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.19
+	Line 325: BumpStage2=0.19
+	Line 373: BumpStage2=0.013
+	Line 421: BumpStage2=0.013
+  \Saleen S7R\Physics\Saleen_S7R.hdc (4 hits)
+	Line 304: BumpStage2=0.1
+	Line 352: BumpStage2=0.1
+	Line 400: BumpStage2=0.1
+	Line 448: BumpStage2=0.1
+  \Saleen S7R\Physics\Saleen_S7R_Ai.hdc (4 hits)
+	Line 301: BumpStage2=0.1
+	Line 349: BumpStage2=0.1
+	Line 397: BumpStage2=0.1
+	Line 445: BumpStage2=0.1
+  \Saleen S7R\Physics\Saleen_S7R_Ama.hdc (4 hits)
+	Line 295: BumpStage2=0.1
+	Line 343: BumpStage2=0.1
+	Line 391: BumpStage2=0.1
+	Line 439: BumpStage2=0.1
+  \seat_leontcr\Physics\seat_leontcr.hdc (4 hits)
+	Line 283: BumpStage2=0.1
+	Line 331: BumpStage2=0.1
+	Line 379: BumpStage2=0.08
+	Line 427: BumpStage2=0.08
+  \seat_leontcr\Physics\seat_leontcr_2019.hdc (4 hits)
+	Line 270: BumpStage2=0.065
+	Line 318: BumpStage2=0.065
+	Line 366: BumpStage2=0.05
+	Line 414: BumpStage2=0.05
+  \seat_leontcr\Physics\seat_leontcr_2019_Ai.hdc (4 hits)
+	Line 270: BumpStage2=0.065
+	Line 318: BumpStage2=0.065
+	Line 366: BumpStage2=0.05
+	Line 414: BumpStage2=0.05
+  \seat_leontcr\Physics\seat_leontcr_Ai.hdc (4 hits)
+	Line 277: BumpStage2=0.1
+	Line 325: BumpStage2=0.1
+	Line 373: BumpStage2=0.08
+	Line 421: BumpStage2=0.08
+  \seat_leontcr\Physics\seat_leontcr_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.1
+	Line 326: BumpStage2=0.1
+	Line 374: BumpStage2=0.08
+	Line 422: BumpStage2=0.08
+  \seat_leon_wtcc_2013\Physics\seat_leon_wtcc_2013.hdc (4 hits)
+	Line 291: BumpStage2=0.060
+	Line 350: BumpStage2=0.060
+	Line 409: BumpStage2=0.060
+	Line 468: BumpStage2=0.060
+  \seat_leon_wtcc_2013\Physics\seat_leon_wtcc_2013_Ai.hdc (4 hits)
+	Line 281: BumpStage2=0.060
+	Line 340: BumpStage2=0.060
+	Line 399: BumpStage2=0.060
+	Line 458: BumpStage2=0.060
+  \seat_leon_wtcc_2013\Physics\seat_leon_wtcc_2013_Ama.hdc (4 hits)
+	Line 288: BumpStage2=0.060
+	Line 347: BumpStage2=0.060
+	Line 406: BumpStage2=0.060
+	Line 465: BumpStage2=0.060
+  \tatuus_f4\Physics\tatuus_f4.hdc (4 hits)
+	Line 283: BumpStage2=0.131
+	Line 331: BumpStage2=0.131
+	Line 379: BumpStage2=0.131
+	Line 427: BumpStage2=0.131
+  \tatuus_f4\Physics\tatuus_f4_Ai.hdc (4 hits)
+	Line 282: BumpStage2=0.131
+	Line 330: BumpStage2=0.131
+	Line 378: BumpStage2=0.131
+	Line 426: BumpStage2=0.131
+  \tatuus_f4\Physics\tatuus_f4_Ama.hdc (4 hits)
+	Line 278: BumpStage2=0.131
+	Line 326: BumpStage2=0.131
+	Line 374: BumpStage2=0.131
+	Line 422: BumpStage2=0.131
+  \volkswagen_golfgtitcr2018\Physics\volkswagen_golfgtitcr2018.hdc (4 hits)
+	Line 290: BumpStage2=0.1
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.08
+	Line 434: BumpStage2=0.08
+  \volkswagen_golfgtitcr2018\Physics\volkswagen_golfgtitcr2018_Ai.hdc (4 hits)
+	Line 284: BumpStage2=0.1
+	Line 332: BumpStage2=0.1
+	Line 380: BumpStage2=0.08
+	Line 428: BumpStage2=0.08
+  \volkswagen_golfgtitcr2018\Physics\volkswagen_golfgtitcr2018_Ama.hdc (4 hits)
+	Line 285: BumpStage2=0.1
+	Line 333: BumpStage2=0.1
+	Line 381: BumpStage2=0.08
+	Line 429: BumpStage2=0.08
+  \volkswagen_golfgtitcr2018\Physics\volkswagen_golfgtitcr2019.hdc (4 hits)
+	Line 277: BumpStage2=0.1
+	Line 325: BumpStage2=0.1
+	Line 373: BumpStage2=0.08
+	Line 421: BumpStage2=0.08
+  \volkswagen_golfgtitcr2018\Physics\volkswagen_golfgtitcr2019_Ai.hdc (4 hits)
+	Line 277: BumpStage2=0.1
+	Line 325: BumpStage2=0.1
+	Line 373: BumpStage2=0.08
+	Line 421: BumpStage2=0.08
+  \volkswagen_idr2\Physics\volkswagen_idr.hdc (6 hits)
+	Line 169: Front3rdBumpStage2=0.1	
+	Line 190: Rear3rdBumpStage2=0.1	
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.1
+	Line 434: BumpStage2=0.1
+	Line 482: BumpStage2=0.1
+  \volkswagen_idr2\Physics\volkswagen_idr_Ai.hdc (6 hits)
+	Line 169: Front3rdBumpStage2=0.1					
+	Line 190: Rear3rdBumpStage2=0.1					
+	Line 338: BumpStage2=0.1
+	Line 386: BumpStage2=0.1
+	Line 434: BumpStage2=0.1
+	Line 482: BumpStage2=0.1
+  \volvo_240_turbo\Physics\volvo_240_turbo.hdc (4 hits)
+	Line 284: BumpStage2=0.025
+	Line 332: BumpStage2=0.025
+	Line 380: BumpStage2=0.03
+	Line 428: BumpStage2=0.03
+  \volvo_240_turbo\Physics\volvo_240_turbo_Ai.hdc (4 hits)
+	Line 269: BumpStage2=0.060
+	Line 317: BumpStage2=0.060
+	Line 365: BumpStage2=0.060
+	Line 413: BumpStage2=0.060
+  \volvo_240_turbo\Physics\volvo_240_turbo_Ama.hdc (4 hits)
+	Line 267: BumpStage2=0.1
+	Line 315: BumpStage2=0.1
+	Line 363: BumpStage2=0.1
+	Line 411: BumpStage2=0.1
+  \volvo_wtcc2016tc1\Physics\volvo_wtcc2016tc1.hdc (4 hits)
+	Line 291: BumpStage2=0.13
+	Line 339: BumpStage2=0.13
+	Line 387: BumpStage2=0.13
+	Line 435: BumpStage2=0.13
+  \volvo_wtcc2016tc1\Physics\volvo_wtcc2016tc1_Ai.hdc (4 hits)
+	Line 288: BumpStage2=0.13
+	Line 336: BumpStage2=0.13
+	Line 384: BumpStage2=0.13
+	Line 432: BumpStage2=0.13
+  \volvo_wtcc2016tc1\Physics\volvo_wtcc2016tc1_Ama.hdc (4 hits)
+	Line 282: BumpStage2=0.13
+	Line 330: BumpStage2=0.13
+	Line 378: BumpStage2=0.13
+	Line 426: BumpStage2=0.13
+  \zakspeed_capri\Physics\zakspeed_capri.hdc (4 hits)
+	Line 285: BumpStage2=0.262
+	Line 333: BumpStage2=0.262
+	Line 381: BumpStage2=0.262
+	Line 429: BumpStage2=0.262
+  \zakspeed_capri\Physics\zakspeed_capri_Ai.hdc (4 hits)
+	Line 280: BumpStage2=0.262
+	Line 328: BumpStage2=0.262
+	Line 376: BumpStage2=0.262
+	Line 424: BumpStage2=0.262
+  \zakspeed_capri\Physics\zakspeed_capri_Ama.hdc (4 hits)
+	Line 277: BumpStage2=0.262
+	Line 325: BumpStage2=0.262
+	Line 373: BumpStage2=0.262
+	Line 421: BumpStage2=0.262

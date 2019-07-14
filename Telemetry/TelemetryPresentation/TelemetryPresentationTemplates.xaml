@@ -7,5 +7,7 @@
         <ResourceDictionary Source="AggregatedCharts/AggregatedChartSelectorControl.xaml"/>
         <ResourceDictionary Source="AggregatedCharts/CompositeChartControl.xaml"/>
         <ResourceDictionary Source="AggregatedCharts/ScatterPlotChartControl.xaml"/>
+        <ResourceDictionary Source="SettingsWindow/AggregatedChartSettingsView.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/Layouts/Layouts.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

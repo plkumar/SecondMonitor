@@ -1,7 +1,6 @@
-﻿namespace SecondMonitor.WindowsControls.Colors
+﻿namespace SecondMonitor.ViewModels.Colors
 {
     using System;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Linq;
 

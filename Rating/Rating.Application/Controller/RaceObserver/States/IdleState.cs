@@ -7,13 +7,15 @@
     using DataModel.Summary;
     using NLog;
     using NLog.Fluent;
+    using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using SecondMonitor.ViewModels.Settings;
 
     public class IdleState : AbstractSessionTypeState
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly Stopwatch _stateDuration;
 
-        public IdleState(SharedContext sharedContext) : base(sharedContext)
+        public IdleState(SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
             _stateDuration = Stopwatch.StartNew();
         }

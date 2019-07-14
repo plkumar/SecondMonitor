@@ -2,11 +2,11 @@
 using System.Windows.Interactivity;
 using System.Windows.Media;
 using SecondMonitor.DataModel.BasicProperties;
-using SecondMonitor.WindowsControls.Colors;
 
 namespace SecondMonitor.WindowsControls.WPF.Behaviors.VolumeBehavior
 {
     using System.Threading.Tasks;
+    using ViewModels.Colors.Extensions;
 
     public abstract class OptimalVolumeToColorBehavior<T,TV> : Behavior<TV> where T : class, IQuantity, new() where TV : UIElement
     {

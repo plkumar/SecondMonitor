@@ -4,7 +4,5 @@
     {
         public double Minimum { get; set; }
         public double Maximum { get; set; }
-
-        public double FastSlowBoundary { get; set; }
     }
 }

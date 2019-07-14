@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Windows.Input;
     using SecondMonitor.ViewModels;
+    using SettingsWindow;
 
     public class AggregatedChartSelectorViewModel : AbstractViewModel, IAggregatedChartSelectorViewModel
     {
@@ -13,6 +14,7 @@
         private int _selectedTabIndex;
         private ICommand _openSelectedChartCommand;
         private ICommand _cancelAndCloseWindowCommand;
+        private IAggregatedChartSettingsViewModel _aggregatedChartSettingsViewModel;
 
         public IReadOnlyCollection<string> HistogramChartNames
         {
@@ -54,6 +56,12 @@
         {
             get => _cancelAndCloseWindowCommand;
             set => SetProperty(ref _cancelAndCloseWindowCommand, value);
+        }
+
+        public IAggregatedChartSettingsViewModel AggregatedChartSettingsViewModel
+        {
+            get => _aggregatedChartSettingsViewModel;
+            set => SetProperty(ref _aggregatedChartSettingsViewModel, value);
         }
     }
 }

@@ -7,7 +7,7 @@
     using ViewModels.AggregatedCharts.Histogram;
     using ViewModels.LoadedLapCache;
 
-    public class RideHeightHistogramProvider : AbstractWheelHistogramProvider<WheelsHistogramChartViewModel, HistogramChartViewModel>
+    public class RideHeightHistogramProvider : AbstractWheelHistogramProvider<WheelsHistogramChartViewModel, HistogramChartWithStatisticsViewModel>
     {
         public RideHeightHistogramProvider(RideHeightHistogramExtractor abstractWheelHistogramDataExtractor, ILoadedLapsCache loadedLapsCache, IViewModelFactory viewModelFactory) : base(abstractWheelHistogramDataExtractor, loadedLapsCache, viewModelFactory, Enumerable.Empty<IWheelTelemetryFilter>())
         {
@@ -16,6 +16,9 @@
         public override string ChartName => "Ride Height (Wheels)";
 
         public override AggregatedChartKind Kind => AggregatedChartKind.Histogram;
+
+        protected override bool ResetCommandVisible => false;
+
         protected override void OnNewViewModel(WheelsHistogramChartViewModel newViewModel)
         {
 

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Windows.Input;
     using SecondMonitor.ViewModels;
+    using SettingsWindow;
 
     public interface IAggregatedChartSelectorViewModel : IViewModel
     {
@@ -15,5 +16,7 @@
         int SelectedTabIndex { get; set; }
         ICommand OpenSelectedChartCommand { get; set; }
         ICommand CancelAndCloseWindowCommand { get; set; }
+
+        IAggregatedChartSettingsViewModel AggregatedChartSettingsViewModel { get; set; }
     }
 }

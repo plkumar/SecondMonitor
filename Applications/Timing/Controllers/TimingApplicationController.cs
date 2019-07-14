@@ -25,6 +25,7 @@ namespace SecondMonitor.Timing.Controllers
     using System.Windows;
     using Contracts.NInject;
     using Rating.Application.Controller;
+    using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
     using ViewModels.Settings;
@@ -231,6 +232,12 @@ namespace SecondMonitor.Timing.Controllers
         private void CreateDisplaySettingsViewModel()
         {
             _displaySettingsViewModel = _settingsProvider.DisplaySettingsViewModel;
+            FillDisplaySettingsOptions();
+        }
+
+        private void FillDisplaySettingsOptions()
+        {
+            _displaySettingsViewModel.RatingSettingsViewModel.AvailableReferenceRatingProviders = _kernelWrapper.Get<IReferenceRatingProviderFactory>().GetAvailableReferenceRatingsProviders();
         }
 
         private void CreateMapManagementController()

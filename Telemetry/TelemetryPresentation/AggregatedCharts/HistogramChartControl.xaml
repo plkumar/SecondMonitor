@@ -13,22 +13,96 @@
                 <DockPanel LastChildFill="False" Margin="10,0,10,10">
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding Title}" Margin="0,0,30,0"/>
-                        <TextBlock Style="{StaticResource StandardText}" Text="Average Rebound Speed: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="Avg Rebound Speed:"/>
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text="Rebound %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text=" %: "/>
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" Text="Average Bump Speed: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="Avg Bump Speed: "/>
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" Text="Bump %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text=" %: "/>
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="0,0,15,0"/>
                     </StackPanel>
                 </DockPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type histogram:HistogramStatisticsViewModel}">
+                <Grid Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="Variance: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding Variance, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text="Mean Value: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding MeanValue, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Style="{StaticResource StandardText}" Text="Median: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding MedianValue, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type histogram:CamberStatsViewModel}">
+                <DockPanel LastChildFill="False" Margin="10,0,10,10">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding Title}" Margin="0,0,30,0"/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="Avg negative:"/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Margin="15,0,0,0" Text=" %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding ReboundPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text="Avg Positive"/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpAverageSpeed, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" Text=" %: "/>
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding BumpPercentage, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="0,0,15,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type histogram:CamberHistogramChartViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Style="{StaticResource StandardText}"
+                                       Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2"
+                                       VerticalAlignment="Top" HorizontalAlignment="Right" />
+                            <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                                          Foreground="{StaticResource DarkRed01Brush}"
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <i:Interaction.Behaviors>
+                                    <behavior:BandSelectionByClickBehavior HistogramChartViewModel="{Binding .}" />
+                                </i:Interaction.Behaviors>
+                            </template:HostChartWrapper>
+                        </Grid>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource StandardText}" Text="Ideal Camber: "/>
+                                <TextBox Style="{StaticResource StandardTextBox}" Width="50" Text="{Binding IdealCamber, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding AngleUnits}" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,10">
+                            <ContentPresenter Content="{Binding CamberStatsViewModel}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type histogram:SuspensionVelocityHistogramChartViewModel}">
                 <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
@@ -49,8 +123,21 @@
                                 </i:Interaction.Behaviors>
                             </template:HostChartWrapper>
                         </Grid>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <TextBlock Style="{StaticResource StandardText}" Text="Fast / Slow Transition"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource StandardText}" Text="Bump: "/>
+                                <TextBox Style="{StaticResource StandardTextBox}" Width="50" Text="{Binding BumpTransition, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding Unit}" Margin="5,0,0,0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource StandardText}" Text="Rebound: "/>
+                                <TextBox Style="{StaticResource StandardTextBox}" Width="50" Text="{Binding ReboundTransition, Converter={StaticResource DoubleToScalableDecimalsConverter}}"/>
+                                <TextBlock Style="{StaticResource StandardText}" Text="{Binding Unit}" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,10">
-                            <ItemsControl ItemsSource="{Binding BandsStatistics}" ></ItemsControl>
+                            <ItemsControl ItemsSource="{Binding BandsStatistics}"/>
                         </StackPanel>
                     </Grid>
             </Border>
@@ -67,6 +154,27 @@
                             </i:Interaction.Behaviors>
                         </template:HostChartWrapper>
                     </Grid>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type histogram:HistogramChartWithStatisticsViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                        <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                                                   Foreground="{StaticResource DarkRed01Brush}"
+                                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <i:Interaction.Behaviors>
+                                <behavior:BandSelectionByClickBehavior HistogramChartViewModel="{Binding .}" />
+                            </i:Interaction.Behaviors>
+                        </template:HostChartWrapper>
+                    </Grid>
+                        <ContentPresenter Grid.Row="1" Content="{Binding HistogramStatisticsViewModel}"></ContentPresenter>
+                        </Grid>
                 </Border>
             </DataTemplate>
         </ResourceDictionary>

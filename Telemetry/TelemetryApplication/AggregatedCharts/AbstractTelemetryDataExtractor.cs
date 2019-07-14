@@ -8,7 +8,6 @@
     using DataModel.Telemetry;
     using Filter;
     using SecondMonitor.ViewModels.Settings;
-    using Settings;
     using TelemetryManagement.DTO;
     using TelemetryManagement.StoryBoard;
 
@@ -28,11 +27,6 @@
         public DistanceUnits DistanceUnitsSmall { get; }
         public ForceUnits ForceUnits { get; }
         public AngleUnits AngleUnits { get; }
-
-        protected TimedValue[] ExtractTimedValuesOfLoadedLaps(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractionFunc)
-        {
-            return ExtractTimedValuesOfLoadedLaps(loadedLaps, extractionFunc, null);
-        }
 
         protected TimedValue[] ExtractTimedValuesOfLoadedLaps(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractionFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters)
         {

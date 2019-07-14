@@ -6,6 +6,7 @@
     using Settings;
     using Synchronization;
     using Synchronization.Graphs;
+    using TelemetryApplication.Settings;
     using ViewModels;
     using ViewModels.GraphPanel;
 
@@ -14,8 +15,8 @@
         private readonly IGraphViewModelsProvider _graphViewModelsProvider;
 
         public RightGraphPanelController(IGraphViewModelsProvider graphViewModelsProvider, IMainWindowViewModel mainWindowViewModel, ITelemetryViewsSynchronization telemetryViewsSynchronization, ILapColorSynchronization lapColorSynchronization,
-            ISettingsProvider settingsProvider, IGraphViewSynchronization graphViewSynchronization, ITelemetrySettingsRepository telemetrySettingsRepository)
-            : base(mainWindowViewModel, telemetryViewsSynchronization, lapColorSynchronization, settingsProvider, graphViewSynchronization, telemetrySettingsRepository)
+            ISettingsProvider settingsProvider, IGraphViewSynchronization graphViewSynchronization, ISettingsController telemetrySettings)
+            : base(mainWindowViewModel, telemetryViewsSynchronization, lapColorSynchronization, settingsProvider, graphViewSynchronization, telemetrySettings)
         {
             _graphViewModelsProvider = graphViewModelsProvider;
         }

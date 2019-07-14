@@ -1,6 +1,8 @@
-﻿namespace SecondMonitor.WindowsControls.Colors
+﻿namespace SecondMonitor.ViewModels.Colors.Extensions
 {
     using System.Windows.Media;
+    using Colors;
+    using OxyPlot;
 
     public static class MediaColorExtension
     {
@@ -19,6 +21,11 @@
             HSLColor hslColor1 = HSLColor.FromColor(color1.ToDrawingColor());
             HSLColor hslColor2 = HSLColor.FromColor(color2.ToDrawingColor());
             return HSLColor.Interpolate(hslColor1, hslColor2, lambda).ToColor().ToMediaColor();
+        }
+
+        public static OxyColor ToOxyColor(this Color color)
+        {
+            return OxyColor.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         public static Color InterpolateRGB(Color a, Color b, double t)

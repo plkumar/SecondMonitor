@@ -9,12 +9,29 @@
 
     public class SuspensionVelocityHistogramChartViewModel : HistogramChartViewModel
     {
+        private double _bumpTransition;
+        private double _reboundTransition;
+
         public SuspensionVelocityHistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(dataPointSelectionSynchronization)
         {
             BandsStatistics = new ObservableCollection<SuspensionVelocityStatsViewModel>();
         }
 
         public ObservableCollection<SuspensionVelocityStatsViewModel> BandsStatistics { get; }
+
+        public double BumpTransition
+        {
+            get => _bumpTransition;
+            set => SetProperty(ref _bumpTransition, value);
+        }
+
+        public double ReboundTransition
+        {
+            get => _reboundTransition;
+            set => SetProperty(ref _reboundTransition, value);
+        }
+
+        public string Unit { get; set; }
 
         protected override void ApplyModel(Histogram model)
         {

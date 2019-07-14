@@ -8,11 +8,13 @@
     using Contracts.Commands;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
+    using Settings;
     using Synchronization;
-    using TelemetryLoad;
+    using TelemetryApplication.Settings.DTO;
     using ViewModels;
     using ViewModels.AggregatedCharts;
     using ViewModels.LoadedLapCache;
+    using ViewModels.SettingsWindow;
 
     public class AggregatedChartsController : IAggregatedChartsController
     {
@@ -22,15 +24,18 @@
         private readonly IWindowService _windowService;
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ITelemetryViewsSynchronization _telemetryViewsSynchronization;
+        private readonly ISettingsController _settingsController;
         private readonly List<IAggregatedChartProvider> _aggregatedChartProviders;
         private Window _chartSelectionWindow;
 
-        public AggregatedChartsController(IEnumerable<IAggregatedChartProvider> aggregatedChartProviders, IMainWindowViewModel mainWindowViewModel, ILoadedLapsCache loadedLapsCache, IWindowService windowService, IViewModelFactory viewModelFactory, ITelemetryViewsSynchronization telemetryViewsSynchronization)
+        public AggregatedChartsController(IEnumerable<IAggregatedChartProvider> aggregatedChartProviders, IMainWindowViewModel mainWindowViewModel, ILoadedLapsCache loadedLapsCache, IWindowService windowService, IViewModelFactory viewModelFactory,
+            ITelemetryViewsSynchronization telemetryViewsSynchronization, ISettingsController settingsController)
         {
             _loadedLapsCache = loadedLapsCache;
             _windowService = windowService;
             _viewModelFactory = viewModelFactory;
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
+            _settingsController = settingsController;
             _mainWindowViewModel = mainWindowViewModel;
             _loadedLapsCache = loadedLapsCache;
             _aggregatedChartProviders = aggregatedChartProviders.ToList();
@@ -100,6 +105,10 @@
             viewModel.ScatterPlotChartNames = _aggregatedChartProviders.Where(x => x.Kind == AggregatedChartKind.ScatterPlot).Select(x => x.ChartName).OrderBy(x => x).ToList();
             viewModel.CancelAndCloseWindowCommand = new RelayCommand(CancelAndCloseSelectionWindow);
             viewModel.OpenSelectedChartCommand = new RelayCommand(OpenSelectedChart);
+
+            IAggregatedChartSettingsViewModel aggregatedChartSettingsViewModel = _viewModelFactory.Create<IAggregatedChartSettingsViewModel>();
+            aggregatedChartSettingsViewModel.FromModel(_settingsController.TelemetrySettings.AggregatedChartSettings);
+            viewModel.AggregatedChartSettingsViewModel = aggregatedChartSettingsViewModel;
             return viewModel;
         }
 
@@ -125,8 +134,40 @@
                 return;
             }
 
-            IAggregatedChartViewModel chartViewModel = selectedProvider.CreateAggregatedChartViewModel();
-            _windowService.OpenWindow(chartViewModel, chartViewModel.Title, WindowState.Maximized, SizeToContent.Manual, chartViewModel.Dispose);
+            AggregatedChartSettingsDto aggregatedChartSettingsDto = viewModel.AggregatedChartSettingsViewModel.SaveToNewModel();
+            _settingsController.TelemetrySettings.AggregatedChartSettings = aggregatedChartSettingsDto;
+            IReadOnlyCollection<IAggregatedChartViewModel> chartViewModels = selectedProvider.CreateAggregatedChartViewModels(aggregatedChartSettingsDto);
+            OpenAggregatedCharts(chartViewModels);
+
+        }
+
+        private void OpenAggregatedCharts(IEnumerable<IAggregatedChartViewModel> aggregatedChartViewModels)
+        {
+            /*List<IAggregatedChartViewModel> enumeratedCharts = aggregatedChartViewModels.ToList();
+            if (enumeratedCharts.Count == 2)
+            {
+                string tile = enumeratedCharts[0].Title;
+
+                void Dispose()
+                {
+                    enumeratedCharts[0].Dispose();
+                    enumeratedCharts[1].Dispose();
+                }
+
+                TwoViewModelsLayout viewModel = new TwoViewModelsLayout()
+                {
+                    FirstViewModel = enumeratedCharts[0],
+                    SecondViewModel = enumeratedCharts[1],
+                };
+                _windowService.OpenWindow(viewModel, tile, WindowState.Maximized, SizeToContent.Manual, (Action) Dispose);
+                return;
+            }
+*/
+
+            foreach (IAggregatedChartViewModel chartViewModel in aggregatedChartViewModels)
+            {
+                _windowService.OpenWindow(chartViewModel, chartViewModel.Title, WindowState.Maximized, SizeToContent.Manual, chartViewModel.Dispose);
+            }
         }
 
         private void CancelAndCloseSelectionWindow()

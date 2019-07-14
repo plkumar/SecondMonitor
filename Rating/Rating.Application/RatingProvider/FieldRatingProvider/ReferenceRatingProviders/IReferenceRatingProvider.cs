@@ -1,4 +1,4 @@
-﻿namespace SecondMonitor.Rating.Application.RatingProvider.FieldRatingProvider
+﻿namespace SecondMonitor.Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +8,6 @@
     {
         TimeSpan GetReferenceTime(IEnumerable<Driver> orderedDrivers);
 
-        int GetReferencePosition(int fieldSize);
+        int GetReferenceDriverIndex(int fieldSize);
     }
 }

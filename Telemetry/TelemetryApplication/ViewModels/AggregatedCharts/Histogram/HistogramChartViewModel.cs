@@ -74,7 +74,7 @@
             };
 
             _columnSeries.Clear();
-            _columnSeries.AddRange(OriginalModel.Items.Select(CreateLinearBarSeries));
+            _columnSeries.AddRange(OriginalModel.Items.Where(x => x.Items.Count > 1).Select(CreateLinearBarSeries));
 
             //_columnSeries.Points.AddRange(OriginalModel.Items.Select( x=> new DataPoint(x.Category, x.Percentage)));
 

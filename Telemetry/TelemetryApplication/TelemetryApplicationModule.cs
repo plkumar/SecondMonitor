@@ -17,6 +17,8 @@
     using Controllers.MainWindow.Replay;
     using Controllers.MainWindow.Snapshot;
     using Controllers.OpenWindow;
+    using Controllers.Settings;
+    using Controllers.Settings.DefaultCarProperties;
     using Controllers.SettingsWindow;
     using Controllers.Synchronization;
     using Controllers.Synchronization.Graphs;
@@ -60,11 +62,13 @@
             Bind<ITelemetryViewsSynchronization>().To<TelemetryViewsSynchronization>().InSingletonScope();
             Bind<IGraphViewSynchronization>().To<GraphViewSynchronization>().InNamedScope(MainWidowScopeName);
             Bind<IDataPointSelectionSynchronization>().To<DataPointSelectionSynchronization>().InSingletonScope();
+            Bind<ILapStintSynchronization>().To<LapStintSynchronization>().InSingletonScope();
             Bind<IMainWindowViewModel>().To<MainWindowViewModel>().InNamedScope(MainWidowScopeName);
             Bind<IMapViewController>().To<MapViewController>().InNamedScope(MainWidowScopeName);
-            Bind<ILapColorSynchronization>().To<LapColorSynchronization>().InNamedScope(MainWidowScopeName);
+            Bind<ILapColorSynchronization>().To<LapColorSynchronization>().InSingletonScope();
             Bind<IColorPaletteProvider>().To<BasicColorPaletteProvider>().InNamedScope(MainWidowScopeName);
-            Bind<ITelemetrySettingsRepository>().To<TelemetrySettingsRepository>().InNamedScope(MainWidowScopeName);
+            Bind<ITelemetrySettingsRepository>().To<TelemetrySettingsRepository>();
+            Bind<ISettingsController>().To<SettingsController>().InSingletonScope();
             Bind<IReplayController>().To<ReplayController>();
             Bind<IOpenWindowController>().To<OpenWindowController>();
             Bind<ISnapshotSectionController>().To<SnapshotSectionController>();
@@ -143,9 +147,17 @@
             Bind<IAggregatedChartProvider>().To<SpeedToRakeProvider>();
             Bind<IAggregatedChartProvider>().To<LatToLogGProvider>();
             Bind<IAggregatedChartProvider>().To<RearRollAngleToFrontRollAngleProvider>();
+            Bind<IAggregatedChartProvider>().To<CamberToLateralGChartProvider>();
+            Bind<IAggregatedChartProvider>().To<CamberHistogramProvider>();
+            Bind<IAggregatedChartProvider>().To<TyreLoadToCamberProvider>();
+            Bind<IAggregatedChartProvider>().To<TyreLoadToLatGProvider>();
+            Bind<IAggregatedChartProvider>().To<TyreLoadToLongGProvider>();
+            Bind<IAggregatedChartProvider>().To<TyreLoadHistogramProvider>();
 
             Bind<SuspensionVelocityHistogramDataExtractor>().ToSelf();
             Bind<RideHeightGraphViewModel>().ToSelf();
+
+            Bind<TyreLoadToCamberExtractor>().ToSelf();
 
             Bind<SpeedToRpmScatterPlotExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<NoClutchFilter>().WhenInjectedExactlyInto<SpeedToRpmScatterPlotExtractor>();
@@ -153,6 +165,12 @@
 
             Bind<HorizontalAccelerationToRideHeightExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<NoLateralAccelerationFilter>().WhenInjectedExactlyInto<HorizontalAccelerationToRideHeightExtractor>();
+
+            Bind<TyreLoadToLatGExtractor>().ToSelf();
+            Bind<ITelemetryFilter>().To<NoHorizontalAccelerationFilter>().WhenInjectedExactlyInto<TyreLoadToLatGExtractor>();
+
+            Bind<TyreLoadToLongGExtractor>().ToSelf();
+            Bind<ITelemetryFilter>().To<NoLateralAccelerationFilter>().WhenInjectedExactlyInto<TyreLoadToLongGExtractor>();
 
             Bind<LateralAccelerationToRideHeightExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<NoHorizontalAccelerationFilter>().WhenInjectedExactlyInto<LateralAccelerationToRideHeightExtractor>();
@@ -162,6 +180,8 @@
 
             Bind<SpeedToRideHeightExtractor>().ToSelf();
             Bind<SpeedToDownforceExtractor>().ToSelf();
+
+            Bind<CamberHistogramExtractor>().ToSelf();
 
             Bind<SpeedToHorizontalGExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<FullThrottleFilter>().WhenInjectedExactlyInto<SpeedToHorizontalGExtractor>();
@@ -177,13 +197,24 @@
             Bind<ITelemetryFilter>().To<NoBrakeFilter>().WhenInjectedExactlyInto<RpmHistogramDataExtractor>();
             Bind<ITelemetryFilter>().To<NoClutchFilter>().WhenInjectedExactlyInto<RpmHistogramDataExtractor>();
 
+            Bind<TyreLoadHistogramExtractor>().ToSelf();
+
+            Bind<CamberToLateralGExtractor>().ToSelf();
+
             Bind<LateralToLongGExtractor>().ToSelf();
             Bind<RearRollAngleToFrontRollAngleExtractor>().ToSelf();
             Bind<LateralAccFilter>().ToSelf();
             Bind<ThrottlePositionFilter>().ToSelf();
+            Bind<LoadedWheelFilter>().ToSelf();
+            Bind<CamberFilter>().ToSelf();
 
             Bind<IAggregatedChartSelectorViewModel>().To<AggregatedChartSelectorViewModel>();
             Bind<IGearTelemetryFilter>().To<GearTelemetryFilter>();
+
+            Bind<IAggregatedChartSettingsViewModel>().To<AggregatedChartSettingsViewModel>();
+
+            Bind<IDefaultCarPropertiesProvider>().To<R3EDefaultCarPropertiesProvider>();
+            Bind<DefaultR3ECarSettingsRepository>().ToSelf();
         }
     }
 }
