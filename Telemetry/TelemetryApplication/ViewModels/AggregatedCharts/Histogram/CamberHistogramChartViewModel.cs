@@ -8,6 +8,7 @@
     {
         private double _idealCamber;
         private CamberStatsViewModel _camberStatsViewModel;
+        private HistogramStatisticsViewModel _histogramStatisticsViewModel;
 
         public CamberHistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(dataPointSelectionSynchronization)
         {
@@ -25,6 +26,12 @@
             set => SetProperty(ref _camberStatsViewModel, value);
         }
 
+        public HistogramStatisticsViewModel HistogramStatisticsViewModel
+        {
+            get => _histogramStatisticsViewModel;
+            set => SetProperty(ref _histogramStatisticsViewModel, value);
+        }
+
         public string AngleUnits { get; set; }
 
         protected override void ApplyModel(Histogram model)
@@ -35,6 +42,9 @@
                 Title = "Statistics:"
             };
             CamberStatsViewModel.FromModel(model.Items.SelectMany(x => x.Items));
+
+            HistogramStatisticsViewModel = new HistogramStatisticsViewModel();
+            HistogramStatisticsViewModel.FromModel(model.Items.SelectMany(x => x.Items));
         }
     }
 }
