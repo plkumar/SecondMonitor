@@ -61,7 +61,7 @@
                 return new DataSourceProperties();
             }
 
-            using (FileStream file = File.Open(_fileName, FileMode.Open))
+            using (FileStream file = File.Open(_fileName, FileMode.Open, FileAccess.Read))
             {
                 var properties = (DataSourceProperties)xmlSerializer.Deserialize(file);
                 properties.MigrateUp();
