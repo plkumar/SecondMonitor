@@ -5,7 +5,6 @@
     using System.Linq;
     using Extractors;
     using Filter;
-    using OxyPlot;
     using SecondMonitor.ViewModels.Colors;
     using SecondMonitor.ViewModels.Colors.Extensions;
     using Settings.DTO;

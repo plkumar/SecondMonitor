@@ -18,5 +18,6 @@
 
         int Stint { get; set; }
 
+        void SetLapSelectedSilent(bool isSelected);
     }
 }

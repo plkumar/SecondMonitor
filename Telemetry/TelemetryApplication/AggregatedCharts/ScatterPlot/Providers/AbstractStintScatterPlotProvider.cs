@@ -22,12 +22,14 @@
             _dataExtractor = dataExtractor;
         }
 
+        public bool IsLegendVisible { get; set; }
+
         public override IReadOnlyCollection<IAggregatedChartViewModel> CreateAggregatedChartViewModels(AggregatedChartSettingsDto aggregatedChartSettings)
         {
             IEnumerable<IGrouping<int, LapTelemetryDto>> lapsStintGrouping = GetLapsGrouped(aggregatedChartSettings);
             if (aggregatedChartSettings.StintRenderingKind == StintRenderingKind.SingleChart)
             {
-                return CreateChartForAllStints(lapsStintGrouping);
+                return CreateChartForAllStints(lapsStintGrouping.ToList());
             }
             else
             {
@@ -36,7 +38,7 @@
             }
         }
 
-        private IReadOnlyCollection<IAggregatedChartViewModel> CreateChartForAllStints(IEnumerable<IGrouping<int, LapTelemetryDto>> lapsStintGrouping)
+        private IReadOnlyCollection<IAggregatedChartViewModel> CreateChartForAllStints(ICollection<IGrouping<int, LapTelemetryDto>> lapsStintGrouping)
         {
             string title = BuildTitleForAllStints(lapsStintGrouping);
             AxisDefinition xAxis = new AxisDefinition(_dataExtractor.XMajorTickSize, _dataExtractor.XMajorTickSize / 4, _dataExtractor.XUnit);
@@ -64,7 +66,10 @@
 
                 AxisDefinition xAxis = new AxisDefinition(_dataExtractor.XMajorTickSize, _dataExtractor.XMajorTickSize / 4, _dataExtractor.XUnit);
                 AxisDefinition yAxis = new AxisDefinition(_dataExtractor.YMajorTickSize, _dataExtractor.YMajorTickSize / 4, _dataExtractor.YUnit);
-                ScatterPlot scatterPlot = new ScatterPlot(title, xAxis, yAxis);
+                ScatterPlot scatterPlot = new ScatterPlot(title, xAxis, yAxis)
+                {
+                    IsLegendVisible = IsLegendVisible
+                };
 
                 scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(lapsInStintGroup, Enumerable.Empty<ITelemetryFilter>().ToList(), title, OxyColors.Green));
 

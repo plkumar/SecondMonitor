@@ -16,11 +16,14 @@
             YAxis = yAxis;
             _scatterPlotSeries = new List<ScatterPlotSeries>();
             _annotations = new List<Annotation>();
+            IsLegendVisible = true;
         }
 
         public string Title { get; }
         public AxisDefinition XAxis { get; }
         public AxisDefinition YAxis { get; }
+        public bool IsLegendVisible { get; set; }
+
         public IReadOnlyCollection<Annotation> Annotations => _annotations.AsReadOnly();
 
         public IReadOnlyCollection<ScatterPlotSeries> ScatterPlotSeries => _scatterPlotSeries.AsReadOnly();

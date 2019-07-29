@@ -24,5 +24,12 @@
         public double Minimum { get; set; }
         public double Maximum { get; set; }
 
+        public void SetCustomRange(double minimum, double maximum)
+        {
+            Minimum = minimum;
+            Maximum = maximum;
+            UseCustomRange = true;
+        }
+
     }
 }

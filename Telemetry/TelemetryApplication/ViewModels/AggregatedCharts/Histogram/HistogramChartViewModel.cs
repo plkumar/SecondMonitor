@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Input;
     using AggregatedCharts;
     using Controllers.Synchronization;
     using DataModel.Extensions;
@@ -29,6 +30,13 @@
         private readonly Dictionary<DataPoint, HistogramBar> _pointBandMap;
         private readonly Dictionary<HistogramBar, RectangleAnnotation> _selectionAnnotations;
         private string _title;
+        private string _unit;
+        private ICommand _refreshCommand;
+        private bool _isBandVisible;
+
+        public ICommand ResetParametersCommand { get; set; }
+
+        public bool IsResetParametersCommandVisible { get; set; }
 
         public HistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization)
         {
@@ -36,6 +44,24 @@
             _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
             _pointBandMap = new Dictionary<DataPoint, HistogramBar>();
             _selectionAnnotations = new Dictionary<HistogramBar, RectangleAnnotation>();
+        }
+
+        public bool IsBandVisible
+        {
+            get => _isBandVisible;
+            set => SetProperty(ref _isBandVisible, value);
+        }
+
+        public string Unit
+        {
+            get => _unit;
+            set => SetProperty(ref _unit, value);
+        }
+
+        public ICommand RefreshCommand
+        {
+            get => _refreshCommand;
+            set => SetProperty(ref _refreshCommand, value);
         }
 
         public int DataPointsCount
@@ -47,7 +73,7 @@
         public double BandSize
         {
             get => _bandSize;
-            protected set => SetProperty(ref _bandSize, value);
+            set => SetProperty(ref _bandSize, value);
         }
 
         public PlotModel PlotModel

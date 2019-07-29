@@ -122,28 +122,55 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <StackPanel Orientation="Horizontal">
-                    <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
-                            Command="{Binding AddCustomLapCommand}"
-                            Style="{StaticResource StandardButton}" ToolTip="Add a custom lap from disk.">
-                        <Button.Content>
-                            <wpf:ColorAbleIcon Margin="-5"
-                                               StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
-                                <ContentPresenter Content="{StaticResource PlusIcon}" />
-                            </wpf:ColorAbleIcon>
-                        </Button.Content>
-                    </Button>
-                    <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
-                            Command="{Binding OpenAggregatedChartSelectorCommand}" IsEnabled="{Binding IsOpenAggregatedChartSelectorEnabled, Mode=OneWay}"
-                            Style="{StaticResource StandardButton}" ToolTip="Opens aggregated charts selector.">
-                        <Button.Content>
-                            <wpf:ColorAbleIcon Margin="-5"
-                                               StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
-                                <ContentPresenter Content="{StaticResource TelemetryIcon}" />
-                            </wpf:ColorAbleIcon>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                <DockPanel LastChildFill="False">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding AddCustomLapCommand}"
+                                Style="{StaticResource StandardButton}" ToolTip="Add a custom lap from disk.">
+                            <Button.Content>
+                                <wpf:ColorAbleIcon Margin="-5"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                    <ContentPresenter Content="{StaticResource PlusIcon}" />
+                                </wpf:ColorAbleIcon>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding OpenAggregatedChartSelectorCommand}"
+                                IsEnabled="{Binding IsOpenAggregatedChartSelectorEnabled, Mode=OneWay}"
+                                Style="{StaticResource StandardButton}" ToolTip="Opens aggregated charts selector.">
+                            <Button.Content>
+                                <wpf:ColorAbleIcon Margin="-5"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                    <ContentPresenter Content="{StaticResource TelemetryIcon}" />
+                                </wpf:ColorAbleIcon>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                        <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding LoadAllLapsCommand}"
+                                Style="{StaticResource StandardButton}" ToolTip="Load all laps.">
+                            <Button.Content>
+                                <wpf:ColorAbleIcon Margin="-5"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                    <ContentPresenter Content="{StaticResource AllIcon}" />
+                                </wpf:ColorAbleIcon>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding UnloadAllLapsCommand}"
+                                Style="{StaticResource StandardButton}" ToolTip="Unload all laps.">
+                            <Button.Content>
+                                <wpf:ColorAbleIcon Margin="-5"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                    <ContentPresenter Content="{StaticResource NoneIcon}" />
+                                </wpf:ColorAbleIcon>
+                            </Button.Content>
+                        </Button>
+                        <ComboBox Style="{StaticResource StandardComboBoxStyle}" SelectedItem="{Binding SelectedStint}" ItemsSource="{Binding AvailableStints}" Width="60" Height="25"/>
+                    </StackPanel>
+
+                </DockPanel>
             </StackPanel>
         </Grid>
     </Border>

@@ -8,6 +8,7 @@
     using Contracts.Commands;
     using DataModel.BasicProperties;
     using DataModel.BasicProperties.FuelConsumption;
+    using DataModel.BasicProperties.Units;
     using Model;
 
     public class DisplaySettingsViewModel : AbstractViewModel<DisplaySettings>
@@ -31,12 +32,15 @@
         private MultiClassDisplayKind _multiClassDisplayKind;
         private ForceUnits _forceUnits;
         private AngleUnits _angleUnits;
+        private PowerUnits _powerUnits;
+        private TorqueUnits _torqueUnits;
         private bool _isGapVisualizationEnabled;
         private double _minimalGapForVisualization;
         private double _gapHeightForOneSecond;
         private double _maximumGapHeight;
         private RatingSettingsViewModel _ratingSettingsViewModel;
         private PitBoardSettingsViewModel _pitBoardSettingsViewModel;
+        private TrackRecordsSettingsViewModel _trackRecordsSettingsViewModel;
 
         public ICommand OpenLogDirectoryCommand => new RelayCommand(OpenLogDirectory);
 
@@ -112,6 +116,18 @@
         {
             get => _angleUnits;
             set => SetProperty(ref _angleUnits, value);
+        }
+
+        public TorqueUnits TorqueUnits
+        {
+            get => _torqueUnits;
+            set => SetProperty(ref _torqueUnits, value);
+        }
+
+        public PowerUnits PowerUnits
+        {
+            get => _powerUnits;
+            set => SetProperty(ref _powerUnits, value);
         }
 
         public FuelCalculationScope FuelCalculationScope
@@ -356,6 +372,12 @@
             set => SetProperty(ref _pitBoardSettingsViewModel, value);
         }
 
+        public TrackRecordsSettingsViewModel TrackRecordsSettingsViewModel
+        {
+            get => _trackRecordsSettingsViewModel;
+            set => SetProperty(ref _trackRecordsSettingsViewModel, value);
+        }
+
         public WindowLocationSetting WindowLocationSetting { get; set; }
 
         protected override void ApplyModel(DisplaySettings settings)
@@ -399,6 +421,12 @@
 
             PitBoardSettingsViewModel = new PitBoardSettingsViewModel();
             PitBoardSettingsViewModel.FromModel(settings.PitBoardSettings);
+
+            TrackRecordsSettingsViewModel = new TrackRecordsSettingsViewModel();
+            TrackRecordsSettingsViewModel.FromModel(settings.TrackRecordsSettings);
+
+            PowerUnits = settings.PowerUnits;
+            TorqueUnits = settings.TorqueUnits;
         }
 
         public override DisplaySettings SaveToNewModel()
@@ -431,6 +459,9 @@
                 WindowLocationSetting = WindowLocationSetting,
                 RatingSettings = RatingSettingsViewModel.SaveToNewModel(),
                 PitBoardSettings = PitBoardSettingsViewModel.SaveToNewModel(),
+                TrackRecordsSettings = TrackRecordsSettingsViewModel.SaveToNewModel(),
+                PowerUnits = PowerUnits,
+                TorqueUnits = TorqueUnits,
             };
         }
 

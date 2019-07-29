@@ -36,7 +36,7 @@
            summary.Drivers.AddRange(timing.Drivers.Select(d => ConvertToSummaryDriver(d.Value, timing.SessionType)));
         }
 
-        private static Driver ConvertToSummaryDriver(DriverTiming driverTiming, SessionType sessionTime)
+        private static Driver ConvertToSummaryDriver(DriverTiming driverTiming, SessionType sessionType)
         {
             Driver driverSummary = new Driver()
                                        {
@@ -51,13 +51,13 @@
                                            ClassId = driverTiming.CarClassId,
                                        };
             int lapNumber = 1;
-            bool allLaps = sessionTime == SessionType.Race;
-            driverSummary.Laps.AddRange(driverTiming.Laps.Where(l => l.Completed && (allLaps || l.Valid)).Select(l => ConvertToSummaryLap(driverSummary, l, lapNumber++)));
+            bool allLaps = sessionType == SessionType.Race;
+            driverSummary.Laps.AddRange(driverTiming.Laps.Where(l => l.Completed && (allLaps || l.Valid)).Select(l => ConvertToSummaryLap(driverSummary, l, lapNumber++, sessionType)));
             driverSummary.TotalLaps = driverSummary.Laps.Count;
             return driverSummary;
         }
 
-        private static Lap ConvertToSummaryLap(Driver summaryDriver,  LapInfo lapInfo, int lapNumber)
+        private static Lap ConvertToSummaryLap(Driver summaryDriver,  LapInfo lapInfo, int lapNumber, SessionType sessionType)
         {
             Lap summaryLap = new Lap(summaryDriver, lapInfo.Valid)
                                  {
@@ -67,7 +67,8 @@
                                      Sector2 = lapInfo.Sector2?.Duration ?? TimeSpan.Zero,
                                      Sector3 = lapInfo.Sector3?.Duration ?? TimeSpan.Zero,
                                      LapEndSnapshot = lapInfo.LapTelemetryInfo.LapEndSnapshot,
-                                     LapStartSnapshot = lapInfo.LapTelemetryInfo.LapStarSnapshot
+                                     LapStartSnapshot = lapInfo.LapTelemetryInfo.LapStarSnapshot,
+                                     SessionType = sessionType,
             };
             return summaryLap;
         }

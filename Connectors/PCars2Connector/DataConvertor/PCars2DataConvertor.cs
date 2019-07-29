@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using DataModel.BasicProperties;
+    using DataModel.BasicProperties.Units;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
     using DataModel.Snapshot.Systems;
@@ -79,7 +80,8 @@
             playerCar.CarDamageInformation.Bodywork.Damage = data.mAeroDamage;
             playerCar.CarDamageInformation.Engine.Damage = data.mEngineDamage;
             playerCar.CarDamageInformation.Suspension.Damage = data.mSuspensionDamage.Max();
-
+            playerCar.EngineTorque = Torque.FromNm(data.mEngineTorque);
+            playerCar.EnginePower = Power.FromKw(data.mEngineTorque * playerCar.EngineRpm / 9549);
             /*playerCar.SpeedLimiterEngaged = (data.mCarFlags & (int)CarFlags.CarSpeedLimiter) == (int)CarFlags.CarSpeedLimiter;*/
 
             FillBoostData(data, playerCar);

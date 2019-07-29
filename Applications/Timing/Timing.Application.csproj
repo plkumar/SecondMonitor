@@ -132,6 +132,8 @@
       <DependentUpon>TimingGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations1.cs" />
+    <Compile Include="TimingApplicationModule.cs" />
+    <Compile Include="TimingApplicationModuleBootstrapper.cs" />
     <Compile Include="ReportCreation\SessionTImingExtension.cs" />
     <Compile Include="ReportCreation\ViewModel\ReportsController.cs" />
     <Compile Include="SessionTiming\Drivers\DriverListModificationEventArgs.cs" />
@@ -161,6 +163,11 @@
     <Compile Include="Telemetry\ISessionTelemetryController.cs" />
     <Compile Include="Telemetry\ISessionTelemetryControllerFactory.cs" />
     <Compile Include="Telemetry\SessionTelemetryController.cs" />
+    <Compile Include="TrackRecords\Controller\ITrackRecordsController.cs" />
+    <Compile Include="TrackRecords\Controller\ITrackRecordsRepositoryFactory.cs" />
+    <Compile Include="TrackRecords\Controller\TrackRecordsRepository.cs" />
+    <Compile Include="TrackRecords\Controller\TrackRecordsController.cs" />
+    <Compile Include="TrackRecords\Controller\TrackRecordsRepositoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Foundation\Contracts\Contracts.csproj">

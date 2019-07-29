@@ -10,6 +10,7 @@
         xmlns:model="clr-namespace:SecondMonitor.ViewModels.Settings.Model;assembly=SecondMonitor.ViewModels"
         xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters;assembly=WindowsControls"
         xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
+        xmlns:units="clr-namespace:SecondMonitor.DataModel.BasicProperties.Units;assembly=DataModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewModel:DisplaySettingsViewModel, IsDesignTimeCreatable=True}"
         Title="SettingsView"
@@ -90,6 +91,20 @@
                                 ObjectType="{x:Type system:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="dmBasicProperties:AngleUnits" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="DataForPowerUnitsEnum" MethodName="GetValues"
+                                ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="units:PowerUnits" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="DataForTorqueUnitsEnum" MethodName="GetValues"
+                                ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="units:TorqueUnits" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
@@ -250,6 +265,21 @@
                             ToolTip="Interval (in Seconds) defining how how long the pit board stays opened" />
                     </StackPanel>
                 </GroupBox>
+                <GroupBox Header="Track Records" Foreground="White" HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          DockPanel.Dock="Left">
+                    <StackPanel Margin="0,0,0,5">
+                        <CheckBox Content="Enabled" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="5,10,0,0"
+                                  IsChecked="{Binding TrackRecordsSettingsViewModel.IsEnabled}"
+                                  ToolTip="Enables and Disables the track records functionality." />
+                        <CheckBox Content="Show session &#x0a;records only" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="5,10,0,0"
+                                  IsChecked="{Binding TrackRecordsSettingsViewModel.DisplayRecordForCurrentSessionType}"
+                                  ToolTip="When enabled only records done in the current session type is shown. i.e. in races you only see records done in race." />
+
+                    </StackPanel>
+                </GroupBox>
             </DockPanel>
             <DockPanel DockPanel.Dock="Top">
                 <GroupBox Header="UOM" Foreground="White" HorizontalAlignment="Left" Height="200" DockPanel.Dock="Left">
@@ -297,6 +327,20 @@
                             <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
                                       ItemsSource="{Binding Source={StaticResource DataForAngleUnitsEnum}}"
                                       SelectedItem="{Binding AngleUnits}"  Style="{StaticResource StandardComboBoxStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Power" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataForPowerUnitsEnum}}"
+                                      SelectedItem="{Binding PowerUnits}"  Style="{StaticResource StandardComboBoxStyle}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Torque" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Foreground="White" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"
+                                      ItemsSource="{Binding Source={StaticResource DataForTorqueUnitsEnum}}"
+                                      SelectedItem="{Binding TorqueUnits}"  Style="{StaticResource StandardComboBoxStyle}" />
                         </StackPanel>
                     </WrapPanel>
                 </GroupBox>

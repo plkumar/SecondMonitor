@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using DataModel.BasicProperties;
+    using DataModel.BasicProperties.Units;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
     using DataModel.Snapshot.Systems;
@@ -447,6 +448,9 @@
 
             FillDrsData(data, playerCar);
             FillBoostData(data.PushToPass, playerCar);
+
+            playerCar.EngineTorque = Torque.FromNm(data.Player.EngineTorque);
+            playerCar.EnginePower = Power.FromKw(data.Player.EngineTorque * playerCar.EngineRpm / 9549);
         }
 
         private static void FillDrsData(R3ESharedData data, CarInfo playerCar)

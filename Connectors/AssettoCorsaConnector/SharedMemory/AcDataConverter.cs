@@ -182,7 +182,10 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.RL];
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.FR];
 
-
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FL]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FR]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.RL]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FR]);
 
             simData.PlayerInfo.CarInfo.FrontHeight =  Distance.FromMeters(acData.AcsPhysics.rideHeight[0]);
             simData.PlayerInfo.CarInfo.RearHeight = Distance.FromMeters(acData.AcsPhysics.rideHeight[1]);

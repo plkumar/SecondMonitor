@@ -15,30 +15,30 @@
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Title}" />
-                    <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="False" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding RaceResults, IsAsync=True}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
+                    <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="False" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding RaceResults, IsAsync=True, Mode=OneTime}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding CreationTime, Converter={StaticResource DateTimeToCurrentConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding CreationTime, Converter={StaticResource DateTimeToCurrentConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}" Width="170"/>
                             <DataGridTextColumn Header="Class" Binding="{Binding ClassName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
                             <DataGridTextColumn Header="Car" Binding="{Binding CarName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
                             <DataGridTextColumn Header="Track" Binding="{Binding TrackName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
-                            <DataGridTextColumn Header="Sim Rating" Binding="{Binding SimRatingAfterRace, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
-                            <DataGridTemplateColumn Header="Sim Rating Δ">
+                            <DataGridTextColumn Header="Sim Rating" Binding="{Binding SimRatingAfterRace, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}" Width="100"/>
+                            <DataGridTemplateColumn Header="Sim Rating Δ" Width="100">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type ratingHistory:RaceResultViewModel}">
                                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding SimRatingChange, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding SimRatingChange, Converter={StaticResource IntToRedGreenConverter}, Mode=OneWay}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Class Rating" Binding="{Binding ClassRatingAfterRace }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
-                            <DataGridTemplateColumn Header="Class Rating Δ">
+                            <DataGridTextColumn Header="Class Rating" Binding="{Binding ClassRatingAfterRace }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}" Width="100"/>
+                            <DataGridTemplateColumn Header="Class Rating Δ" Width="100">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="{x:Type ratingHistory:RaceResultViewModel}">
                                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding ClassRatingChange, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding ClassRatingChange, Converter={StaticResource IntToRedGreenConverter}, Mode=OneWay}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Finish Position" Binding="{Binding FinishingPosition }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
-                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}"/>
+                            <DataGridTextColumn Header="Finish Position" Binding="{Binding FinishingPosition }" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}" Width="50"/>
+                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Foreground="{StaticResource LightGrey01Brush}" ElementStyle="{StaticResource TextBoxCenteredStyle}" Width="100"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

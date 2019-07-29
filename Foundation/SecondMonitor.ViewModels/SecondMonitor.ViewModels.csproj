@@ -111,6 +111,7 @@
     <Compile Include="IWheelStatusViewModel.cs" />
     <Compile Include="IWindowService.cs" />
     <Compile Include="Layouts\TwoViewModelsLayout.cs" />
+    <Compile Include="NamedCollectionViewModel.cs" />
     <Compile Include="PitBoard\RacePitboardViewModel.cs" />
     <Compile Include="PluginsSettings\BroadcastLimitSettingsViewModel.cs" />
     <Compile Include="PluginsSettings\IBroadcastLimitSettingsViewModel.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Settings\Model\SessionOptions.cs" />
     <Compile Include="Settings\Model\SessionReportSettings.cs" />
     <Compile Include="Settings\Model\TelemetrySettings.cs" />
+    <Compile Include="Settings\Model\TrackRecordsSettings.cs" />
     <Compile Include="Settings\Model\WindowLocationSetting.cs" />
     <Compile Include="Settings\ViewModel\ColumnSettingsViewModel.cs" />
     <Compile Include="Settings\ViewModel\ColumnsSettingsViewModel.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Settings\ViewModel\SessionOptionsViewModel.cs" />
     <Compile Include="Settings\ViewModel\SessionReportSettingsViewModel.cs" />
     <Compile Include="Settings\ViewModel\TelemetrySettingsViewModel.cs" />
+    <Compile Include="Settings\ViewModel\TrackRecordsSettingsViewModel.cs" />
     <Compile Include="SimulatorContent\ISimulatorContentController.cs" />
     <Compile Include="SimulatorContent\ISimulatorContentRepository.cs" />
     <Compile Include="SimulatorContent\SimulatorContentController.cs" />
@@ -166,6 +169,14 @@
     <Compile Include="StatusIcon\StatusIconState.cs" />
     <Compile Include="StatusIcon\StatusIconViewModel.cs" />
     <Compile Include="TrackInfo\TrackInfoViewModel.cs" />
+    <Compile Include="TrackRecords\CarRecordsCollectionViewModel.cs" />
+    <Compile Include="TrackRecords\CarRecordViewModel.cs" />
+    <Compile Include="TrackRecords\IRecordViewModel.cs" />
+    <Compile Include="TrackRecords\ITrackRecordsViewModel.cs" />
+    <Compile Include="TrackRecords\RecordViewModel.cs" />
+    <Compile Include="TrackRecords\SimulatorRecordsViewModel.cs" />
+    <Compile Include="TrackRecords\TrackRecordsViewModel.cs" />
+    <Compile Include="TrackRecords\TrackRecordViewModel.cs" />
     <Compile Include="ViewModelsModule.cs" />
     <Compile Include="ViewModelsModuleBootstrapper.cs" />
     <Compile Include="WindowService.cs" />
