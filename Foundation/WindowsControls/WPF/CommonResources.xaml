@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters"
-                    xmlns:oxy="http://oxyplot.org/wpf">
+                    xmlns:oxy="http://oxyplot.org/wpf"
+                    xmlns:trackRecords="clr-namespace:SecondMonitor.ViewModels.TrackRecords;assembly=SecondMonitor.ViewModels">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="Icons.xaml" />
@@ -54,5 +55,17 @@
 
     <Style x:Key="SmallText" BasedOn="{StaticResource StandardText}" TargetType="TextBlock">
         <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+    </Style>
+
+    <Style x:Key="StandardTooltip" TargetType="ToolTip">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Grid Background="{StaticResource Anthracite01Brush}">
+                    <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

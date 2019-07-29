@@ -41,6 +41,12 @@
             return ExtractSeriesForGear(loadedLaps, gear, $"Gear {gear}", color);
         }
 
+        public ScatterPlotSeries ExtractSeriesForAllGears(IEnumerable<LapTelemetryDto> loadedLaps, string title, OxyColor color)
+        {
+            _gearTelemetryFilter.FilterGear = string.Empty;
+            return ExtractSeries(loadedLaps, _allFilters, title, color);
+        }
+
         public ScatterPlotSeries ExtractSeriesForGear(IEnumerable<LapTelemetryDto> loadedLaps, string gear, string title, OxyColor color)
         {
             _gearTelemetryFilter.FilterGear = gear;

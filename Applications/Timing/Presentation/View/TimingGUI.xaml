@@ -5,6 +5,7 @@
         xmlns:wheelStatusControl="clr-namespace:SecondMonitor.WindowsControls.WPF.WheelStatusControl;assembly=WindowsControls" xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:carSystems="clr-namespace:SecondMonitor.WindowsControls.WPF.CarSystems;assembly=WindowsControls"
         xmlns:pitBoard="clr-namespace:SecondMonitor.WindowsControls.WPF.PitBoard;assembly=WindowsControls"
+        xmlns:trackRecords="clr-namespace:SecondMonitor.WindowsControls.WPF.TrackRecords;assembly=WindowsControls"
         x:Name="MainWindow"
         Title="{Binding Title}"
         d:DataContext="{d:DesignInstance Type=viewModel:TimingDataViewModel}"
@@ -73,6 +74,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0"
                     BorderBrush="{StaticResource DarkGrey01Brush}"
@@ -98,7 +100,9 @@
                                             Value="{Binding Path=SessionTiming.CombinedLapPortionComparator.PlayerLapToPreviousComparator.TimeDifference, Mode=OneWay}" />
                 </StackPanel>
             </Border>
-            <view:SessionInfoView Grid.Column="2" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+            <ContentPresenter Grid.Column="2" Content="{Binding TrackRecordsViewModel}"/>
+            <!--<trackRecords:TrackRecords Grid.Column="2" DataContext="{Binding TrackRecordsViewModel }"></trackRecords:TrackRecords>-->
+            <view:SessionInfoView Grid.Column="3" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
                                   DataContext="{Binding SessionInfoViewModel}" />
         </Grid>
         <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{StaticResource DarkGrey01Brush}"/>

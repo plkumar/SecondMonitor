@@ -2,6 +2,7 @@
 {
     using System;
     using DataModel.BasicProperties;
+    using DataModel.BasicProperties.Units;
 
     [Serializable]
     public class DisplaySettings
@@ -28,6 +29,10 @@
         public MultiClassDisplayKind MultiClassDisplayKind { get; set; } = MultiClassDisplayKind.ClassFirst;
 
         public FuelCalculationScope FuelCalculationScope { get; set; } = FuelCalculationScope.Lap;
+
+        public TorqueUnits TorqueUnits { get; set; } = TorqueUnits.Nm;
+
+        public PowerUnits PowerUnits { get; set; } = PowerUnits.KW;
 
         public int PaceLaps { get; set; } = 3;
 
@@ -64,6 +69,8 @@
         public RatingSettings RatingSettings { get; set; } = new RatingSettings();
 
         public PitBoardSettings PitBoardSettings { get; set; } = new PitBoardSettings();
+
+        public TrackRecordsSettings TrackRecordsSettings { get; set; } = new TrackRecordsSettings();
     }
 
 }

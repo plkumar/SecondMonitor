@@ -22,6 +22,22 @@
         <ColorAnimation To="{StaticResource DarkGrey01Color}" Storyboard.TargetName="TextLabel"  Storyboard.TargetProperty="Foreground.Color" Duration="0:0:0.1"/>
     </Storyboard>
 
+    <Storyboard x:Key="MouseOverGridNoLabelStory"  x:Shared="False" >
+        <ColorAnimation To="{StaticResource DarkGrey01Color}" Storyboard.TargetName="ButtonGrid"  Storyboard.TargetProperty="Background.Color" Duration="0:0:0.2"/>
+    </Storyboard>
+
+    <Storyboard x:Key="MouseNotOverGridNoLabelStory"  FillBehavior="Stop"  x:Shared="False">
+        <ColorAnimation To="{StaticResource Anthracite01Color}" Duration="0:0:0.1"  Storyboard.TargetName="ButtonGrid"  Storyboard.TargetProperty="Background.Color"/>
+    </Storyboard>
+    <Storyboard x:Key="OnMousePressNoLabel"  x:Shared="False">
+        <ColorAnimation To="{StaticResource LightGrey02Color}" Duration="0:0:0.2"  Storyboard.TargetName="ButtonGrid"  Storyboard.TargetProperty="Background.Color"/>
+    </Storyboard>
+
+    <Storyboard x:Key="OffMousePressNoLabel" FillBehavior="Stop"  x:Shared="False">
+        <ColorAnimation To="{StaticResource DarkGrey01Color}" Storyboard.TargetName="ButtonGrid"  Storyboard.TargetProperty="Background.Color" Duration="0:0:0.1"/>
+
+    </Storyboard>
+
 
     <Style TargetType="Button" x:Key="StandardButton" x:Shared="False">
         <Setter Property="Background" Value="{StaticResource DarkGrey05Brush}"/>
@@ -51,6 +67,39 @@
                         <Trigger.ExitActions>
                                 <BeginStoryboard Storyboard="{StaticResource OffMousePress}"></BeginStoryboard>
                         </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="NoBorderButton" x:Shared="False">
+        <Setter Property="Background" Value="{StaticResource Anthracite01Brush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{StaticResource Anthracite01Brush}" x:Name="ButtonGrid">
+                            <Grid ZIndex="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource Anthracite01Brush}" Opacity="0.8" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
+                            <ContentPresenter Grid.ZIndex="1" x:Name="TextLabel" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Content ,RelativeSource={RelativeSource AncestorType=Button}}"/>
+                        </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource MouseOverGridNoLabelStory}"></BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource MouseNotOverGridNoLabelStory}"></BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource OnMousePressNoLabel}"></BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource OffMousePressNoLabel}"></BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

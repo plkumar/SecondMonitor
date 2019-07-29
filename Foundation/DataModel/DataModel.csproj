@@ -76,9 +76,13 @@
     <Compile Include="BasicProperties\InputInfo.cs" />
     <Compile Include="BasicProperties\Orientation.cs" />
     <Compile Include="BasicProperties\Point3D.cs" />
+    <Compile Include="BasicProperties\Power.cs" />
     <Compile Include="BasicProperties\PressureUnits.cs" />
     <Compile Include="BasicProperties\TemperatureUnits.cs" />
     <Compile Include="BasicProperties\TyreWear.cs" />
+    <Compile Include="BasicProperties\Units\PowerUnits.cs" />
+    <Compile Include="BasicProperties\Units\Torque.cs" />
+    <Compile Include="BasicProperties\Units\TorqueUnits.cs" />
     <Compile Include="BasicProperties\Velocity.cs" />
     <Compile Include="BasicProperties\VelocityUnits.cs" />
     <Compile Include="BasicProperties\Volume.cs" />
@@ -138,12 +142,16 @@
     <Compile Include="TrackMap\ITrackMap.cs" />
     <Compile Include="TrackMap\TrackGeometryDTO.cs" />
     <Compile Include="TrackMap\TrackMapDto.cs" />
+    <Compile Include="TrackRecords\NamedRecordSet.cs" />
+    <Compile Include="TrackRecords\RecordEntryDTO.cs" />
+    <Compile Include="TrackRecords\RecordSet.cs" />
+    <Compile Include="TrackRecords\SimulatorRecords.cs" />
+    <Compile Include="TrackRecords\SimulatorsRecords.cs" />
+    <Compile Include="TrackRecords\TrackRecord.cs" />
     <Compile Include="Visitors\ComputeGapToPlayerVisitor.cs" />
     <Compile Include="Visitors\ComputeSuspensionVelocityVisitor.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BasicProperties\Units\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

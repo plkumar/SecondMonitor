@@ -40,6 +40,18 @@
             }
         }
 
+        protected string BuildSeriesTitle(IGrouping<int, LapTelemetryDto> lapGrouping, AggregatedChartSettingsDto aggregatedChartSettings)
+        {
+            if (aggregatedChartSettings.StintRenderingKind == StintRenderingKind.None)
+            {
+                return $"Laps: {string.Join(", ", lapGrouping.Select(x => x.LapSummary.CustomDisplayName))}";
+            }
+            else
+            {
+                return $"Laps: {string.Join(", ", lapGrouping.Select(x => x.LapSummary.CustomDisplayName))} - Stint: {lapGrouping.Key}";
+            }
+        }
+
         protected string BuildTitleForAllStints(IEnumerable<IGrouping<int, LapTelemetryDto>> lapsInStints)
         {
             return $"{ChartName} - Stints: {string.Join(", ", lapsInStints.Select(x => x.Key).OrderBy(x => x))}";

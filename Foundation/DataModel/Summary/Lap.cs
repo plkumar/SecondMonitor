@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.DataModel.Summary
 {
     using System;
+    using BasicProperties;
     using Telemetry;
 
     [Serializable]
@@ -22,6 +23,8 @@
         public int LapNumber { get; set; }
 
         public bool IsValid { get; set; }
+
+        public SessionType SessionType { get; set; }
 
         public TimeSpan LapTime { get; set; } = TimeSpan.Zero;
 

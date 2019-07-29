@@ -210,6 +210,7 @@
       <DependentUpon>StatusIconControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPF\TrackInfoControl\TrackInfoControl.cs" />
+    <Compile Include="WPF\TrackRecords\TrackRecords.cs" />
     <Compile Include="WPF\UserInput\DialogUserInputProvider.cs" />
     <Compile Include="WPF\UserInput\UserInputViewModel.cs" />
     <Compile Include="WPF\UserInput\UserInputWindow.xaml.cs">
@@ -248,6 +249,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ControlsPresentationTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPF\ButtonStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -368,6 +373,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WPF\TrackRecords\TrackRecordsTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPF\UserInput\UserInputWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -390,7 +399,7 @@
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{30DEA773-F579-4A77-9C73-3D58C81612D0}</Project>
       <Name>DataModel</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SecondMonitor.ViewModels\SecondMonitor.ViewModels.csproj">
       <Project>{b43064b9-d120-4dd9-9902-e2b8f6006985}</Project>

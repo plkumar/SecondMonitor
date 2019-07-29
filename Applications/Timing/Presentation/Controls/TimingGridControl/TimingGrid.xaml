@@ -15,6 +15,9 @@
             <DataTrigger Binding="{Binding IsLastLapBestSessionLap}" Value="True">
                 <Setter Property="Background" Value="{StaticResource PurpleTimingBrush}" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding IsLastLapTrackRecord}" Value="True">
+                <Setter Property="Background" Value="{StaticResource TrackRecordBrush}" />
+            </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsLapped}" Value="True" />

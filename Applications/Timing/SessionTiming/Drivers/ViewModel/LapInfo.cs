@@ -3,7 +3,6 @@
 namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
 {
     using System;
-    using System.Data.SqlClient;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using NLog;

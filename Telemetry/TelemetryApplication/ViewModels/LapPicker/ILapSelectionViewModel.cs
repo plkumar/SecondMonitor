@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.LapPicker
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using Controllers.Synchronization;
@@ -25,6 +26,14 @@
         ICommand AddCustomLapCommand { get; set; }
 
         ICommand OpenAggregatedChartSelectorCommand { get; set; }
+
+        ICommand LoadAllLapsCommand { get; set; }
+
+        ICommand UnloadAllLapsCommand { get; set; }
+
+        IReadOnlyCollection<string> AvailableStints { get; set; }
+
+        string SelectedStint { get; set; }
 
         bool IsOpenAggregatedChartSelectorEnabled { get; set; }
 

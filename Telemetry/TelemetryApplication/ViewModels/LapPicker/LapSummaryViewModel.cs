@@ -24,7 +24,7 @@
         {
             _lapStintSynchronization = lapStintSynchronization;
             LapColorSynchronization = lapColorSynchronization;
-            AvailableStintGroups = Enumerable.Range(0, 10).ToArray();
+            AvailableStintGroups = Enumerable.Range(0, 20).ToArray();
         }
 
         public ILapColorSynchronization LapColorSynchronization { get; set; }
@@ -89,6 +89,11 @@
                 _lapStintSynchronization.SetStintNumberForLap(OriginalModel.Id, value);
             }
 
+        }
+
+        public void SetLapSelectedSilent(bool isSelected)
+        {
+            Selected = isSelected;
         }
 
         public int[] AvailableStintGroups { get; }

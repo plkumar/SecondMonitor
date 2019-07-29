@@ -5,6 +5,7 @@
     using System.Linq;
     using WindowsControls.Properties;
     using DataModel.BasicProperties;
+    using DataModel.BasicProperties.Units;
     using DataModel.Telemetry;
     using Filter;
     using SecondMonitor.ViewModels.Settings;
@@ -20,6 +21,8 @@
             DistanceUnitsSmall = settingsProvider.DisplaySettingsViewModel.DistanceUnitsVerySmall;
             ForceUnits = settingsProvider.DisplaySettingsViewModel.ForceUnits;
             AngleUnits = settingsProvider.DisplaySettingsViewModel.AngleUnits;
+            TorqueUnits = settingsProvider.DisplaySettingsViewModel.TorqueUnits;
+            PowerUnits = settingsProvider.DisplaySettingsViewModel.PowerUnits;
         }
 
         public VelocityUnits VelocityUnits { get; }
@@ -27,6 +30,8 @@
         public DistanceUnits DistanceUnitsSmall { get; }
         public ForceUnits ForceUnits { get; }
         public AngleUnits AngleUnits { get; }
+        public TorqueUnits TorqueUnits { get; }
+        public PowerUnits PowerUnits { get; }
 
         protected TimedValue[] ExtractTimedValuesOfLoadedLaps(IEnumerable<LapTelemetryDto> loadedLaps, Func<TimedTelemetrySnapshot, double> extractionFunc, [CanBeNull] IReadOnlyCollection<ITelemetryFilter> filters)
         {

@@ -134,7 +134,7 @@
             foreach (IGrouping<int, LapTelemetryDto> stint in lapsInStints)
             {
                 string seriesTitle = $"Laps: {string.Join(", ", stint.Select(x => x.LapSummary.CustomDisplayName))} - Stint: {stint.Key}";
-                scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(stint, new List<ITelemetryFilter>(), seriesTitle, colorPaletteProvider.GetNext().ToOxyColor()));
+                scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeriesForAllGears(stint, seriesTitle, colorPaletteProvider.GetNext().ToOxyColor()));
             }
 
             return scatterPlot;

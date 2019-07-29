@@ -28,6 +28,7 @@ namespace SecondMonitor.Timing.Controllers
     using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
+    using TrackRecords.Controller;
     using ViewModels.Settings;
     using ViewModels.Settings.Model;
     using ViewModels.SimulatorContent;
@@ -56,6 +57,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly IRatingApplicationController _ratingApplicationController;
         private readonly ISettingsProvider _settingsProvider;
         private readonly ISimulatorContentController _simulatorContentController;
+        private readonly ITrackRecordsController _trackRecordsController;
 
         public TimingApplicationController()
         {
@@ -64,6 +66,7 @@ namespace SecondMonitor.Timing.Controllers
             _ratingApplicationController = _kernelWrapper.Get<IRatingApplicationController>();
             _settingsProvider = _kernelWrapper.Get<ISettingsProvider>();
             _simulatorContentController = _kernelWrapper.Get<ISimulatorContentController>();
+            _trackRecordsController = _kernelWrapper.Get<ITrackRecordsController>();
         }
 
         public PluginsManager PluginManager
@@ -92,6 +95,8 @@ namespace SecondMonitor.Timing.Controllers
 
             dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/Rating.Presentation;component/RatingPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
             Application.Current.Resources.MergedDictionaries.Add(dict);
+            dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/WindowsControls;component/ControlsPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
+            Application.Current.Resources.MergedDictionaries.Add(dict);
 
             CreateDisplaySettingsViewModel();
             CreateReportsController();
@@ -101,7 +106,7 @@ namespace SecondMonitor.Timing.Controllers
             CreateSessionTelemetryControllerFactory();
             CreateRatingController();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming);
-            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider) {MapManagementController = _mapManagementController};
+            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider, _trackRecordsController) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
             BindCommands();
@@ -109,6 +114,7 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel.GuiDispatcher = _timingGui.Dispatcher;
             _timingDataViewModel?.Reset();
             _simulatorContentController.StartControllerAsync();
+            _trackRecordsController.StartControllerAsync();
         }
 
         private void CreateRatingController()
@@ -135,6 +141,7 @@ namespace SecondMonitor.Timing.Controllers
         private void OnSessionStarted(object sender, DataEventArgs e)
         {
             _ratingApplicationController.NotifyDataLoaded(e.Data);
+            _trackRecordsController.OnSessionStarted(e.Data);
             _timingDataViewModel?.StartNewSession(e.Data);
         }
 
@@ -201,6 +208,7 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel.SessionCompleted -= TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel?.TerminatePeriodicTask(exceptions);
             _displaySettingsLoader.TrySaveDisplaySettings(_displaySettingsViewModel.SaveToNewModel(), SettingsPath);
+            await _trackRecordsController.StopControllerAsync();
             await _simulatorContentController.StopControllerAsync();
             await _pluginsManager.DeletePlugin(this, exceptions);
         }

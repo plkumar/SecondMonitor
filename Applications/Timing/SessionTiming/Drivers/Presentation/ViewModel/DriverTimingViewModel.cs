@@ -247,6 +247,14 @@
             private set => SetProperty(ref _isLastLapBestLap, value);
         }
 
+        private bool _isLastLapTrackRecord;
+
+        public bool IsLastLapTrackRecord
+        {
+            get => _isLastLapTrackRecord;
+            private set => SetProperty(ref _isLastLapTrackRecord, value);
+        }
+
         private bool _isLastLapBestSessionLap;
         public bool IsLastLapBestSessionLap
         {
@@ -376,6 +384,7 @@
                 InPitsMoving = InPits && DriverTiming.DriverInfo.Speed.InKph > 10;
                 IsLastLapBestSessionLap = DriverTiming.IsLastLapBestSessionLap;
                 IsLastLapBestLap = DriverTiming.IsLastLapBestLap;
+                IsLastLapTrackRecord = DriverTiming.IsLastLapTrackRecord;
 
                 Sector1 = GetSector1();
                 Sector2 = GetSector2();

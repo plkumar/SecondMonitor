@@ -37,10 +37,12 @@
     using SessionTiming.Drivers;
     using SimdataManagement.DriverPresentation;
     using Telemetry;
+    using TrackRecords.Controller;
     using ViewModels.Colors;
     using ViewModels.Controllers;
     using ViewModels.Settings.Model;
     using ViewModels.Settings.ViewModel;
+    using ViewModels.TrackRecords;
 
     public class TimingDataViewModel : AbstractViewModel, ISimulatorDataSetViewModel,  IPaceProvider
     {
@@ -48,6 +50,7 @@
         private readonly DriverLapsWindowManager _driverLapsWindowManager;
         private readonly ISessionTelemetryControllerFactory _sessionTelemetryControllerFactory;
         private readonly IRatingProvider _ratingProvider;
+        private readonly ITrackRecordsController _trackRecordsController;
 
         private ICommand _resetCommand;
 
@@ -72,7 +75,7 @@
         private DisplaySettingsViewModel _displaySettingsViewModel;
 
 
-        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider)
+        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
         {
             TimingDataGridViewModel = new TimingDataGridViewModel(driverPresentationsManager, displaySettingsViewModel, new ClassColorProvider(new BasicColorPaletteProvider()));
             SessionInfoViewModel = new SessionInfoViewModel();
@@ -80,8 +83,10 @@
             _driverLapsWindowManager = driverLapsWindowManager;
             _sessionTelemetryControllerFactory = sessionTelemetryControllerFactory;
             _ratingProvider = ratingProvider;
+            _trackRecordsController = trackRecordsController;
             DoubleLeftClickCommand = _driverLapsWindowManager.OpenWindowCommand;
             DisplaySettingsViewModel = displaySettingsViewModel;
+            TrackRecordsViewModel = _trackRecordsController.TrackRecordsViewModel;
             SituationOverviewProvider = new SituationOverviewProvider(TimingDataGridViewModel, displaySettingsViewModel);
         }
 
@@ -134,6 +139,8 @@
             get => _notUniqueNamesMessage;
             private set => SetProperty(ref _notUniqueNamesMessage, value);
         }
+
+        public ITrackRecordsViewModel TrackRecordsViewModel { get; }
 
         public TimingDataGridViewModel TimingDataGridViewModel { get; }
 
@@ -539,7 +546,7 @@
                                 data.SessionInfo.SessionType != SessionType.Race;
             _lastDataSet = data;
             CheckAndNotifySessionCompleted();
-            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider);
+            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController);
             foreach (var driverTimingModelView in SessionTiming.Drivers.Values)
             {
                 _driverLapsWindowManager.Rebind(driverTimingModelView);

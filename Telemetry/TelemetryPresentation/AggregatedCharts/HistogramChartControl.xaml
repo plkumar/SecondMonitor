@@ -4,7 +4,8 @@
                     xmlns:histogram="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels.AggregatedCharts.Histogram;assembly=TelemetryApplication"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:behavior="clr-namespace:SecondMonitor.TelemetryPresentation.Behavior"
-                    xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template">
+                    xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../TelemetryPresentation.xaml" />
         <ResourceDictionary Source="../Template/GraphDataTemplates.xaml" />
@@ -148,15 +149,45 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type histogram:HistogramChartViewModel}">
                 <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
-                    <Grid>
-                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                        <template:HostChartWrapper PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
+                    <Grid Background="{StaticResource Anthracite01Brush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Style="{StaticResource StandardText}" Text="{Binding DataPointsCount, StringFormat=Data Points: {0}}" Grid.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                        <template:HostChartWrapper Grid.Row="0" PlotModel="{Binding PlotModel}" Background="{StaticResource Anthracite01Brush}"
                                       Foreground="{StaticResource DarkRed01Brush}"
                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <i:Interaction.Behaviors>
                                 <behavior:BandSelectionByClickBehavior HistogramChartViewModel="{Binding .}" />
                             </i:Interaction.Behaviors>
                         </template:HostChartWrapper>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding IsBandVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock Style="{StaticResource StandardText}" Text="Band Size:" Margin="5"/>
+                            <TextBox Style="{StaticResource StandardTextBox}" MinWidth="60" Text="{Binding BandSize, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="5"/>
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Unit }" Margin="5"/>
+                            <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding RefreshCommand}"
+                                Style="{StaticResource StandardButton}" ToolTip="Refreshes the Histogram Bands">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="0"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Margin="-5" Content="{StaticResource RefreshIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                            <Button Width="36" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"
+                                Command="{Binding ResetParametersCommand}"
+                                Visibility="{Binding IsResetParametersCommandVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Style="{StaticResource StandardButton}" ToolTip="Reset Parameters to Default">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="0"
+                                                   StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Margin="-10" Content="{StaticResource ResetSettings}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </Border>
             </DataTemplate>

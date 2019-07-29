@@ -12,5 +12,7 @@
 
         string RatingsRepositoryPath { get; }
         string SimulatorContentRepository { get; }
+
+        string TrackRecordsPath { get; }
     }
 }

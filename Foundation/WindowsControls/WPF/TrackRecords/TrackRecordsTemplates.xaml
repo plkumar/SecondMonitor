@@ -1,0 +1,138 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:trackRecords="clr-namespace:SecondMonitor.ViewModels.TrackRecords;assembly=SecondMonitor.ViewModels">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../CommonResources.xaml" />
+        <ResourceDictionary Source="../ButtonStyles.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type trackRecords:TrackRecordsViewModel}">
+                <Border BorderBrush="{StaticResource TrackRecordBrush}" BorderThickness="2" CornerRadius="3"
+                        Background="{StaticResource Anthracite01Brush}" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="5" Grid.Row="0" Grid.Column="0" Style="{StaticResource StandardText}"
+                                   Text="TR: " ToolTip="Track Record - Overall, personal, best track lap time." />
+                        <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" Style="{StaticResource StandardText}"
+                                   Text="CR: "
+                                   ToolTip="Class Record - Overall, personal, best track lap time for current class." />
+                        <TextBlock Margin="5" Grid.Row="2" Grid.Column="0" Style="{StaticResource StandardText}"
+                                   Text="VR: "
+                                   ToolTip="Vehicle Record - Overall, personal, best track lap time for current vehicle." />
+                        <Button Grid.Row="0" Grid.Column="1"  Style="{StaticResource NoBorderButton}" Command="{ Binding OpenTracksRecordsCommand}">
+                            <Button.Content>
+                                <ContentPresenter Margin="5" Content="{Binding TrackRecord}" />
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1"  Style="{StaticResource NoBorderButton}" Command="{ Binding OpenClassRecordsCommand}">
+                            <Button.Content>
+                                <ContentPresenter Margin="5" Content="{Binding ClassRecord}" />
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Row="2" Grid.Column="1"  Style="{StaticResource NoBorderButton}" Command="{ Binding OpenVehiclesRecordsCommands}">
+                            <Button.Content>
+                                <ContentPresenter Margin="5" Content="{Binding VehicleRecord}" />
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type trackRecords:RecordViewModel}">
+                <Grid>
+                    <TextBlock Style="{StaticResource StandardText}" Text="No Time Set" Visibility="{Binding IsVisible, Converter={StaticResource InvertedBooleanToVisibilityConverter} }" >
+                    </TextBlock>
+
+                    <TextBlock Text="{Binding LapTime, Converter={StaticResource TimeSpanToMinutesSecondMilisecondsConverter}}" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter} }">
+                        <TextBlock.ToolTip>
+                            <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey05Brush}" CornerRadius="2" Padding="4">
+                                <Grid Background="{StaticResource Anthracite01Brush}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource StandardText}" Text="Set at:" Margin="0,0,10,0"/>
+                                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding RecordDatetime, Converter={StaticResource DateTimeToCurrentConverter}}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource StandardText}" Text="With:" Margin="0,0,10,0"/>
+                                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding CarName}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource StandardText}" Text="During:" Margin="0,0,10,0"/>
+                                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding SessionType}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </TextBlock.ToolTip>
+                        <TextBlock.Resources>
+                            <Style TargetType="ToolTip" BasedOn="{StaticResource StandardTooltip}"/>
+                        </TextBlock.Resources>
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource StandardText}" TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource TrackRecordBrush}" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsHighlighted}" Value="False">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type trackRecords:SimulatorRecordsViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Title}" />
+                    <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="False" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding ChildViewModels, IsAsync=True, Mode=OneTime}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Track" Binding="{Binding TrackName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Lap Time" Binding="{Binding BestTime, Converter={StaticResource TimeSpanToMinutesSecondMilisecondsConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Car" Binding="{Binding CarName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Class" Binding="{Binding ClassName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Record Date" Binding="{Binding RecordSetDate, Converter={StaticResource DateTimeToCurrentConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                            <DataGridTextColumn Header="Session" Binding="{Binding SessionType, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type trackRecords:CarRecordsCollectionViewModel}">
+            <Grid Background="{StaticResource Anthracite01Brush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Title}" />
+                <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" EnableColumnVirtualization="False" EnableRowVirtualization="True" MinHeight="300" MaxHeight="500" ItemsSource="{Binding ChildViewModels, IsAsync=True, Mode=OneTime}" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{StaticResource DarkGrey05Brush}" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Lap Time" Binding="{Binding BestTime, Converter={StaticResource TimeSpanToMinutesSecondMilisecondsConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                        <DataGridTextColumn Header="Car" Binding="{Binding CarName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                        <DataGridTextColumn Header="Class" Binding="{Binding ClassName, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                        <DataGridTextColumn Header="Record Date" Binding="{Binding RecordSetDate, Converter={StaticResource DateTimeToCurrentConverter}, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                        <DataGridTextColumn Header="Session" Binding="{Binding SessionType, Mode=OneWay }" Foreground="{StaticResource LightGrey01Brush}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

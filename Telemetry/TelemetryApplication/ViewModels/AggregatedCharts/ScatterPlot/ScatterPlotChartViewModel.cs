@@ -83,7 +83,7 @@
             PlotModel model = new PlotModel
             {
                 Title = OriginalModel.Title,
-                IsLegendVisible = true,
+                IsLegendVisible = OriginalModel.IsLegendVisible,
                 TextColor = BaseColor,
                 PlotAreaBorderColor = BaseColor,
                 LegendBorder = OxyColors.DarkRed,

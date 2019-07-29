@@ -145,7 +145,7 @@
             Bind<IAggregatedChartProvider>().To<RideHeightToSpeedProvider>();
             Bind<IAggregatedChartProvider>().To<SpeedToDownforceProvider>();
             Bind<IAggregatedChartProvider>().To<SpeedToRakeProvider>();
-            Bind<IAggregatedChartProvider>().To<LatToLogGProvider>();
+            //Bind<IAggregatedChartProvider>().To<LatToLogGProvider>();
             Bind<IAggregatedChartProvider>().To<RearRollAngleToFrontRollAngleProvider>();
             Bind<IAggregatedChartProvider>().To<CamberToLateralGChartProvider>();
             Bind<IAggregatedChartProvider>().To<CamberHistogramProvider>();
@@ -153,6 +153,15 @@
             Bind<IAggregatedChartProvider>().To<TyreLoadToLatGProvider>();
             Bind<IAggregatedChartProvider>().To<TyreLoadToLongGProvider>();
             Bind<IAggregatedChartProvider>().To<TyreLoadHistogramProvider>();
+            Bind<IAggregatedChartProvider>().To<PowerCurveProvider>();
+            Bind<IAggregatedChartProvider>().To<TractionCircleProvider>();
+            Bind<IAggregatedChartProvider>().To<SpeedInTurnsHistogramProvider>();
+
+            Bind<SpeedInTurnsHistogramProvider>().ToSelf();
+
+            Bind<LatToLogGProvider>().ToSelf();
+            Bind<SpeedToLatGProvider>().ToSelf();
+            Bind<SpeedToLongGProvider>().ToSelf();
 
             Bind<SuspensionVelocityHistogramDataExtractor>().ToSelf();
             Bind<RideHeightGraphViewModel>().ToSelf();
@@ -183,6 +192,8 @@
 
             Bind<CamberHistogramExtractor>().ToSelf();
 
+            Bind<SpeedHistogramExtractor>().ToSelf();
+
             Bind<SpeedToHorizontalGExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<FullThrottleFilter>().WhenInjectedExactlyInto<SpeedToHorizontalGExtractor>();
             Bind<ITelemetryFilter>().To<NoBrakeFilter>().WhenInjectedExactlyInto<SpeedToHorizontalGExtractor>();
@@ -201,12 +212,19 @@
 
             Bind<CamberToLateralGExtractor>().ToSelf();
 
+            Bind<RpmToPowerExtractor>().ToSelf();
+            Bind<RpmToTorqueExtractor>().ToSelf();
+
             Bind<LateralToLongGExtractor>().ToSelf();
             Bind<RearRollAngleToFrontRollAngleExtractor>().ToSelf();
             Bind<LateralAccFilter>().ToSelf();
             Bind<ThrottlePositionFilter>().ToSelf();
             Bind<LoadedWheelFilter>().ToSelf();
             Bind<CamberFilter>().ToSelf();
+            Bind<InGearFilter>().ToSelf();
+            Bind<PositiveTorqueFilter>().ToSelf();
+            Bind<SpeedToLatGAllPointsExtractor>().ToSelf();
+            Bind<SpeedToLongGAllPointsExtractor>().ToSelf();
 
             Bind<IAggregatedChartSelectorViewModel>().To<AggregatedChartSelectorViewModel>();
             Bind<IGearTelemetryFilter>().To<GearTelemetryFilter>();

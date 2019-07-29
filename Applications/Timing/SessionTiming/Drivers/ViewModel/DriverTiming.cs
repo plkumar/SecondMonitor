@@ -181,6 +181,7 @@
         public Velocity TopSpeed { get; private set; } = Velocity.Zero;
 
         public int Rating { get; set; }
+        public bool IsLastLapTrackRecord { get; set; }
 
 
         public static DriverTiming FromModel(DriverInfo modelDriverInfo, SessionTiming session, bool invalidateFirstLap)

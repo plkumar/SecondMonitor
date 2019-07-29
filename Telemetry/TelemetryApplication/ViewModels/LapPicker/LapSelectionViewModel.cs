@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.LapPicker
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
@@ -26,6 +27,10 @@
         private ICommand _addCustomLapCommand;
         private ICommand _openAggregatedGraphSelectorCommand;
         private bool _openAggregatedChartSelectorEnabled;
+        private ICommand _loadAllLapsCommand;
+        private IReadOnlyCollection<string> _availableStints;
+        private string _selectedStint;
+        private ICommand _unloadAllLapsCommand;
 
         public LapSelectionViewModel()
         {
@@ -65,6 +70,12 @@
         {
             get => _openAggregatedGraphSelectorCommand;
             set => SetProperty(ref _openAggregatedGraphSelectorCommand, value);
+        }
+
+        public string SelectedStint
+        {
+            get => _selectedStint;
+            set => SetProperty(ref _selectedStint, value);
         }
 
         public bool IsOpenAggregatedChartSelectorEnabled
@@ -149,6 +160,25 @@
         {
             get => _bestSector3;
             set => SetProperty(ref _bestSector3, value);
+        }
+
+        public ICommand LoadAllLapsCommand
+        {
+            get => _loadAllLapsCommand;
+            set => SetProperty(ref _loadAllLapsCommand, value);
+
+        }
+
+        public IReadOnlyCollection<string> AvailableStints
+        {
+            get => _availableStints;
+            set => SetProperty(ref _availableStints, value);
+        }
+
+        public ICommand UnloadAllLapsCommand
+        {
+            get => _unloadAllLapsCommand;
+            set => SetProperty(ref _unloadAllLapsCommand, value);
         }
 
         public void AddLapSummaryViewModel(ILapSummaryViewModel lapSummaryViewModel)

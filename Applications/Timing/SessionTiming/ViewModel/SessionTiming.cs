@@ -22,10 +22,12 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using Rating.Common.DataModel.Player;
     using SimdataManagement.DriverPresentation;
     using Telemetry;
+    using TrackRecords.Controller;
 
     public class SessionTiming : DependencyObject, IEnumerable, INotifyPropertyChanged
     {
         private readonly IRatingProvider _ratingProvider;
+        private readonly ITrackRecordsController _trackRecordsController;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public class DriverNotFoundException : Exception
@@ -59,9 +61,10 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
 
         private CombinedLapPortionComparatorsViewModel _combinedLapPortionComparatorsViewModel;
 
-        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider)
+        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
         {
             _ratingProvider = ratingProvider;
+            _trackRecordsController = trackRecordsController;
             PaceLaps = 4;
             DisplayBindTimeRelative = false;
             TimingDataViewModel = timingDataViewModel;
@@ -175,12 +178,12 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
-        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider)
+        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
         {
 
             Dictionary<string, DriverTiming> drivers = new Dictionary<string, DriverTiming>();
             Logger.Info($"New Seesion Started :{dataSet.SessionInfo.SessionType.ToString()}");
-            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider)
+            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController)
                                        {
                                            SessionStarTime = dataSet.SessionInfo.SessionTime,
                                            SessionType = dataSet.SessionInfo.SessionType,
@@ -234,6 +237,11 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             if (BestSessionLap == null || (BestSessionLap.LapTime > lapEventArgs.Lap.LapTime && lapEventArgs.Lap.LapTime != TimeSpan.Zero))
             {
                 BestSessionLap = lapEventArgs.Lap;
+            }
+
+            if (lapEventArgs.Lap.Driver.IsPlayer)
+            {
+                Player.IsLastLapTrackRecord = _trackRecordsController.EvaluateFastestLapCandidate(lapEventArgs.Lap);
             }
         }
 

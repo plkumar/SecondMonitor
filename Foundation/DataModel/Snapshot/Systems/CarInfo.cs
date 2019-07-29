@@ -3,6 +3,7 @@
     using System;
     using System.Xml.Serialization;
     using BasicProperties;
+    using BasicProperties.Units;
     using ProtoBuf;
 
     [Serializable]
@@ -28,6 +29,8 @@
             FrontRollAngle = new Angle();
             RearRollAngle = new Angle();
             WorldOrientation = new Orientation();
+            EnginePower = new Power();
+            EngineTorque = new Torque();
         }
 
         [ProtoMember(1)]
@@ -90,6 +93,12 @@
 
         [ProtoMember(18)]
         public Orientation WorldOrientation { get; set; }
+
+        [ProtoMember(19)]
+        public Power EnginePower { get; set; }
+
+        [ProtoMember(20)]
+        public Torque EngineTorque { get; set; }
 
     }
 }
