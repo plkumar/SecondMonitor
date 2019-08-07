@@ -57,6 +57,7 @@
     <SolidColorBrush x:Shared="False" x:Key="Anthracite01Brush" Color="{StaticResource Anthracite01Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="LightRed01Brush" Color="{StaticResource LightRed01Color}" />
+    <SolidColorBrush x:Shared="False" x:Key="LightRed02Brush" Color="{StaticResource LightRed02Color}" />
     <SolidColorBrush x:Shared="False" x:Key="DarkRed01Brush" Color="{StaticResource DarkRed01Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="Green01Brush" Color="{StaticResource Green01Color}"/>

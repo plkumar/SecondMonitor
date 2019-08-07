@@ -15,7 +15,11 @@
 
         protected override void UpdateIQuantity(double valueInUnits)
         {
-            
+            if (IsReadonly)
+            {
+                return;
+            }
+            Quantity.InMeters = Distance.CreateByUnits(valueInUnits, DistanceUnits).InMeters;
         }
 
         protected override string GetUnitSymbol()

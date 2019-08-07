@@ -3898,4 +3898,64 @@
             </Canvas>
         </Canvas>
     </Viewbox>
+    <Viewbox x:Key="TyreDiameterCalcIcon" x:Shared="False" Stretch="Uniform">
+        <Canvas Width="48" Height="59.168556" Canvas.Left="0" Canvas.Top="0">
+            <Canvas>
+                <Canvas.RenderTransform>
+                    <MatrixTransform Matrix="0.96861918 0 0 0.96861918 -0.96861918 -0.96861918"/>
+                </Canvas.RenderTransform>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 25 1 C 11.7 1 1 11.7 1 25 1 38.2 11.7 49 25 49 38.2 49 49 38.2 49 25 49 11.7 38.2 1 25 1 Z M 46.3 23.7 H 34.8 c -2.4 0 -3.6 -2.9 -1.9 -4.6 l 8.2 -8.2 c 3 3.4 4.9 7.9 5.2 12.8 z m -20 -20 C 31.2 4 35.7 5.9 39.2 9 L 31 17.2 c -1.7 1.7 -4.6 0.5 -4.6 -1.9 V 3.7 Z M 31.9 25 c 0 0.7 -0.5 1.2 -1.2 1.2 -0.7 0 -1.2 -0.5 -1.2 -1.2 0 -0.7 0.5 -1.2 1.2 -1.2 0.7 0 1.2 0.5 1.2 1.2 z m -3.5 0 c 0 1.9 -1.5 3.4 -3.4 3.4 -1.9 0 -3.4 -1.5 -3.4 -3.4 0 -1.9 1.5 -3.4 3.4 -3.4 1.9 0 3.4 1.5 3.4 3.4 z M 25 18.1 c 0.7 0 1.2 0.5 1.2 1.2 0 0.7 -0.5 1.2 -1.2 1.2 -0.7 0 -1.2 -0.5 -1.2 -1.2 0 -0.7 0.5 -1.2 1.2 -1.2 z M 23.7 3.7 v 11.6 c 0 2.4 -2.9 3.6 -4.7 1.9 L 10.8 9 c 3.5 -3.1 8 -5 12.9 -5.3 z M 20.5 25 c 0 0.7 -0.5 1.2 -1.2 1.2 -0.7 0 -1.2 -0.5 -1.2 -1.2 0 -0.7 0.5 -1.2 1.2 -1.2 0.6 0 1.2 0.5 1.2 1.2 z M 9 10.8 17.2 19 c 1.7 1.7 0.5 4.6 -1.9 4.6 H 3.7 C 4 18.8 5.9 14.3 9 10.8 Z M 3.7 26.3 h 11.6 c 2.4 0 3.6 2.9 1.9 4.6 L 9 39.2 C 5.9 35.7 4 31.2 3.7 26.3 Z m 20 20 C 18.8 46 14.3 44.1 10.9 41 l 8.2 -8.2 c 1.7 -1.7 4.7 -0.5 4.7 1.9 V 46.3 Z M 25 31.9 c -0.7 0 -1.2 -0.5 -1.2 -1.2 0 -0.7 0.5 -1.2 1.2 -1.2 0.7 0 1.2 0.5 1.2 1.2 0 0.7 -0.5 1.2 -1.2 1.2 z m 1.3 14.4 V 34.8 c 0 -2.4 2.9 -3.6 4.6 -1.9 l 8.2 8.2 c -3.4 3 -7.9 4.9 -12.8 5.2 z M 41 39.2 32.8 31 c -1.7 -1.7 -0.5 -4.6 1.9 -4.6 H 46.3 C 46 31.2 44.1 35.7 41 39.2 Z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 37.9 9.1 C 34.9 6.6 31.1 5 27.1 4.6 v 2.2 c 3.5 0.4 6.7 1.8 9.3 3.8 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 22.9 4.6 C 18.8 5 15.1 6.6 12.1 9.1 l 1.6 1.6 C 16.3 8.6 19.5 7.2 23 6.9 V 4.6 Z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="m 6.9 22.9 c 0.4 -3.5 1.8 -6.7 3.8 -9.3 L 9.1 12 C 6.6 15 5 18.7 4.6 22.8 h 2.3 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="m 36.4 39.3 c -2.6 2.1 -5.8 3.5 -9.3 3.8 v 2.2 c 4.1 -0.4 7.8 -2 10.8 -4.5 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 10.7 36.3 C 8.6 33.7 7.3 30.5 6.9 27 H 4.6 c 0.4 4.1 2 7.8 4.5 10.8 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="m 43.1 27.1 c -0.4 3.5 -1.8 6.7 -3.8 9.3 l 1.6 1.6 c 2.5 -3 4.1 -6.8 4.5 -10.8 h -2.3 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="m 39.3 13.6 c 2.1 2.6 3.4 5.8 3.8 9.3 h 2.2 c -0.4 -4.1 -2 -7.8 -4.5 -10.8 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 13.6 39.3 12 40.9 c 3 2.5 6.8 4.1 10.9 4.5 v -2.2 c -3.5 -0.4 -6.7 -1.8 -9.3 -3.9 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}" StrokeThickness="0.18927436">
+                <Path.Data>
+                    <PathGeometry Figures="M 47.079937 40.665666 H 36.453318 c -0.50877 0 -0.920252 0.410914 -0.920252 0.919495 v 16.662766 c 0 0.50877 0.411482 0.920631 0.920252 0.920631 H 47.080126 C 47.588706 59.168558 48 58.756507 48 58.247927 V 41.585161 c 0 -0.508392 -0.411483 -0.919495 -0.920063 -0.919495 z m -6.769776 1.088327 c 0.283534 0 0.51407 0.229401 0.51407 0.512934 0 0.285236 -0.230536 0.514636 -0.51407 0.514636 -0.284668 0 -0.514637 -0.2294 -0.514637 -0.514636 -1.9e-4 -0.283344 0.229779 -0.512934 0.514637 -0.512934 z m -1.399494 0 c 0.2841 0 0.514637 0.229401 0.514637 0.512934 0 0.285236 -0.230537 0.514636 -0.514637 0.514636 -0.283912 0 -0.514069 -0.2294 -0.514069 -0.514636 -1.9e-4 -0.283344 0.229969 -0.512934 0.514069 -0.512934 z m -1.39798 0 c 0.2841 0 0.514258 0.229401 0.514258 0.512934 0 0.285236 -0.230158 0.514636 -0.514258 0.514636 -0.283911 0 -0.514638 -0.2294 -0.514638 -0.514636 1.9e-4 -0.283344 0.230727 -0.512934 0.514638 -0.512934 z m -0.653565 2.414573 c 0 -0.159369 0.130222 -0.28959 0.289023 -0.28959 h 9.172612 c 0.159938 0 0.288833 0.130221 0.288833 0.28959 v 2.78839 c 0 0.159937 -0.129085 0.289022 -0.288833 0.289022 h -9.172423 c -0.158802 0 -0.289023 -0.129085 -0.289023 -0.289022 v -2.78839 z m 1.038738 13.569078 c -0.601703 0 -1.089842 -0.487571 -1.089842 -1.088707 0 -0.601892 0.488139 -1.090598 1.089842 -1.090598 0.601892 0 1.089463 0.488706 1.089463 1.090598 0 0.601136 -0.487571 1.088707 -1.089463 1.088707 z m 0 -3.431544 c -0.601703 0 -1.089842 -0.488328 -1.089842 -1.090031 0 -0.601893 0.488139 -1.089652 1.089842 -1.089652 0.601892 0 1.089463 0.487759 1.089463 1.089652 0 0.601703 -0.487571 1.090031 -1.089463 1.090031 z m 0 -3.432301 c -0.601703 0 -1.089842 -0.487571 -1.089842 -1.089274 0 -0.601892 0.488139 -1.088895 1.089842 -1.088895 0.601892 0 1.089463 0.487192 1.089463 1.088895 0 0.601703 -0.487571 1.089274 -1.089463 1.089274 z m 3.867821 6.863845 c -0.601324 0 -1.090409 -0.487571 -1.090409 -1.088707 0 -0.601892 0.488896 -1.090598 1.090409 -1.090598 0.601135 0 1.088706 0.488706 1.088706 1.090598 0 0.601136 -0.487571 1.088707 -1.088706 1.088707 z m 0 -3.431544 c -0.601324 0 -1.090409 -0.488328 -1.090409 -1.090031 0 -0.601893 0.488896 -1.089652 1.090409 -1.089652 0.601135 0 1.088706 0.487759 1.088706 1.089652 0 0.601703 -0.487571 1.090031 -1.088706 1.090031 z m 0 -3.432301 c -0.601324 0 -1.090409 -0.487571 -1.090409 -1.089274 0 -0.601892 0.488896 -1.088895 1.090409 -1.088895 0.601135 0 1.088706 0.487192 1.088706 1.088895 0 0.601703 -0.487571 1.089274 -1.088706 1.089274 z m 3.866875 6.863845 c -0.601514 0 -1.089084 -0.487571 -1.089084 -1.088707 0 -0.601892 0.48757 -1.090598 1.089084 -1.090598 0.602271 0 1.089842 0.488706 1.089842 1.090598 0 0.601136 -0.487761 1.088707 -1.089842 1.088707 z m 0 -3.431544 c -0.601514 0 -1.089084 -0.488328 -1.089084 -1.090031 0 -0.601893 0.48757 -1.089652 1.089084 -1.089652 0.602271 0 1.089842 0.487759 1.089842 1.089652 0 0.601703 -0.487761 1.090031 -1.089842 1.090031 z m 0 -3.432301 c -0.601514 0 -1.089084 -0.487571 -1.089084 -1.089274 0 -0.601892 0.48757 -1.088895 1.089084 -1.088895 0.602271 0 1.089842 0.487192 1.089842 1.088895 0 0.601703 -0.487761 1.089274 -1.089842 1.089274 z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Viewbox>
+
 </ResourceDictionary>

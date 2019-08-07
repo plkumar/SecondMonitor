@@ -31,10 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -59,11 +64,17 @@
     <Compile Include="Maps\TrackDtoManipulator.cs" />
     <Compile Include="Maps\TrackMapFromTelemetryFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimSettings\ICarSpecificationProvider.cs" />
     <Compile Include="SimSettings\SimSettingAdapter.cs" />
     <Compile Include="SimSettings\SimSettingsException.cs" />
     <Compile Include="SimSettings\SimSettingsLoader.cs" />
+    <Compile Include="SimSettings\CarSpecificationProvider.cs" />
+    <Compile Include="SimDataManagementModule.cs" />
+    <Compile Include="SimDataManagementModuleBootstrapper.cs" />
     <Compile Include="ViewModel\CarModelPropertiesViewModel.cs" />
     <Compile Include="ViewModel\TyreCompoundPropertiesViewModel.cs" />
+    <Compile Include="WheelDiameterWizard\IWheelDiameterWizardController.cs" />
+    <Compile Include="WheelDiameterWizard\WheelDiameterWizardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\Factory\" />

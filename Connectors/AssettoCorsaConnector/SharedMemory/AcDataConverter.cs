@@ -87,11 +87,7 @@
             //Add Additional Player Car Info
             AddPlayerCarInfo(acData, simData);
 
-            foreach (DriverInfo driverInfo in simData.DriversInfo)
-            {
-
-            }
-
+            _startObserver.Observe(simData);
             return simData;
         }
 

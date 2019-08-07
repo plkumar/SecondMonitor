@@ -57,9 +57,12 @@
 
         protected static void QuantityInUnitsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             if (d is AbstractQuantityText<T> abstractQuantityText)
             {
+                if(abstractQuantityText.IsReadonly)
+                {
+                    return;
+                }
                 abstractQuantityText.UpdateIQuantity(abstractQuantityText.ValueInUnits);
             }
         }

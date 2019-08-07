@@ -30,6 +30,7 @@
         private Task _connectorTask;
         private SimulatorDataSet _oldDataSet;
         private readonly List<ISimulatorDataSetVisitor> _visitors;
+        private Task[] _pluginsTasks;
 
         public PluginsManager(IPluginSettingsProvider pluginSettingsProvider, IGameConnector[] connectors, IEnumerable<ISimulatorDataSetVisitor> dataVisitors)
         {
@@ -138,8 +139,10 @@
             {
                 Logger.Info("Running plugin " + plugin.GetType());
                 plugin.PluginManager = this;
-                plugin.RunPlugin();
             }
+
+            _pluginsTasks = _plugins.Select(x => x.RunPlugin()).ToArray();
+
         }
 
         public ICollection<ISecondMonitorPlugin> GetPluginsFromAssembly(string assemblyPath, bool includeDisabled)

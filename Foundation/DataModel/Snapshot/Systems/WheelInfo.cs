@@ -106,6 +106,9 @@
         [ProtoMember(16)]
         public Force TyreLoad { get; set; }
 
+        [ProtoMember(17, IsRequired = true)]
+        public double Slip { get; set; }
+
     }
 
 }

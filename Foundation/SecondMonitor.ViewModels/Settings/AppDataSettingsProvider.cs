@@ -33,6 +33,7 @@
 
         public string SimulatorContentRepository => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, ContentFolder);
         public string TrackRecordsPath => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, RecordsFolder);
+        public string CarSpecificationPath => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, SettingsFolder);
 
         private DisplaySettingsViewModel LoadSettings()
         {

@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoUpdater.NET, Version=1.5.3.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autoupdater.NET.Official.1.5.3\lib\net40\AutoUpdater.NET.dll</HintPath>
+    <Reference Include="AutoUpdater.NET, Version=1.5.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autoupdater.NET.Official.1.5.4\lib\net40\AutoUpdater.NET.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -96,6 +96,7 @@
     <Compile Include="Colors\BasicColorPaletteProvider.cs" />
     <Compile Include="Colors\BlueGreenGradientPallete.cs" />
     <Compile Include="Colors\ClassColorProvider.cs" />
+    <Compile Include="Colors\ColorRangePaletteProvider.cs" />
     <Compile Include="Colors\Extensions\MediaColorExtension.cs" />
     <Compile Include="Colors\HSLColor .cs" />
     <Compile Include="Colors\IClassColorProvider.cs" />
@@ -179,6 +180,11 @@
     <Compile Include="TrackRecords\TrackRecordViewModel.cs" />
     <Compile Include="ViewModelsModule.cs" />
     <Compile Include="ViewModelsModuleBootstrapper.cs" />
+    <Compile Include="WheelDiameterWizard\AccelerationStageViewModel.cs" />
+    <Compile Include="WheelDiameterWizard\MeasurementPhaseViewModel.cs" />
+    <Compile Include="WheelDiameterWizard\PreparationStageViewModel.cs" />
+    <Compile Include="WheelDiameterWizard\ResultsStageViewModel.cs" />
+    <Compile Include="WheelDiameterWizard\WelcomeStageViewModel.cs" />
     <Compile Include="WindowService.cs" />
   </ItemGroup>
   <ItemGroup>

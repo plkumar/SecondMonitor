@@ -1,12 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using SecondMonitor.DataModel.Extensions;
-using SecondMonitor.WindowsControls.WPF.CarSettingsControl;
-
-namespace SecondMonitor.Timing.Controllers
+﻿namespace SecondMonitor.Timing.Controllers
 {
     using System;
-    using System.IO;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows;
 
     using DataModel.OperationalRange;
@@ -15,27 +12,35 @@ namespace SecondMonitor.Timing.Controllers
     using SimdataManagement.ViewModel;
     using CarSettings;
     using Contracts.Commands;
+    using DataModel.Extensions;
+    using Ninject;
+    using Ninject.Syntax;
+    using SimdataManagement.WheelDiameterWizard;
     using ViewModels.Settings.ViewModel;
 
     public class SimSettingController
     {
         private readonly DisplaySettingsViewModel _displaySettingsViewModel;
+        private readonly IResolutionRoot _resolutionRoot;
 
         private readonly SimSettingAdapter _simSettingAdapter;
 
         private CarSettingsWindow _carSettingsWindow;
         private CarSettingsWindowViewModel _carSettingsWindowViewModel;
+        private IWheelDiameterWizardController _wheelDiameterWizardController;
 
-        public SimSettingController(DisplaySettingsViewModel displaySettingsViewModel)
+        public SimSettingController(DisplaySettingsViewModel displaySettingsViewModel, ICarSpecificationProvider carSpecificationProvider, IResolutionRoot resolutionRoot)
         {
             _displaySettingsViewModel = displaySettingsViewModel;
-            _simSettingAdapter = new SimSettingAdapter(Path.Combine(displaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, "Settings"));
+            _resolutionRoot = resolutionRoot;
+            _simSettingAdapter = new SimSettingAdapter(carSpecificationProvider);
             CreateCarSettingsViewModel();
         }
 
         public void ApplySimSettings(SimulatorDataSet data)
         {
             data.Accept(_simSettingAdapter);
+            _wheelDiameterWizardController?.ProcessDataSet(data);
         }
 
         public void OpenCarSettingsControl(Window parentWindow)
@@ -78,11 +83,32 @@ namespace SecondMonitor.Timing.Controllers
 
         private void CreateCarSettingsViewModel()
         {
-            _carSettingsWindowViewModel = new CarSettingsWindowViewModel(_displaySettingsViewModel);
+            _carSettingsWindowViewModel = new CarSettingsWindowViewModel(_displaySettingsViewModel)
+            {
+                OkButtonCommand = new RelayCommand(SaveAndCloseWindow),
+                CancelButtonCommand = new RelayCommand(CloseSettingsWindow),
+                CopyCompoundToLocalCommand = new RelayCommand(CreateLocalCopyOfSelectedTyre),
+                OpenTyreDiameterWizardCommand = new AsyncCommand(OpenTyreDiameterWizard)
+            };
+        }
 
-            _carSettingsWindowViewModel.OkButtonCommand = new RelayCommand(SaveAndCloseWindow);
-            _carSettingsWindowViewModel.CancelButtonCommand = new RelayCommand(CloseSettingsWindow);
-            _carSettingsWindowViewModel.CopyCompoundToLocalCommand = new RelayCommand(CreateLocalCopyOfSelectedTyre);
+        private async Task OpenTyreDiameterWizard()
+        {
+            if (_wheelDiameterWizardController != null)
+            {
+                return;
+            }
+
+            _wheelDiameterWizardController = _resolutionRoot.Get<IWheelDiameterWizardController>();
+            _wheelDiameterWizardController.WizardCompleted += WheelDiameterWizardControllerOnWizardCompleted;
+            await _wheelDiameterWizardController.StartControllerAsync();
+            _wheelDiameterWizardController.OpenWizard(_carSettingsWindowViewModel.CarModelPropertiesViewModel);
+        }
+
+        private async void WheelDiameterWizardControllerOnWizardCompleted(object sender, EventArgs e)
+        {
+            await _wheelDiameterWizardController.StopControllerAsync();
+            _wheelDiameterWizardController = null;
         }
 
         private void OnCarSettingsWindowClosed(object sender, EventArgs e)

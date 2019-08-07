@@ -75,6 +75,8 @@
             }
         }
 
+        protected override bool AutoApplyYChartLimit => false;
+
         protected abstract Func<WheelInfo, double> ExtractorFunction { get; }
 
 

@@ -22,10 +22,11 @@ namespace SecondMonitor.Timing.CarSettings
 
 
         private CarModelPropertiesViewModel _carModelPropertiesViewModel;
+        private ICommand _openTyreDiameterWizardCommand;
 
-        public CarSettingsWindowViewModel(DisplaySettingsViewModel _displaySettingsViewModel)
+        public CarSettingsWindowViewModel(DisplaySettingsViewModel displaySettingsViewModel)
         {
-            this._displaySettingsViewModel = _displaySettingsViewModel;
+            _displaySettingsViewModel = displaySettingsViewModel;
         }
 
         public PressureUnits PressureUnits => _displaySettingsViewModel.PressureUnits;
@@ -92,6 +93,14 @@ namespace SecondMonitor.Timing.CarSettings
                 _copyCompoundToLocalCommand = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public DistanceUnits DistanceUnits => _displaySettingsViewModel.DistanceUnitsVerySmall;
+
+        public ICommand OpenTyreDiameterWizardCommand
+        {
+            get => _openTyreDiameterWizardCommand;
+            set => SetProperty(ref _openTyreDiameterWizardCommand, value);
         }
     }
 }

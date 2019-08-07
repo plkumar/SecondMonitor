@@ -22,7 +22,7 @@ namespace SecondMonitor.SimdataManagement.SimSettings
 
         public string Path { get;  }
 
-        public DataSourceProperties GetDataSourcePropertiesAsync(string sourceName)
+        public DataSourceProperties GetDataSourceProperties(string sourceName)
         {
             string primaryFilePath = System.IO.Path.Combine(Path, sourceName + FileSuffix);
             DataSourceProperties baseProperties = File.Exists(primaryFilePath) ? LoadDataSourceProperties(primaryFilePath) : new DataSourceProperties() { SourceName = sourceName, ContainsRearTyres = true};

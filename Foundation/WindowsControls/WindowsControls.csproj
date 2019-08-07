@@ -149,6 +149,7 @@
       <DependentUpon>DashboardControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPF\ColorableIcon.cs" />
+    <Compile Include="WPF\Converters\BoolToRedGreenConverter.cs" />
     <Compile Include="WPF\Converters\ColorDtoToColorConverter.cs" />
     <Compile Include="WPF\Converters\ColorDtoToSolidBrushConverter.cs" />
     <Compile Include="WPF\Converters\ColorToBrushConverter.cs" />
@@ -210,7 +211,6 @@
       <DependentUpon>StatusIconControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPF\TrackInfoControl\TrackInfoControl.cs" />
-    <Compile Include="WPF\TrackRecords\TrackRecords.cs" />
     <Compile Include="WPF\UserInput\DialogUserInputProvider.cs" />
     <Compile Include="WPF\UserInput\UserInputViewModel.cs" />
     <Compile Include="WPF\UserInput\UserInputWindow.xaml.cs">
@@ -378,6 +378,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WPF\UserInput\UserInputWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\WheelDiameterWizard\WheelDiameterPresentation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

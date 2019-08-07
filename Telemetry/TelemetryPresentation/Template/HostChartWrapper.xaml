@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SecondMonitor.TelemetryPresentation.Template"
-             xmlns:windowsForms="clr-namespace:OxyPlot.WindowsForms;assembly=OxyPlot.WindowsForms"
              xmlns:windowFormHost="clr-namespace:SecondMonitor.WindowsControls.WPF.WindowFormHost;assembly=WindowsControls"
              xmlns:plotViewWrapper="clr-namespace:SecondMonitor.WindowsControls.WinForms.PlotViewWrapper;assembly=WindowsControls"
              mc:Ignorable="d"
@@ -15,11 +13,5 @@
             </plotViewWrapper:PlotViewWrapper>
 
         </windowFormHost:ScrollViewerWindowsFormsHost>
-        <!--<WindowsFormsHost x:Name="FormsHost" SnapsToDevicePixels="True">
-            <plotViewWrapper:PlotViewWrapper>
-            </plotViewWrapper:PlotViewWrapper>
-
-        </WindowsFormsHost>-->
-
     </Grid>
 </UserControl>

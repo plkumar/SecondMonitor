@@ -1,6 +1,5 @@
 ﻿namespace SecondMonitor.ViewModels.Colors
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Windows.Media;
     using DataModel.BasicProperties;

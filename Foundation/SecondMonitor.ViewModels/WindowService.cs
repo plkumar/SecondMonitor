@@ -5,7 +5,7 @@
 
     public class WindowService : IWindowService
     {
-        public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual, null);
+        public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual, (Window)null);
 
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
             OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
@@ -23,9 +23,15 @@
             return window;
         }
 
-        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, Action onClose)
+        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Action onClose)
         {
-            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent };
+            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent, WindowStartupLocation = startupLocation};
+
+            if (startupLocation == WindowStartupLocation.CenterOwner)
+            {
+                window.Owner = Application.Current.MainWindow;
+            }
+
             window.Closed += (sender, e) =>
             {
                 if (!(sender is Window sWindow))

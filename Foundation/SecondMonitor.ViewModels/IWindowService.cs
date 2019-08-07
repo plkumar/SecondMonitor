@@ -11,6 +11,6 @@
 
         Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner);
 
-        Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, Action onClose);
+        Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Action onClose);
     }
 }

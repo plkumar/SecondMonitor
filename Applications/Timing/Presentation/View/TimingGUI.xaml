@@ -5,7 +5,6 @@
         xmlns:wheelStatusControl="clr-namespace:SecondMonitor.WindowsControls.WPF.WheelStatusControl;assembly=WindowsControls" xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:carSystems="clr-namespace:SecondMonitor.WindowsControls.WPF.CarSystems;assembly=WindowsControls"
         xmlns:pitBoard="clr-namespace:SecondMonitor.WindowsControls.WPF.PitBoard;assembly=WindowsControls"
-        xmlns:trackRecords="clr-namespace:SecondMonitor.WindowsControls.WPF.TrackRecords;assembly=WindowsControls"
         x:Name="MainWindow"
         Title="{Binding Title}"
         d:DataContext="{d:DesignInstance Type=viewModel:TimingDataViewModel}"
