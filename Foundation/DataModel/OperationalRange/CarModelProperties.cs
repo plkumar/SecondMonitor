@@ -14,6 +14,8 @@
         {
             TyreCompoundsProperties = new List<TyreCompoundProperties>();
             WheelRotation = 540;
+            FrontWheelDiameter = Distance.FromMeters(0.4572);
+            RearWheelDiameter = Distance.FromMeters(0.4572);
         }
 
         [XmlAttribute]
@@ -27,6 +29,11 @@
 
         public Temperature OptimalBrakeTemperature { get; set; }
         public Temperature OptimalBrakeTemperatureWindow { get; set; }
+
+        public Distance FrontWheelDiameter { get; set; }
+
+        public Distance RearWheelDiameter { get; set; }
+
         public List<TyreCompoundProperties> TyreCompoundsProperties { get; set; }
 
         public TyreCompoundProperties GetTyreCompound(string compoundName)

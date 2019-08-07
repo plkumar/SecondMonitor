@@ -67,6 +67,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="2">
                                     <Grid>
@@ -102,7 +103,46 @@
                                                  ToolTip="Wheel Rotation Range in degrees"/>
                                     </StackPanel>
                                 </Border>
-                                <StackPanel Grid.Row="2">
+                                <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="2" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="5,10,5,5"
+                                                           FontSize="{StaticResource NormalFontSize}"
+                                                           Text="Front Wheel Diameter:" />
+                                                <quantityText:DistanceText Margin="5,0,5,0" IsReadonly="False"
+                                                                           Quantity="{Binding FrontWheelDiameter, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                           ShowUnitSymbol="True"
+                                                                           DistanceUnits="{Binding DistanceUnits, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                           ToolTip="Diameter of the front wheels" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="5,10,5,5"
+                                                           FontSize="{StaticResource NormalFontSize}"
+                                                           Text="Rear Wheel Diameter:" />
+                                                <quantityText:DistanceText Margin="5,0,5,0" IsReadonly="False"
+                                                                           Quantity="{Binding RearWheelDiameter, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                           ShowUnitSymbol="True"
+                                                                           DistanceUnits="{Binding DistanceUnits, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                           ToolTip="Diameter of the rear wheels" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Button Grid.Column="1" Height="55" HorizontalAlignment="Right"
+                                                Command="{Binding OpenTyreDiameterWizardCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Style="{StaticResource StandardButton}" ToolTip="Opens the tyre diameter calculation wizard.">
+                                            <Button.Content>
+                                                <wpf:ColorAbleIcon Margin="-2" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                                    <ContentPresenter Content="{StaticResource TyreDiameterCalcIcon}" />
+                                                </wpf:ColorAbleIcon>
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                                <StackPanel Grid.Row="3">
                                     <TextBlock Margin="5,10,0,5"
                                                FontSize="{StaticResource NormalFontSize}"
                                                Text="Select Tyre:" />

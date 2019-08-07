@@ -5,7 +5,6 @@
         <ResourceDictionary Source="../CommonResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <converters:DoubleToStringNoDecimalConverter x:Key="DoubleToStringConverter" />
-    <converters:DoubleToScalableDecimalsConverter x:Key="DoubleToScalableDecimalsConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"/>
     <ControlTemplate x:Key="QuantityText" x:Shared="False">

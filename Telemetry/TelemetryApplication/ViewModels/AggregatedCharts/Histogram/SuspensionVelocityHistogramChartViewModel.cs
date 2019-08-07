@@ -31,8 +31,6 @@
             set => SetProperty(ref _reboundTransition, value);
         }
 
-        public string Unit { get; set; }
-
         protected override void ApplyModel(Histogram model)
         {
             BandsStatistics.Clear();

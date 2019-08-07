@@ -12,6 +12,9 @@
         private static readonly DependencyProperty MinimalIdealBrakeTemperatureProperty = DependencyProperty.Register("MinimalIdealBrakeTemperature", typeof(Temperature), typeof(CarSettingsControl));
         private static readonly DependencyProperty MaximumIdealBrakeTemperatureProperty = DependencyProperty.Register("MaximumIdealBrakeTemperature", typeof(Temperature), typeof(CarSettingsControl));
 
+        public static readonly DependencyProperty DistanceUnitsProperty = DependencyProperty.Register("DistanceUnits", typeof(DistanceUnits), typeof(CarSettingsControl));
+
+
         private static readonly DependencyProperty PressureUnitsProperty = DependencyProperty.Register("PressureUnits", typeof(PressureUnits), typeof(CarSettingsControl));
         private static readonly DependencyProperty TemperatureUnitProperties = DependencyProperty.Register("TemperatureUnit", typeof(TemperatureUnits), typeof(CarSettingsControl));
         private static readonly DependencyProperty CarNameProperty = DependencyProperty.Register("CarName",typeof(string), typeof(CarSettingsControl));
@@ -21,11 +24,38 @@
         private static readonly DependencyProperty SelectedTyreCompoundProperty = DependencyProperty.Register("SelectedTyreCompound", typeof(ITyreSettingsViewModel), typeof(CarSettingsControl));
         private static readonly DependencyProperty CopyCompoundCommandProperty = DependencyProperty.Register("CopyCompoundCommand", typeof(ICommand), typeof(CarSettingsControl));
         public static readonly DependencyProperty WheelRotationProperty = DependencyProperty.Register("WheelRotation", typeof(int), typeof(CarSettingsControl), new PropertyMetadata(default(int)));
+        public static readonly DependencyProperty FrontWheelDiameterProperty = DependencyProperty.Register("FrontWheelDiameter", typeof(Distance), typeof(CarSettingsControl));
+        public static readonly DependencyProperty RearWheelDiameterProperty = DependencyProperty.Register("RearWheelDiameter", typeof(Distance), typeof(CarSettingsControl));
+        public static readonly DependencyProperty OpenTyreDiameterWizardCommandProperty = DependencyProperty.Register("OpenTyreDiameterWizardCommand", typeof(ICommand), typeof(CarSettingsControl));
+
+        public ICommand OpenTyreDiameterWizardCommand
+        {
+            get => (ICommand) GetValue(OpenTyreDiameterWizardCommandProperty);
+            set => SetValue(OpenTyreDiameterWizardCommandProperty, value);
+        }
+
+        public Distance RearWheelDiameter
+        {
+            get => (Distance) GetValue(RearWheelDiameterProperty);
+            set => SetValue(RearWheelDiameterProperty, value);
+        }
+
+        public Distance FrontWheelDiameter
+        {
+            get => (Distance) GetValue(FrontWheelDiameterProperty);
+            set => SetValue(FrontWheelDiameterProperty, value);
+        }
 
         public int WheelRotation
         {
             get => (int) GetValue(WheelRotationProperty);
             set => SetValue(WheelRotationProperty, value);
+        }
+
+        public DistanceUnits DistanceUnits
+        {
+            get => (DistanceUnits)GetValue(DistanceUnitsProperty);
+            set => SetValue(DistanceUnitsProperty, value);
         }
 
         public Temperature MinimalIdealBrakeTemperature

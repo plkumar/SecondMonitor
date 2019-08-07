@@ -27,5 +27,9 @@
         [XmlAttribute]
         [ProtoMember(5)]
         public bool ContainsOptimalTemperatures { get; set; }
+
+        [XmlAttribute]
+        [ProtoMember(6)]
+        public bool ContainsSlipInformation { get; set; }
     }
 }

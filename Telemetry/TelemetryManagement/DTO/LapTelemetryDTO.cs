@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Serialization;
+    using DataModel.Extensions;
     using DataModel.Telemetry;
     using ProtoBuf;
 
@@ -46,6 +47,14 @@
                 lastSnapshot = currentSnapshot;
             }
             return reducedSet;
+        }
+
+        public void Accept(ITimedTelemetrySnapshotVisitor[] visitors)
+        {
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in DataPoints)
+            {
+                visitors.ForEach(x => x.Visit(timedTelemetrySnapshot));
+            }
         }
     }
 }

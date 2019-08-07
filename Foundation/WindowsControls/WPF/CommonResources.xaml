@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters"
-                    xmlns:oxy="http://oxyplot.org/wpf"
-                    xmlns:trackRecords="clr-namespace:SecondMonitor.ViewModels.TrackRecords;assembly=SecondMonitor.ViewModels">
+                    xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="Icons.xaml" />
@@ -26,18 +24,14 @@
     <converters:FormattedTimeToBrushConverter x:Key="FormattedTimeToBrushConverter"/>
     <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
     <converters:NonNegativeIntToStringConverter x:Key="NonNegativeIntToStringConverter"/>
+    <converters:BoolToRedGreenConverter x:Key="BoolToRedGreenConverter"/>
+    <converters:DoubleToScalableDecimalsConverter x:Key="DoubleToScalableDecimalsConverter"/>
 
 
     <Style x:Key="StandardText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
         <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
         <Setter Property="VerticalAlignment" Value="Bottom" />
-        <!--<Setter Property="TextBlock.Effect">
-            <Setter.Value>
-                <DropShadowEffect BlurRadius="4" Direction="330" Opacity="0.5" ShadowDepth="4"
-                                  Color="{StaticResource DarkGrey01Color}" />
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <Style x:Key="StandardTextBox" TargetType="TextBox">
@@ -45,12 +39,6 @@
         <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="Background" Value="{StaticResource Anthracite01Brush}"/>
-        <!--<Setter Property="TextBox.Effect">
-            <Setter.Value>
-                <DropShadowEffect BlurRadius="4" Direction="330" Opacity="0.5" ShadowDepth="4"
-                                  Color="{StaticResource DarkGrey01Color}" />
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <Style x:Key="SmallText" BasedOn="{StaticResource StandardText}" TargetType="TextBlock">

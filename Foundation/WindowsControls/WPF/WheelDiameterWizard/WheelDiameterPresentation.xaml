@@ -1,0 +1,150 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wheelDiameterWizard="clr-namespace:SecondMonitor.ViewModels.WheelDiameterWizard;assembly=SecondMonitor.ViewModels"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../CommonResources.xaml" />
+        <ResourceDictionary Source="../ButtonStyles.xaml" />
+        <ResourceDictionary>
+            <system:Double x:Key="WizardFontSizeSecondary">36</system:Double>
+            <system:Double x:Key="WizardFontSizeMain">48</system:Double>
+            <DataTemplate DataType="{x:Type wheelDiameterWizard:WelcomeStageViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}" Width="1200" Height="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" LineStackingStrategy="BlockLineHeight" Text="{Binding WelcomeText}"
+                               Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Text="{Binding InstructionText}" Foreground="{StaticResource Green01Brush}"
+                               Style="{StaticResource StandardText}" FontSize="{StaticResource ExtraBigFontSize}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type wheelDiameterWizard:AccelerationStageViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}" Width="1200" Height="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"  BorderThickness="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800">
+                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <TextBlock LineStackingStrategy="BlockLineHeight" Text="Accelerate to: " Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding TargetSpeed}" Foreground="{StaticResource LightBlueBrush}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding VelocityUnits}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" BorderThickness="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="Currently: " Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding CurrentSpeed}" Width="80" Foreground="{StaticResource LightRed01Brush}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding VelocityUnits}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type wheelDiameterWizard:PreparationStageViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}" Width="1200" Height="600">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Border BorderThickness="2" BorderBrush="{Binding IsThrottleReleased, Converter={StaticResource BoolToRedGreenConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800" Margin="20">
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="Fully release throttle" Margin="5" Foreground="{Binding IsThrottleReleased, Converter={StaticResource BoolToRedGreenConverter}}" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                        <Border BorderThickness="2" BorderBrush="{Binding IsBrakeReleased, Converter={StaticResource BoolToRedGreenConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800" Margin="20">
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="Fully release brake" Margin="5" Foreground="{Binding IsBrakeReleased, Converter={StaticResource BoolToRedGreenConverter}}" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+
+                        <Border BorderThickness="2" BorderBrush="{StaticResource LightGrey01Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800" Margin="20">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock LineStackingStrategy="BlockLineHeight" Text="Fully depress clutch" Margin="5" Foreground="{Binding IsClutchDepressed, Converter={StaticResource BoolToRedGreenConverter}}" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock LineStackingStrategy="BlockLineHeight" Text="or" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock LineStackingStrategy="BlockLineHeight" Text="Be in higher gear (4+)" Margin="5" Foreground="{Binding IsInHighGear, Converter={StaticResource BoolToRedGreenConverter}}" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type wheelDiameterWizard:MeasurementPhaseViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}" Width="1200" Height="600">
+                    <Border Grid.Row="0"  BorderThickness="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="800">
+                        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="HOLD IT FOR:" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding TimeLeftFormatted}" Foreground="{StaticResource Green01Brush}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type wheelDiameterWizard:ResultsStageViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}" Width="1200" Height="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Border BorderThickness="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                        <StackPanel Orientation="Horizontal" Margin="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="Front: " Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Foreground="{StaticResource Green01Brush}" Text="{Binding FrontWheelDiameter, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding DistanceUnits}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        </Border>
+
+                        <Border BorderThickness="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                            <StackPanel Orientation="Horizontal"  Margin="50">
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="Rear: " Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Foreground="{StaticResource Green01Brush}" Text="{Binding RearWheelDiameter, Converter={StaticResource DoubleToScalableDecimalsConverter}}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeMain}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock LineStackingStrategy="BlockLineHeight" Text="{Binding DistanceUnits}" Margin="5" Style="{StaticResource StandardText}" FontSize="{StaticResource WizardFontSizeSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel></Border>
+
+                    </StackPanel>
+                    <Border BorderThickness="2" Grid.Row="2" BorderBrush="{StaticResource LightGrey02Brush}"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Height="55" HorizontalAlignment="Right"
+                                    Command="{Binding OkCommand}"
+                                    Style="{StaticResource StandardButton}"
+                                    ToolTip="Use these values.">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource OkIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+
+                            </Button>
+                            <Grid Width="50"></Grid>
+                            <Button Height="55" HorizontalAlignment="Right"
+                                    Command="{Binding RestartCommand}"
+                                    Style="{StaticResource StandardButton}"
+                                    ToolTip="Restart the wizard.">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource RefreshIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+
+                            </Button>
+                            <Button Height="55" HorizontalAlignment="Right"
+                                    Command="{Binding CancelCommand}"
+                                    Style="{StaticResource StandardButton}"
+                                    ToolTip="Close the window without using the values.">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource CancelIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

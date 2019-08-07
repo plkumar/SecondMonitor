@@ -2,5 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="WPF/TrackRecords/TrackRecordsTemplates.xaml"/>
+        <ResourceDictionary Source="WPF/WheelDiameterWizard/WheelDiameterPresentation.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

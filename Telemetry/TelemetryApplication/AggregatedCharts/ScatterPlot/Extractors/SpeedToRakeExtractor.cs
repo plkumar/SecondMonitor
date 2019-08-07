@@ -7,10 +7,7 @@
     using DataModel.Snapshot.Systems;
     using DataModel.Telemetry;
     using Filter;
-    using OxyPlot;
     using SecondMonitor.ViewModels.Settings;
-    using Settings;
-    using TelemetryManagement.DTO;
 
     public class SpeedToRakeExtractor : AbstractScatterPlotExtractor
     {
@@ -25,11 +22,6 @@
         public override string XUnit => Velocity.GetUnitSymbol(VelocityUnits);
         public override double XMajorTickSize => VelocityUnits == VelocityUnits.Mph ? Velocity.FromMph(50).GetValueInUnits(VelocityUnits) : Velocity.FromKph(50).GetValueInUnits(VelocityUnits);
         public override double YMajorTickSize => Math.Round(Distance.FromMeters(0.05).GetByUnit(DistanceUnitsSmall));
-
-        public ScatterPlotSeries ExtractSeries(IEnumerable<LapTelemetryDto> loadedLaps, string seriesTitle, OxyColor color)
-        {
-            return ExtractSeries(loadedLaps, _filters, seriesTitle, color);
-        }
 
         protected override double GetXValue(TimedTelemetrySnapshot snapshot)
         {

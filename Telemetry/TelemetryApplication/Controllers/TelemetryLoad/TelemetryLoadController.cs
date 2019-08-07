@@ -7,6 +7,9 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using DataFillers;
+    using DataModel.Extensions;
+    using DataModel.Telemetry;
     using NLog;
     using Repository;
     using SecondMonitor.ViewModels.Settings;
@@ -18,6 +21,7 @@
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ITelemetryViewsSynchronization _telemetryViewsSynchronization;
+        private readonly IMissingTelemetryFiller[] _missingTelemetryFillers;
         private readonly ITelemetryRepository _telemetryRepository;
         private readonly ConcurrentDictionary<string, LapTelemetryDto> _cachedTelemetries;
         private int _activeLapJobs;
@@ -26,12 +30,13 @@
         private Task _loopTask;
         private CancellationTokenSource _loopTaskSource;
 
-        public TelemetryLoadController(ITelemetryRepositoryFactory telemetryRepositoryFactory, ISettingsProvider settingsProvider, ITelemetryViewsSynchronization telemetryViewsSynchronization )
+        public TelemetryLoadController(ITelemetryRepositoryFactory telemetryRepositoryFactory, ISettingsProvider settingsProvider, ITelemetryViewsSynchronization telemetryViewsSynchronization, IEnumerable<IMissingTelemetryFiller> missingTelemetryFillers )
         {
             _cachedTelemetries = new ConcurrentDictionary<string, LapTelemetryDto>();
             _loadedSessions = new List<string>();
             _knownLaps = new List<string>();
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
+            _missingTelemetryFillers = missingTelemetryFillers.ToArray();
             _telemetryRepository = telemetryRepositoryFactory.Create(settingsProvider);
         }
 
@@ -169,6 +174,8 @@
         private LapTelemetryDto LoadLapTelemetryDto(string lapId, LapSummaryDto lapSummaryDto)
         {
             LapTelemetryDto lapTelemetryDto = _telemetryRepository.LoadLapTelemetryDtoFromAnySession(lapSummaryDto);
+            _missingTelemetryFillers.ForEach(x => x.SetSimulator(lapSummaryDto.Simulator));
+            lapTelemetryDto.Accept(_missingTelemetryFillers.OfType<ITimedTelemetrySnapshotVisitor>().ToArray());
             FillCustomDisplayName(lapTelemetryDto.LapSummary);
             return lapTelemetryDto;
         }

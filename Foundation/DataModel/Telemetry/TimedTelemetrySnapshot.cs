@@ -34,5 +34,10 @@ namespace SecondMonitor.DataModel.Telemetry
             get => LapTime.TotalSeconds;
             set => LapTime = TimeSpan.FromSeconds(value);
         }
+
+        public void Accept(ITimedTelemetrySnapshotVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

@@ -11,8 +11,11 @@
         string MapRepositoryPath { get; }
 
         string RatingsRepositoryPath { get; }
+
         string SimulatorContentRepository { get; }
 
         string TrackRecordsPath { get; }
+
+        string CarSpecificationPath { get; }
     }
 }

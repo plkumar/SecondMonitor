@@ -7,6 +7,7 @@
     using Settings;
     using SimulatorContent;
     using TrackRecords;
+    using WheelDiameterWizard;
 
     public class ViewModelsModule : NinjectModule
     {
@@ -30,6 +31,11 @@
             Bind<CarRecordViewModel>().ToSelf();
             Bind<SimulatorRecordsViewModel>().ToSelf();
             Bind<CarRecordsCollectionViewModel>().ToSelf();
+            Bind<WelcomeStageViewModel>().ToSelf();
+            Bind<AccelerationStageViewModel>().ToSelf();
+            Bind<PreparationStageViewModel>().ToSelf();
+            Bind<MeasurementPhaseViewModel>().ToSelf();
+            Bind<ResultsStageViewModel>().ToSelf();
         }
     }
 }

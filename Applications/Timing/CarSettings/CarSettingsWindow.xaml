@@ -21,10 +21,14 @@
             </Window.Resources>
     <Grid Background="{StaticResource Anthracite01Brush}">
         <carSettingsControl:CarSettingsControl Foreground="{StaticResource LightGrey01Brush}" Margin="10,10,10,10" OkCommand="{Binding OkButtonCommand}" CancelCommand="{Binding CancelButtonCommand}"
+                                               OpenTyreDiameterWizardCommand="{Binding OpenTyreDiameterWizardCommand }"
                                                CarName="{Binding CarModelPropertiesViewModel.CarName}"
                                                TemperatureUnit="{Binding TemperatureUnits}" PressureUnits="{Binding PressureUnits}"
+                                               DistanceUnits="{Binding DistanceUnits}"
                                                MinimalIdealBrakeTemperature="{Binding CarModelPropertiesViewModel.MinimalOptimalBrakeTemperature}" MaximumIdealBrakeTemperature="{Binding CarModelPropertiesViewModel.MaximumOptimalBrakeTemperature}"
                                                TyreCompounds="{Binding TyreSettingsViewModels}" SelectedTyreCompound="{Binding SelectedTyreSettingsViewModel}" CopyCompoundCommand="{Binding CopyCompoundToLocalCommand}"
-                                               WheelRotation="{Binding CarModelPropertiesViewModel.WheelRotation, Mode=TwoWay}"/>
+                                               WheelRotation="{Binding CarModelPropertiesViewModel.WheelRotation, Mode=TwoWay}"
+                                               FrontWheelDiameter="{Binding CarModelPropertiesViewModel.FrontWheelDiameter, Mode=TwoWay}"
+                                               RearWheelDiameter="{Binding CarModelPropertiesViewModel.RearWheelDiameter, Mode=TwoWay}"/>
     </Grid>
 </Window>

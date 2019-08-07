@@ -169,6 +169,8 @@
         protected abstract double YTickInterval { get; }
         protected abstract bool CanYZoom { get; }
 
+        protected virtual bool AutoApplyYChartLimit => true;
+
 
         public void AddLapTelemetry(LapTelemetryDto lapTelemetryDto)
         {
@@ -191,21 +193,8 @@
                 return;
             }
 
-            double maxY = 0.0;
-            double minY = YMinimum;
-            double maxX = 0.0;
-            foreach (var x in series)
-            {
-                maxX = Math.Max(maxX, x.Points.Max(y => y.X));
-                maxY = Math.Max(maxY, x.Points.Max(y => y.Y));
-                minY = Math.Min(minY, x.Points.Min(y => y.Y));
-            }
+            ApplyChartLimits(series);
 
-            minY += minY * 0.1;
-            maxY += maxY * 0.1;
-            XMaximum = maxX;
-            YMinimum = minY;
-            YMaximum = maxY;
 
             _selectedXValue[lapTelemetryDto.LapSummary.Id] = (0, color);
             LoadedSeries.Add(lapTelemetryDto.LapSummary.Id, (lapTelemetryDto,series));
@@ -221,6 +210,29 @@
                 NotifyPropertyChanged(nameof(SelectedDistances));
             }
         }
+
+        private void ApplyChartLimits(List<LineSeries> series)
+        {
+            double maxY = 0.0;
+            double minY = YMinimum;
+            double maxX = 0.0;
+            foreach (var x in series)
+            {
+                maxX = Math.Max(maxX, x.Points.Max(y => y.X));
+                maxY = Math.Max(maxY, x.Points.Max(y => y.Y));
+                minY = Math.Min(minY, x.Points.Min(y => y.Y));
+            }
+
+            minY += minY * 0.1;
+            maxY += maxY * 0.1;
+            XMaximum = maxX;
+            if (AutoApplyYChartLimit)
+            {
+                YMinimum = minY;
+                YMaximum = maxY;
+            }
+        }
+
 
         protected void RecreateAllLineSeries()
         {

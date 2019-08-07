@@ -166,7 +166,7 @@
 
             foreach (IAggregatedChartViewModel chartViewModel in aggregatedChartViewModels)
             {
-                _windowService.OpenWindow(chartViewModel, chartViewModel.Title, WindowState.Maximized, SizeToContent.Manual, chartViewModel.Dispose);
+                _windowService.OpenWindow(chartViewModel, chartViewModel.Title, WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterScreen, chartViewModel.Dispose);
             }
         }
 

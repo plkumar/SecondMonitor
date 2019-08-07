@@ -23,6 +23,7 @@
     using Controllers.Synchronization;
     using Controllers.Synchronization.Graphs;
     using Controllers.TelemetryLoad;
+    using Controllers.TelemetryLoad.DataFillers;
     using LapAutoSelector;
     using Ninject.Extensions.NamedScope;
     using Ninject.Modules;
@@ -125,6 +126,7 @@
             Bind<IGraphViewModel>().To<RakeGraphViewModel>();
             Bind<IGraphViewModel>().To<YawGraphViewModel>();
             Bind<IGraphViewModel>().To<TyreLoadGraphViewModel>();
+            Bind<IGraphViewModel>().To<WheelSlipGraphViewModel>();
             /*Bind<IGraphViewModel>().To<WorldYawGraphViewModel>();
             Bind<IGraphViewModel>().To<XGraphViewModel>();
             Bind<IGraphViewModel>().To<YGraphViewModel>();*/
@@ -156,6 +158,8 @@
             Bind<IAggregatedChartProvider>().To<PowerCurveProvider>();
             Bind<IAggregatedChartProvider>().To<TractionCircleProvider>();
             Bind<IAggregatedChartProvider>().To<SpeedInTurnsHistogramProvider>();
+            Bind<IAggregatedChartProvider>().To<WheelSlipAccelerationProvider>();
+            Bind<IAggregatedChartProvider>().To<WheelSlipBrakeProvider>();
 
             Bind<SpeedInTurnsHistogramProvider>().ToSelf();
 
@@ -194,6 +198,8 @@
 
             Bind<SpeedHistogramExtractor>().ToSelf();
 
+            Bind<WheelSlipExtractor>().ToSelf();
+
             Bind<SpeedToHorizontalGExtractor>().ToSelf();
             Bind<ITelemetryFilter>().To<FullThrottleFilter>().WhenInjectedExactlyInto<SpeedToHorizontalGExtractor>();
             Bind<ITelemetryFilter>().To<NoBrakeFilter>().WhenInjectedExactlyInto<SpeedToHorizontalGExtractor>();
@@ -219,6 +225,7 @@
             Bind<RearRollAngleToFrontRollAngleExtractor>().ToSelf();
             Bind<LateralAccFilter>().ToSelf();
             Bind<ThrottlePositionFilter>().ToSelf();
+            Bind<BrakePositionFilter>().ToSelf();
             Bind<LoadedWheelFilter>().ToSelf();
             Bind<CamberFilter>().ToSelf();
             Bind<InGearFilter>().ToSelf();
@@ -233,6 +240,8 @@
 
             Bind<IDefaultCarPropertiesProvider>().To<R3EDefaultCarPropertiesProvider>();
             Bind<DefaultR3ECarSettingsRepository>().ToSelf();
+
+            Bind<IMissingTelemetryFiller>().To<SlipInformationFiller>();
         }
     }
 }

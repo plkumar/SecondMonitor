@@ -1,5 +1,7 @@
 ﻿namespace SecondMonitor.PluginManager.Core
 {
+    using System.Threading.Tasks;
+
     public interface ISecondMonitorPlugin
     {
         PluginsManager PluginManager
@@ -11,7 +13,7 @@
         string PluginName { get; }
         bool IsEnabledByDefault { get; }
 
-        void RunPlugin();
+        Task RunPlugin();
 
         bool IsDaemon
         {

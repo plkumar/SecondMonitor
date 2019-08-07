@@ -10,9 +10,12 @@
     {
         private Temperature _minimalOptimalBrakeTemperature;
         private Temperature _maximumOptimalBrakeTemperature;
+        private Distance _frontWheelDiameter;
+        private Distance _rearWheelDiameter;
 
         private string _carName;
         private int _wheelRotation;
+
 
         public CarModelPropertiesViewModel()
         {
@@ -38,6 +41,19 @@
                 NotifyPropertyChanged();
             }
         }
+
+        public Distance FrontWheelDiameter
+        {
+            get => _frontWheelDiameter;
+            set => SetProperty(ref _frontWheelDiameter, value);
+        }
+
+        public Distance RearWheelDiameter
+        {
+            get => _rearWheelDiameter;
+            set => SetProperty(ref _rearWheelDiameter, value);
+        }
+
 
         public Temperature MinimalOptimalBrakeTemperature
         {
@@ -67,6 +83,8 @@
             TyreCompoundsProperties.Clear();
             CarName = model.Name;
             WheelRotation = model.WheelRotation;
+            FrontWheelDiameter = model.FrontWheelDiameter;
+            RearWheelDiameter = model.RearWheelDiameter;
             MinimalOptimalBrakeTemperature = Temperature.FromCelsius(model.OptimalBrakeTemperature.InCelsius - (model.OptimalBrakeTemperatureWindow.InCelsius));
             MaximumOptimalBrakeTemperature = Temperature.FromCelsius(model.OptimalBrakeTemperature.InCelsius + (model.OptimalBrakeTemperatureWindow.InCelsius));
             foreach (TyreCompoundProperties modelTyreCompoundsProperty in model.TyreCompoundsProperties)
@@ -86,7 +104,9 @@
                            OptimalBrakeTemperatureWindow = Temperature.FromCelsius((MaximumOptimalBrakeTemperature.InCelsius - MinimalOptimalBrakeTemperature.InCelsius) * 0.5),
                            TyreCompoundsProperties = TyreCompoundsProperties.Select(x => x.SaveToNewModel()).ToList(),
                            WheelRotation = WheelRotation,
-                           OriginalContainsOptimalTemperature = OriginalModel.OriginalContainsOptimalTemperature
+                           OriginalContainsOptimalTemperature = OriginalModel.OriginalContainsOptimalTemperature,
+                           FrontWheelDiameter = FrontWheelDiameter,
+                           RearWheelDiameter = RearWheelDiameter
                            };
             }
         }

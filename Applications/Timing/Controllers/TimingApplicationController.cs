@@ -24,6 +24,7 @@ namespace SecondMonitor.Timing.Controllers
     using ViewModels.Settings.ViewModel;
     using System.Windows;
     using Contracts.NInject;
+    using Ninject.Syntax;
     using Rating.Application.Controller;
     using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
@@ -88,11 +89,10 @@ namespace SecondMonitor.Timing.Controllers
         public bool IsEnabledByDefault => true;
 
 
-        public void RunPlugin()
+        public async Task RunPlugin()
         {
             ResourceDictionary dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/TelemetryPresentation;component/TelemetryPresentationTemplates.xaml", UriKind.RelativeOrAbsolute)};
             Application.Current.Resources.MergedDictionaries.Add(dict);
-
             dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/Rating.Presentation;component/RatingPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
             Application.Current.Resources.MergedDictionaries.Add(dict);
             dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/WindowsControls;component/ControlsPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
@@ -113,8 +113,8 @@ namespace SecondMonitor.Timing.Controllers
             CreateGui();
             _timingDataViewModel.GuiDispatcher = _timingGui.Dispatcher;
             _timingDataViewModel?.Reset();
-            _simulatorContentController.StartControllerAsync();
-            _trackRecordsController.StartControllerAsync();
+            await _simulatorContentController.StartControllerAsync();
+            await _trackRecordsController.StartControllerAsync();
         }
 
         private void CreateRatingController()
@@ -166,13 +166,12 @@ namespace SecondMonitor.Timing.Controllers
 
         private void CreateSimSettingsController()
         {
-            _simSettingController = new SimSettingController(_displaySettingsViewModel);
+            _simSettingController = new SimSettingController(_displaySettingsViewModel, _kernelWrapper.Get<ICarSpecificationProvider>(), _kernelWrapper.Get<IResolutionRoot>());
         }
 
         private void CreateGui()
         {
             _timingGui = new TimingGui(false);
-
             _timingGui.Show();
             _timingGui.Closed += OnGuiClosed;
             _timingGui.MouseLeave += GuiOnMouseLeave;

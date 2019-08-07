@@ -41,7 +41,7 @@ namespace SecondMonitor.Remote.Application.Controllers
 
         public bool IsDaemon => false;
 
-        public async void RunPlugin()
+        public async Task RunPlugin()
         {
             new AutoUpdateController().CheckForUpdate();
             InitializeInjectedProperties();

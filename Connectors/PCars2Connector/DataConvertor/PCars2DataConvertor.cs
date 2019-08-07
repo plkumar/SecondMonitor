@@ -159,10 +159,10 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreWear.ActualWear = data.mTyreWear[(int)WheelIndex.TyreRearLeft];
             simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear = data.mTyreWear[(int)WheelIndex.TyreRearRight];
 
-            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Rps = data.mTyreRPS[(int)WheelIndex.TyreFrontLeft] * -6.283185300;
-            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Rps = data.mTyreRPS[(int)WheelIndex.TyreFrontRight]* -6.283185300;
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Rps = data.mTyreRPS[(int)WheelIndex.TyreRearLeft] * -6.283185300;
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Rps = data.mTyreRPS[(int)WheelIndex.TyreRearRight]* -6.283185300;
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Rps = data.mTyreRPS[(int) WheelIndex.TyreFrontLeft] * -1; // -6.283185300;
+            simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Rps = data.mTyreRPS[(int) WheelIndex.TyreFrontRight] * -1;// -6.283185300;
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Rps = data.mTyreRPS[(int) WheelIndex.TyreRearLeft] * -1; //-6.283185300;
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Rps = data.mTyreRPS[(int) WheelIndex.TyreRearRight] * -1; //-6.283185300;
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.SuspensionTravel = Distance.FromMeters(data.mSuspensionTravel[(int)WheelIndex.TyreFrontLeft]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.SuspensionTravel = Distance.FromMeters(data.mSuspensionTravel[(int)WheelIndex.TyreFrontRight]);

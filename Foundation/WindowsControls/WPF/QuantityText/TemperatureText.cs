@@ -16,6 +16,10 @@
 
         protected override void UpdateIQuantity(double valueInUnits)
         {
+            if (IsReadonly)
+            {
+                return;
+            }
             Quantity.UpdateValue(valueInUnits, TemperatureUnits);
         }
 

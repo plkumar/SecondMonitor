@@ -1,31 +1,23 @@
 ﻿namespace SecondMonitor.SimdataManagement.SimSettings
 {
     using System.Collections.Generic;
-    using System.IO;
 
     using DataModel.OperationalRange;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Systems;
-    using PluginManager.Visitor;
 
     public class SimSettingAdapter : ISimulatorDataSetVisitor
     {
-        private readonly SimSettingsLoader _simSettingsLoader;
+        private readonly ICarSpecificationProvider _carSpecificationProvider;
+
         private DataSourceProperties _dataSourceProperties;
 
         private KeyValuePair<string, CarModelProperties> _lastCarProperties;
         private KeyValuePair<string, TyreCompoundProperties> _lastCompound;
 
-        public SimSettingAdapter(string userConfigPath)
+        public SimSettingAdapter(ICarSpecificationProvider carSpecificationProvider)
         {
-            string execPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            string configPath = Path.Combine(execPath, "Config");
-            _simSettingsLoader = new SimSettingsLoader(userConfigPath);
-        }
-
-        public SimSettingAdapter(string baseConfigPath, string userConfigPath)
-        {
-            _simSettingsLoader = new SimSettingsLoader(userConfigPath);
+            _carSpecificationProvider = carSpecificationProvider;
         }
 
         public CarModelProperties LastUsedCarProperties => _lastCarProperties.Value;
@@ -40,7 +32,7 @@
                 _dataSourceProperties.TyreCompoundsProperties = value;
                 _lastCarProperties = new KeyValuePair<string, CarModelProperties>(string.Empty, _lastCarProperties.Value);
                 _lastCompound = new KeyValuePair<string, TyreCompoundProperties>(string.Empty, _lastCompound.Value);
-                _simSettingsLoader.SaveDataSourceProperties(_dataSourceProperties);
+                _carSpecificationProvider.SaveDataSourceProperties(_dataSourceProperties);
             }
         }
 
@@ -73,7 +65,7 @@
         {
             _dataSourceProperties.ReplaceCarModel(carModelProperties);
             _lastCarProperties = new KeyValuePair<string, CarModelProperties>(carModelProperties.Name, carModelProperties);
-            _simSettingsLoader.SaveDataSourceProperties(_dataSourceProperties);
+            _carSpecificationProvider.SaveDataSourceProperties(_dataSourceProperties);
         }
 
         private void ApplyCarMode(SimulatorDataSet simulatorDataSet, CarModelProperties carModel)
@@ -87,7 +79,7 @@
             ApplyWheelProperty(wheels.RearRight, false, carModel, tyreCompound);
         }
 
-        private void ApplyWheelProperty(WheelInfo wheelInfo, bool isFront, CarModelProperties carModel, TyreCompoundProperties tyreCompound)
+        private static void ApplyWheelProperty(WheelInfo wheelInfo, bool isFront, CarModelProperties carModel, TyreCompoundProperties tyreCompound)
         {
             wheelInfo.BrakeTemperature.IdealQuantity.InCelsius = carModel.OptimalBrakeTemperature.InCelsius;
             wheelInfo.BrakeTemperature.IdealQuantityWindow.InCelsius = carModel.OptimalBrakeTemperatureWindow.InCelsius;
@@ -147,7 +139,7 @@
                 {
                     carModel.AddTyreCompound(tyreCompound);
                 }
-                _simSettingsLoader.SaveDataSourceProperties(_dataSourceProperties);
+                _carSpecificationProvider.SaveDataSourceProperties(_dataSourceProperties);
             }
 
             _lastCompound = new KeyValuePair<string, TyreCompoundProperties>(tyreCompound.CompoundName, tyreCompound);
@@ -180,7 +172,7 @@
         {
             CarModelProperties newCarModelProperties = new CarModelProperties {Name = carName, OriginalContainsOptimalTemperature = simulatorDataSet.SimulatorSourceInfo.TelemetryInfo.ContainsOptimalTemperatures, OptimalBrakeTemperature = simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.BrakeTemperature.IdealQuantity, OptimalBrakeTemperatureWindow = simulatorDataSet.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.BrakeTemperature.IdealQuantityWindow};
             _dataSourceProperties.AddCarModel(newCarModelProperties);
-            _simSettingsLoader.SaveDataSourceProperties(_dataSourceProperties);
+            _carSpecificationProvider.SaveDataSourceProperties(_dataSourceProperties);
             return newCarModelProperties;
         }
 
@@ -208,7 +200,7 @@
 
         private void ReloadDataSourceProperties(string sourceName)
         {
-            _dataSourceProperties = _simSettingsLoader.GetDataSourcePropertiesAsync(sourceName);
+            _dataSourceProperties = _carSpecificationProvider.GetSimulatorProperties(sourceName);
         }
     }
 }

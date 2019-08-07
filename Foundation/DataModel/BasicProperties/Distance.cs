@@ -173,6 +173,8 @@
                     return FromMeters(value * 0.0254);
                 case DistanceUnits.Centimeter:
                     return FromMeters(value / 100);
+                case DistanceUnits.Millimeter:
+                    return FromMeters(value / 1000);
                 default:
                     throw new ArgumentException($"Distance units {nameof(distanceUnits)} is unknown.");
             }

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="AggregatedCharts\AbstractAggregatedChartProvider.cs" />
     <Compile Include="AggregatedCharts\AbstractTelemetryDataExtractor.cs" />
+    <Compile Include="AggregatedCharts\Filter\BrakePositionFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\FullThrottleFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\GearTelemetryFilter.cs" />
     <Compile Include="AggregatedCharts\Filter\IGearTelemetryFilter.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractScatterPlotExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\AxisDefinition.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\AbstractWheelScatterPlotDataExtractor.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Extractors\WheelSlipExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\CamberToLateralGExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\HorizontalAccelerationToRideHeightExtractor.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Extractors\LateralAccelerationToRideHeightExtractor.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToCamberProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToLatGProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\TyreLoadToLongGProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\WheelSlipAccelerationProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\Providers\WheelSlipBrakeProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlot.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlot2YAxis.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlotSeries.cs" />
@@ -204,6 +208,8 @@
     <Compile Include="Controllers\Synchronization\TelemetryViewsSynchronization.cs" />
     <Compile Include="Controllers\Synchronization\TimedValuesArgs.cs" />
     <Compile Include="Controllers\TelemetryApplicationController.cs" />
+    <Compile Include="Controllers\TelemetryLoad\DataFillers\IMissingTelemetryFiller.cs" />
+    <Compile Include="Controllers\TelemetryLoad\DataFillers\SlipInformationFiller.cs" />
     <Compile Include="Controllers\TelemetryLoad\ITelemetryLoadController.cs" />
     <Compile Include="Controllers\TelemetryLoad\TelemetryLoadController.cs" />
     <Compile Include="AggregatedCharts\Histogram\Extractors\AbstractHistogramDataExtractor.cs" />
@@ -292,6 +298,7 @@
     <Compile Include="AggregatedCharts\Histogram\HistogramBar.cs" />
     <Compile Include="AggregatedCharts\Histogram\Histogram.cs" />
     <Compile Include="ViewModels\GraphPanel\AbstractAverageValueGraphViewModel.cs" />
+    <Compile Include="ViewModels\GraphPanel\Wheels\WheelSlipGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\WorldYawGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\XGraphViewModel.cs" />
     <Compile Include="ViewModels\GraphPanel\YawGraphViewModel.cs" />
