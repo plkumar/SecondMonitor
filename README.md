@@ -53,7 +53,7 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 
 
 ## Future Plans   
- - [ ] Track Recods tracking
+ - [x] Track Recods tracking
  - [ ] Championship module (tied to Rating)
  - [ ] Basic setup "sanity check"
  - [ ] F1 2018/F1 2019 Support
