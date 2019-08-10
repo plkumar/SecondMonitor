@@ -11,6 +11,7 @@
     using System.Windows.Media.Animation;
     using System.Windows.Shapes;
     using DataModel.BasicProperties;
+    using DataModel.Extensions;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
     using DataModel.TrackMap;
@@ -137,9 +138,19 @@
             _mainCanvas.Children.Add(path);
         }
 
+        public void AddCustomPaths(IEnumerable<Path> paths)
+        {
+            paths.ForEach(x => _mainCanvas.Children.Add(x));
+        }
+
         public void RemoveCustomPath(Path path)
         {
             _mainCanvas.Children.Remove(path);
+        }
+
+        public Point TransformToMapPoint(Point point)
+        {
+            return TranslatePoint(point, _mainCanvas);
         }
 
         private void UpdateSectorsColor(SimulatorDataSet dataSet)

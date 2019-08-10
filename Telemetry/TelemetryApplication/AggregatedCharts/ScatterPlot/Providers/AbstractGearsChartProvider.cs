@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using Extractors;
     using Filter;
     using SecondMonitor.ViewModels.Colors;
@@ -15,10 +16,12 @@
     public abstract class AbstractGearsChartProvider : AbstractAggregatedChartProvider
     {
         private readonly AbstractGearFilteredScatterPlotExtractor _dataExtractor;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
 
-        protected AbstractGearsChartProvider(ILoadedLapsCache loadedLapsCache, AbstractGearFilteredScatterPlotExtractor dataExtractor) : base(loadedLapsCache)
+        protected AbstractGearsChartProvider(ILoadedLapsCache loadedLapsCache, AbstractGearFilteredScatterPlotExtractor dataExtractor, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
         }
 
         public override IReadOnlyCollection<IAggregatedChartViewModel> CreateAggregatedChartViewModels(AggregatedChartSettingsDto aggregatedChartSettings)
@@ -42,7 +45,7 @@
 
             CompositeAggregatedChartsViewModel viewModel = new CompositeAggregatedChartsViewModel() { Title = title };
 
-            ScatterPlotChartViewModel mainViewModel = new ScatterPlotChartViewModel() { Title = "All Gear" };
+            ScatterPlotChartViewModel mainViewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = "All Gear" };
             mainViewModel.FromModel(CreateScatterPlotAllGear(lapsInStints, maxGear));
             viewModel.MainAggregatedChartViewModel = mainViewModel;
 
@@ -54,7 +57,7 @@
                     continue;
                 }
 
-                ScatterPlotChartViewModel child = new ScatterPlotChartViewModel() { Title = $"Gear {i}" };
+                ScatterPlotChartViewModel child = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = $"Gear {i}" };
                 child.FromModel(scatterPlot);
                 viewModel.AddChildAggregatedChildViewModel(child);
             }
@@ -75,7 +78,7 @@
 
                 CompositeAggregatedChartsViewModel viewModel = new CompositeAggregatedChartsViewModel() { Title = title };
 
-                ScatterPlotChartViewModel mainViewModel = new ScatterPlotChartViewModel() { Title = "All Gear" };
+                ScatterPlotChartViewModel mainViewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = "All Gear" };
                 mainViewModel.FromModel(CreateScatterPlotAllGear(lapsGrouped, maxGear));
 
                 viewModel.MainAggregatedChartViewModel = mainViewModel;
@@ -88,7 +91,7 @@
                         continue;
                     }
 
-                    ScatterPlotChartViewModel child = new ScatterPlotChartViewModel() { Title = $"Gear {i}" };
+                    ScatterPlotChartViewModel child = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = $"Gear {i}" };
                     child.FromModel(scatterPlot);
                     viewModel.AddChildAggregatedChildViewModel(child);
                 }

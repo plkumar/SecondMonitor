@@ -1,8 +1,6 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.ViewModels.GraphPanel
 {
     using System;
-    using System.Collections.Generic;
-    using System.Windows.Media;
     using Controllers.Synchronization;
     using Controllers.Synchronization.Graphs;
     using DataModel.BasicProperties;
@@ -18,7 +16,6 @@
         bool HasValidData { get; set; }
         PlotModel PlotModel { get; }
         XAxisKind XAxisKind { get; set; }
-        Dictionary<string, (double x, Color color)> SelectedDistances { get; set; }
         ILapColorSynchronization LapColorSynchronization { get; set; }
         IGraphViewSynchronization GraphViewSynchronization { get; set; }
         DistanceUnits DistanceUnits { get; set; }

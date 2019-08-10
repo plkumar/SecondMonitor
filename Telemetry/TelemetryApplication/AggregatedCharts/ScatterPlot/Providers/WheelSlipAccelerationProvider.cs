@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using DataModel.BasicProperties;
     using DataModel.Extensions;
     using Extractors;
@@ -17,13 +18,15 @@
     public class WheelSlipAccelerationProvider : AbstractAggregatedChartProvider
     {
         private readonly WheelSlipExtractor _dataExtractor;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private static readonly ColorDto FromColor = ColorDto.FromHex("#FF000FFF");
         private static readonly ColorDto ToColor = ColorDto.FromHex("#FF00FF00");
         public static readonly int ColorSteps = 5;
 
-        public WheelSlipAccelerationProvider(WheelSlipExtractor dataExtractor, ILoadedLapsCache loadedLapsCache) : base(loadedLapsCache)
+        public WheelSlipAccelerationProvider(WheelSlipExtractor dataExtractor, ILoadedLapsCache loadedLapsCache, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
         }
 
         public override string ChartName => "Wheel Slip (Acceleration)";
@@ -142,7 +145,7 @@
             scatterPlot.YAxis.SetCustomRange(-1, 1);
             series.ForEach(scatterPlot.AddScatterPlotSeries);
 
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() {Title = title};
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) {Title = title};
             viewModel.FromModel(scatterPlot);
             return viewModel;
         }

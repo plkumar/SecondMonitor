@@ -35,9 +35,9 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <template:HostChartWrapper PlotModel="{Binding PlotModel}">
-                                    <i:Interaction.Behaviors>
+                                    <!--<i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
-                                    </i:Interaction.Behaviors>
+                                    </i:Interaction.Behaviors>-->
                                 </template:HostChartWrapper>
                             </Grid>
                             <DockPanel Grid.Row="1" Margin="0,0,0,0" LastChildFill="False">
@@ -88,9 +88,9 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <template:HostChartWrapper PlotModel="{Binding PlotModel}">
-                                    <i:Interaction.Behaviors>
+                                    <!--<i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
-                                    </i:Interaction.Behaviors>
+                                    </i:Interaction.Behaviors>-->
                                 </template:HostChartWrapper>
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 0,0,0">
@@ -144,9 +144,9 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <template:HostChartWrapper PlotModel="{Binding PlotModel}">
-                                    <i:Interaction.Behaviors>
+                                    <!--<i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
-                                    </i:Interaction.Behaviors>
+                                    </i:Interaction.Behaviors>-->
                                 </template:HostChartWrapper>
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 0,0,0">
@@ -200,9 +200,9 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <template:HostChartWrapper PlotModel="{Binding PlotModel}">
-                                    <i:Interaction.Behaviors>
+                                    <!--<i:Interaction.Behaviors>
                                         <behavior:ShowSelectedDistanceBehavior GraphViewModel="{Binding .}" />
-                                    </i:Interaction.Behaviors>
+                                    </i:Interaction.Behaviors>-->
                                 </template:HostChartWrapper>
                             </Grid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0">

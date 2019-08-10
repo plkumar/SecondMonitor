@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using DataModel.BasicProperties;
     using DataModel.Extensions;
     using Extractors;
@@ -17,13 +18,15 @@
     public class WheelSlipBrakeProvider : AbstractAggregatedChartProvider
     {
         private readonly WheelSlipExtractor _dataExtractor;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private static readonly ColorDto FromColor = ColorDto.FromHex("#FF000FFF");
         private static readonly ColorDto ToColor = ColorDto.FromHex("#ffff0000");
         public static readonly int ColorSteps = 5;
 
-        public WheelSlipBrakeProvider(WheelSlipExtractor dataExtractor, ILoadedLapsCache loadedLapsCache) : base(loadedLapsCache)
+        public WheelSlipBrakeProvider(WheelSlipExtractor dataExtractor, ILoadedLapsCache loadedLapsCache, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
         }
 
         public override string ChartName => "Wheel Slip (Braking)";
@@ -46,8 +49,8 @@
 
         private IReadOnlyCollection<IAggregatedChartViewModel> CreateChartForAllStints(List<IGrouping<int, LapTelemetryDto>> lapsStintGrouping)
         {
-            _dataExtractor.ThrottlePositionFilter.Minimum = double.MinValue;
-            _dataExtractor.ThrottlePositionFilter.Maximum = double.MaxValue;
+            _dataExtractor.BrakePositionFilter.Minimum = double.MinValue;
+            _dataExtractor.BrakePositionFilter.Maximum = double.MaxValue;
             IColorPaletteProvider colorPaletteProvider = new BasicColorPaletteProvider();
             string title = BuildTitleForAllStints(lapsStintGrouping);
 
@@ -142,7 +145,7 @@
             scatterPlot.YAxis.SetCustomRange(-1, 1);
             series.ForEach(scatterPlot.AddScatterPlotSeries);
 
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = title };
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = title };
             viewModel.FromModel(scatterPlot);
             return viewModel;
         }

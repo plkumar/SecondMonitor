@@ -273,15 +273,7 @@
             {
                 timeToWait = nextFrame.FrameTime - _displayedFrame.FrameTime + (timeToWait - sw.Elapsed);
                 sw.Restart();
-                if (timeToWait > TimeSpan.Zero)
-                {
-                    await Task.Delay(timeToWait);
-                }
-                else
-                {
-                    await Task.Delay(10);
-                }
-
+                await Task.Delay(100);
                 if (_mainLap == null)
                 {
                     _playCancellationSource = null;
@@ -291,8 +283,8 @@
                 _displayedFrame = nextFrame;
                 FireSynchronization();
                 UpdateViewModels();
-                nextFrame = _displayedFrame.NextFrame;
-                //nextFrame = _displayedFrame.Forward(TimeSpan.FromMilliseconds(50));
+                //nextFrame = _displayedFrame.NextFrame;
+                nextFrame = _displayedFrame.Forward(TimeSpan.FromMilliseconds(100));
             }
 
             _playCancellationSource = null;

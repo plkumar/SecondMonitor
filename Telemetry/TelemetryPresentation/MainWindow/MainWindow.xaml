@@ -3,18 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SecondMonitor.TelemetryPresentation.MainWindow"
         xmlns:viewModels="clr-namespace:SecondMonitor.Telemetry.TelemetryApplication.ViewModels;assembly=TelemetryApplication"
         xmlns:lapsSummary="clr-namespace:SecondMonitor.TelemetryPresentation.Controls.LapsSummary"
         xmlns:snapshotSection="clr-namespace:SecondMonitor.TelemetryPresentation.Controls.SnapshotSection"
         xmlns:zoomAndPan="clr-namespace:SecondMonitor.WindowsControls.WPF.ZoomAndPan;assembly=WindowsControls"
-        xmlns:fuelControl="clr-namespace:SecondMonitor.WindowsControls.WPF.FuelControl;assembly=WindowsControls"
         xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:template="clr-namespace:SecondMonitor.TelemetryPresentation.Template"
         xmlns:popup="clr-namespace:SecondMonitor.WindowsControls.WPF.Popup;assembly=WindowsControls"
         xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors;assembly=WindowsControls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behavior="clr-namespace:SecondMonitor.TelemetryPresentation.Behavior"
         mc:Ignorable="d"
         Title="Telemetry Viewer" Height="450" Width="800" d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel}" WindowState="Maximized">
     <Window.Resources>
@@ -77,7 +76,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Background="Black">
+                        <Grid Grid.Row="0" Background="Black" x:Name="SelectionAnchorGrid">
                             <popup:PopupControl PopupWindowTemplate="{StaticResource MapControlPopUp}" PopupWindowTitle="Map View" PopupContent="{Binding}" ElementToHide="{Binding ElementName=MapGrid}" Width="16" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" Grid.ZIndex="3"/>
                             <xctk:BusyIndicator IsBusy="{Binding IsBusy}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BusyContent="Loading Lap(s)" Grid.ZIndex="2">
                             </xctk:BusyIndicator>
@@ -86,6 +85,7 @@
                                               Content="{Binding MapViewViewModel.SituationOverviewControl}" MaxHeight="450" >
                                     <i:Interaction.Behaviors>
                                         <behaviors:RefreshBindingOnVisibilityChangeBehavior/>
+                                        <behavior:MapPointsSelectionsBehavior AnchorGridName="SelectionAnchorGrid"/>
                                     </i:Interaction.Behaviors>
                                 </ContentPresenter>
                             </zoomAndPan:ZoomAndPanControl>

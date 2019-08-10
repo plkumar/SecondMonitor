@@ -3,18 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Windows;
     using WindowsControls.WPF.DriverPosition;
     using Controllers.Synchronization;
     using DataModel.Snapshot.Drivers;
+    using DataModel.Telemetry;
     using DataModel.TrackMap;
     using SecondMonitor.ViewModels;
     using TelemetryManagement.DTO;
-    using TelemetryManagement.StoryBoard;
 
     public interface IMapViewViewModel : IViewModel, IDisposable
     {
         FullMapControl SituationOverviewControl { get; }
-        ILapColorSynchronization LapColorSynchronization { get; set; }
 
         bool? ShowAllOverlays { get; set; }
         bool ShowBrakeOverlay { get; set; }
@@ -27,9 +27,13 @@
 
         void RemoveDriver(IDriverInfo driverInfo);
         void UpdateDrivers(params IDriverInfo[] driversInfo);
-        Task AddPathsForLap(LapTelemetryDto lapTelemetry, TrackMapDto trackMapDto);
-        void RefreshCustomPointsPath(IReadOnlyCollection<TimedValue> points, TrackMapDto trackMapDto);
+        Task AddPathsForLap(LapTelemetryDto lapTelemetry);
+        void DeselectPoints(IEnumerable<TimedTelemetrySnapshot> points);
+        void SelectPoints(IEnumerable<TimedTelemetrySnapshot> points);
         void RemovePathsForLap(LapSummaryDto lapTelemetry);
+
+        void SelectTelemetryPointsInArea(Point pt1, Point pt2);
+        void DeselectTelemetryPointsInArea(Point pt1, Point pt2);
 
 
 

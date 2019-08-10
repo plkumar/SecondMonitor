@@ -7,6 +7,7 @@
     using AggregatedCharts;
     using Controllers.Synchronization;
     using DataModel.Extensions;
+    using DataModel.Telemetry;
     using OxyPlot;
     using OxyPlot.Annotations;
     using OxyPlot.Axes;
@@ -28,11 +29,13 @@
         private readonly List<LinearBarSeries> _columnSeries;
         private int _dataPointsCount;
         private readonly Dictionary<DataPoint, HistogramBar> _pointBandMap;
-        private readonly Dictionary<HistogramBar, RectangleAnnotation> _selectionAnnotations;
+        private readonly Dictionary<TimedTelemetrySnapshot, HashSet<HistogramBar>> _telemetryHistogramsMap;
+        private readonly Dictionary<HistogramBar, HistogramSelection> _selectionAnnotations;
         private string _title;
         private string _unit;
         private ICommand _refreshCommand;
         private bool _isBandVisible;
+        private bool _selectingInternal;
 
         public ICommand ResetParametersCommand { get; set; }
 
@@ -41,9 +44,12 @@
         public HistogramChartViewModel(IDataPointSelectionSynchronization dataPointSelectionSynchronization)
         {
             _columnSeries = new List<LinearBarSeries>();
+            _telemetryHistogramsMap = new Dictionary<TimedTelemetrySnapshot, HashSet<HistogramBar>>();
             _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
             _pointBandMap = new Dictionary<DataPoint, HistogramBar>();
-            _selectionAnnotations = new Dictionary<HistogramBar, RectangleAnnotation>();
+            _selectionAnnotations = new Dictionary<HistogramBar, HistogramSelection>();
+            dataPointSelectionSynchronization.OnPointsSelected += DataPointSelectionSynchronizationOnOnPointsSelected;
+            dataPointSelectionSynchronization.OnPointsDeselected += DataPointSelectionSynchronizationOnOnPointsDeselected;
         }
 
         public bool IsBandVisible
@@ -129,6 +135,7 @@
             model.Axes.Add(valueAxis);
             PlotModel = model;
             DataPointsCount = OriginalModel.DataPointsCount;
+            SelectPoints(_dataPointSelectionSynchronization.SelectedPoints);
 
         }
 
@@ -138,11 +145,23 @@
             foreach (HistogramBar histogramBar in histogramBand.Items)
             {
                 DataPoint newPoint = new DataPoint(histogramBar.Category, histogramBar.Percentage);
+                histogramBar.SourceValues.SelectMany(x => x.BothPoints).ForEach(x => AddTelemetrySnapshotToMap(x, histogramBar));
                 _pointBandMap.Add(newPoint, histogramBar);
                 newLinearBarSeries.Points.Add(newPoint);
             }
 
             return newLinearBarSeries;
+        }
+
+        private void AddTelemetrySnapshotToMap(TimedTelemetrySnapshot snapshot, HistogramBar histogramBar)
+        {
+            if (!_telemetryHistogramsMap.TryGetValue(snapshot, out HashSet<HistogramBar> set))
+            {
+                set = new HashSet<HistogramBar>();
+                _telemetryHistogramsMap.Add(snapshot, set);
+            }
+
+            set.Add(histogramBar);
         }
 
         public void ToggleSelection(Point mousePoint)
@@ -151,19 +170,25 @@
             {
                 return;
             }
-            if (_selectionAnnotations.TryGetValue(histogramBand, out RectangleAnnotation annotation))
+            if (_selectionAnnotations.TryGetValue(histogramBand, out HistogramSelection selection))
             {
-                PlotModel.Annotations.Remove(annotation);
+                PlotModel.Annotations.Remove(selection.SelectionAnnotation);
                 _selectionAnnotations.Remove(histogramBand);
-                _dataPointSelectionSynchronization.DeSelectPoints(histogramBand.SourceValues);
+                _selectingInternal = true;
+                _dataPointSelectionSynchronization.DeSelectPoints(selection.SelectedPoints);
+                _selectingInternal = false;
 
             }
             else
             {
-                annotation = new RectangleAnnotation { MinimumX = histogramBand.Category - BandSize / 2, MaximumX = histogramBand.Category + BandSize / 2, MinimumY = 0, MaximumY = histogramBand.Percentage, ToolTip = "Bar is Selected", Fill = OxyColor.FromAColor(99, OxyColors.Blue) };
-                PlotModel.Annotations.Add(annotation);
-                _selectionAnnotations.Add(histogramBand, annotation);
-                _dataPointSelectionSynchronization.SelectPoints(histogramBand.SourceValues);
+                var newRectangleAnnotation = new RectangleAnnotation { MinimumX = histogramBand.Category - BandSize / 2, MaximumX = histogramBand.Category + BandSize / 2, MinimumY = 0, MaximumY = histogramBand.Percentage, ToolTip = "Bar is Selected", Fill = OxyColor.FromAColor(99, OxyColors.Blue) };
+                selection = new HistogramSelection(newRectangleAnnotation);
+                histogramBand.SourceValues.SelectMany(x => x.BothPoints).ForEach(x => selection.SelectedPoints.Add(x));
+                PlotModel.Annotations.Add(newRectangleAnnotation);
+                _selectionAnnotations.Add(histogramBand, selection);
+                _selectingInternal = true;
+                _dataPointSelectionSynchronization.SelectPoints(selection.SelectedPoints);
+                _selectingInternal = false;
             }
 
             PlotModel.InvalidatePlot(false);
@@ -179,12 +204,6 @@
         public override Histogram SaveToNewModel()
         {
             throw new System.NotImplementedException();
-        }
-
-        public void DeselectAll()
-        {
-            _selectionAnnotations.Keys.ForEach(x => _dataPointSelectionSynchronization.DeSelectPoints(x.SourceValues));
-            _selectionAnnotations.Clear();
         }
 
         private bool TryGetBandByMousePoint(Point mousePoint, out HistogramBar bar)
@@ -205,9 +224,89 @@
             return false;
         }
 
+        private void DataPointSelectionSynchronizationOnOnPointsDeselected(object sender, TimedTelemetryArgs e)
+        {
+            if (_selectingInternal)
+            {
+                return;
+            }
+
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in e.TelemetrySnapshots)
+            {
+                if (!_telemetryHistogramsMap.TryGetValue(timedTelemetrySnapshot, out HashSet<HistogramBar> barsForPoint))
+                {
+                    continue;
+                }
+                DeSelectTelemetryPoint(timedTelemetrySnapshot, barsForPoint);
+            }
+            _plotModel.InvalidatePlot(false);
+        }
+
+        private void DataPointSelectionSynchronizationOnOnPointsSelected(object sender, TimedTelemetryArgs e)
+        {
+            SelectPoints(e.TelemetrySnapshots);
+        }
+
+        private void SelectPoints(IEnumerable<TimedTelemetrySnapshot> telemetrySnapshots)
+        {
+            if (_selectingInternal)
+            {
+                return;
+            }
+
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in telemetrySnapshots)
+            {
+                if (!_telemetryHistogramsMap.TryGetValue(timedTelemetrySnapshot, out HashSet<HistogramBar> barsForPoint))
+                {
+                    continue;
+                }
+                SelectTelemetryPoint(timedTelemetrySnapshot, barsForPoint);
+            }
+            _plotModel.InvalidatePlot(false);
+        }
+
+        private void DeSelectTelemetryPoint(TimedTelemetrySnapshot timedTelemetrySnapshot, IEnumerable<HistogramBar> histogramBarsToSelect)
+        {
+            foreach (HistogramBar histogramBand in histogramBarsToSelect)
+            {
+                if (!_selectionAnnotations.TryGetValue(histogramBand, out HistogramSelection currentSelection))
+                {
+                    continue;
+                }
+
+                currentSelection.SelectedPoints.Remove(timedTelemetrySnapshot);
+                if (currentSelection.SelectedPoints.Count == 0)
+                {
+                    _selectionAnnotations.Remove(histogramBand);
+                    _plotModel.Annotations.Remove(currentSelection.SelectionAnnotation);
+                    continue;
+                }
+
+                currentSelection.SelectionAnnotation.MaximumY = histogramBand.Percentage * (currentSelection.SelectedPoints.Count()) / (histogramBand.TotalDistinctPointsCount);
+            }
+        }
+
+        private void SelectTelemetryPoint(TimedTelemetrySnapshot timedTelemetrySnapshot, IEnumerable<HistogramBar> histogramBarsToSelect)
+        {
+            foreach (HistogramBar histogramBand in histogramBarsToSelect)
+            {
+                if (_selectionAnnotations.TryGetValue(histogramBand, out HistogramSelection currentSelection))
+                {
+                    currentSelection.SelectedPoints.Add(timedTelemetrySnapshot);
+                    currentSelection.SelectionAnnotation.MaximumY = histogramBand.Percentage * (currentSelection.SelectedPoints.Count()) / (histogramBand.TotalDistinctPointsCount);
+                    continue;
+                }
+
+                var newRectangleAnnotation = new RectangleAnnotation { MinimumX = histogramBand.Category - BandSize / 2, MaximumX = histogramBand.Category + BandSize / 2, MinimumY = 0, MaximumY = histogramBand.Percentage * 1.0 / histogramBand.TotalDistinctPointsCount , ToolTip = "Bar is Selected", Fill = OxyColor.FromAColor(99, OxyColors.Blue) };
+                currentSelection = new HistogramSelection(newRectangleAnnotation);
+                currentSelection.SelectedPoints.Add(timedTelemetrySnapshot);
+                PlotModel.Annotations.Add(newRectangleAnnotation);
+                _selectionAnnotations.Add(histogramBand, currentSelection);
+            }
+        }
+
         public void Dispose()
         {
-            DeselectAll();
         }
     }
 }

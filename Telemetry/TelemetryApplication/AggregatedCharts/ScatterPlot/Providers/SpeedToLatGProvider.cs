@@ -1,11 +1,12 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.ScatterPlot.Providers
 {
+    using Controllers.Synchronization;
     using Extractors;
     using ViewModels.LoadedLapCache;
 
     public class SpeedToLatGProvider : AbstractStintScatterPlotProvider
     {
-        public SpeedToLatGProvider(ILoadedLapsCache loadedLapsCache, SpeedToLatGAllPointsExtractor dataExtractor) : base(loadedLapsCache, dataExtractor)
+        public SpeedToLatGProvider(ILoadedLapsCache loadedLapsCache, SpeedToLatGAllPointsExtractor dataExtractor, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache, dataExtractor, dataPointSelectionSynchronization)
         {
         }
 

@@ -10,28 +10,30 @@
     using System.Windows.Shapes;
     using WindowsControls.WPF;
     using WindowsControls.WPF.DriverPosition;
+    using Contracts.SelectionCounter;
     using Controllers.Synchronization;
     using DataModel.BasicProperties;
     using DataModel.Extensions;
     using DataModel.Snapshot.Drivers;
     using DataModel.Telemetry;
     using DataModel.TrackMap;
+    using LoadedLapCache;
     using Ninject;
     using Ninject.Syntax;
     using NLog;
     using SecondMonitor.ViewModels;
-    using SecondMonitor.ViewModels.Factory;
     using SimdataManagement;
     using TelemetryManagement.DTO;
-    using TelemetryManagement.StoryBoard;
 
     public class MapViewViewModel : AbstractViewModel, IMapViewViewModel, IPositionCircleInformationProvider
     {
 
         private const int PedalStep = 25;
+        private const double SelectionLength = 5;
 
-        private readonly IViewModelFactory _viewModelFactory;
         private readonly IResolutionRoot _resolutionRoot;
+        private readonly ILoadedLapsCache _loadedLapsCache;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ResourceDictionary _commonResources;
         private FullMapControl _situationOverviewControl;
@@ -42,20 +44,25 @@
         private bool _showClutchOverlay;
         private bool _showShiftPoints;
         private bool _showColoredSectors;
-        private Path _selectionPath;
+        private readonly Dictionary<int, SelectionItemCounter<Path>> _selectionPaths;
+        private ITrackMap _trackMapDto;
 
-        public MapViewViewModel(IViewModelFactory viewModelFactory, IResolutionRoot resolutionRoot)
+        public MapViewViewModel(IResolutionRoot resolutionRoot, ILoadedLapsCache loadedLapsCache, IDataPointSelectionSynchronization dataPointSelectionSynchronization, ILapColorSynchronization lapColorSynchronization)
         {
             _showColoredSectors = true;
-            _viewModelFactory = viewModelFactory;
             _resolutionRoot = resolutionRoot;
+            _loadedLapsCache = loadedLapsCache;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
+            _lapColorSynchronization = lapColorSynchronization;
             _lapsPaths = new Dictionary<string, ILapCustomPathsCollection>();
+            _selectionPaths = new Dictionary<int, SelectionItemCounter<Path>>();
             _commonResources = new ResourceDictionary
             {
                 Source = new Uri(
                     @"pack://application:,,,/WindowsControls;component/WPF/CommonResources.xaml",
                     UriKind.RelativeOrAbsolute)
             };
+            Subscribe();
         }
 
         public FullMapControl SituationOverviewControl
@@ -65,17 +72,6 @@
             {
                 _situationOverviewControl = value;
                 NotifyPropertyChanged();
-            }
-        }
-
-        public ILapColorSynchronization LapColorSynchronization
-        {
-            get => _lapColorSynchronization;
-            set
-            {
-                Unsubscribe();
-                _lapColorSynchronization = value;
-                Subscribe();
             }
         }
 
@@ -191,38 +187,77 @@
 
         public void LoadTrack(ITrackMap trackMapDto)
         {
+            _trackMapDto = trackMapDto;
             SituationOverviewControl = InitializeFullMap(trackMapDto);
         }
 
-        public async Task AddPathsForLap(LapTelemetryDto lapTelemetry, TrackMapDto trackMapDto)
+        public async Task AddPathsForLap(LapTelemetryDto lapTelemetry)
         {
 
             ILapCustomPathsCollection geometryCollection = GetOrCreateLapPathCollection(lapTelemetry.LapSummary.Id);
             if (!geometryCollection.FullyInitialized)
             {
-                await InitializeGeometryCollection(geometryCollection, lapTelemetry, trackMapDto);
+                await InitializeGeometryCollection(geometryCollection, lapTelemetry);
             }
             RefreshOverlays();
             geometryCollection.GetAllPaths().ForEach(SituationOverviewControl.AddCustomPath);
         }
 
-        public void RefreshCustomPointsPath(IReadOnlyCollection<TimedValue> points, TrackMapDto trackMapDto)
+        public void DeselectPoints(IEnumerable<TimedTelemetrySnapshot> points)
         {
-            string selectionGeometry = TrackMapFromTelemetryFactory.GetGeometry(points, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
-            if (_selectionPath != null)
+            var toDeselect = points.Where(x => _selectionPaths.ContainsKey(GetSelectionKey(x))).Select(x => new KeyValuePair<int, SelectionItemCounter<Path>>(GetSelectionKey(x), _selectionPaths [GetSelectionKey(x)]));
+            var toRemove = toDeselect.Where(x => x.Value.RemoveSelection()).ToList();
+            toRemove.ForEach(x =>
             {
-                _situationOverviewControl.RemoveCustomPath(_selectionPath);
-            }
+                _situationOverviewControl.RemoveCustomPath(x.Value.Item);
+                _selectionPaths.Remove(x.Key);
+            });
 
-            _selectionPath = new Path() {Data = Geometry.Parse(selectionGeometry), StrokeThickness = 6.0, Stroke = Brushes.GreenYellow};
-            _situationOverviewControl.AddCustomPath(_selectionPath);
+
         }
 
-        private async Task InitializeGeometryCollection(ILapCustomPathsCollection geometryCollection, LapTelemetryDto lapTelemetry, TrackMapDto trackMapDto)
+        private static int GetSelectionKey(TimedTelemetrySnapshot timedTelemetrySnapshot)
         {
-            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.GetReducedSet(TimeSpan.FromMilliseconds(300)), false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis);
+            return (int)(timedTelemetrySnapshot.PlayerData.LapDistance / SelectionLength);
+        }
+
+        public void SelectTelemetryPointsInArea(Point pt1, Point pt2)
+        {
+            _dataPointSelectionSynchronization.SelectPoints(GetTelemetryPointsInArea(pt1, pt2));
+        }
+
+        public void DeselectTelemetryPointsInArea(Point pt1, Point pt2)
+        {
+            _dataPointSelectionSynchronization.DeSelectPoints(GetTelemetryPointsInArea(pt1, pt2));
+        }
+
+        public void SelectPoints(IEnumerable<TimedTelemetrySnapshot> points)
+        {
+            foreach (TimedTelemetrySnapshot timedTelemetrySnapshot in points)
+            {
+                int key = GetSelectionKey(timedTelemetrySnapshot);
+                if (_selectionPaths.TryGetValue(key, out SelectionItemCounter<Path> itemCounter))
+                {
+                    itemCounter.AddSelection();
+                    continue;
+                }
+                var markerPoint = TrackMapFromTelemetryFactory.ExtractWorldPoint(timedTelemetrySnapshot, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis);
+                var newPath = new Path
+                {
+                    Fill = Brushes.GreenYellow,
+                    Data = new EllipseGeometry(markerPoint, 5, 5)
+                };
+                itemCounter = new SelectionItemCounter<Path>(newPath);
+                _selectionPaths.Add(key, itemCounter);
+                _situationOverviewControl.AddCustomPath(newPath);
+            }
+        }
+
+        private async Task InitializeGeometryCollection(ILapCustomPathsCollection geometryCollection, LapTelemetryDto lapTelemetry)
+        {
+            string baseGeometry = TrackMapFromTelemetryFactory.GetGeometry(lapTelemetry.GetReducedSet(TimeSpan.FromMilliseconds(300)), false, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis);
             Path geometryPath = new Path { Data = Geometry.Parse(baseGeometry), StrokeThickness = 0.5, Stroke = new SolidColorBrush() };
-            if (!LapColorSynchronization.TryGetColorForLap(lapTelemetry.LapSummary.Id, out Color color))
+            if (!_lapColorSynchronization.TryGetColorForLap(lapTelemetry.LapSummary.Id, out Color color))
             {
                 color = Colors.DarkBlue;
             }
@@ -235,10 +270,10 @@
             string[] clutchGeometries = new string[0];
             string shiftPointsPath = string.Empty;
 
-            Task brakeTask = Task.Run(() => brakeGeometries = GetGeometriesPathForBrakes(lapTelemetry, trackMapDto));
-            Task throttleTask = Task.Run(() => throttleGeometries = GetGeometriesPathPedalInput(lapTelemetry, trackMapDto, x => x.ThrottlePedalPosition));
-            Task clutchTask = Task.Run(() => clutchGeometries = GetGeometriesPathPedalInput(lapTelemetry, trackMapDto, x => x.ClutchPedalPosition));
-            Task shiftPointsTask = Task.Run(() => shiftPointsPath = GetShiftPointsGeometry(lapTelemetry, trackMapDto));
+            Task brakeTask = Task.Run(() => brakeGeometries = GetGeometriesPathForBrakes(lapTelemetry));
+            Task throttleTask = Task.Run(() => throttleGeometries = GetGeometriesPathPedalInput(lapTelemetry, x => x.ThrottlePedalPosition));
+            Task clutchTask = Task.Run(() => clutchGeometries = GetGeometriesPathPedalInput(lapTelemetry, x => x.ClutchPedalPosition));
+            Task shiftPointsTask = Task.Run(() => shiftPointsPath = GetShiftPointsGeometry(lapTelemetry));
 
             await Task.WhenAll(brakeTask, throttleTask, clutchTask, shiftPointsTask);
             //start from one, no reason to include "no brakes" geometry
@@ -280,12 +315,12 @@
             geometryCollection.FullyInitialized = true;
         }
 
-        private string[] GetGeometriesPathForBrakes(LapTelemetryDto lapTelemetryDto, TrackMapDto trackMapDto)
+        private string[] GetGeometriesPathForBrakes(LapTelemetryDto lapTelemetryDto)
         {
-            return GetGeometriesPathPedalInput(lapTelemetryDto, trackMapDto, x => x.BrakePedalPosition);
+            return GetGeometriesPathPedalInput(lapTelemetryDto, x => x.BrakePedalPosition);
         }
 
-        private string[] GetGeometriesPathPedalInput(LapTelemetryDto lapTelemetryDto, TrackMapDto trackMapDto, Func<InputInfo, double> pedalValueFunc)
+        private string[] GetGeometriesPathPedalInput(LapTelemetryDto lapTelemetryDto, Func<InputInfo, double> pedalValueFunc)
         {
             string[] geometries = new string[100 / PedalStep + 1];
             for (int i = 0; i < geometries.Length; i++)
@@ -301,20 +336,20 @@
                 if (previousBrakeBand >= 0 && previousBrakeBand != currentBrakeBand)
                 {
                     currentSnapShot.Add(timedTelemetrySnapshot);
-                    geometries[previousBrakeBand] += $" {TrackMapFromTelemetryFactory.GetGeometry(currentSnapShot, false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis)}";
+                    geometries[previousBrakeBand] += $" {TrackMapFromTelemetryFactory.GetGeometry(currentSnapShot, false, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis)}";
                     currentSnapShot.Clear();
                 }
                 currentSnapShot.Add(timedTelemetrySnapshot);
                 previousBrakeBand = currentBrakeBand;
             }
 
-            geometries[previousBrakeBand] += $" {TrackMapFromTelemetryFactory.GetGeometry(currentSnapShot, false, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis)}";
+            geometries[previousBrakeBand] += $" {TrackMapFromTelemetryFactory.GetGeometry(currentSnapShot, false, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis)}";
             currentSnapShot.Clear();
 
             return geometries;
         }
 
-        private string GetShiftPointsGeometry(LapTelemetryDto lapTelemetryDto, TrackMapDto trackMapDto)
+        private string GetShiftPointsGeometry(LapTelemetryDto lapTelemetryDto)
         {
             StringBuilder sb = new StringBuilder();
             List<TimedTelemetrySnapshot> shiftPoints = new List<TimedTelemetrySnapshot>();
@@ -329,7 +364,7 @@
                 currentGear = timedTelemetrySnapshot.PlayerData.CarInfo.CurrentGear;
             }
 
-            TrackMapFromTelemetryFactory.ExtractWorldPoints(shiftPoints, trackMapDto.TrackGeometry.XCoef, trackMapDto.TrackGeometry.YCoef, trackMapDto.TrackGeometry.IsSwappedAxis).ForEach(x => sb.Append($"M{x.X-1},{x.Y-1} a2,2 0 1,0 0,-1 Z "));
+            TrackMapFromTelemetryFactory.ExtractWorldPoints(shiftPoints, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis).ForEach(x => sb.Append($"M{x.X-1},{x.Y-1} a2,2 0 1,0 0,-1 Z "));
             return sb.ToString();
         }
 
@@ -360,7 +395,7 @@
 
         public void Dispose()
         {
-            Subscribe();
+            UnsubscribeLapColorSync();
         }
 
         protected ILapCustomPathsCollection GetOrCreateLapPathCollection(string id)
@@ -376,22 +411,28 @@
 
         }
 
-        private void Unsubscribe()
+        private void UnsubscribeLapColorSync()
         {
-            if (_lapColorSynchronization == null)
-            {
-                return;
-            }
             _lapColorSynchronization.LapColorChanged -= LapColorSynchronizationOnLapColorChanged;
+            _dataPointSelectionSynchronization.OnPointsSelected -= DataPointSelectionSynchronizationOnOnPointsSelected;
+            _dataPointSelectionSynchronization.OnPointsDeselected -= DataPointSelectionSynchronizationOnOnPointsDeselected;
         }
 
         private void Subscribe()
         {
-            if (_lapColorSynchronization == null)
-            {
-                return;
-            }
             _lapColorSynchronization.LapColorChanged += LapColorSynchronizationOnLapColorChanged;
+            _dataPointSelectionSynchronization.OnPointsSelected += DataPointSelectionSynchronizationOnOnPointsSelected;
+            _dataPointSelectionSynchronization.OnPointsDeselected += DataPointSelectionSynchronizationOnOnPointsDeselected;
+        }
+
+        private void DataPointSelectionSynchronizationOnOnPointsDeselected(object sender, TimedTelemetryArgs e)
+        {
+            DeselectPoints(e.TelemetrySnapshots);
+        }
+
+        private void DataPointSelectionSynchronizationOnOnPointsSelected(object sender, TimedTelemetryArgs e)
+        {
+            SelectPoints(e.TelemetrySnapshots);
         }
 
         private void LapColorSynchronizationOnLapColorChanged(object sender, LapColorArgs e)
@@ -410,6 +451,26 @@
             {
                 lapPaths.ShiftPointsPath.Stroke = new SolidColorBrush(e.Color);
             }
+        }
+
+        private IEnumerable<TimedTelemetrySnapshot> GetTelemetryPointsInArea(Point pt1, Point pt2)
+        {
+            Point realWorldPoint1 = TrackMapFromTelemetryFactory.InverseExtractWorldPoint(pt1, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis);
+            Point realWorldPoint2 = TrackMapFromTelemetryFactory.InverseExtractWorldPoint(pt2, _trackMapDto.TrackGeometry.XCoef, _trackMapDto.TrackGeometry.YCoef, _trackMapDto.TrackGeometry.IsSwappedAxis);
+
+            double minX = Math.Min(realWorldPoint1.X, realWorldPoint2.X);
+            double maxX = Math.Max(realWorldPoint1.X, realWorldPoint2.X);
+            double minY = Math.Min(realWorldPoint1.Y, realWorldPoint2.Y);
+            double maxY = Math.Max(realWorldPoint1.Y, realWorldPoint2.Y);
+
+            var pointsToSelect = _loadedLapsCache.LoadedLaps.SelectMany(x => x.DataPoints).Where(x =>
+            {
+                var worldPos = x.PlayerData.WorldPosition;
+                double xInMeters = worldPos.X.InMeters;
+                double yInMeters = worldPos.Z.InMeters;
+                return minX <= xInMeters && xInMeters <= maxX && minY <= yInMeters && yInMeters <= maxY;
+            });
+            return pointsToSelect;
         }
 
         private FullMapControl InitializeFullMap(ITrackMap trackMapDto)
@@ -468,13 +529,13 @@
 
         public bool TryGetCustomOutline(IDriverInfo driverInfo, out ColorDto outlineBrush)
         {
-            if (LapColorSynchronization == null)
+            if (_lapColorSynchronization == null)
             {
                 outlineBrush = null;
                 return false;
             }
 
-            if (LapColorSynchronization.TryGetColorForLap(driverInfo.DriverName, out Color lapColor))
+            if (_lapColorSynchronization.TryGetColorForLap(driverInfo.DriverName, out Color lapColor))
             {
                 outlineBrush = new ColorDto()
                 {

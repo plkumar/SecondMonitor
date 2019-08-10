@@ -952,8 +952,11 @@
                 height = childSize.Height;
             }
 
-            UpdateTranslationX();
-            UpdateTranslationY();
+            if (!Keyboard.IsKeyDown(Key.LeftAlt) && !Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                UpdateTranslationX();
+                UpdateTranslationY();
+            }
 
             return new Size(width, height);
         }
@@ -993,6 +996,10 @@
 
         protected override void OnMouseDown(MouseButtonEventArgs mouseButtonEventArgs)
         {
+            if (mouseButtonEventArgs.Handled)
+            {
+                return;
+            }
             _content.Focus();
             Keyboard.Focus(_content);
 
@@ -1023,6 +1030,11 @@
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
+            if (e.Handled)
+            {
+                return;
+            }
+
             if (_mouseHandlingMode != MouseHandlingMode.None)
             {
                 if (_mouseHandlingMode == MouseHandlingMode.Zooming)
@@ -1081,6 +1093,10 @@
 
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
+            if (e.Handled)
+            {
+                return;
+            }
             e.Handled = true;
 
             if (e.Delta > 0)
@@ -1107,6 +1123,11 @@
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
+            if (e.Handled)
+            {
+                return;
+            }
+
             if (_mouseHandlingMode == MouseHandlingMode.Panning)
             {
                 //

@@ -107,7 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behavior\BandSelectionByClickBehavior.cs" />
-    <Compile Include="Behavior\ShowSelectedDistanceBehavior.cs" />
+    <Compile Include="Behavior\MapPointsSelectionsBehavior.cs" />
+    <Compile Include="Behavior\ScatterPlotSelectionByDragBehavior.cs" />
     <Compile Include="Controls\LapsSummary\LapSelectionControl.xaml.cs">
       <DependentUpon>LapSelectionControl.xaml</DependentUpon>
     </Compile>
