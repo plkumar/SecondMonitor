@@ -36,5 +36,16 @@
             }
             return current as T;
         }
+
+        public static T FindAncestorByName<T>(FrameworkElement initial, string name) where T : FrameworkElement
+        {
+            FrameworkElement current = initial;
+
+            while (current != null && current.GetType() != typeof(T) && current.Name != name)
+            {
+                current = VisualTreeHelper.GetParent(current) as FrameworkElement;
+            }
+            return current as T;
+        }
     }
 }

@@ -136,6 +136,7 @@
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\RideHeightToLateralAccProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\RideHeightToSpeedProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\RpmToHorizontalGChartProvider.cs" />
+    <Compile Include="AggregatedCharts\ScatterPlot\ScatterPlotPoint.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedHorizontalAccelerationChartProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedToDownforceProvider.cs" />
     <Compile Include="AggregatedCharts\ScatterPlot\Providers\SpeedToLatGProvider.cs" />
@@ -206,7 +207,7 @@
     <Compile Include="Controllers\Synchronization\TelemetrySessionArgs.cs" />
     <Compile Include="Controllers\Synchronization\TelemetrySnapshotArgs.cs" />
     <Compile Include="Controllers\Synchronization\TelemetryViewsSynchronization.cs" />
-    <Compile Include="Controllers\Synchronization\TimedValuesArgs.cs" />
+    <Compile Include="Controllers\Synchronization\TimedTelemetryArgs.cs" />
     <Compile Include="Controllers\TelemetryApplicationController.cs" />
     <Compile Include="Controllers\TelemetryLoad\DataFillers\IMissingTelemetryFiller.cs" />
     <Compile Include="Controllers\TelemetryLoad\DataFillers\SlipInformationFiller.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="ViewModels\AggregatedCharts\Histogram\CamberWheelsChartViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\CamberStatsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\HistogramChartWithStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\AggregatedCharts\Histogram\HistogramSelection.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\HistogramStatisticsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityStatsViewModel.cs" />
     <Compile Include="ViewModels\AggregatedCharts\Histogram\SuspensionVelocityWheelsChartViewModel.cs" />

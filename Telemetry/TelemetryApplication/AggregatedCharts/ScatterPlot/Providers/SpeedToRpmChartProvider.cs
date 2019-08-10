@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.ScatterPlot.Providers
 {
+    using Controllers.Synchronization;
     using Extractors;
     using ViewModels.LoadedLapCache;
 
@@ -8,7 +9,7 @@
         public override string ChartName => "Speed vs RPM";
         public override AggregatedChartKind Kind => AggregatedChartKind.ScatterPlot;
 
-        public SpeedToRpmChartProvider(ILoadedLapsCache loadedLapsCache, SpeedToRpmScatterPlotExtractor speedToRpmScatterPlotExtractor) : base(loadedLapsCache, speedToRpmScatterPlotExtractor)
+        public SpeedToRpmChartProvider(ILoadedLapsCache loadedLapsCache, SpeedToRpmScatterPlotExtractor speedToRpmScatterPlotExtractor, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache, speedToRpmScatterPlotExtractor, dataPointSelectionSynchronization)
         {
         }
 

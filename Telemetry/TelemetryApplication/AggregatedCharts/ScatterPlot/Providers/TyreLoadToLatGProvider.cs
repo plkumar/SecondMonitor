@@ -1,11 +1,12 @@
 ﻿namespace SecondMonitor.Telemetry.TelemetryApplication.AggregatedCharts.ScatterPlot.Providers
 {
+    using Controllers.Synchronization;
     using Extractors;
     using ViewModels.LoadedLapCache;
 
     public class TyreLoadToLatGProvider : AbstractWheelChartProvider
     {
-        public TyreLoadToLatGProvider(TyreLoadToLatGExtractor dataExtractor, ILoadedLapsCache loadedLaps) : base(dataExtractor, loadedLaps)
+        public TyreLoadToLatGProvider(TyreLoadToLatGExtractor dataExtractor, ILoadedLapsCache loadedLaps, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(dataExtractor, loadedLaps, dataPointSelectionSynchronization)
         {
         }
 

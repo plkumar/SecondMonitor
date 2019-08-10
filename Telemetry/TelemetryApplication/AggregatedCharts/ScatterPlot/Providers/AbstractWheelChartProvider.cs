@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using DataModel.Extensions;
     using Extractors;
     using Filter;
@@ -17,12 +18,14 @@
     public abstract class AbstractWheelChartProvider : AbstractAggregatedChartProvider
     {
         private readonly AbstractWheelScatterPlotDataExtractor _dataExtractor;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
 
         public override AggregatedChartKind Kind => AggregatedChartKind.ScatterPlot;
 
-        protected AbstractWheelChartProvider(AbstractWheelScatterPlotDataExtractor dataExtractor, ILoadedLapsCache loadedLaps) : base(loadedLaps)
+        protected AbstractWheelChartProvider(AbstractWheelScatterPlotDataExtractor dataExtractor, ILoadedLapsCache loadedLaps, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLaps)
         {
             _dataExtractor = dataExtractor;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
         }
 
         public override IReadOnlyCollection<IAggregatedChartViewModel> CreateAggregatedChartViewModels(AggregatedChartSettingsDto aggregatedChartSettings)
@@ -117,7 +120,7 @@
             ScatterPlot scatterPlot = new ScatterPlot(title, CreateXAxisDefinition(), CreateYAxisDefinition());
             series.ForEach(scatterPlot.AddScatterPlotSeries);
 
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() {Title = title};
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) {Title = title};
             viewModel.FromModel(scatterPlot);
             return viewModel;
 

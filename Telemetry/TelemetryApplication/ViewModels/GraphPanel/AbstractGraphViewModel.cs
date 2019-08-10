@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Media;
@@ -10,9 +11,11 @@
     using DataModel.BasicProperties;
     using DataModel.Telemetry;
     using OxyPlot;
+    using OxyPlot.Annotations;
     using OxyPlot.Axes;
     using OxyPlot.Series;
     using SecondMonitor.ViewModels;
+    using SecondMonitor.ViewModels.Colors.Extensions;
     using Settings.DTO;
     using TelemetryManagement.DTO;
 
@@ -22,7 +25,7 @@
         private LinearAxis _yAxis;
         private LinearAxis _xAxis;
         private PlotModel _plotModel;
-        private Dictionary<string, (double x , Color color)> _selectedXValue;
+        private readonly Dictionary<string, LineAnnotation> _selectedXValue;
         private bool _invalidatingPlot;
         private Task _invalidationTask;
         private double _yMaximum;
@@ -32,7 +35,7 @@
         private IGraphViewSynchronization _graphViewSynchronization;
         private double _yMinimum;
         private bool _syncWithOtherGraphs;
-        private DateTime _lastChangeRequest;
+        private Stopwatch _lastChangeTimer;
         private double _xMaximum;
         private double? _lapDistanceSector1;
         private double? _lapDistanceSector2;
@@ -40,9 +43,9 @@
         protected AbstractGraphViewModel()
         {
             SyncWithOtherGraphs = true;
-            _lastChangeRequest = DateTime.MinValue;
+            _lastChangeTimer = new Stopwatch();
             LoadedSeries = new Dictionary<string,(LapTelemetryDto telemetry, List<LineSeries> lineSeries)>();
-            _selectedXValue = new Dictionary<string, (double x, Color color)>();
+            _selectedXValue = new Dictionary<string, LineAnnotation>();
             InitializeViewModel();
         }
 
@@ -79,12 +82,6 @@
                 _plotModel = value;
                 NotifyPropertyChanged();
             }
-        }
-
-        public Dictionary<string, (double x, Color color)> SelectedDistances
-        {
-            get => _selectedXValue;
-            set => SetProperty(ref _selectedXValue, value);
         }
 
         public bool SyncWithOtherGraphs
@@ -196,7 +193,9 @@
             ApplyChartLimits(series);
 
 
-            _selectedXValue[lapTelemetryDto.LapSummary.Id] = (0, color);
+            var selectionAnnotation = new LineAnnotation() { Color = color.ToOxyColor(), StrokeThickness = 1, Type = LineAnnotationType.Vertical, LineStyle = LineStyle.Solid};
+            _selectedXValue[lapTelemetryDto.LapSummary.Id] = selectionAnnotation;
+            _plotModel.Annotations.Add(selectionAnnotation);
             LoadedSeries.Add(lapTelemetryDto.LapSummary.Id, (lapTelemetryDto,series));
             CheckIfHasValidData();
             InitializeSectorDistance(dataPoints);
@@ -207,7 +206,6 @@
                 _plotModel.InvalidatePlot(true);
                 NotifyPropertyChanged(nameof(PlotModel));
                 NotifyPropertyChanged(nameof(PlotModel.Series));
-                NotifyPropertyChanged(nameof(SelectedDistances));
             }
         }
 
@@ -369,11 +367,14 @@
             {
                 LoadedSeries.Remove(lapSummaryDto.Id);
                 value.lineSeries.ForEach(x => _plotModel.Series.Remove(x));
-                InvalidatePlot();
+            }
+            if (_selectedXValue.TryGetValue(lapSummaryDto.Id, out LineAnnotation lineAnnotation))
+            {
+                _plotModel.Annotations.Remove(lineAnnotation);
+                _selectedXValue.Remove(lapSummaryDto.Id);
             }
 
-            _selectedXValue.Remove(lapSummaryDto.Id);
-            NotifyPropertyChanged(nameof(SelectedDistances));
+            InvalidatePlot();
             if (LoadedSeries.Count == 0)
             {
                 XMaximum = 0;
@@ -382,12 +383,13 @@
 
         public void UpdateXSelection(string lapId, TimedTelemetrySnapshot timedTelemetrySnapshot)
         {
-            if(_selectedXValue.TryGetValue(lapId, out (double x, Color color) value))
+            if (!_selectedXValue.TryGetValue(lapId, out LineAnnotation value))
             {
-                value.x = GetXValue(timedTelemetrySnapshot);
-                _selectedXValue[lapId] = value;
+                return;
             }
-            NotifyPropertyChanged(nameof(SelectedDistances));
+
+            value.X  = GetXValue(timedTelemetrySnapshot);
+            InvalidatePlot();
         }
 
         protected double GetXValue(TimedTelemetrySnapshot timedTelemetrySnapshot)
@@ -410,19 +412,24 @@
 
         protected async Task InvalidatePlotAsync()
         {
-            _lastChangeRequest = DateTime.Now;
             if (_invalidatingPlot && !HasValidData)
             {
                 return;
             }
 
-            _invalidatingPlot = true;
-            while (DateTime.Now - _lastChangeRequest < UpdateDelay)
+            if (_invalidatingPlot)
             {
-                await Task.Delay(UpdateDelay).ConfigureAwait(false);
+                _lastChangeTimer.Restart();
+                return;
             }
 
-            _plotModel.PlotView.InvalidatePlot(true);
+            _invalidatingPlot = true;
+            while (_lastChangeTimer.Elapsed < UpdateDelay)
+            {
+                await Task.Delay(UpdateDelay);
+            }
+
+            _plotModel.PlotView.InvalidatePlot(false);
             _invalidatingPlot = false;
         }
 
@@ -505,10 +512,9 @@
 
         private void LapColorSynchronizationOnLapColorChanged(object sender, LapColorArgs e)
         {
-            if (_selectedXValue.TryGetValue(e.LapId, out (double x, Color color) value))
+            if (_selectedXValue.TryGetValue(e.LapId,out LineAnnotation value))
             {
-                value.color = e.Color;
-                _selectedXValue[e.LapId] = value;
+                value.Color = e.Color.ToOxyColor();
             }
 
             if (LoadedSeries.TryGetValue(e.LapId, out (LapTelemetryDto telemetry, List<LineSeries> lineSeries) series))
@@ -517,7 +523,6 @@
                 ApplyNewLineColor(series.lineSeries, color);
             }
 
-            NotifyPropertyChanged(nameof(SelectedDistances));
             InvalidatePlot();
         }
 

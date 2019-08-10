@@ -3,31 +3,33 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
+    using DataModel.Telemetry;
     using OxyPlot;
+    using Providers;
 
     public class ScatterPlotSeries
     {
-        private readonly List<Point> _dataPoints;
+        private readonly List<ScatterPlotPoint> _dataPoints;
 
         public ScatterPlotSeries(OxyColor color, string seriesName)
         {
             Color = color;
             SeriesName = seriesName;
-            _dataPoints = new List<Point>();
+            _dataPoints = new List<ScatterPlotPoint>();
         }
 
         public OxyColor Color { get; }
         public string SeriesName { get; }
-        public IReadOnlyCollection<Point> DataPoints => _dataPoints.AsReadOnly();
+        public IReadOnlyCollection<ScatterPlotPoint> DataPoints => _dataPoints.AsReadOnly();
 
-        public void AddDataPoint(double x, double y)
+        public void AddDataPoint(double x, double y, TimedTelemetrySnapshot telemetryPoint)
         {
-            _dataPoints.Add(new Point(x, y));
+            _dataPoints.Add( new ScatterPlotPoint(x, y, telemetryPoint));
         }
 
-        public void AddDataPoints(IEnumerable<(double x, double y)> points)
+        public void AddDataPoints(IEnumerable<(double x, double y, TimedTelemetrySnapshot telemetryPoint)> points)
         {
-            _dataPoints.AddRange(points.Select(x => new Point(x.x, x.y)));
+            _dataPoints.AddRange(points.Select(x => new ScatterPlotPoint(x.x, x.y, x.telemetryPoint)));
         }
 
     }

@@ -80,17 +80,6 @@
             return GetGeometry(points, wrapAround);
         }
 
-        public static string GetGeometry(IReadOnlyCollection<TimedValue> timedPoints, double xCoef = 1, double yCoef = 1, bool swapXy = false)
-        {
-            StringBuilder sb =new StringBuilder();
-            foreach (TimedValue timedPoint in timedPoints)
-            {
-                Point[] points = ExtractWorldPoints(xCoef, yCoef, swapXy, timedPoint.StartSnapshot.PlayerData.WorldPosition, timedPoint.EndSnapshot.PlayerData.WorldPosition);
-                sb.Append($"M {points[0].X} {points[0].Y} L  {points[1].X} {points[1].Y} ");
-            }
-            return sb.ToString().Replace(",", ".");
-        }
-
         public static string GetGeometry(Point[] points, bool wrapAround)
         {
             StringBuilder sb = new StringBuilder($"M {points.First().X} {points.First().Y} ");
@@ -115,6 +104,16 @@
         {
             return swapXy ? fullTrackPoint.Select(x => new Point(x.PlayerData.WorldPosition.Z.InMeters * yCoef, x.PlayerData.WorldPosition.X.InMeters * xCoef)).ToArray() :
             fullTrackPoint.Select(x => new Point(x.PlayerData.WorldPosition.X.InMeters * xCoef, x.PlayerData.WorldPosition.Z.InMeters * yCoef)).ToArray();
+        }
+
+        public static Point ExtractWorldPoint(TimedTelemetrySnapshot fullTrackPoint, double xCoef = 1, double yCoef = 1, bool swapXy = false)
+        {
+            return swapXy ? new Point(fullTrackPoint.PlayerData.WorldPosition.Z.InMeters * yCoef, fullTrackPoint.PlayerData.WorldPosition.X.InMeters * xCoef) : new Point(fullTrackPoint.PlayerData.WorldPosition.X.InMeters * xCoef, fullTrackPoint.PlayerData.WorldPosition.Z.InMeters * yCoef);
+        }
+
+        public static Point InverseExtractWorldPoint(Point point, double xCoef = 1, double yCoef = 1, bool swapXy = false)
+        {
+            return swapXy ? new Point(point.Y / yCoef, point.X / xCoef) : new Point(point.X / xCoef, point.Y / yCoef);
         }
 
         public static Point[] ExtractWorldPoints(double xCoef, double yCoef, bool swapXy, params Point3D[] points )

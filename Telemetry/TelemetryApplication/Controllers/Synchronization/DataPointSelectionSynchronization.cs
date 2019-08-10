@@ -4,34 +4,58 @@
     using System.Collections.Generic;
     using System.Linq;
     using DataModel.Extensions;
-    using TelemetryManagement.StoryBoard;
+    using DataModel.Telemetry;
 
     public class DataPointSelectionSynchronization : IDataPointSelectionSynchronization
     {
-        public event EventHandler<TimedValuesArgs> OnPointsSelected;
-        public event EventHandler<TimedValuesArgs> OnPointsDeselected;
+        public event EventHandler<TimedTelemetryArgs> OnPointsSelected;
+        public event EventHandler<TimedTelemetryArgs> OnPointsDeselected;
 
-        private readonly Dictionary<TimedValue, int> _selectionCount;
+
+        private readonly Dictionary<TimedTelemetrySnapshot, int> _selectionCount;
 
         public DataPointSelectionSynchronization()
         {
-            _selectionCount = new Dictionary<TimedValue, int>();
+            _selectionCount = new Dictionary<TimedTelemetrySnapshot, int>();
         }
 
-        public void SelectPoints(IReadOnlyCollection<TimedValue> timedValues)
+        public IEnumerable<TimedTelemetrySnapshot> SelectedPoints => _selectionCount.Keys;
+
+        public void SelectPoints(IEnumerable<TimedTelemetrySnapshot> timedTelemetrySnapshots)
         {
-            IReadOnlyCollection<TimedValue> firstTimeSelected = timedValues.Except(_selectionCount.Keys).ToList();
+            var telemetrySnapshotsEnumerated = timedTelemetrySnapshots.ToArray();
+            IReadOnlyCollection<TimedTelemetrySnapshot> firstTimeSelected = telemetrySnapshotsEnumerated.Except(_selectionCount.Keys).ToList();
             firstTimeSelected.ForEach(x => _selectionCount[x] = 0);
-            timedValues.ForEach(x => _selectionCount[x]++);
-            OnPointsSelected?.Invoke(this, new TimedValuesArgs(firstTimeSelected));
+            //telemetrySnapshotsEnumerated.ForEach(x => _selectionCount[x]++);
+            if (firstTimeSelected.Count == 0)
+            {
+                return;
+            }
+            OnPointsSelected?.Invoke(this, new TimedTelemetryArgs(firstTimeSelected));
         }
 
-        public void DeSelectPoints(IReadOnlyCollection<TimedValue> timedValues)
+        public void DeSelectPoints(IEnumerable<TimedTelemetrySnapshot> timedTelemetrySnapshots)
         {
-            timedValues.ForEach(x => _selectionCount[x]--);
-            IReadOnlyCollection<TimedValue> reallyDeselected = _selectionCount.Where(x => x.Value == 0).Select(x => x.Key).ToList();
-            reallyDeselected.ForEach(x => _selectionCount.Remove(x));
-            OnPointsDeselected?.Invoke(this, new TimedValuesArgs(reallyDeselected));
+            var telemetrySnapshotsEnumerated = timedTelemetrySnapshots.ToArray();
+            var previouslySelected = telemetrySnapshotsEnumerated.Where(x => _selectionCount.ContainsKey(x)).ToList();
+            /*IReadOnlyCollection<TimedTelemetrySnapshot> reallyDeselected = _selectionCount.Where(x => x.Value == 0).Select(x => x.Key).ToList();
+            reallyDeselected.ForEach(x => _selectionCount.Remove(x));*/
+            if (previouslySelected.Count == 0)
+            {
+                return;
+            }
+            previouslySelected.ForEach(x => _selectionCount.Remove(x));
+            OnPointsDeselected?.Invoke(this, new TimedTelemetryArgs(previouslySelected));
+        }
+
+        public void DeselectAllPoints()
+        {
+            if (_selectionCount.Count == 0)
+            {
+                return;
+            }
+            OnPointsDeselected?.Invoke(this, new TimedTelemetryArgs(_selectionCount.Keys));
+            _selectionCount.Clear();
         }
     }
 }

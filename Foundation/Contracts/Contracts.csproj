@@ -64,15 +64,14 @@
     <Compile Include="NInject\INinjectModuleBootstrapper.cs" />
     <Compile Include="NInject\KernelWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectionCounter\SelectionItemCounter.cs" />
     <Compile Include="TrackMap\IMapManagementController.cs" />
     <Compile Include="TrackMap\ITrackDtoManipulator.cs" />
     <Compile Include="TrackMap\MapEventArgs.cs" />
     <Compile Include="UserInput\IUserInputProvider.cs" />
     <Compile Include="WheelInformation\IIdealWheelQuantitiesFiller.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SessionTiming\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{30DEA773-F579-4A77-9C73-3D58C81612D0}</Project>

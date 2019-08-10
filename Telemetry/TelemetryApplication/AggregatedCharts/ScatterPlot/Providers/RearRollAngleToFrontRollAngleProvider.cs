@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using Extractors;
     using Filter;
     using OxyPlot;
@@ -20,16 +21,18 @@
 
         private readonly RearRollAngleToFrontRollAngleExtractor _dataExtractor;
         private readonly LateralAccFilter _lateralAccFilter;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private readonly List<ITelemetryFilter> _filters;
 
         public override string ChartName => "Rear Roll Angle / Front Roll Angle ";
 
         public override AggregatedChartKind Kind => AggregatedChartKind.ScatterPlot;
 
-        public RearRollAngleToFrontRollAngleProvider(ILoadedLapsCache loadedLapsCache, RearRollAngleToFrontRollAngleExtractor dataExtractor, LateralAccFilter lateralAccFilter) : base(loadedLapsCache)
+        public RearRollAngleToFrontRollAngleProvider(ILoadedLapsCache loadedLapsCache, RearRollAngleToFrontRollAngleExtractor dataExtractor, LateralAccFilter lateralAccFilter, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
             _lateralAccFilter = lateralAccFilter;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
             _filters = new List<ITelemetryFilter>() {_lateralAccFilter};
         }
 
@@ -64,7 +67,7 @@
             }
 
             scatterPlot.AddAnnotation(new LineAnnotation() { Slope = 1, Intercept = 0, Color = OxyColors.Red, StrokeThickness = 1, LineStyle = LineStyle.Solid });
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = title };
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = title };
             viewModel.FromModel(scatterPlot);
             return new[] {viewModel};
         }
@@ -97,7 +100,7 @@
                 }
 
                 scatterPlot.AddAnnotation(new LineAnnotation() {Slope = 1, Intercept = 0, Color = OxyColors.Red, StrokeThickness = 1, LineStyle = LineStyle.Solid});
-                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() {Title = title};
+                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) {Title = title};
                 viewModel.FromModel(scatterPlot);
                 charts.Add(viewModel);
             }

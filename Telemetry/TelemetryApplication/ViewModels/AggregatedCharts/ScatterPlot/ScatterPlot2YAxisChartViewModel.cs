@@ -217,9 +217,9 @@
         private List<DataPoint> GetAverageDataPoint(ScatterPlotSeries series)
         {
             double currentBand = double.MinValue;
-            List<Point> pointsInBand = new List<Point>();
+            List<ScatterPlotPoint> pointsInBand = new List<ScatterPlotPoint>();
             List<DataPoint> pointsToReturn = new List<DataPoint>();
-            foreach (Point point in series.DataPoints.OrderBy(x => x.X))
+            foreach (ScatterPlotPoint point in series.DataPoints.OrderBy(x => x.X))
             {
                 if (point.X - currentBand > AverageBand)
                 {

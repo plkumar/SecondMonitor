@@ -161,27 +161,27 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyreWear.ActualWear = GetACTyreWear(acData.AcsPhysics.tyreWear[(int)AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreWear.ActualWear = GetACTyreWear(acData.AcsPhysics.tyreWear[(int)AcWheels.FR]);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreWear.ActualWear = GetACTyreWear(acData.AcsPhysics.tyreWear[(int)AcWheels.RL]);
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear = GetACTyreWear(acData.AcsPhysics.tyreWear[(int)AcWheels.FR]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear = GetACTyreWear(acData.AcsPhysics.tyreWear[(int)AcWheels.RR]);
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.FR]);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.RL]);
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.FR]); simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.FL]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Camber = Angle.GetFromRadians(acData.AcsPhysics.camberRAD[(int)AcWheels.RR]);
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.Rps = acData.AcsPhysics.wheelAngularSpeed[(int)AcWheels.FL];
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.Rps = acData.AcsPhysics.wheelAngularSpeed[(int)AcWheels.FR];
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.Rps = acData.AcsPhysics.wheelAngularSpeed[(int)AcWheels.RL];
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Rps = acData.AcsPhysics.wheelAngularSpeed[(int)AcWheels.FR];
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.Rps = acData.AcsPhysics.wheelAngularSpeed[(int)AcWheels.RR];
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.FL];
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.FR];
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.RL];
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.FR];
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.DirtLevel = acData.AcsPhysics.tyreDirtyLevel[(int)AcWheels.RR];
 
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FR]);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.RL]);
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.FR]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.TyreLoad = Force.GetFromNewtons(acData.AcsPhysics.wheelLoad[(int)AcWheels.RR]);
 
             simData.PlayerInfo.CarInfo.FrontHeight =  Distance.FromMeters(acData.AcsPhysics.rideHeight[0]);
             simData.PlayerInfo.CarInfo.RearHeight = Distance.FromMeters(acData.AcsPhysics.rideHeight[1]);
@@ -194,7 +194,7 @@
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int) AcWheels.FL]);
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontRight.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int)AcWheels.FR]);
             simData.PlayerInfo.CarInfo.WheelsInfo.RearLeft.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int)AcWheels.RL]);
-            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int)AcWheels.FR]);
+            simData.PlayerInfo.CarInfo.WheelsInfo.RearRight.SuspensionTravel = Distance.FromMeters(acData.AcsPhysics.suspensionTravel[(int)AcWheels.RR]);
 
             // Front Left Tyre Temps
             simData.PlayerInfo.CarInfo.WheelsInfo.FrontLeft.LeftTyreTemp.ActualQuantity = Temperature.FromCelsius(acData.AcsPhysics.tyreTempI[(int)AcWheels.FL]);

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using Extractors;
     using Filter;
     using OxyPlot;
@@ -16,10 +17,12 @@
     public abstract class AbstractStintScatterPlotProvider : AbstractAggregatedChartProvider
     {
         private readonly AbstractScatterPlotExtractor _dataExtractor;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
 
-        protected AbstractStintScatterPlotProvider(ILoadedLapsCache loadedLapsCache, AbstractScatterPlotExtractor dataExtractor ) : base(loadedLapsCache)
+        protected AbstractStintScatterPlotProvider(ILoadedLapsCache loadedLapsCache, AbstractScatterPlotExtractor dataExtractor, IDataPointSelectionSynchronization dataPointSelectionSynchronization ) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
         }
 
         public bool IsLegendVisible { get; set; }
@@ -52,7 +55,7 @@
                 scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(lapsInStintGroup, Enumerable.Empty<ITelemetryFilter>().ToList(), seriesTitle, colorPaletteProvider.GetNext().ToOxyColor()));
             }
 
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = ChartName };
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = ChartName };
             viewModel.FromModel(scatterPlot);
             return new[] {viewModel};
         }
@@ -73,7 +76,7 @@
 
                 scatterPlot.AddScatterPlotSeries(_dataExtractor.ExtractSeries(lapsInStintGroup, Enumerable.Empty<ITelemetryFilter>().ToList(), title, OxyColors.Green));
 
-                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = ChartName };
+                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = ChartName };
                 viewModel.FromModel(scatterPlot);
                 charts.Add(viewModel);
             }

@@ -21,6 +21,7 @@
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ITelemetryViewsSynchronization _telemetryViewsSynchronization;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private readonly IMissingTelemetryFiller[] _missingTelemetryFillers;
         private readonly ITelemetryRepository _telemetryRepository;
         private readonly ConcurrentDictionary<string, LapTelemetryDto> _cachedTelemetries;
@@ -30,12 +31,13 @@
         private Task _loopTask;
         private CancellationTokenSource _loopTaskSource;
 
-        public TelemetryLoadController(ITelemetryRepositoryFactory telemetryRepositoryFactory, ISettingsProvider settingsProvider, ITelemetryViewsSynchronization telemetryViewsSynchronization, IEnumerable<IMissingTelemetryFiller> missingTelemetryFillers )
+        public TelemetryLoadController(ITelemetryRepositoryFactory telemetryRepositoryFactory, ISettingsProvider settingsProvider, ITelemetryViewsSynchronization telemetryViewsSynchronization, IEnumerable<IMissingTelemetryFiller> missingTelemetryFillers, IDataPointSelectionSynchronization dataPointSelectionSynchronization )
         {
             _cachedTelemetries = new ConcurrentDictionary<string, LapTelemetryDto>();
             _loadedSessions = new List<string>();
             _knownLaps = new List<string>();
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
             _missingTelemetryFillers = missingTelemetryFillers.ToArray();
             _telemetryRepository = telemetryRepositoryFactory.Create(settingsProvider);
         }
@@ -242,6 +244,7 @@
             {
                 await Task.Delay(100);
             }
+            _dataPointSelectionSynchronization.DeselectAllPoints();
             foreach (LapTelemetryDto value in _cachedTelemetries.Values)
             {
                 await UnloadLap(value.LapSummary);

@@ -35,7 +35,7 @@
             }
 
             ScatterPlotSeries newSeries = new ScatterPlotSeries(color, seriesTitle);
-            timedTelemetrySnapshots.ForEach(x => newSeries.AddDataPoint(GetXValue(x), GetYValue(x)));
+            timedTelemetrySnapshots.ForEach(x => newSeries.AddDataPoint(GetXValue(x), GetYValue(x), x));
             return newSeries;
         }
 

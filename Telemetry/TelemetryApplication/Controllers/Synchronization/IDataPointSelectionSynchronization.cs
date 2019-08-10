@@ -2,14 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using TelemetryManagement.StoryBoard;
+    using DataModel.Telemetry;
 
     public interface IDataPointSelectionSynchronization
     {
-        event EventHandler<TimedValuesArgs> OnPointsSelected;
-        event EventHandler<TimedValuesArgs> OnPointsDeselected;
+        event EventHandler<TimedTelemetryArgs> OnPointsSelected;
+        event EventHandler<TimedTelemetryArgs> OnPointsDeselected;
 
-        void SelectPoints(IReadOnlyCollection<TimedValue> timedValues);
-        void DeSelectPoints(IReadOnlyCollection<TimedValue> timedValues);
+        IEnumerable<TimedTelemetrySnapshot> SelectedPoints { get; }
+
+
+        void SelectPoints(IEnumerable<TimedTelemetrySnapshot> timedTelemetrySnapshots);
+        void DeSelectPoints(IEnumerable<TimedTelemetrySnapshot> timedTelemetrySnapshots);
+        void DeselectAllPoints();
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Controllers.Synchronization;
     using Extractors;
     using Filter;
     using SecondMonitor.ViewModels.Colors;
@@ -17,16 +18,18 @@
     {
         private readonly LateralToLongGExtractor _dataExtractor;
         private readonly ThrottlePositionFilter _throttlePositionFilter;
+        private readonly IDataPointSelectionSynchronization _dataPointSelectionSynchronization;
         private readonly List<ITelemetryFilter> _filters;
 
         public override string ChartName => "Traction Circle";
 
         public override AggregatedChartKind Kind => AggregatedChartKind.ScatterPlot;
 
-        public LatToLogGProvider(ILoadedLapsCache loadedLapsCache, LateralToLongGExtractor dataExtractor, ThrottlePositionFilter throttlePositionFilter) : base(loadedLapsCache)
+        public LatToLogGProvider(ILoadedLapsCache loadedLapsCache, LateralToLongGExtractor dataExtractor, ThrottlePositionFilter throttlePositionFilter, IDataPointSelectionSynchronization dataPointSelectionSynchronization) : base(loadedLapsCache)
         {
             _dataExtractor = dataExtractor;
             _throttlePositionFilter = throttlePositionFilter;
+            _dataPointSelectionSynchronization = dataPointSelectionSynchronization;
             _filters = new List<ITelemetryFilter>() { throttlePositionFilter };
         }
 
@@ -66,7 +69,7 @@
             }
 
             SetAxisRanges(maxG, xAxis, yAxis);
-            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() {Title = "Lateral / Longitudinal G"};
+            ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) {Title = "Lateral / Longitudinal G"};
             viewModel.FromModel(scatterPlot);
             charts.Add(viewModel);
             return charts;
@@ -108,7 +111,7 @@
                 scatterPlot.AddScatterPlotSeries(newSeries);
 
                 SetAxisRanges(maxG, xAxis, yAxis);
-                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel() { Title = "Lateral / Longitudinal G" };
+                ScatterPlotChartViewModel viewModel = new ScatterPlotChartViewModel(_dataPointSelectionSynchronization) { Title = "Lateral / Longitudinal G" };
                 viewModel.FromModel(scatterPlot);
                 charts.Add(viewModel);
             }
