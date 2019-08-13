@@ -10,6 +10,8 @@ assembly_info:
   
 build_script:
 - cmd: >-
+    choco install dotnetcore-sdk --pre
+
     dotnet --list-sdks
 
     dotnet --version
