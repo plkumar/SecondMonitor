@@ -24,7 +24,7 @@ build_script:
 
     powershell "".\generateWixGuid.ps1""
 
-    #msbuild WixInstaller\WixInstaller.wixproj /t:Rebuild
+#msbuild WixInstaller\WixInstaller.wixproj /t:Rebuild
 test: off
 artifacts:
 - path: Deployment\
