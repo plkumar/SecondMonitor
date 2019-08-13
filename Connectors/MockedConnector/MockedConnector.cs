@@ -213,6 +213,7 @@
             driver.InPits = false;
             driver.IsPlayer = isPlayer;
             driver.LapDistance = 0;
+            driver.CarClassId = "Mazda";
             driver.Position = _players.Values.Count;
             if (!isPlayer)
             {
