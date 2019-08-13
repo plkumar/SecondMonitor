@@ -10,8 +10,10 @@ assembly_info:
   
 build_script:
 - cmd: >-
+    dotnet --version
     dotnet restore SecondMonitor.sln  
-    
+    nuget restore    
+
     msbuild SecondMonitor.sln /t:Rebuild /p:Configuration=Release /v:m
 
     powershell "".\generateWixGuid.ps1""
