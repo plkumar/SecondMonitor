@@ -60,6 +60,7 @@
     <Compile Include="RemoteConnector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +72,6 @@
     <ProjectReference Include="..\..\Foundation\DataModel\DataModel.csproj">
       <Project>{30dea773-f579-4a77-9c73-3d58c81612d0}</Project>
       <Name>DataModel</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Foundation\Launcher\Launcher.csproj">
-      <Project>{9cb31996-7ff5-4bb2-aaf7-5a9a88aadc48}</Project>
-      <Name>Launcher</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Foundation\PluginManager\PluginManager.csproj">

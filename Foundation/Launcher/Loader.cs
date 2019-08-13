@@ -33,10 +33,10 @@
                 //Application.EnableVisualStyles();
                 //Application.SetCompatibleTextRenderingDefault(false);
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-                Application app = new Application();
+                //Application app = new Application();
                 LoadAssemblies();
                 LoadUsingGameConnectorsFromDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConnectorsDir));
-                app.Run();
+                //app.Run();
 
             }
             catch (Exception ex)
