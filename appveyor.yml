@@ -8,6 +8,11 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
   
+install:  
+  - ps: $vsixPath = "$($env:USERPROFILE)\Votive2019.vsix"
+  - ps: (New-Object Net.WebClient).DownloadFile('https://github.com/wixtoolset/VisualStudioExtension/releases/download/v1.0.0.3/Votive2019.vsix', $vsixPath)
+  - ps: Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VSIXInstaller.exe" "/q /a $vsixPath" -Wait
+  
 build_script:
 - cmd: >-
     choco install dotnetcore-sdk --pre
