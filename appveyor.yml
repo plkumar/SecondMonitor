@@ -10,6 +10,8 @@ assembly_info:
   
 build_script:
 - cmd: >-
+    dotnet --list-sdks
+
     dotnet --version
     
     dotnet restore SecondMonitor.sln  
