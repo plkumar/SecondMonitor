@@ -18,7 +18,8 @@
 
   <ItemGroup>
     <PackageReference Include="Ninject" Version="3.3.3" />
-    <PackageReference Include="NLog" Version="4.6.5" />
+    <PackageReference Include="NLog" Version="4.6.6" />
+    <PackageReference Include="NLog.Config" Version="4.6.6" />
     <PackageReference Include="protobuf-net" Version="3.0.0-alpha.43" />
   </ItemGroup>
 

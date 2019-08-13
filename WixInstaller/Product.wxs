@@ -128,9 +128,6 @@
       <Component Id="cmpA1FC9EC3991DE249BC5D4B6B86612376" Directory="APPLICATIONROOTDIRECTORY" Guid="f69f5713-a962-4b0e-96c2-f581ae822682">
         <File Id="fil0789929666268B2E394FC6E7182639D4" KeyPath="yes" Source="..\Deployment\PluginManager.dll" />
       </Component>
-      <Component Id="cmpBF276D04790C4EA6EAA0D4906CCF8782" Directory="APPLICATIONROOTDIRECTORY" Guid="4650b298-f5c8-41d3-9153-2f686ace5614">
-        <File Id="filFD7A7C4C272CCAF2F7343286DC5B80B5" KeyPath="yes" Source="..\Deployment\SecondMonitor.exe.config" />
-      </Component>
       <Component Id="cmpB166FB7BF3EEA0A0A49BA3ADC2CFEC38" Directory="APPLICATIONROOTDIRECTORY" Guid="617732db-ef1d-4b8d-a32e-46a82016ea7b">
         <File Id="fil97545F8961B4711D742F55DF31B887D9" KeyPath="yes" Source="..\Deployment\WindowsControls.dll" />
       </Component>
