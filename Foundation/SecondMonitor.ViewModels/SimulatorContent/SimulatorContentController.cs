@@ -38,7 +38,7 @@
 
         public void Visit(SimulatorDataSet simulatorDataSet)
         {
-            if (_stopwatch.ElapsedMilliseconds < 10000)
+            if (_stopwatch.ElapsedMilliseconds < 10000 )
             {
                 return;
             }
