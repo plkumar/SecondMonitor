@@ -43,6 +43,7 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 * Assetto Corsa - Requires custom plugin, than should be automatically installed when the app detect Assetto Corsa running. The plugin needs to be enabled in the options settings manualy. 
 * Project Cars 2 - Works out of the box. Just be sure to enable the shared memory inside Project Cars 2 [options](http://www.eksimracing.com/f-a-q/configure-project-cars-to-use-shared-memory/)
 * Project Cars - Limited functionality as split times and lap times are not provided by the sim api. Splits don't work at all, and lap timing is done by the app, so the will be slight difference between what is in the app and what is in sim. Big thanks to mr_belowski for allowing me to use his project cars pit coordinates from CrewChief :)
+* F1 2019 - Requires the telemetry UDP output to be enabled in the game (open options menu from the main menu, then enter the settings menu - the UDP option will be at the bottom of the list. ). The application works only on the default port 20777.
 
 ## Known Issues
 [Known Issues - Second Monitor](https://gitlab.com/Winzarten/SecondMonitor/wikis/Known-Issues)
@@ -54,9 +55,10 @@ Telemetry Viewer allows to view and analyse the telemetry data that the main sec
 
 ## Future Plans   
  - [x] Track Recods tracking
+ - [x] F1 2019 Support
  - [ ] Championship module (tied to Rating)
  - [ ] Basic setup "sanity check"
- - [ ] F1 2018/F1 2019 Support
+ 
  
 ## Support
 For Support please use the application topic on r3e forums : https://forum.sector3studios.com/index.php?threads/secondmonitor-timing-status-app.9587/
