@@ -9,7 +9,7 @@
     {
         public enum PitPhase { Entry, InPits, Exit, Completed }
 
-        public PitStopInfo(SimulatorDataSet set, DriverTiming driver, LapInfo entryLap)
+        public PitStopInfo(SimulatorDataSet set, DriverTiming driver, ILapInfo entryLap)
         {
             Driver = driver;
             EntryLap = entryLap;
@@ -25,9 +25,11 @@
 
         public bool Completed => Phase == PitPhase.Completed;
 
+        public bool WasDriveThrough { get; private set; }
+
         public DriverTiming Driver { get; }
 
-        public LapInfo EntryLap { get; }
+        public ILapInfo EntryLap { get; }
 
         public TimeSpan PitEntry { get; }
 
@@ -58,8 +60,9 @@
                 PitStopEnd = set.SessionInfo.SessionTime;
             }
 
-            if (Phase == PitPhase.Exit && !Driver.DriverInfo.InPits)
+            if (!Driver.DriverInfo.InPits)
             {
+                WasDriveThrough = Phase == PitPhase.Entry;
                 Phase = PitPhase.Completed;
                 PitExit = set.SessionInfo.SessionTime;
                 PitStopDuration = PitExit.Subtract(PitEntry);
@@ -81,32 +84,27 @@
                 PitExit = set.SessionInfo.SessionTime;
                 PitStopDuration = PitExit.Subtract(PitEntry);
             }
+
+
         }
 
         public string PitInfoFormatted
         {
             get
             {
-                string phaseAsString;
                 switch(Phase)
                 {
                     case PitPhase.Entry:
-                        phaseAsString = "Entry-";
-                        break;
+                        return "-->" + PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false);
                     case PitPhase.InPits:
-                        phaseAsString = "Stop-";
-                        break;
+                        return "---" + PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false) + "---";
                     case PitPhase.Exit:
-                        phaseAsString = "Exit-";
-                        break;
+                        return PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false) + " -->";
                     case PitPhase.Completed:
-                        phaseAsString = EntryLap != null ? EntryLap.LapNumber + "-": "0-";
-                        break;
+                        return PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false);
                     default:
                         return string.Empty;
                 }
-
-                return phaseAsString + PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false);
             }
         }
 

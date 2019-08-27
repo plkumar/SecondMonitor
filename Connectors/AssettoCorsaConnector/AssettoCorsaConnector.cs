@@ -178,19 +178,26 @@
 
         private void CheckDependencies()
         {
-            if (Process != null && !dependencies.Checked)
+            try
             {
-                string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
-                Action actionToInstall = dependencies.CheckAndReturnInstallDependenciesAction(directory);
-                if (actionToInstall != null)
+                if (Process != null && !dependencies.Checked)
                 {
-                    SendMessageToClients(
-                        "Assetto Corsa has been detected, but the required second monitor plugin, was not found, or is outdated. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
-                        () => RunActionAndShowConfirmation(
-                            actionToInstall,
-                            "Operation Completed Successfully",
-                            "Unable to install the plugin, unexpected error: "));
+                    string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
+                    Action actionToInstall = dependencies.CheckAndReturnInstallDependenciesAction(directory);
+                    if (actionToInstall != null)
+                    {
+                        SendMessageToClients(
+                            "Assetto Corsa has been detected, but the required second monitor plugin, was not found, or is outdated. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
+                            () => RunActionAndShowConfirmation(
+                                actionToInstall,
+                                "Operation Completed Successfully",
+                                "Unable to install the plugin, unexpected error: "));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unable to check dependencies.");
             }
         }
 

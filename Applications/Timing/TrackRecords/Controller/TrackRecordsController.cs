@@ -87,7 +87,7 @@
             InitializeCurrentSets(dataSet);
         }
 
-        public bool EvaluateFastestLapCandidate(LapInfo lapInfo)
+        public bool EvaluateFastestLapCandidate(ILapInfo lapInfo)
         {
             if (!lapInfo.Valid || !lapInfo.Driver.IsPlayer || !_isEnabled)
             {
@@ -110,7 +110,7 @@
             return isVehicleRecord || isClassRecord || isTrackRecord;
         }
 
-        private bool EvaluateAsTrackRecord(LapInfo lapInfo)
+        private bool EvaluateAsTrackRecord(ILapInfo lapInfo)
         {
             var sessionType = lapInfo.Driver.Session.SessionType;
             if (Evaluate(lapInfo, _currentTrackRecords.OverallRecord.GetProperEntry(sessionType)))
@@ -123,7 +123,7 @@
             return false;
         }
 
-        private bool EvaluateAsVehicleRecord(LapInfo lapInfo)
+        private bool EvaluateAsVehicleRecord(ILapInfo lapInfo)
         {
             var sessionType = lapInfo.Driver.Session.SessionType;
             if (Evaluate(lapInfo, _currentVehicleRecordSet.GetProperEntry(sessionType)))
@@ -136,7 +136,7 @@
             return false;
         }
 
-        private bool EvaluateAsClassRecord(LapInfo lapInfo)
+        private bool EvaluateAsClassRecord(ILapInfo lapInfo)
         {
             var sessionType = lapInfo.Driver.Session.SessionType;
             if (Evaluate(lapInfo, _currentClassRecordSet.GetProperEntry(sessionType)))
@@ -149,7 +149,7 @@
             return false;
         }
 
-        private bool Evaluate(LapInfo lapInfo, RecordEntryDto recordEntryDto)
+        private bool Evaluate(ILapInfo lapInfo, RecordEntryDto recordEntryDto)
         {
             if (recordEntryDto == null || recordEntryDto.LapTime > lapInfo.LapTime)
             {
@@ -212,7 +212,7 @@
             return _showRecordsForSession ?  recordSet.GetProperEntry(_currentSessionType) : recordSet.GetOverAllBest();
         }
 
-        private RecordEntryDto FromLap(LapInfo lapInfo)
+        private RecordEntryDto FromLap(ILapInfo lapInfo)
         {
             return new RecordEntryDto()
             {

@@ -181,7 +181,7 @@
                 return;
             }
             var newRatings = _ratingUpdater.UpdateRatingsAsLoss(SharedContext.RaceContext.FieldRating, SharedContext.DifficultyRating, SharedContext.SimulatorRating, SharedContext.RaceContext.UsedDifficulty, player, sessionSummary.TrackInfo.TrackFullName);
-            SharedContext.RaceContext.FieldRating[player.DriverName] = newRatings.newClassRating;
+
         }
 
         private void ComputeRatingFromResults(SessionSummary sessionSummary)

@@ -171,7 +171,7 @@
             {
                 _refreshStopwatch.Restart();
                 CheckMp(simulatorDataSet.SessionInfo);
-                if (_inMp || !_displaySettingsViewModel.RatingSettingsViewModel.IsEnabled || !RatingApplicationViewModel.IsRateRaceCheckboxChecked)
+                if (_inMp || !RatingApplicationViewModel.IsEnabled || !_displaySettingsViewModel.RatingSettingsViewModel.IsEnabled || !RatingApplicationViewModel.IsRateRaceCheckboxChecked)
                 {
                     return;
                 }
@@ -194,13 +194,13 @@
             {
                 _inMp = true;
                 RatingApplicationViewModel.CollapsedMessage = "MP Detected, Rating Disabled";
-                RatingApplicationViewModel.IsCollapsed = false;
+                RatingApplicationViewModel.IsEnabled = false;
             }
             else
             {
                 _inMp = false;
                 RatingApplicationViewModel.CollapsedMessage = string.Empty;
-                RatingApplicationViewModel.IsCollapsed = true;
+                RatingApplicationViewModel.IsEnabled = true;
             }
 
         }

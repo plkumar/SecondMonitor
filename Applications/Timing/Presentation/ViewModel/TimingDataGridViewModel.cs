@@ -10,6 +10,7 @@
     using System.Windows;
     using WindowsControls.WPF;
     using DataModel.BasicProperties;
+    using DataModel.DriversPresentation;
     using DataModel.Extensions;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
@@ -35,8 +36,6 @@
         private readonly Stopwatch _refreshGapWatch;
         private Task _pitBoardTask;
         private CancellationTokenSource _cancellationTokenSource;
-        private readonly Dictionary<string, ColorDto> _driverColorMap;
-        private readonly Stopwatch _refreshDriverColorMap;
 
         public TimingDataGridViewModel(DriverPresentationsManager driverPresentationsManager, DisplaySettingsViewModel displaySettingsViewModel, IClassColorProvider classColorProvider )
         {
@@ -49,9 +48,8 @@
             DriversViewModels = new ObservableCollection<DriverTimingViewModel>();
             PitBoardViewModel = new PitBoardViewModel();
             PitBoardViewModel.PitBoard.Lap = "L0";
-            _driverColorMap = new Dictionary<string, ColorDto>();
-            _refreshDriverColorMap = Stopwatch.StartNew();
 
+            _driverPresentationsManager.DriverCustomColorChanged += DriverPresentationsManagerOnDriverCustomColorEnabledChanged;
         }
 
         public ObservableCollection<DriverTimingViewModel> DriversViewModels { get; }
@@ -81,16 +79,6 @@
                 }
                 DriversViewModels.ForEach(x => x.RefreshProperties());
 
-                if (_refreshDriverColorMap.ElapsedMilliseconds > 5000)
-                {
-                    lock (_driverColorMap)
-                    {
-                        DriversViewModels.ForEach(x => _driverColorMap[x.Name] = x.HasCustomOutline ? x.OutLineColor : null);
-                    }
-
-                    _refreshDriverColorMap.Restart();
-                }
-
                 if (_refreshGapWatch.ElapsedMilliseconds < 500)
                 {
                     return;
@@ -113,7 +101,14 @@
                 driverTimingViewModel.ClassIndicationBrush = _classColorProvider.GetColorForClass(driverTiming.CarClassId);
             }
 
+            driverTimingViewModel.OutLineColor = GetDriverOutline(driverTiming.Name);
             driverTimingViewModel.DriverTiming = driverTiming;
+        }
+
+        private ColorDto GetDriverOutline(string driverName)
+        {
+            _driverPresentationsManager.TryGetOutLineColor(driverName, out ColorDto color);
+            return color;
         }
 
         private void UpdateGapsSize(SimulatorDataSet dataSet)
@@ -219,8 +214,7 @@
                 return;
             }
 
-            DriverTimingViewModel newViewModel = new DriverTimingViewModel(driver, _driverPresentationsManager);
-            newViewModel.ClassIndicationBrush = GetClassColor(driver.DriverInfo);
+            DriverTimingViewModel newViewModel = new DriverTimingViewModel(driver) {ClassIndicationBrush = GetClassColor(driver.DriverInfo)};
             lock (_lockObject)
             {
                 //If possible, rebind - do not create new
@@ -231,6 +225,7 @@
                     return;
                 }
                 _driverNameTimingMap[driver.Name] = driver;
+                newViewModel.OutLineColor = GetDriverOutline(driver.Name);
                 DriversViewModels.Add(newViewModel);
             }
         }
@@ -281,7 +276,11 @@
             {
                 _loadIndex++;
                 Logger.Info("Add Drivers Called");
-                List<DriverTimingViewModel> newViewModels = drivers.Select(x => new DriverTimingViewModel(x, _driverPresentationsManager) {ClassIndicationBrush = GetClassColor(x.DriverInfo)}).ToList();
+                List<DriverTimingViewModel> newViewModels = drivers.Select(x => new DriverTimingViewModel(x)
+                {
+                    ClassIndicationBrush = GetClassColor(x.DriverInfo),
+                    OutLineColor = GetDriverOutline(x.Name)
+                }).ToList();
 
                 foreach (DriverTimingViewModel driverTimingViewModel in newViewModels)
                 {
@@ -383,21 +382,22 @@
 
         public bool TryGetCustomOutline(IDriverInfo driverInfo, out ColorDto outlineColor)
         {
-            if (driverInfo?.DriverName == null)
-            {
-                outlineColor = null;
-                return false;
-            }
+            bool driverHasCustomOutline = _driverPresentationsManager.TryGetDriverPresentation(driverInfo.DriverName, out DriverPresentationDto driverPresentationDto);
+            outlineColor = driverPresentationDto?.OutLineColor;
+            return driverHasCustomOutline && driverPresentationDto?.CustomOutLineEnabled == true;
 
-            lock (_driverColorMap)
-            {
-                return _driverColorMap.TryGetValue(driverInfo.DriverName, out outlineColor);
-            }
+
         }
 
         public ColorDto GetClassColor(IDriverInfo driverInfo)
         {
             return _classColorProvider.GetColorForClass(driverInfo.CarClassId);
+        }
+
+        private void DriverPresentationsManagerOnDriverCustomColorEnabledChanged(object sender, DriverCustomColorEnabledArgs e)
+        {
+            ColorDto colorToSet = e.IsCustomOutlineEnabled ? e.DriverColor : null;
+            DriversViewModels.Where(x => x.Name == e.DriverName).ForEach(x => x.OutLineColor = colorToSet);
         }
     }
 }

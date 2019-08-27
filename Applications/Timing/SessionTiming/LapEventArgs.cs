@@ -5,12 +5,12 @@
 
     public class LapEventArgs : EventArgs
     {
-        public LapEventArgs(LapInfo lapInfo)
+        public LapEventArgs(ILapInfo lapInfo)
         {
             Lap = lapInfo;
         }
 
-        public LapInfo Lap
+        public ILapInfo Lap
         {
             get;
         }

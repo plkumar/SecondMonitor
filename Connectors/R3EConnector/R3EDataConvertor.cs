@@ -223,6 +223,7 @@
             simData.InputInfo.ClutchPedalPosition = data.ClutchRaw;
             simData.InputInfo.SteeringInput = data.SteerInputRaw;
             simData.InputInfo.WheelAngle = data.SteerWheelRangeDegrees * data.SteerInputRaw;
+            simData.InputInfo.WheelAngleFilled = true;
         }
 
         internal void AddDriversData(SimulatorDataSet data, R3ESharedData r3RData)

@@ -26,17 +26,19 @@
 
         public int TickTime { get; set; }
 
-        private readonly string[] executables;
+        private readonly string[] _executables;
 
-       private Task _daemonTask;
+        private Task _daemonTask;
         private CancellationTokenSource _cancellationTokenSource;
         private Stopwatch _lastCheck;
 
+        protected string ProcessName { get; private set; }
         protected Process Process { get; private set; }
 
         protected AbstractGameConnector(string[] executables)
         {
-            this.executables = executables;
+            this._executables = executables;
+            ProcessName = string.Empty;
             TickTime = 16;
         }
 
@@ -50,25 +52,26 @@
 
         public bool IsProcessRunning()
         {
-            if (Process != null)
+            if (!string.IsNullOrWhiteSpace(ProcessName))
             {
-                if (_lastCheck.ElapsedMilliseconds < 2000)
+                if (_lastCheck.ElapsedMilliseconds < 5000)
                 {
                     return true;
                 }
 
                 _lastCheck.Restart();
-                if (!Process.HasExited)
+                if (Process.GetProcessesByName(ProcessName).Length > 0)
                 {
                     return true;
                 }
 
                 Process = null;
+                ProcessName = string.Empty;
                 _lastCheck.Stop();
                 return false;
             }
 
-            foreach (var processName in executables)
+            foreach (var processName in _executables)
             {
                 var processes = Process.GetProcessesByName(processName);
                 if (processes.Length <= 0)
@@ -77,6 +80,7 @@
                 }
 
                 Process = processes[0];
+                ProcessName = processName;
                 _lastCheck = Stopwatch.StartNew();
                 return true;
             }
@@ -119,6 +123,11 @@
             try
             {
                 OnConnection();
+                if (!IsConnected)
+                {
+                    return false;
+                }
+
                 RaiseConnectedEvent();
                 return true;
             }

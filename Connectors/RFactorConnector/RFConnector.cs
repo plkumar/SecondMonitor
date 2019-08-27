@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
-
+    using NLog;
     using PluginManager.GameConnector;
 
     using PluginManager.DependencyChecker;
@@ -17,6 +17,8 @@
 
     public class RFConnector : AbstractGameConnector
     {
+        private static  readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private static readonly string[] RFExecutables = { "AMS", "rFactor", "GSC" };
         private static readonly string SharedMemoryName = "$rFactorShared$";
         private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(180);
@@ -26,7 +28,6 @@
         private DateTime _connectionTime = DateTime.MinValue;
 
         private MemoryMappedFile _sharedMemory;
-        private string _processName;
         private int _rawLastSessionType = int.MinValue;
 
         private SessionPhase _lastSessionPhase;
@@ -60,7 +61,6 @@
                 _connectionTime = DateTime.MaxValue;
             }
             _sharedMemory = MemoryMappedFile.OpenExisting(SharedMemoryName);
-            _processName = Process.ProcessName;
         }
 
         protected override void ResetConnector()
@@ -72,16 +72,23 @@
 
         private void CheckDependencies()
         {
-            if (Process != null && !dependencies.Checked)
+            try
             {
-                _connectionTime = DateTime.Now;
-                string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
-                Action actionToInstall = dependencies.CheckAndReturnInstallDependenciesAction(directory);
-                if (actionToInstall != null)
+                if (Process != null && !dependencies.Checked)
                 {
-                    SendMessageToClients("A rFactor based game, "+ Process.ProcessName + ", has been detected, but the required plugin, rFactorSharedMemoryMap.dll, was not found. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
-                        () => RunActionAndShowConfirmation(actionToInstall, "Operation Completed Successfully", "Unable to install the plugin, unexpected error: "));
+                    _connectionTime = DateTime.Now;
+                    string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
+                    Action actionToInstall = dependencies.CheckAndReturnInstallDependenciesAction(directory);
+                    if (actionToInstall != null)
+                    {
+                        SendMessageToClients("A rFactor based game, " + Process.ProcessName + ", has been detected, but the required plugin, rFactorSharedMemoryMap.dll, was not found. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
+                            () => RunActionAndShowConfirmation(actionToInstall, "Operation Completed Successfully", "Unable to install the plugin, unexpected error: "));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unable to check dependencies.");
             }
         }
 
@@ -116,7 +123,7 @@
                 try
                 {
                     dataSet = _rfDataConvertor.CreateSimulatorDataSet(rFactorData);
-                    dataSet.Source = _processName;
+                    dataSet.Source = ProcessName;
                 }
                 catch (RFInvalidPackageException)
                 {

@@ -11,9 +11,11 @@
     {
         private static readonly Temperature OptimalTemperature = Temperature.FromCelsius(85);
         private static readonly Temperature OptimalTemperatureWindow = Temperature.FromCelsius(10);
+        private string _tyreVisualType;
 
         public WheelInfo()
         {
+            _tyreVisualType = string.Empty;
             BrakeTemperature = new OptimalQuantity<Temperature>()
             {
                 IdealQuantity = Temperature.FromCelsius(350),
@@ -50,6 +52,7 @@
 
             TyreWear = new TyreWear() {ActualWear = 0.0, NoWearWearLimit = 0.03, LightWearLimit = 0.25, HeavyWearLimit = 0.7};
             TyreType = string.Empty;
+
             RideHeight = Distance.FromMeters(0);
             SuspensionTravel = Distance.FromMeters(0);
             SuspensionVelocity = Velocity.Zero;
@@ -108,6 +111,13 @@
 
         [ProtoMember(17, IsRequired = true)]
         public double Slip { get; set; }
+
+        [ProtoMember(18, IsRequired = true)]
+        public string TyreVisualType
+        {
+            get => string.IsNullOrEmpty(_tyreVisualType) ? TyreType : _tyreVisualType;
+            set => _tyreVisualType = value;
+        }
 
     }
 

@@ -53,7 +53,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
 
         private readonly Stopwatch _ratingUpdateStopwatch;
 
-        private LapInfo _bestSessionLap;
+        private ILapInfo _bestSessionLap;
 
         private SectorTiming _bestSector1;
         private SectorTiming _bestSector2;
@@ -72,7 +72,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             _ratingUpdateStopwatch = Stopwatch.StartNew();
         }
 
-        public LapInfo BestSessionLap
+        public ILapInfo BestSessionLap
         {
             get => _bestSessionLap;
             set
@@ -204,6 +204,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                 newDriver.SectorCompletedEvent += timing.OnSectorCompletedEvent;
                 newDriver.LapInvalidated += timing.LapInvalidatedHandler;
                 newDriver.LapCompleted += timing.DriverOnLapCompleted;
+                newDriver.LapTimeReevaluated += timing.DriverOnLapTimeReevaluated;
                 drivers.Add(name, newDriver);
                 Logger.Info($"Driver Added: {name}");
                 if (newDriver.DriverInfo.IsPlayer)
@@ -297,6 +298,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             newDriver.SectorCompletedEvent += OnSectorCompletedEvent;
             newDriver.LapInvalidated += LapInvalidatedHandler;
             newDriver.LapCompleted += DriverOnLapCompleted;
+            newDriver.LapTimeReevaluated += DriverOnLapTimeReevaluated;
             Drivers.Add(newDriver.Name, newDriver);
             if (newDriver.IsPlayer)
             {
@@ -304,6 +306,14 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
             RaiseDriverAddedEvent(newDriver);
             Logger.Info($"Added new driver");
+        }
+
+        private void DriverOnLapTimeReevaluated(object sender, LapEventArgs e)
+        {
+            if (BestSessionLap == e.Lap)
+            {
+                BestSessionLap = Drivers.Values.Select(x => x.BestLap).Where(x => x != null && x.Valid && x.Completed && x.LapTime != TimeSpan.Zero).OrderBy(x => x.LapTime).First();
+            }
         }
 
         private void LapInvalidatedHandler(object sender, LapEventArgs e)

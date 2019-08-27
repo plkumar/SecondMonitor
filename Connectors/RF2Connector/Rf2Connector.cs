@@ -83,15 +83,22 @@
 
         private void CheckDependencies()
         {
-            if(Process != null && !_dependencies.Checked)
+            try
             {
-                string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
-                Action actionToInstall = _dependencies.CheckAndReturnInstallDependenciesAction(directory);
-                if (actionToInstall != null)
+                if (Process != null && !_dependencies.Checked)
                 {
-                    SendMessageToClients("A rFactor2 based game has been detected, but the required plugin, rFactor2SharedMemoryMapPlugin64.dll, was not found. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
-                        () => RunActionAndShowConfirmation(actionToInstall, "Operation Completed Successfully",  "Unable to install the plugin, unexpected error: "));
+                    string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
+                    Action actionToInstall = _dependencies.CheckAndReturnInstallDependenciesAction(directory);
+                    if (actionToInstall != null)
+                    {
+                        SendMessageToClients("A rFactor2 based game has been detected, but the required plugin, rFactor2SharedMemoryMapPlugin64.dll, was not found. Do you want Second Monitor to install this plugin? You will need to restart the sim, after it is done.",
+                            () => RunActionAndShowConfirmation(actionToInstall, "Operation Completed Successfully", "Unable to install the plugin, unexpected error: "));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unable to check dependencies.");
             }
         }
 

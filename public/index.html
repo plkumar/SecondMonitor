@@ -3,6 +3,27 @@
 <head>
 	<title></title>
 </head>
+<h2>Version 5.10.0</h2>
+<b>Main Application:</b>
+<ul>	
+	<li><b>F1 2019:</b> Added initial support for F1 2019. To use, enable the the telemetry in F1 2019 settings (F1 2019 format). The application only works with the default port (20777).
+	<ul>
+	<li><b>Known Issue - First Timed lap not recognized correctly: </b> First timed lap in practice/qualification might not be recognized correctly.</li>
+	<li><b>Known Issue - Wrong Lap Times: </b> Becaue the field in the F1 2019 upd telemetry holding the last lap time is currently bugged (it reports 0 most of the time), the lap time is the last known lap time, before the finish line was crossed. So it will be smaller roughly by the gap between telemtry packets. While the laps times are incorrect, the relative times between lap times should be very close to the real difference, and can be used reliably. Fastest laps time are correct.</li>
+	<li><b>Known Issue - Missing Lap/Sector Times: </b> The time spent "teleporting" (i.e moving out of pix directly to hotlap), or in accelerated time, is not propagated via the F1 2019 UDP telemetry. Because of this, the application does not know about laps that occured in this time. This does not affect race session. This does not affect the fastest lap time presented for driver and session overall, as this is this information is always available in the F1 2019 UDP Telemetry.</li>
+	</ul>
+	<li><b>Pit Information Reworked:</b> Reworked the information shown in the "Pit" column during races, making it more usefull for longer races with tyre changes. The information shown is situation dependant.
+	<ul>
+	<li><b>No Pit Stop in the last 5 laps:</b> If the driver has not made a pit stop in the last 5 laps, then the total number of pit stops + the age of the tyres he is currently on is shown. The application assumes that each pit stop is a tyre change.</li>
+	<li><b>Pit Stop in the last 5 laps:</b> If the driver has pitted in the last 5 laps, then the total pit time of this stop is shown. If the player has stop aswell in the race, it will show the relative difference between the players and the drivers pit stop. Negative means that the drivers pit stop was shorter (the player has lost time.)</li>
+	</ul>
+	Also added coloring to the Pit Information Status:
+	<ul>
+		<li><b>Green - </b> You gained more than seconds againts this driver in the last pit stop.</li>
+		<li><b>Red - </b> You lost more than seconds againts this driver in the last pit stop.</li>		
+	</ul>
+	</li>
+</ul>
 <h2>Version 5.9.1</h2>
 <b>Main Application:</b>
 <ul>	

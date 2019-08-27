@@ -4,30 +4,35 @@ using SecondMonitor.DataModel.DriversPresentation;
 
 namespace SecondMonitor.SimdataManagement.DriverPresentation
 {
+    using System;
+    using System.Collections.Generic;
+
     public class DriverPresentationsManager
     {
-        private readonly DriverPresentationsLoader _driverPresentationsLoader;
-        private DriverPresentationsDto _driverPresentationsDto;
+        public event EventHandler<DriverCustomColorEnabledArgs> DriverCustomColorChanged;
 
+        private readonly DriverPresentationsLoader _driverPresentationsLoader;
+        private readonly Lazy<Dictionary<string, DriverPresentationDto>> _driversPresentationMapLazyLoad;
 
         public DriverPresentationsManager(DriverPresentationsLoader driverPresentationsLoader)
         {
             _driverPresentationsLoader = driverPresentationsLoader;
+            _driversPresentationMapLazyLoad = new Lazy<Dictionary<string, DriverPresentationDto>>(LoadDriversPresentationMap);
         }
 
-        private DriverPresentationsDto DriverPresentationsDto => _driverPresentationsDto ?? LoadDriverPresentations();
+        private Dictionary<string, DriverPresentationDto> DriversPresentationsMap => _driversPresentationMapLazyLoad.Value;
 
         public bool TryGetOutLineColor(string driverName, out ColorDto color)
         {
-            DriverPresentationDto driverPresentation = GetDriverPresentation(driverName);
-            color = driverPresentation?.OutLineColor;
-            return driverPresentation?.OutLineColor != null;
+            bool containsDriver = TryGetDriverPresentation(driverName, out DriverPresentationDto driverPresentationDto);
+            color = containsDriver ? driverPresentationDto.OutLineColor : null;
+            return containsDriver;
         }
 
         public bool IsCustomOutlineEnabled(string driverName)
         {
-            DriverPresentationDto driverPresentation = GetDriverPresentation(driverName);
-            return driverPresentation?.CustomOutLineEnabled ?? false;
+            TryGetDriverPresentation(driverName, out DriverPresentationDto driverPresentationDto);
+            return driverPresentationDto?.CustomOutLineEnabled ?? false;
         }
 
 
@@ -35,52 +40,56 @@ namespace SecondMonitor.SimdataManagement.DriverPresentation
         {
             DriverPresentationDto driverPresentation = GetDriverOrCreatePresentation(driverName);
             driverPresentation.CustomOutLineEnabled = isEnabled;
-
+            DriverCustomColorChanged?.Invoke(this, new DriverCustomColorEnabledArgs(driverName, isEnabled, driverPresentation.OutLineColor));
         }
 
         public void SetOutLineColor(string driverName, ColorDto color)
         {
             DriverPresentationDto driverPresentation = GetDriverOrCreatePresentation(driverName);
             driverPresentation.OutLineColor = color;
+            DriverCustomColorChanged?.Invoke(this, new DriverCustomColorEnabledArgs(driverName, driverPresentation.CustomOutLineEnabled, color));
         }
 
 
-        private DriverPresentationDto GetDriverPresentation(string driverName)
+        public bool TryGetDriverPresentation(string driverName, out DriverPresentationDto driverPresentationDto)
         {
-            return DriverPresentationsDto.DriverPresentations.FirstOrDefault(x => x.DriverName == driverName);
+            return DriversPresentationsMap.TryGetValue(driverName, out driverPresentationDto);
         }
 
         public DriverPresentationDto GetDriverOrCreatePresentation(string driverName)
         {
-            DriverPresentationDto driverPresentation = GetDriverPresentation(driverName);
-            if (driverPresentation == null)
+            if (TryGetDriverPresentation(driverName, out DriverPresentationDto driverPresentationDto))
             {
-                driverPresentation = new DriverPresentationDto()
-                {
-                    DriverName = driverName
-                };
-                DriverPresentationsDto.DriverPresentations.Add(driverPresentation);
+                return driverPresentationDto;
             }
 
-            return driverPresentation;
+            driverPresentationDto = new DriverPresentationDto()
+            {
+                DriverName = driverName,
+                CustomOutLineEnabled = false,
+            };
+
+            DriversPresentationsMap[driverName] = driverPresentationDto;
+            return driverPresentationDto;
         }
 
         public void SavePresentations()
         {
-            if (_driverPresentationsDto != null)
+            if (_driversPresentationMapLazyLoad.IsValueCreated)
             {
-                _driverPresentationsLoader.Save(_driverPresentationsDto);
+                _driverPresentationsLoader.Save(new DriverPresentationsDto(){DriverPresentations = DriversPresentationsMap.Values.ToList()});
             }
         }
 
         private DriverPresentationsDto LoadDriverPresentations()
         {
-            if (!_driverPresentationsLoader.TryLoad(out _driverPresentationsDto))
-            {
-                _driverPresentationsDto = new DriverPresentationsDto();
-            }
+            return _driverPresentationsLoader.TryLoad(out DriverPresentationsDto driverPresentationsDto) ? driverPresentationsDto : new DriverPresentationsDto();
+        }
 
-            return _driverPresentationsDto;
+
+        private Dictionary<string, DriverPresentationDto> LoadDriversPresentationMap()
+        {
+            return LoadDriverPresentations().DriverPresentations.Where(x => x.OutLineColor != null).ToDictionary(x => x.DriverName, x => x);
         }
     }
 }

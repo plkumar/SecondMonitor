@@ -10,10 +10,14 @@
         private readonly TimeSpan _startTime;
         private TimeSpan _pendingStart;
 
-        public SectorTiming(int sectorNumber, SimulatorDataSet simulatorData, LapInfo lap)
+        public SectorTiming(int sectorNumber, SimulatorDataSet simulatorData, ILapInfo lap) : this(sectorNumber, simulatorData.SessionInfo.SessionTime, lap)
+        {
+        }
+
+        public SectorTiming(int sectorNumber, TimeSpan startTime, ILapInfo lap)
         {
             SectorNumber = sectorNumber;
-            _startTime = simulatorData.SessionInfo.SessionTime;
+            _startTime = startTime;
             Lap = lap;
         }
 
@@ -21,7 +25,7 @@
 
         public TimeSpan Duration { get; private set; } = TimeSpan.Zero;
 
-        public LapInfo Lap { get; }
+        public ILapInfo Lap { get; }
 
         public void Tick(SimulatorDataSet dataSet, DriverInfo driverTiming)
         {

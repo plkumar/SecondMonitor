@@ -28,7 +28,7 @@
 
         private bool _refresh = true;
 
-        public LapViewModel(LapInfo lapInfo)
+        public LapViewModel(ILapInfo lapInfo)
         {
             LapInfo = lapInfo;
             RefreshInfo();
@@ -41,7 +41,7 @@
             _refresh = false;
         }
 
-        public LapInfo LapInfo
+        public ILapInfo LapInfo
         {
             get;
             set;

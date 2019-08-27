@@ -38,7 +38,7 @@
         <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
         <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
         <Setter Property="VerticalAlignment" Value="Bottom" />
-        <Setter Property="Background" Value="{StaticResource Anthracite01Brush}"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
 
     <Style x:Key="SmallText" BasedOn="{StaticResource StandardText}" TargetType="TextBlock">

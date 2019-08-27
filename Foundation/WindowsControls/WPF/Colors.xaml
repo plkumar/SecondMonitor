@@ -6,6 +6,7 @@
     <Color x:Shared="False" x:Key="Yellow02Color">#7e7e1b</Color>
     <Color x:Shared="False" x:Key="Orange01Color">#ff8c1a</Color>
     <Color x:Shared="False" x:Key="Orange02Color">#994d00</Color>
+    <Color x:Shared="False" x:Key="Orange03Color">#e67300</Color>
 
 
     <Color x:Shared="False" x:Key="LightRed01Color">#ff4d4d</Color>
@@ -95,6 +96,9 @@
     <SolidColorBrush x:Shared="False" x:Key="Sector3Brush" Color="{StaticResource Sector3Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="TrackRecordBrush" Color="{StaticResource Orange02Color}"/>
+
+    <SolidColorBrush x:Shared="False" x:Key="Orange1Brush" Color="{StaticResource Orange01Color}"/>
+    <SolidColorBrush x:Shared="False" x:Key="Orange3Brush" Color="{StaticResource Orange03Color}"/>
 
     <Color x:Shared="False" x:Key="LowQuantityColor">#668cff</Color>
     <Color x:Shared="False" x:Key="HighQuantityColor" >#e60000</Color>
