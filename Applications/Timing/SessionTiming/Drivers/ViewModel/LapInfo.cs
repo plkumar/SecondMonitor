@@ -8,7 +8,7 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
     using NLog;
     using SecondMonitor.DataModel.Snapshot.Drivers;
 
-    public class LapInfo
+    public class LapInfo : ILapInfo
     {
         private static readonly Distance MaxDistancePerTick = Distance.FromMeters(300);
         private static readonly TimeSpan MaxPendingTime = TimeSpan.FromSeconds(2);
@@ -24,19 +24,23 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
             public SectorTiming SectorTiming { get; }
         }
 
+        public event EventHandler<SectorCompletedArgs> SectorCompletedEvent;
+        public event EventHandler<LapEventArgs> LapInvalidatedEvent;
+        public event EventHandler<LapEventArgs> LapCompletedEvent;
+
         private bool _valid;
         private bool _completed;
         private bool _isPending;
         private TimeSpan _isPendingStart;
         private DriverInfo _previousDriverInfo;
-        internal LapCompletionMethod LapCompletionMethod { get; set; } = LapCompletionMethod.None;
+        public LapCompletionMethod LapCompletionMethod { get; set; } = LapCompletionMethod.None;
 
-        public LapInfo(SimulatorDataSet dataSet, int lapNumber, DriverTiming driver, LapInfo previousLapInfo) :
+        public LapInfo(SimulatorDataSet dataSet, int lapNumber, DriverTiming driver, ILapInfo previousLapInfo) :
             this(dataSet, lapNumber, driver, false, previousLapInfo)
         {
         }
 
-        public LapInfo(SimulatorDataSet dataSet, int lapNumber, DriverTiming driver, bool firstLap, LapInfo previousLapInfo)
+        public LapInfo(SimulatorDataSet dataSet, int lapNumber, DriverTiming driver, bool firstLap, ILapInfo previousLapInfo)
         {
             Driver = driver;
             LapStart = dataSet.SessionInfo.SessionTime;
@@ -50,11 +54,6 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
             CompletedDistance = double.NaN;
             LapTelemetryInfo = new LapTelemetryInfo(driver.DriverInfo, dataSet, this, TimeSpan.FromMilliseconds(Driver.Session.TimingDataViewModel.DisplaySettingsViewModel.TelemetrySettingsViewModel.LoggingInterval), dataSet.SimulatorSourceInfo);
         }
-
-        public event EventHandler<SectorCompletedArgs> SectorCompletedEvent;
-
-        public event EventHandler<LapEventArgs> LapInvalidatedEvent;
-        public event EventHandler<LapEventArgs> LapCompletedEvent;
 
         public TimeSpan LapStart { get; }
 
@@ -102,7 +101,7 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
             }
         }
 
-        public LapInfo PreviousLap { get; }
+        public ILapInfo PreviousLap { get; }
 
         public SectorTiming Sector1 { get; private set; }
 
@@ -131,9 +130,9 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
 
         public LapTelemetryInfo LapTelemetryInfo { get; }
 
-        public static Func<LapInfo, SectorTiming> Sector1SelFunc => x => x.Sector1;
-        public static Func<LapInfo, SectorTiming> Sector2SelFunc => x => x.Sector2;
-        public static Func<LapInfo, SectorTiming> Sector3SelFunc => x => x.Sector3;
+        public static Func<ILapInfo, SectorTiming> Sector1SelFunc => x => x.Sector1;
+        public static Func<ILapInfo, SectorTiming> Sector2SelFunc => x => x.Sector2;
+        public static Func<ILapInfo, SectorTiming> Sector3SelFunc => x => x.Sector3;
 
         public void FinishLap(SimulatorDataSet dataSet, DriverInfo driverInfo)
         {
@@ -243,8 +242,8 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
                 return;
             }
 
-            // Sim reported lap time is smaller than the previously reported lap time, that doesn't sound good - we're unable to use the lap time
-            if (LapProgressTimeBySimInitialized && newLapProgressTimeBySim < LapProgressTimeByTiming)
+            // Sim reported lap time is smaller than the previously reported lap time, that doesn't sound good - we're unable to use the lap time. But only if sim doesn't offer rewind functionality.
+            if (LapProgressTimeBySimInitialized && newLapProgressTimeBySim < LapProgressTimeByTiming && !dataSet.SimulatorSourceInfo.HasRewindFunctionality)
             {
                 LapProgressTimeBySimInitialized = false;
                 return;
@@ -435,6 +434,11 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
 
             // Lap data is sane if we completed at least 90% of the track and the lap hes run for more than 10 seconds
             return CompletedDistance > dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters * 0.9 && LapProgressTimeByTiming > TimeSpan.FromSeconds(10);
+        }
+
+        public void OverrideTime(TimeSpan overrideLapTime)
+        {
+            LapTime = overrideLapTime;
         }
 
         public void InvalidateLap(LapInvalidationReasonKind lapInvalidationReasonKind)

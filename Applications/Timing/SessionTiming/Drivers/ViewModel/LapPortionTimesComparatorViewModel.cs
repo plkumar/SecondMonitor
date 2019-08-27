@@ -18,8 +18,8 @@
             SubscribeToComparedLap();
         }
 
-        public LapInfo ReferenceLap { get; private set; }
-        public LapInfo ComparedLap { get; private set; }
+        public ILapInfo ReferenceLap { get; private set; }
+        public ILapInfo ComparedLap { get; private set; }
 
         public TimeSpan TimeDifference
         {
@@ -31,7 +31,7 @@
             }
         }
 
-        public void ChangeReferencedLaps(LapInfo referencedLap, LapInfo comparedLap)
+        public void ChangeReferencedLaps(ILapInfo referencedLap, ILapInfo comparedLap)
         {
             UnSubscribeToComparedLap();
             ReferenceLap = referencedLap;

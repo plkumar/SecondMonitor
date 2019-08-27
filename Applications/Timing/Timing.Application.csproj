@@ -132,6 +132,9 @@
       <DependentUpon>TimingGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations1.cs" />
+    <Compile Include="SessionTiming\Drivers\Presentation\ViewModel\PitInfoBriefDescriptionKind.cs" />
+    <Compile Include="SessionTiming\Drivers\ViewModel\ILapInfo.cs" />
+    <Compile Include="SessionTiming\Drivers\ViewModel\StaticLapInfo.cs" />
     <Compile Include="TimingApplicationModule.cs" />
     <Compile Include="TimingApplicationModuleBootstrapper.cs" />
     <Compile Include="ReportCreation\SessionTImingExtension.cs" />

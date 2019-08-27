@@ -10,14 +10,14 @@
                         Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid>
                         <Grid
-                            Visibility="{Binding IsCollapsed, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                            Visibility="{Binding IsEnabled, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                             Width="40">
                             <TextBlock TextAlignment="Center" Style="{StaticResource StandardText}"
                                        VerticalAlignment="Center" Width="40" TextWrapping="Wrap"
                                        Text="{Binding CollapsedMessage}" />
                         </Grid>
                         <StackPanel Width="170"
-                                    Visibility="{Binding IsCollapsed, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DockPanel Margin="0,0,0,10" LastChildFill="False">
 
                                 <TextBlock Style="{StaticResource StandardText}" DockPanel.Dock="Left"

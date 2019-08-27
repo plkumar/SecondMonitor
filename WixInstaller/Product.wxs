@@ -253,6 +253,11 @@
       <Component Id="cmpf122dbf2773d4b4d99e219f4b18cb64a" Directory="dirb781d9a060914609a4d5b9fe2684ed60" Guid="f122dbf2-773d-4b4d-99e2-19f4b18cb64a">
         <File Id="filef122dbf2773d4b4d99e219f4b18cb64a" KeyPath="yes" Source="..\Deployment\Connectors\AssettoCorsa\AcTyreProperties.xml" />
       </Component>
+
+      <Component Id="cmpf3783b93fb24440a88505983feb57901b" Directory="dirb23951d081d2d4c08bd3b17738ec2d216" Guid="8af61b8f-7b82-42cf-9b1a-6d0b7ec80215">
+        <File Id="file3783b93fb24440a88505983feb57901b" KeyPath="yes" Source="..\Deployment\Connectors\F12019\F12019.dll" />
+      </Component>
+
       <Component Id="cmpdirAcStdLibctypes" Directory="dirAcStdLib" Guid="2dae91a8-03bf-4b12-9fc8-f29f28689b9e">
         <File Id="fileAcStdLibctypes" KeyPath="yes" Source="..\Deployment\Connectors\AssettoCorsa\stdLib\_ctypes.pyd" />
       </Component>
@@ -312,6 +317,10 @@
       <Directory Id="dirb781d9a060914609a4d5b9fe2684ed60" Name="AssettoCorsa" />
     </DirectoryRef>
 
+    <DirectoryRef Id="dir10609BC54973A60FEA796FF193DD15AB">
+      <Directory Id="dirb23951d081d2d4c08bd3b17738ec2d216" Name="F12019" />
+    </DirectoryRef>
+
     <DirectoryRef Id="dirb781d9a060914609a4d5b9fe2684ed60">
       <Directory Id="dirAcStdLib" Name="stdlib" />
     </DirectoryRef>
@@ -353,9 +362,22 @@
     </Feature>
 
     <Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY" />
-    <UIRef Id="WixUI_InstallDir" />
     <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
 
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+      <!--<UIRef Id="WixUI_Minimal" />-->
+      <Publish Dialog="ExitDialog"
+               Control="Finish"
+               Event="DoAction"
+               Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Second Monitor" />
+
+    <Property Id="WixShellExecTarget" Value="[#filemyapplication.exe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
   </Product>
 </Wix>

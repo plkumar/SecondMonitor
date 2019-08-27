@@ -5,6 +5,6 @@
 
     public interface ISessionTelemetryController
     {
-        Task<bool> TrySaveLapTelemetry(LapInfo lapInfo);
+        Task<bool> TrySaveLapTelemetry(ILapInfo lapInfo);
     }
 }

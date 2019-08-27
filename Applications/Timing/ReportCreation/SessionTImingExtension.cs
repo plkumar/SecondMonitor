@@ -52,12 +52,12 @@
                                        };
             int lapNumber = 1;
             bool allLaps = sessionType == SessionType.Race;
-            driverSummary.Laps.AddRange(driverTiming.Laps.Where(l => l.Completed && (allLaps || l.Valid)).Select(l => ConvertToSummaryLap(driverSummary, l, lapNumber++, sessionType)));
+            driverSummary.Laps.AddRange(driverTiming.Laps.Where(l => l.LapTelemetryInfo != null && l.Completed && (allLaps || l.Valid)).Select(l => ConvertToSummaryLap(driverSummary, l, lapNumber++, sessionType)));
             driverSummary.TotalLaps = driverSummary.Laps.Count;
             return driverSummary;
         }
 
-        private static Lap ConvertToSummaryLap(Driver summaryDriver,  LapInfo lapInfo, int lapNumber, SessionType sessionType)
+        private static Lap ConvertToSummaryLap(Driver summaryDriver,  ILapInfo lapInfo, int lapNumber, SessionType sessionType)
         {
             Lap summaryLap = new Lap(summaryDriver, lapInfo.Valid)
                                  {

@@ -5,12 +5,12 @@
     public static class StringExtensions
     {
 
-        public static string FromArray(byte[] buffer)
+        public static string FromArray(this byte[] buffer)
         {
             return FromArray(buffer, 0);
         }
 
-        public static string FromArray(byte[] buffer, int startIndex)
+        public static string FromArray(this byte[] buffer, int startIndex)
         {
             if (buffer == null || buffer[startIndex] == (char)0)
             {

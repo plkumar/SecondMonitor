@@ -13,6 +13,6 @@
 
         void OnDataLoaded(SimulatorDataSet dataSet);
 
-        bool EvaluateFastestLapCandidate(LapInfo lapInfo);
+        bool EvaluateFastestLapCandidate(ILapInfo lapInfo);
     }
 }

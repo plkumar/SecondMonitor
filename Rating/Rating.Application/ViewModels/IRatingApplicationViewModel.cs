@@ -10,7 +10,7 @@
     public interface IRatingApplicationViewModel : IViewModel
     {
         bool IsVisible { get; set; }
-        bool IsCollapsed { get; set; }
+        bool IsEnabled { get; set; }
         string CollapsedMessage { get; set; }
 
         IRatingViewModel SimulatorRating { get; }

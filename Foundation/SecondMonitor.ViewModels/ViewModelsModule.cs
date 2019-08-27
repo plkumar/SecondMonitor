@@ -6,6 +6,7 @@
     using RaceSuggestion;
     using Settings;
     using SimulatorContent;
+    using SplashScreen;
     using TrackRecords;
     using WheelDiameterWizard;
 
@@ -36,6 +37,7 @@
             Bind<PreparationStageViewModel>().ToSelf();
             Bind<MeasurementPhaseViewModel>().ToSelf();
             Bind<ResultsStageViewModel>().ToSelf();
+            Bind<SplashScreenViewModel>().ToSelf();
         }
     }
 }

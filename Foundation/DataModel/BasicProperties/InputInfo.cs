@@ -34,5 +34,9 @@
         [XmlAttribute]
         [ProtoMember(5, IsRequired = true)]
         public double WheelAngle { get; set; }
+
+        [XmlAttribute]
+        [ProtoMember(6, IsRequired = true)]
+        public bool WheelAngleFilled { get; set; }
     }
 }

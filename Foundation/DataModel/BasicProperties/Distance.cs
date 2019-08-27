@@ -81,6 +81,16 @@
             return new Distance(distanceInM);
         }
 
+        public static Distance FromInches(double distanceInInches)
+        {
+            return new Distance(distanceInInches / 39.3701);
+        }
+
+        public static Distance FromCentimeters(float distanceInCm)
+        {
+            return new Distance(distanceInCm / 100);
+        }
+
         public static bool operator ==(Distance dist1, Distance dist2)
         {
             return dist1?._isZero == dist2?._isZero && dist1?.InMeters == dist2?.InMeters;

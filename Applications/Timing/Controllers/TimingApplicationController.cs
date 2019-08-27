@@ -33,6 +33,7 @@ namespace SecondMonitor.Timing.Controllers
     using ViewModels.Settings;
     using ViewModels.Settings.Model;
     using ViewModels.SimulatorContent;
+    using ViewModels.SplashScreen;
 
     public class TimingApplicationController : ISecondMonitorPlugin
     {
@@ -43,7 +44,7 @@ namespace SecondMonitor.Timing.Controllers
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "SecondMonitor\\settings.json");
 
-        private KernelWrapper _kernelWrapper;
+        private readonly KernelWrapper _kernelWrapper;
         private TimingDataViewModel _timingDataViewModel;
         private SimSettingController _simSettingController;
         private DisplaySettingsWindow _settingsWindow;
@@ -59,6 +60,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ISettingsProvider _settingsProvider;
         private readonly ISimulatorContentController _simulatorContentController;
         private readonly ITrackRecordsController _trackRecordsController;
+        private Window _splashScreen;
 
         public TimingApplicationController()
         {
@@ -99,13 +101,15 @@ namespace SecondMonitor.Timing.Controllers
             Application.Current.Resources.MergedDictionaries.Add(dict);
 
             CreateDisplaySettingsViewModel();
+            ShowSplashScreen();
+
             CreateReportsController();
             CreateSimSettingsController();
             CreateMapManagementController();
             CreateDriverPresentationManager();
             CreateSessionTelemetryControllerFactory();
             CreateRatingController();
-            DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming);
+            DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
             _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider, _trackRecordsController) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
@@ -115,6 +119,46 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel?.Reset();
             await _simulatorContentController.StartControllerAsync();
             await _trackRecordsController.StartControllerAsync();
+
+            HideSplashScreen();
+        }
+
+        private void HideSplashScreen()
+        {
+            _splashScreen.Close();
+        }
+
+        private void ShowSplashScreen()
+        {
+            var splashScreenViewModel = _kernelWrapper.Get<SplashScreenViewModel>();
+            splashScreenViewModel.PrimaryInformation = "Loading...";
+            _splashScreen = new Window
+            {
+                Content = splashScreenViewModel,
+                Title = "Starting",
+                SizeToContent = SizeToContent.Manual,
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                ShowInTaskbar = false,
+            };
+
+            _splashScreen.Show();
+
+            if (_displaySettingsViewModel?.WindowLocationSetting == null)
+            {
+                return;
+            }
+
+            _splashScreen.WindowStartupLocation = WindowStartupLocation.Manual;
+            _splashScreen.Left = _displaySettingsViewModel.WindowLocationSetting.Left;
+            _splashScreen.Top = _displaySettingsViewModel.WindowLocationSetting.Top;
+            _splashScreen.WindowState = WindowState.Normal;
+            _splashScreen.WindowState = (WindowState)_displaySettingsViewModel.WindowLocationSetting.WindowState;
+            if (_splashScreen.WindowState == WindowState.Maximized)
+            {
+                _splashScreen.WindowStyle = WindowStyle.None;
+            }
+
+
         }
 
         private void CreateRatingController()

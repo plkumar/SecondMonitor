@@ -22,6 +22,7 @@
         private ISimulatorRatingController _simulatorRatingController;
         private IRatingApplicationViewModel _ratingApplicationViewModel;
         private IRaceState _currentState;
+        private string _playersName;
 
         public RaceObserverController(ISimulatorRatingControllerFactory simulatorRatingControllerFactory, IRaceStateFactory raceStateFactory)
         {
@@ -29,6 +30,7 @@
             _raceStateFactory = raceStateFactory;
             CurrentSimulator = string.Empty;
             _currentClass = string.Empty;
+            _playersName = string.Empty;
         }
 
         public string CurrentSimulator { get; private set; }
@@ -129,6 +131,8 @@
             {
                 _currentState = _currentState.NextState;
             }
+
+            _playersName = simulatorDataSet.PlayerInfo.DriverName;
             RefreshViewModelByState();
         }
 
@@ -168,11 +172,11 @@
         {
             if (!_simulatorRatingControllerFactory.IsSimulatorSupported(CurrentSimulator))
             {
-                RatingApplicationViewModel.IsCollapsed = false;
+                RatingApplicationViewModel.IsEnabled = false;
                 RatingApplicationViewModel.CollapsedMessage = $"{CurrentSimulator}, is not supported";
                 return;
             }
-            RatingApplicationViewModel.IsCollapsed = true;
+            RatingApplicationViewModel.IsEnabled = true;
             UnSubscribeSimulatorRatingController();
             if (_simulatorRatingController != null)
             {
@@ -236,6 +240,10 @@
 
             RatingApplicationViewModel.UseSuggestedDifficulty = !difficultySettings.WasUserSelected;
             RatingApplicationViewModel.Difficulty = difficultySettings.SelectedDifficulty;
+            if (_currentState?.SharedContext?.RaceContext?.FieldRating != null)
+            {
+                _currentState.SharedContext.RaceContext.FieldRating[_playersName] = classRating.simRating;
+            }
         }
 
         private void RefreshViewModelByState()

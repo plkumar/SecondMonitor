@@ -3,14 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SecondMonitor.Timing.Presentation.View"
-             xmlns:viewModel="clr-namespace:SecondMonitor.Timing.Presentation.ViewModel"
              xmlns:viewModel1="clr-namespace:SecondMonitor.Timing.LapTimings.ViewModel"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewModel1:DriverLapsViewModel, IsDesignTimeCreatable=True}" Title="{Binding Path=DriverName, Mode=OneTime, StringFormat='Driver Laps ( {0} )' }" Width="504.017" Height="386.886">
-    <Grid Background="Black" >
-        <Label Content="{Binding Path=DriverName}"  HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="10,0,0,0" Height="31" Foreground="White" FontSize="18"/>
-        <DataGrid x:Name="LapsGrid" Margin="10,36,10,10" VerticalAlignment="Stretch" FontSize="18" Foreground="White" Background="Black" ItemsSource="{Binding Laps}" HeadersVisibility="Column" AutoGenerateColumns="False"
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/CommonResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelOverviewControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/TemperatureControl/TemperatureControlT.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/PedalControl/PedalGearControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/WheelStatusControl/WheelStatucControlT.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/TrackInfoControl/TrackInfoControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/DriverPosition/DriverPositionControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/ComboboxStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelPlannerControl.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Window.Resources>
+            <Grid Background="{StaticResource Anthracite01Brush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource StandardText}" Text="{Binding Path=DriverName}" VerticalAlignment="Top" Margin="10" Height="31" Foreground="White" FontSize="18" HorizontalAlignment="Center"/>
+        <DataGrid Grid.Row="1" x:Name="LapsGrid" Margin="10,5,10,10" VerticalAlignment="Stretch" FontSize="18" Foreground="White" Background="Black" ItemsSource="{Binding Laps}" HeadersVisibility="Column" AutoGenerateColumns="False"
                   IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow"
                   d:DataContext="{d:DesignInstance Type=viewModel1:LapViewModel}">
             <DataGrid.Resources>
@@ -101,6 +121,24 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
         </DataGrid>
+        <Grid Grid.Row="2" Margin="10"
+              Background="{StaticResource Anthracite01Brush}"
+              Visibility="{Binding IsPlayer, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Margin="5" VerticalAlignment="Center"
+                          Foreground="{StaticResource LightGrey01Brush}"
+                          IsChecked="{Binding HasCustomOutline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBlock FontSize="{StaticResource SmallFontSize}" Text="Enable Custom Outline" />
+                </CheckBox>
+                <Grid Width="20" Margin="5,0,0,0"
+                      Background="{Binding OutLineColor, Converter={StaticResource ColorDtoToSolidBrushConverter}, Mode=OneWay}" />
 
+                <xctk:ColorPicker Width="15" Height="15" Margin="2" HorizontalAlignment="Left"
+                                  Background="{StaticResource Anthracite01Brush}"
+                                  ButtonStyle="{StaticResource ComboBoxToggleButton2}"
+                                  Foreground="{StaticResource LightGrey01Brush}"
+                                  SelectedColor="{Binding OutLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorDtoToColorConverter}}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

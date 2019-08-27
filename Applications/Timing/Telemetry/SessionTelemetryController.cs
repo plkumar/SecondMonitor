@@ -26,8 +26,13 @@
 
         public string SessionIdentifier { get; }
 
-        public Task<bool> TrySaveLapTelemetry(LapInfo lapInfo)
+        public Task<bool> TrySaveLapTelemetry(ILapInfo lapInfo)
         {
+            if (lapInfo?.LapTelemetryInfo == null)
+            {
+                return Task.FromResult(false);
+            }
+
             Logger.Info($"Saving Telemetry for Lap:{lapInfo.LapNumber}");
             if (lapInfo.LapTelemetryInfo.IsPurged)
             {
@@ -40,7 +45,7 @@
             return returnTask;
         }
 
-        private bool SaveLapTelemetrySync(LapInfo lapInfo)
+        private bool SaveLapTelemetrySync(ILapInfo lapInfo)
         {
             if (_sessionInfoDto == null)
             {
@@ -50,7 +55,7 @@
             return TrySaveLap(lapInfo);
         }
 
-        private bool TrySaveLap(LapInfo lapInfo)
+        private bool TrySaveLap(ILapInfo lapInfo)
         {
             try
             {
@@ -86,7 +91,7 @@
             }
         }
 
-        private LapSummaryDto CreateLapSummary(LapInfo lapInfo)
+        private LapSummaryDto CreateLapSummary(ILapInfo lapInfo)
         {
             int stintNumber = lapInfo.Driver.Laps.Count(x => x.PitLap);
             LapSummaryDto lapSummaryDto = new LapSummaryDto()
@@ -153,7 +158,7 @@
             }
         }
 
-        private SessionInfoDto CreateSessionInfo(LapInfo lapInfo)
+        private SessionInfoDto CreateSessionInfo(ILapInfo lapInfo)
         {
             SessionInfoDto sessionInfoDto = new SessionInfoDto()
             {

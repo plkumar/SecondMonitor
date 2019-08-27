@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using System.Windows.Media;
     using DataModel.BasicProperties;
 
     using NLog;
@@ -10,45 +9,31 @@
     using SecondMonitor.DataModel.Snapshot.Drivers;
     using SecondMonitor.Timing.Presentation.ViewModel;
     using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
-    using SimdataManagement.DriverPresentation;
     using ViewModels;
 
     public class DriverTimingViewModel : AbstractViewModel
     {
         private DriverTiming _driverTiming;
         private readonly Stopwatch _refreshStopwatch;
-        private readonly DriverPresentationsManager _driverPresentationsManager;
         private ColorDto _outLineColor;
-        private bool _hasCustomOutline;
 
-        public DriverTimingViewModel(DriverTiming driverTiming, DriverPresentationsManager driverPresentationsManager)
+        public DriverTimingViewModel(DriverTiming driverTiming)
         {
             _refreshStopwatch = Stopwatch.StartNew();
-            _driverPresentationsManager = driverPresentationsManager;
             DriverTiming = driverTiming;
         }
 
-        public bool HasCustomOutline
-        {
-            get => _hasCustomOutline && !IsPlayer;
-            set
-            {
-                _hasCustomOutline = value;
-                _driverPresentationsManager.SetOutLineColorEnabled(Name, value);
-                NotifyPropertyChanged();
-            }
-        }
+       public ColorDto OutLineColor
+       {
+           get => _outLineColor;
+           set
+           {
+               SetProperty(ref _outLineColor, value);
+               NotifyPropertyChanged(nameof(HasCustomOutline));
+           }
+       }
 
-        public ColorDto OutLineColor
-        {
-            get => _outLineColor;
-            set
-            {
-                _outLineColor = value;
-                _driverPresentationsManager.SetOutLineColor(Name, value);
-                NotifyPropertyChanged();
-            }
-        }
+       public bool HasCustomOutline => _outLineColor != null;
 
         private ColorDto _classIndicationBrush;
         public ColorDto ClassIndicationBrush
@@ -360,6 +345,14 @@
             set => SetProperty(ref _tyreCompound, value);
         }
 
+        private PitInfoBriefDescriptionKind _pitInfoBriefDescription;
+
+        public PitInfoBriefDescriptionKind PitInfoBriefDescription
+        {
+            get => _pitInfoBriefDescription;
+            set => SetProperty(ref _pitInfoBriefDescription, value);
+        }
+
         public void RefreshProperties()
         {
             try
@@ -374,7 +367,7 @@
                 Pace = GetPace();
                 BestLap = GetBestLap();
                 Remark = DriverTiming.Remark;
-                LastPitInfo = DriverTiming.LastPitInfo;
+                LastPitInfo = GetPitInfo();
                 TopSpeed = GetTopSpeed().GetValueInUnits(DriverTiming.Session.TimingDataViewModel.DisplaySettingsViewModel.VelocityUnits).ToString("N0");
                 SetTimeToPlayerProperties();
                 IsPlayer = DriverTiming.IsPlayer;
@@ -399,13 +392,78 @@
                 ColorLapsColumns = GetColorLapsColumns();
                 IsLastPlayerLapBetter = GetIsLastPlayerLapBetter();
                 IsPlayersPaceBetter = GetIsPlayersPaceBetter();
-                TyreCompound = DriverTiming.DriverInfo.CarInfo?.WheelsInfo?.FrontLeft?.TyreType ?? string.Empty;
+                TyreCompound = DriverTiming.DriverInfo.CarInfo?.WheelsInfo?.FrontLeft?.TyreVisualType ?? string.Empty;
                 _refreshStopwatch.Restart();
             }
             catch (Exception ex)
             {
                 LogManager.GetCurrentClassLogger().Error(ex);
             }
+        }
+
+        private string GetPitInfo()
+        {
+            if (DriverTiming.DriverInfo.FinishStatus == DriverFinishStatus.Dnf)
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+                return string.Empty;
+            }
+            if (DriverTiming.Session.SessionType != SessionType.Race)
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+                return InPits ? "In Pits" : string.Empty;
+            }
+
+            return GetPitInfoRace();
+        }
+
+        private string GetPitInfoRace()
+        {
+            if (DriverTiming.InPits && DriverTiming.LastPitStop != null)
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+                return DriverTiming.LastPitStop.PitInfoFormatted;
+            }
+
+            if (DriverTiming.LastPitStop == null || DriverTiming.CurrentLap.LapNumber - DriverTiming.LastPitStop.EntryLap.LapNumber > 4)
+            {
+                string pitsString = DriverTiming.PitCount == 0 ? string.Empty : " / " + DriverTiming.PitCount + " Stops" ;
+                int tyreAge = DriverTiming.TyresAge;
+                int playersTyreAge = (DriverTiming.Session?.Player?.TyresAge).GetValueOrDefault();
+                int tyreAgeDifference = tyreAge - playersTyreAge;
+                if (tyreAgeDifference > 8)
+                {
+                    PitInfoBriefDescription = PitInfoBriefDescriptionKind.TyresOlderThanPlayer;
+                }else if (tyreAgeDifference < -8)
+                {
+                    PitInfoBriefDescription = PitInfoBriefDescriptionKind.TyresYoungerThanPlayers;
+                }
+                else
+                {
+                    PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+                }
+                return $"{tyreAge}L" + pitsString;
+            }
+
+            if(DriverTiming.IsPlayer || DriverTiming.Session?.Player?.LastPitStop == null )
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+                return $"{DriverTiming.LastPitStop.PitStopDuration.FormatTimeSpanOnlySecondNoMiliseconds(false)}s";
+            }
+
+            TimeSpan pitStopDifference = DriverTiming.LastPitStop.PitStopDuration - DriverTiming.Session.Player.LastPitStop.PitStopDuration;
+            if (pitStopDifference.TotalSeconds > 1)
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.PitStopSlowerThanPlayer;
+            }else if (pitStopDifference.TotalSeconds < -1)
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.PitStopFasterThanPlayer;
+            }
+            else
+            {
+                PitInfoBriefDescription = PitInfoBriefDescriptionKind.None;
+            }
+            return $"{pitStopDifference.FormatTimeSpanOnlySecondNoMiliseconds(true)}s";
         }
 
         private void SetRating()
@@ -474,9 +532,7 @@
             CarName = DriverTiming.CarName;
             CarClassName = DriverTiming.CarClassName;
             Name = DriverTiming.Name;
-            HasCustomOutline = _driverPresentationsManager.IsCustomOutlineEnabled(Name);
             IsClassIndicationEnabled = DriverTiming.Session?.LastSet?.SessionInfo?.IsMultiClass == true;
-            OutLineColor = _driverPresentationsManager.TryGetOutLineColor(Name, out ColorDto color) ? color : null;
         }
 
         private string FormatSectorTiming(SectorTiming sectorTiming)
@@ -537,7 +593,7 @@
         private string GetLastLapTime()
         {
             DriverInfo driverInfo = DriverTiming.DriverInfo;
-            LapInfo lastCompletedLap = DriverTiming.LastCompletedLap;
+            ILapInfo lastCompletedLap = DriverTiming.LastCompletedLap;
             if (lastCompletedLap == null)
             {
                 return "N/A";

@@ -174,7 +174,7 @@
                    + TimeSpanFormatHelper.FormatTimeSpanOnlySeconds(sectorTiming.Duration, false);
         }
 
-        private string FormatBestLap(LapInfo bestLap)
+        private string FormatBestLap(ILapInfo bestLap)
         {
             if (bestLap == null)
             {

@@ -7,7 +7,7 @@
     {
         public DriverTimingInfo()
         {
-            
+
         }
 
         /// <summary>
@@ -38,5 +38,7 @@
         public TimeSpan LastSector2Time { get; set; } = TimeSpan.Zero;
 
         public TimeSpan LastSector3Time { get; set; } = TimeSpan.Zero;
+
+        public TimeSpan BestLapTime { get; set; } = TimeSpan.Zero;
     }
 }

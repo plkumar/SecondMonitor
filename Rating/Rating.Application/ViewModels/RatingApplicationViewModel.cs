@@ -30,7 +30,7 @@
             SelectableClasses = new ObservableCollection<string>();
             AiLevels = new ObservableCollection<int>();
             UseSuggestedDifficulty = true;
-            IsCollapsed = true;
+            IsEnabled = true;
             IsRateRaceCheckboxChecked = true;
         }
 
@@ -40,7 +40,7 @@
             set => SetProperty(ref _isVisible, value);
         }
 
-        public bool IsCollapsed
+        public bool IsEnabled
         {
             get => _isCollapsed;
             set => SetProperty(ref _isCollapsed, value);

@@ -12,7 +12,7 @@
             </Style>
 
             <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
-                <Setter Property="Background" Value="{StaticResource Anthracite01Brush}" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderBrush" Value="{StaticResource LightGrey02Brush}" />
                 <Setter Property="BorderThickness" Value="1" />
             </Style>
@@ -28,7 +28,7 @@
 
             <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="{StaticResource Anthracite01Brush}" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="AutoGenerateColumns" Value="False" />
                 <Setter Property="CanUserSortColumns" Value="False" />
                 <Setter Property="CanUserReorderColumns" Value="False" />

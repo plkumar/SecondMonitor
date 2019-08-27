@@ -209,7 +209,7 @@
             set => SetProperty(ref _selectedDriverTimingViewModel, value);
         }
 
-        public DriverTiming SelectedDriverTiming => SelectedDriverTimingViewModel?.DriverTiming;
+        public DriverTimingViewModel SelectedDriverTiming => SelectedDriverTimingViewModel;
 
         public SessionTiming SessionTiming
         {
@@ -514,7 +514,8 @@
             {
                 SituationOverviewProvider.AddDriver(e.Data.DriverInfo);
             });
-            _driverLapsWindowManager.Rebind(e.Data);
+
+            _driverLapsWindowManager.Rebind(TimingDataGridViewModel.DriversViewModels.FirstOrDefault(x => x.Name == e.Data.Name));
         }
 
         private void RefreshGui(SimulatorDataSet data)
@@ -547,11 +548,6 @@
             _lastDataSet = data;
             CheckAndNotifySessionCompleted();
             SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController);
-            foreach (var driverTimingModelView in SessionTiming.Drivers.Values)
-            {
-                _driverLapsWindowManager.Rebind(driverTimingModelView);
-            }
-
             SessionInfoViewModel.SessionTiming = _sessionTiming;
             SessionTiming.DriverAdded += SessionTimingDriverAdded;
             SessionTiming.DriverRemoved += SessionTimingDriverRemoved;
@@ -617,6 +613,7 @@
             if (data.SessionInfo.SessionType != SessionType.Na)
             {
                 TimingDataGridViewModel.MatchDriversList(_sessionTiming.Drivers.Values.ToList());
+                _driverLapsWindowManager.RebindAll(TimingDataGridViewModel.DriversViewModels);
             }
 
             SituationOverviewProvider.ApplyDateSet(data);
