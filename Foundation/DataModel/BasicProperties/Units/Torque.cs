@@ -5,6 +5,7 @@
     using ProtoBuf;
 
     [ProtoContract]
+    [Serializable]
     public class Torque : IQuantity
     {
 
