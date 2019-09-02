@@ -10,13 +10,14 @@
 
     internal class F12019UdpReceiver
     {
-        private const int Port = 20777;
+        private readonly int _port;
         private readonly UdpReceiver _udpReceiver;
         private readonly DataSetCompositor _dataSetCompositor;
 
-        internal F12019UdpReceiver(Action<AllPacketsComposition> sessionStartedHandler, Action<AllPacketsComposition> newDataHandler)
+        internal F12019UdpReceiver(Action<AllPacketsComposition> sessionStartedHandler, Action<AllPacketsComposition> newDataHandler, int connectionPort)
         {
-            _udpReceiver = new UdpReceiver(Port);
+            _port = connectionPort;
+            _udpReceiver = new UdpReceiver(_port);
             _dataSetCompositor = new DataSetCompositor(sessionStartedHandler, newDataHandler);
         }
 

@@ -10,6 +10,7 @@
         private readonly IViewModelFactory _viewModelFactory;
         private IRemoteConfigurationViewModel _remoteConfigurationViewModel;
         private IReadOnlyCollection<IPluginConfigurationViewModel> _pluginConfigurations;
+        private F12019ConfigurationViewModel _f12019ConfigurationViewModel;
 
         public PluginsConfigurationViewModel(IViewModelFactory viewModelFactory)
         {
@@ -28,6 +29,12 @@
             private set => SetProperty(ref _pluginConfigurations, value);
         }
 
+        public F12019ConfigurationViewModel F12019ConfigurationViewModel
+        {
+            get => _f12019ConfigurationViewModel;
+            set => SetProperty(ref _f12019ConfigurationViewModel, value);
+        }
+
         protected override void ApplyModel(PluginsConfiguration model)
         {
             IRemoteConfigurationViewModel newViewModel = _viewModelFactory.Create<IRemoteConfigurationViewModel>();
@@ -44,6 +51,9 @@
 
             PluginConfigurations = newPluginsViewModel;
 
+            F12019ConfigurationViewModel f12019ConfigurationViewModel = _viewModelFactory.Create<F12019ConfigurationViewModel>();
+            f12019ConfigurationViewModel.FromModel(model.F12019Configuration);
+            F12019ConfigurationViewModel = f12019ConfigurationViewModel;
         }
 
         public override PluginsConfiguration SaveToNewModel()
@@ -51,6 +61,7 @@
             return new PluginsConfiguration()
             {
                 RemoteConfiguration = RemoteConfigurationViewModel.SaveToNewModel(),
+                F12019Configuration = F12019ConfigurationViewModel.SaveToNewModel(),
                 PluginsConfigurations = PluginConfigurations.Select(x => x.SaveToNewModel()).ToList(),
 
             };

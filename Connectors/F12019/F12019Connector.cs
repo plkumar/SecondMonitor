@@ -7,6 +7,7 @@
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using NLog;
+    using PluginManager.Core;
     using PluginManager.GameConnector;
 
     public class F12019Connector : AbstractGameConnector
@@ -22,7 +23,7 @@
 
         public F12019Connector() : base(new []{"F1_2019", "F1_2019_dx12" })
         {
-            _udpReceiver = new F12019UdpReceiver(OnSessionStarted, OnDataLoaded);
+            _udpReceiver = new F12019UdpReceiver(OnSessionStarted, OnDataLoaded, PluginsManager.PluginSettingsProvider.F12019Configuration.Port);
             _f12019DataConvertor = new F12019DataConvertor();
         }
 

@@ -47,6 +47,8 @@
         </Grid>
         <Grid Column="1" Margin="5">
             <StackPanel Grid.Row="0" >
+                <TextBlock Style="{StaticResource StandardText}" Text="F1 2019 Settings:" VerticalAlignment="Center"></TextBlock>
+                <pluginsConfig:F12019ConfigurationControl  DataContext="{Binding PluginsConfigurationViewModel.F12019ConfigurationViewModel}"/>
                 <TextBlock Style="{StaticResource StandardText}" Text="Remote Settings:" VerticalAlignment="Center"></TextBlock>
                 <pluginsConfig:RemoteConfigurationControl  DataContext="{Binding PluginsConfigurationViewModel.RemoteConfigurationViewModel}"/>
             </StackPanel>

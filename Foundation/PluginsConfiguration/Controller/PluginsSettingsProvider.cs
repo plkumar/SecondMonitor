@@ -47,6 +47,8 @@
 
         public RemoteConfiguration RemoteConfiguration => _pluginsConfiguration.Value.RemoteConfiguration;
 
+        public F12019Configuration F12019Configuration => _pluginsConfiguration.Value.F12019Configuration;
+
         private PluginsConfiguration LoadPluginsConfiguration()
         {
             return _pluginConfigurationRepository.LoadOrCreateDefault();

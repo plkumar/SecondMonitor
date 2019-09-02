@@ -8,5 +8,7 @@
         IRemoteConfigurationViewModel RemoteConfigurationViewModel { get; }
 
         IReadOnlyCollection<IPluginConfigurationViewModel> PluginConfigurations { get; }
+
+        F12019ConfigurationViewModel F12019ConfigurationViewModel { get; }
     }
 }

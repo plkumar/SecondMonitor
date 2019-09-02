@@ -8,14 +8,15 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using System.Windows.Forms;
+    using Contracts.NInject;
     using NLog;
     using DataModel.Snapshot;
     using GameConnector;
     using PluginsConfiguration.Common.Controller;
+    using PluginsConfiguration.Common.DataModel;
 
     public class PluginsManager
     {
-        private readonly IPluginSettingsProvider _pluginSettingsProvider;
         public event EventHandler<DataEventArgs> DataLoaded;
 
         public event EventHandler<DataEventArgs> SessionStarted;
@@ -32,13 +33,20 @@
         private readonly List<ISimulatorDataSetVisitor> _visitors;
         private Task[] _pluginsTasks;
 
-        public PluginsManager(IPluginSettingsProvider pluginSettingsProvider, IGameConnector[] connectors, IEnumerable<ISimulatorDataSetVisitor> dataVisitors)
+        static PluginsManager()
         {
-            _pluginSettingsProvider = pluginSettingsProvider;
+            KernelWrapper kernelWrapper = new KernelWrapper();
+            PluginSettingsProvider = kernelWrapper.Get<IPluginSettingsProvider>();
+        }
+
+        public PluginsManager(IGameConnector[] connectors, IEnumerable<ISimulatorDataSetVisitor> dataVisitors)
+        {
             _plugins = new List<ISecondMonitorPlugin>();
             Connectors = connectors;
             _visitors = dataVisitors.ToList();
         }
+
+        public static IPluginSettingsProvider PluginSettingsProvider { get; }
 
         private static void LogSimulatorDataSet(SimulatorDataSet dataSet)
         {
@@ -211,12 +219,12 @@
 
         private bool IsPluginEnabled(ISecondMonitorPlugin plugin)
         {
-            if (_pluginSettingsProvider.TryIsPluginEnabled(plugin.PluginName, out bool isEnabled))
+            if (PluginSettingsProvider.TryIsPluginEnabled(plugin.PluginName, out bool isEnabled))
             {
                 Logger.Info($"Plugin {plugin.PluginName} is Enabled: {isEnabled}");
                 return isEnabled;
             }
-            _pluginSettingsProvider.SetPluginEnabled(plugin.PluginName, plugin.IsEnabledByDefault);
+            PluginSettingsProvider.SetPluginEnabled(plugin.PluginName, plugin.IsEnabledByDefault);
             Logger.Info($"Plugin {plugin.PluginName} is Enabled: {plugin.IsEnabledByDefault}");
             return plugin.IsEnabledByDefault;
         }
@@ -230,8 +238,8 @@
         private void RaiseSessionStartedEvent(SimulatorDataSet data)
         {
             DataEventArgs args = new DataEventArgs(data);
-            Logger.Info("New Session starting");
-            if (_oldDataSet != null)
+            Logger.Info("New Session starting" + data.SessionInfo.SessionType);
+            /*if (_oldDataSet != null)
             {
                 Logger.Info("Old set:");
                 LogSimulatorDataSet(_oldDataSet);
@@ -239,7 +247,7 @@
 
             _oldDataSet = data;
             Logger.Info("New set:");
-            LogSimulatorDataSet(_oldDataSet);
+            LogSimulatorDataSet(_oldDataSet);*/
             SessionStarted?.Invoke(this, args);
         }
 

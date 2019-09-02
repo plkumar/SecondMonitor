@@ -8,8 +8,8 @@
     {
         public override void Load()
         {
-            Bind<IPluginSettingsProvider>().To<PluginsSettingsProvider>();
-            Bind<IPluginConfigurationRepository>().To<AppDataPluginConfigurationRepository>();
+            Bind<IPluginSettingsProvider>().To<PluginsSettingsProvider>().InSingletonScope();
+            Bind<IPluginConfigurationRepository>().To<AppDataPluginConfigurationRepository>().InSingletonScope();
         }
     }
 }

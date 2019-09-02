@@ -11,7 +11,6 @@
     using DataModel.Snapshot.Drivers;
     using DataModel.Summary;
     using NLog;
-    using NLog.Fluent;
     using RatingProvider.FieldRatingProvider;
     using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using SecondMonitor.ViewModels.Settings;
@@ -27,6 +26,7 @@
         private bool _isFlashing;
         private readonly Stopwatch _flashStopwatch;
         private bool _ratingComputed;
+        private bool _wasMoving;
 
         public RaceState(IQualificationResultRatingProvider qualificationResultRatingProvider, IRatingUpdater ratingUpdater, ISessionFinishStateFactory finishStateFactory, SharedContext sharedContext, IReferenceRatingProviderFactory referenceRatingProviderFactory, ISettingsProvider settingsProvider) : base(sharedContext, referenceRatingProviderFactory, settingsProvider)
         {
@@ -36,6 +36,7 @@
             _graceLaps = settingsProvider.DisplaySettingsViewModel.RatingSettingsViewModel.GraceLapsCount;
             _flashStopwatch = new Stopwatch();
             _ratingComputed = false;
+            _wasMoving = false;
         }
 
         public override SessionKind SessionKind { get; protected set; } = SessionKind.RaceWithoutQualification;
@@ -47,6 +48,7 @@
         {
             _isFlashing = false;
             _ratingComputed = false;
+            _wasMoving = false;
             DriverInfo[] eligibleDrivers = FilterEligibleDrivers(simulatorDataSet);
             if (CanUserPreviousRaceContext(eligibleDrivers))
             {
@@ -107,6 +109,11 @@
 
             if (simulatorDataSet.SessionInfo.SessionPhase == SessionPhase.Countdown)
             {
+                SessionPhaseKind = SessionPhaseKind.NotStarted;
+            }
+            else if (!_wasMoving)
+            {
+                _wasMoving = simulatorDataSet.PlayerInfo.Speed.InMs > 5;
                 SessionPhaseKind = SessionPhaseKind.NotStarted;
             }
             else if (simulatorDataSet.PlayerInfo.CompletedLaps < _graceLaps)
