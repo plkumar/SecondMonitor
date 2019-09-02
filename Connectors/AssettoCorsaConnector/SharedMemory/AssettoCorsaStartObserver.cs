@@ -11,7 +11,7 @@
     {
         private enum StartState
         {
-            Countdown, StartSequence, Started, StartCompleted, StartRestartTimeout
+            Countdown, StartSequence, Started, WaitForLineCross, StartCompleted, StartRestartTimeout
         }
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -27,7 +27,7 @@
 
         public void Observe(SimulatorDataSet dataSet)
         {
-            if (!ShouldObserve(dataSet))
+            /*if (!ShouldObserve(dataSet))
             {
                 _lastDataSet = dataSet;
                 return;
@@ -36,7 +36,7 @@
             CheckAndAdvanceState(dataSet);
 
 
-            _lastDataSet = dataSet;
+            _lastDataSet = dataSet;*/
         }
 
         private void CheckAndAdvanceState(SimulatorDataSet dataSet)
@@ -58,6 +58,9 @@
                 case StartState.Started:
                     CheckAndAdvanceStarted(dataSet);
                     return;
+                case StartState.WaitForLineCross:
+                    CheckAndAdvanceCrossedTheLine(dataSet);
+                    return;
                 case StartState.StartCompleted:
                     CheckAndAdvanceStartCompleted(dataSet);
                     return;
@@ -66,6 +69,15 @@
                     return;
             }
 
+        }
+
+        private void CheckAndAdvanceCrossedTheLine(SimulatorDataSet dataSet)
+        {
+            if (dataSet.LeaderInfo.TotalDistance < 300)
+            {
+                Logger.Info("Leader distance less than 300 - crossed the line");
+                _startState = StartState.Started;
+            }
         }
 
         private void CheckAndAdvanceCountdown(SimulatorDataSet dataSet)
@@ -89,7 +101,7 @@
             if (dataSet.LeaderInfo.Speed > Velocity.FromKph(2))
             {
                 Logger.Info("Player moving - moving to started");
-                _startState = StartState.Started;
+                _startState = StartState.WaitForLineCross;
                 dataSet.SessionInfo.SessionType = SessionType.Na;
             }
         }
@@ -113,11 +125,11 @@
 
         private void CheckAndAdvanceStartCompleted(SimulatorDataSet dataSet)
         {
-            if (dataSet.LeaderInfo.TotalDistance < 400)
+            if (dataSet.LeaderInfo.TotalDistance < 200)
             {
                 Logger.Info("Leader completed less than 400m - moving to StartRestartTimeout");
                 _startState = StartState.StartRestartTimeout;
-                _restartTimeoutEnd = dataSet.SessionInfo.SessionTime.Add(TimeSpan.FromSeconds(2));
+                _restartTimeoutEnd = dataSet.SessionInfo.SessionTime.Add(TimeSpan.FromSeconds(3));
             }
 
         }
@@ -144,7 +156,7 @@
             return !(_lastDataSet == null || (dataSet.SessionInfo.SessionType != SessionType.Race && _startState == StartState.Countdown));
         }
 
-        private void ResetStartState()
+        public void ResetStartState()
         {
             _startState = StartState.Countdown;
         }

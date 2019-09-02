@@ -82,6 +82,21 @@
                         AiTimeDifferencePerLevel = 0.75,
                         AiRatingNoise = 25,
                         QuickRaceAiRatingForPlace = 20,
+                    },
+
+                    new SimulatorRatingConfiguration()
+                    {
+                        SimulatorName = "F1 2019",
+                        MinimumAiLevel = 30,
+                        MaximumAiLevel = 110,
+                        RatingPerLevel = 80,
+                        DefaultPlayerRating = 4000,
+                        DefaultPlayerDeviation = 350,
+                        DefaultPlayerVolatility = 0.06,
+                        MinimumRating = 100,
+                        AiTimeDifferencePerLevel = 0.75,
+                        AiRatingNoise = 25,
+                        QuickRaceAiRatingForPlace = 20,
                     }
                 }
             };

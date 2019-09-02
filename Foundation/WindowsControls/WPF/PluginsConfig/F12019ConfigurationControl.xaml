@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="SecondMonitor.WindowsControls.WPF.PluginsConfig.F12019ConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SecondMonitor.WindowsControls.WPF.PluginsConfig"
+             xmlns:pluginsSettings="clr-namespace:SecondMonitor.ViewModels.PluginsSettings;assembly=SecondMonitor.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance pluginsSettings:F12019ConfigurationViewModel}" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Padding="5" Background="{StaticResource Anthracite01Brush}">
+        <StackPanel Background="{StaticResource Anthracite01Brush}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="F1 2019 Port: " Style="{StaticResource StandardText}" VerticalAlignment="Center"/>
+                <TextBox  Margin="5,0,0,0" Style="{StaticResource StandardTextBox}" Text="{Binding Port, Converter={StaticResource IntegerToStringConverter}}" MinWidth="150" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

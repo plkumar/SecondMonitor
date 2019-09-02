@@ -107,8 +107,8 @@
 
         private ColorDto GetDriverOutline(string driverName)
         {
-            _driverPresentationsManager.TryGetOutLineColor(driverName, out ColorDto color);
-            return color;
+            _driverPresentationsManager.TryGetDriverPresentation(driverName, out DriverPresentationDto driverPresentationDto);
+            return driverPresentationDto?.CustomOutLineEnabled == true ? driverPresentationDto.OutLineColor  : null;
         }
 
         private void UpdateGapsSize(SimulatorDataSet dataSet)

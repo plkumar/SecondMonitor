@@ -25,12 +25,12 @@
         private DriverInfo _lastPlayer;
         private int? _sectorLength;
 
-        public AcDataConverter(AssettoCorsaConnector assettoCorsaConnector)
+        public AcDataConverter(AssettoCorsaConnector assettoCorsaConnector, AssettoCorsaStartObserver assettoCorsaStartObserver)
         {
             _connector = assettoCorsaConnector;
             _currentSectorTimes = new Dictionary<string, TimeSpan[]>();
             _sectorLength = null;
-            _startObserver = new AssettoCorsaStartObserver();
+            _startObserver = assettoCorsaStartObserver;
             _idealWheelQuantitiesFromXml = new IdealWheelQuantitiesFromXml(Path.Combine(AssemblyDirectory, "AcTyreProperties.xml"));
         }
 
@@ -307,7 +307,7 @@
                 AcsVehicleInfo acVehicleInfo = acData.AcsSecondMonitor.vehicle[i];
                 DriverInfo driverInfo = CreateDriverInfo(acData, acVehicleInfo, data);
 
-                driverInfo.CurrentLapValid = acVehicleInfo.currentLapInvalid == 0;
+                driverInfo.CurrentLapValid = acVehicleInfo.currentLapInvalid == 0 && (data.SessionInfo.SessionType != SessionType.Race || driverInfo.CompletedLaps > 0);
                 if (driverInfo.IsPlayer)
                 {
                     playersInfo = driverInfo;
@@ -323,7 +323,7 @@
                 }
 
                 AddLappingInformation(data, acData, driverInfo);
-                FillTimingInfo(driverInfo, acVehicleInfo);
+                FillTimingInfo(driverInfo, acVehicleInfo, data);
 
 
             }
@@ -354,13 +354,13 @@
 
         }
 
-        internal void FillTimingInfo(DriverInfo driverInfo, AcsVehicleInfo acVehicleInfo)
+        internal void FillTimingInfo(DriverInfo driverInfo, AcsVehicleInfo acVehicleInfo, SimulatorDataSet fullDataSet)
         {
             driverInfo.Timing.LastLapTime = CreateTimeSpan(acVehicleInfo.lastLapTimeMS);
             driverInfo.Timing.CurrentLapTime = CreateTimeSpan(acVehicleInfo.currentLapTimeMS);
             driverInfo.Timing.CurrentSector = -1;
 
-            if (_sectorLength == null)
+            if (_sectorLength == null || (fullDataSet.SessionInfo.SessionType == SessionType.Race && driverInfo.CompletedLaps == 0))
             {
                 return;
             }
@@ -417,10 +417,10 @@
         {
             DriverInfo driverInfo = new DriverInfo
             {
-                DriverName = StringExtensions.FromArray(acVehicleInfo.driverName),
+                DriverName = acVehicleInfo.driverName.FromArray(),
                 CompletedLaps = acVehicleInfo.lapCount,
-                CarName = FormatACName(StringExtensions.FromArray(acVehicleInfo.carModel)),
-                InPits = acVehicleInfo.isCarInPit == 1 || acVehicleInfo.isCarInPitlane == 1,
+                CarName = FormatACName(name: acVehicleInfo.carModel.FromArray()),
+                InPits = (acVehicleInfo.isCarInPit == 1 || acVehicleInfo.isCarInPitlane == 1) && (dataSet.SessionInfo.SessionType != SessionType.Race || acVehicleInfo.lapCount > 0),
                 IsPlayer = acVehicleInfo.carId == 0,
                 Position = dataSet.SessionInfo.SessionType == SessionType.Race ? acVehicleInfo.carRealTimeLeaderboardPosition + 1 : acVehicleInfo.carLeaderboardPosition,
                 Speed = Velocity.FromMs(acVehicleInfo.speedMS),

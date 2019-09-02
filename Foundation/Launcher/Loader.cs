@@ -102,9 +102,8 @@
         private static void ConnectAndLoadPlugins(IGameConnector[] connectors)
         {
             KernelWrapper kernelWrapper = new KernelWrapper();
-            IPluginSettingsProvider pluginSettingsProvider = kernelWrapper.Get<IPluginSettingsProvider>();
             IEnumerable<ISimulatorDataSetVisitor> dataVisitors = kernelWrapper.GetAll<ISimulatorDataSetVisitor>();
-            PluginsManager pluginManager = new PluginsManager(pluginSettingsProvider, connectors, dataVisitors);
+            PluginsManager pluginManager = new PluginsManager(connectors, dataVisitors);
             pluginManager.InitializePlugins();
             pluginManager.Start();
         }

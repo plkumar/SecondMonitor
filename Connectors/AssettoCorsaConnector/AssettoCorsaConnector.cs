@@ -16,8 +16,8 @@
     public class AssettoCorsaConnector : AbstractGameConnector
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private static readonly string[] ACExecutables = { "acs_x86", "acs" };
-        private readonly DependencyChecker dependencies;
+        private static readonly string[] AcExecutables = { "acs_x86", "acs" };
+        private readonly DependencyChecker _dependencies;
         private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(120);
         private readonly MappedBuffer<SPageFilePhysics> _physicsBuffer;
         private readonly MappedBuffer<SPageFileGraphic> _graphicsBuffer;
@@ -26,6 +26,7 @@
         private readonly AcDataConverter _acDataConverter;
 
         private readonly Stopwatch _stopwatch;
+        private readonly AssettoCorsaStartObserver _assettoCorsaStartObserver;
 
         private AcSessionType _rawLastSessionType;
         private SessionType _lastSessionType;
@@ -36,9 +37,9 @@
         private SimulatorDataSet _lastDataSet;
 
         public AssettoCorsaConnector()
-            : base(ACExecutables)
+            : base(AcExecutables)
         {
-            dependencies = new DependencyChecker(
+            _dependencies = new DependencyChecker(
                 new IDependency[]
                     {
                         new DirectoryExistsDependency(@"apps\python\SecondMonitor"),
@@ -59,11 +60,12 @@
                     },
                 () => true);
 
+            _assettoCorsaStartObserver = new AssettoCorsaStartObserver();
             _physicsBuffer = new MappedBuffer<SPageFilePhysics>(AssettoCorsaShared.SharedMemoryNamePhysics);
             _graphicsBuffer = new MappedBuffer<SPageFileGraphic>(AssettoCorsaShared.SharedMemoryNameGraphic);
             _staticBuffer = new MappedBuffer<SPageFileStatic>(AssettoCorsaShared.SharedMemoryNameStatic);
             _secondMonitorBuffer = new MappedBuffer<SPageFileSecondMonitor>(AssettoCorsaShared.SharedMemoryNameSecondMonitor);
-            _acDataConverter = new AcDataConverter(this);
+            _acDataConverter = new AcDataConverter(this, _assettoCorsaStartObserver);
             _rawLastSessionType = AcSessionType.AC_UNKNOWN;
             _lastSessionType = SessionType.Na;
             _lastSessionPhase = SessionPhase.Countdown;
@@ -180,10 +182,10 @@
         {
             try
             {
-                if (Process != null && !dependencies.Checked)
+                if (Process != null && !_dependencies.Checked)
                 {
                     string directory = Path.Combine(Path.GetPathRoot(Process.MainModule.FileName), Path.GetDirectoryName(Process.MainModule.FileName));
-                    Action actionToInstall = dependencies.CheckAndReturnInstallDependenciesAction(directory);
+                    Action actionToInstall = _dependencies.CheckAndReturnInstallDependenciesAction(directory);
                     if (actionToInstall != null)
                     {
                         SendMessageToClients(
@@ -220,6 +222,7 @@
                 _rawLastSessionType = acData.AcsGraphic.session;
                 _lastSessionPhase = dataSet.SessionInfo.SessionPhase;
                 Logger.Info("Session restart cause - Session Phase Change");
+                _assettoCorsaStartObserver.ResetStartState();
                 return true;
             }
 
@@ -231,6 +234,7 @@
             if (_lastDataSet.PlayerInfo?.CompletedLaps > dataSet.PlayerInfo?.CompletedLaps)
             {
                 Logger.Info("Session restart cause - Less Completed Laps than previously");
+                _assettoCorsaStartObserver.ResetStartState();
                 return true;
             }
 
@@ -238,6 +242,7 @@
                 > dataSet.SessionInfo.LeaderCurrentLap)
             {
                 Logger.Info("Session restart cause - Less Leader Completed Laps than previously");
+                _assettoCorsaStartObserver.ResetStartState();
                 return true;
             }
 

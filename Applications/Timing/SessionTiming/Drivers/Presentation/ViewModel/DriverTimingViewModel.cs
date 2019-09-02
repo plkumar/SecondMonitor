@@ -425,7 +425,7 @@
                 return DriverTiming.LastPitStop.PitInfoFormatted;
             }
 
-            if (DriverTiming.LastPitStop == null || DriverTiming.CurrentLap.LapNumber - DriverTiming.LastPitStop.EntryLap.LapNumber > 4)
+            if (DriverTiming.LastPitStop?.EntryLap == null || DriverTiming.CurrentLap.LapNumber - DriverTiming.LastPitStop.EntryLap.LapNumber > 4)
             {
                 string pitsString = DriverTiming.PitCount == 0 ? string.Empty : " / " + DriverTiming.PitCount + " Stops" ;
                 int tyreAge = DriverTiming.TyresAge;

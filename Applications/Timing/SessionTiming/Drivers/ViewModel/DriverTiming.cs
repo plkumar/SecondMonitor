@@ -350,9 +350,14 @@
             CurrentLap.Tick(dataSet, DriverInfo);
             CurrentLap.InvalidBySim = !DriverInfo.CurrentLapValid;
             LapPercentage = (DriverInfo.LapDistance / dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters) * 100;
-            if (CurrentLap.Valid && SessionType.Race != dataSet.SessionInfo.SessionType && (InPits || !DriverInfo.CurrentLapValid) && _lapsInfo.Count >= 1)
+            if (CurrentLap.Valid && SessionType.Race != dataSet.SessionInfo.SessionType && InPits && _lapsInfo.Count >= 1)
             {
-                CurrentLap.InvalidateLap(InPits ? LapInvalidationReasonKind.DriverInPits : LapInvalidationReasonKind.InvalidatedBySim);
+                CurrentLap.InvalidateLap(LapInvalidationReasonKind.DriverInPits);
+            }
+
+            if (CurrentLap.Valid && !DriverInfo.CurrentLapValid && _lapsInfo.Count > 0 && (LastLap == null || !LastLap.IsPending))
+            {
+                CurrentLap.InvalidateLap(LapInvalidationReasonKind.InvalidatedBySim);
             }
         }
 

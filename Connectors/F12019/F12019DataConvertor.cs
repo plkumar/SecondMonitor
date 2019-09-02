@@ -331,7 +331,7 @@
                 Position = rawDriverLapInfo.MCarPosition,
                 PositionInClass = rawDriverLapInfo.MCarPosition,
                 Speed = Velocity.FromKph(rawData.PacketCarTelemetryData.MCarTelemetryData[driverIndex].MSpeed),
-                LapDistance = rawDriverLapInfo.MLapDistance,
+                LapDistance = rawDriverLapInfo.MLapDistance >= 0 ? rawDriverLapInfo.MLapDistance : rawData.PacketSessionData.MTrackLength + rawDriverLapInfo.MLapDistance,
                 TotalDistance = rawDriverLapInfo.MTotalDistance
             };
 

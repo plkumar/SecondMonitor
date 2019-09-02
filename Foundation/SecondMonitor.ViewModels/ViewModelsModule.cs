@@ -20,6 +20,7 @@
             Bind<IPluginConfigurationViewModel>().To<PluginConfigurationViewModel>();
             Bind<IPluginsConfigurationViewModel>().To<PluginsConfigurationViewModel>();
             Bind<IRemoteConfigurationViewModel>().To<RemoteConfigurationViewModel>();
+            Bind<F12019ConfigurationViewModel>().ToSelf();
             Bind<ISettingsProvider>().To<AppDataSettingsProvider>().InSingletonScope();
             Bind<ISimulatorContentRepository>().To<StoredSimulatorContentRepository>().InSingletonScope();
             Bind<ISimulatorContentController>().To<SimulatorContentController>().InSingletonScope();

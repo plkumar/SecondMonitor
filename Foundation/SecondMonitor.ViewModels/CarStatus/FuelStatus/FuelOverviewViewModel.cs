@@ -9,10 +9,13 @@
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Systems;
+    using NLog;
     using Properties;
 
     public class FuelOverviewViewModel : ISimulatorDataSetViewModel, INotifyPropertyChanged
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private ICommand _resetCommand;
         private TimeSpan _timeLeft;
         private double _lapsLeft;
@@ -374,6 +377,7 @@
             LapsDelta = 0;
             FuelDelta = Volume.FromLiters(0);
             ShowDeltaInfo = false;
+            Logger.Info("Fuel Overview Reset");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

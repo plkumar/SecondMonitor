@@ -95,6 +95,11 @@
       <Name>PluginManager</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\PluginsConfiguration\PluginsConfiguration.Common.csproj">
+      <Project>{A321D875-DB5E-4FF2-8ABD-5086E08D8EFF}</Project>
+      <Name>PluginsConfiguration.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

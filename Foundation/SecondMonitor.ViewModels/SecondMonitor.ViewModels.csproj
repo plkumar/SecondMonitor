@@ -115,6 +115,7 @@
     <Compile Include="NamedCollectionViewModel.cs" />
     <Compile Include="PitBoard\RacePitboardViewModel.cs" />
     <Compile Include="PluginsSettings\BroadcastLimitSettingsViewModel.cs" />
+    <Compile Include="PluginsSettings\F12019ConfigurationViewModel.cs" />
     <Compile Include="PluginsSettings\IBroadcastLimitSettingsViewModel.cs" />
     <Compile Include="PluginsSettings\IPluginConfigurationViewModel.cs" />
     <Compile Include="PluginsSettings\IPluginsConfigurationViewModel.cs" />

@@ -79,6 +79,7 @@ namespace SecondMonitor.ViewModels.CarStatus.FuelStatus
             ActPerLap = Volume.FromLiters(0);
             TotalPerMinute = Volume.FromLiters(0);
             TotalPerLap = Volume.FromLiters(0);
+            _lastDataSet = null;
         }
 
         private void CreateAndAddSessionFuelConsumptionInfo()
