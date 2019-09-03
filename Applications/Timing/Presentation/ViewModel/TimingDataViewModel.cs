@@ -21,13 +21,12 @@
     using DataModel.Extensions;
     using Controllers;
     using NLog;
-    using NLog.Fluent;
     using Rating.Application.RatingProvider;
     using Rating.Application.ViewModels;
+    using Rating.Application.ViewModels.Championship.IconState;
     using ReportCreation;
     using SecondMonitor.Timing.LapTimings.ViewModel;
     using SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel;
-    using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
     using SecondMonitor.Timing.SessionTiming.ViewModel;
     using SessionTiming;
     using ViewModels;
@@ -157,6 +156,10 @@
         public ICommand OpenCurrentTelemetrySession { get; set; }
 
         public ICommand OpenCarSettingsCommand { get; set; }
+
+        public ICommand OpenChampionshipWindowCommand { get; set; }
+
+        public ChampionshipIconStateViewModel ChampionshipIconStateViewModel { get; set; }
 
         public bool IsOpenCarSettingsCommandEnable
         {

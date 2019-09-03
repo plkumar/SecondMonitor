@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\IntToRedGreenConverter.cs" />
+    <Compile Include="Converters\ChampionshipIconStateToBrushConverter.cs" />
     <Compile Include="Converters\SessionKindToBrushConverter.cs" />
     <Compile Include="Converters\SessionPhaseToBrushConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

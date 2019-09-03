@@ -268,31 +268,6 @@
                                             ElementStyle="{StaticResource TextBoxStyleRating}"
                                             Header="Rating"
                                             Visibility="{Binding Source={StaticResource proxy}, Path=Data.CurrentSessionOptionsView.ColumnsSettingsView.Rating.Visible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
-                        <!--<DataGridTemplateColumn Width="120" Header="Mark">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Width="120"
-                                          Background="{StaticResource Anthracite01Brush}"
-                                          Visibility="{Binding IsPlayer, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <CheckBox Margin="5"
-                                                      Foreground="{StaticResource LightGrey01Brush}"
-                                                      IsChecked="{Binding HasCustomOutline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                <TextBlock FontSize="{StaticResource SmallFontSize}" Text="Enable" />
-                                            </CheckBox>
-                                            <Grid Width="20" Margin="5,0,0,0"
-                                                      Background="{Binding OutLineColor, Converter={StaticResource ColorDtoToSolidBrushConverter}, Mode=OneWay}" />
-
-                                            <xctk:ColorPicker Width="15" Height="15" Margin="2" HorizontalAlignment="Left"
-                                                                  Background="{StaticResource Anthracite01Brush}"
-                                                                  ButtonStyle="{StaticResource ComboBoxToggleButton2}"
-                                                                  Foreground="{StaticResource LightGrey01Brush}"
-                                                                  SelectedColor="{Binding OutLineColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorDtoToColorConverter}}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
                     </timingGridControl:TimingGrid.Columns>
                 </timingGridControl:TimingGrid>
             </Grid>
@@ -499,7 +474,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="45" />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <ContentPresenter Content="{Binding RatingApplicationViewModel}"/>
@@ -559,6 +534,18 @@
                                     <wpf:ColorAbleIcon Margin="5,5,5,5"
                                                        StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
                                         <ContentPresenter Content="{StaticResource SettingsIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                            <Button
+                                Command="{Binding OpenChampionshipWindowCommand}"
+                                Style="{StaticResource StandardButton}"
+                                Foreground="{Binding ChampionshipIconStateViewModel.ChampionshipIconState, Converter={StaticResource ChampionshipIconStateToBrushConverter}}"
+                                ToolTip="Opens the configuration window for the application.">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,5,5,5"
+                                                       StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource ChampionshipIcon}" />
                                     </wpf:ColorAbleIcon>
                                 </Button.Content>
                             </Button>

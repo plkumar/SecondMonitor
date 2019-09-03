@@ -13,6 +13,10 @@
             <SolidColorBrush x:Shared="False" x:Key="StartedPhaseBrush" Color="{StaticResource Green05Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="FreeRestartWindowPhaseBrush" Color="{StaticResource Blue04Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="NotStartedPhaseBrush" Color="{StaticResource LightRed02Color}"/>
+
+            <SolidColorBrush x:Shared="False" x:Key="NoChampionship" Color="{StaticResource LightGrey01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="ChampionshipRace" Color="{StaticResource Green05Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="PotentialChampionshipRace" Color="{StaticResource Blue04Color}"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

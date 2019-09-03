@@ -1,11 +1,13 @@
 ﻿namespace SecondMonitor.Rating.Application
 {
     using Controller;
+    using Controller.Championship;
     using Controller.RaceObserver;
     using Controller.SimulatorRating;
     using Ninject.Modules;
     using RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ViewModels;
+    using ViewModels.Championship.IconState;
     using ViewModels.Rating;
     using ViewModels.RatingHistory;
     using ViewModels.RatingOverview;
@@ -39,6 +41,10 @@
             Bind<IReferenceRatingProvider>().To<AverageTimeReferenceRatingProvider>().Named("Average Time");
             Bind<IReferenceRatingProvider>().To<LeaderPlus1ReferenceRatingProvider>().Named("Leader - 1%");
             Bind<IReferenceRatingProvider>().To<LeaderPlus3ReferenceRatingProvider>().Named("Leader - 3%");
+
+            Bind<IChampionshipController>().To<ChampionshipController>();
+            Bind<ChampionshipIconStateViewModel>().ToSelf();
+
         }
     }
 }

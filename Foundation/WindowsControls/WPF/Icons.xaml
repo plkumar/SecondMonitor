@@ -3957,5 +3957,23 @@
             </Path>
         </Canvas>
     </Viewbox>
+    <Viewbox x:Key="ChampionshipIcon" x:Shared="False" Stretch="Uniform">
+        <Canvas Width="48" Height="47.655777" Canvas.Left="0" Canvas.Top="0">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <Canvas>
+                <Canvas.RenderTransform>
+                    <MatrixTransform Matrix="0.53333333 0 0 0.53333333 -2.6666667 -2.6666666"/>
+                </Canvas.RenderTransform>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}" StrokeThickness="1">
+                    <Path.Data>
+                        <PathGeometry Figures="m 83.408281 34.270538 -11.130699 9.543874 c 1.844983 -5.401385 2.787908 -11.131696 2.69521 -16.969656 L 74.739553 11.977245 h 13.089311 l 0.191376 12.049701 c 0.06279 3.94314 -1.617724 7.676962 -4.611959 10.243592 z M 17.180275 35.336063 C 14.127233 32.866118 12.340061 29.197084 12.278263 25.277866 L 12.080906 11.977245 h 12.824176 l 0.23623 15.659927 c 0.0917 5.773171 1.191115 11.410785 3.164678 16.699536 z M 94.696466 5 H 5 l 0.302015 20.381528 c 0.094691 5.982489 2.8387418 11.615119 7.49057 15.378844 l 33.882497 27.410604 -8.067688 7.7268 c -3.229468 3.092913 -5.496076 6.991199 -6.621405 11.232367 h -9.427255 v 7.224438 h 54.660731 v -7.224438 h -7.021101 c -1.206067 -4.441515 -3.665047 -8.489314 -7.150679 -11.6211 L 54.738783 68.042395 87.949471 39.567263 c 4.560127 -3.90925 7.142704 -9.645542 7.048013 -15.651953 z" FillRule="EvenOdd"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Canvas>
+    </Viewbox>
 
 </ResourceDictionary>

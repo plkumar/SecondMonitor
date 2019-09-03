@@ -59,6 +59,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Championship\ChampionshipController.cs" />
+    <Compile Include="Controller\Championship\IChampionshipController.cs" />
     <Compile Include="Controller\IRatingApplicationController.cs" />
     <Compile Include="Controller\IRatingStorageController.cs" />
     <Compile Include="Controller\RaceObserver\IRaceStateFactory.cs" />
@@ -102,6 +104,8 @@
     <Compile Include="RatingApplicationModule.cs" />
     <Compile Include="RatingApplicationModuleBootstrapper.cs" />
     <Compile Include="RatingProvider\RatingChangeArgs.cs" />
+    <Compile Include="ViewModels\Championship\IconState\ChampionshipIconState.cs" />
+    <Compile Include="ViewModels\Championship\IconState\ChampionshipIconStateViewModel.cs" />
     <Compile Include="ViewModels\IRatingApplicationViewModel.cs" />
     <Compile Include="ViewModels\RatingApplicationViewModel.cs" />
     <Compile Include="ViewModels\RatingHistory\HistoryWindowViewModel.cs" />

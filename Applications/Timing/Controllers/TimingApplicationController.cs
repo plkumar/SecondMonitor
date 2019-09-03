@@ -26,6 +26,7 @@ namespace SecondMonitor.Timing.Controllers
     using Contracts.NInject;
     using Ninject.Syntax;
     using Rating.Application.Controller;
+    using Rating.Application.Controller.Championship;
     using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
@@ -60,6 +61,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ISettingsProvider _settingsProvider;
         private readonly ISimulatorContentController _simulatorContentController;
         private readonly ITrackRecordsController _trackRecordsController;
+        private readonly IChampionshipController _championshipController;
         private Window _splashScreen;
 
         public TimingApplicationController()
@@ -70,6 +72,7 @@ namespace SecondMonitor.Timing.Controllers
             _settingsProvider = _kernelWrapper.Get<ISettingsProvider>();
             _simulatorContentController = _kernelWrapper.Get<ISimulatorContentController>();
             _trackRecordsController = _kernelWrapper.Get<ITrackRecordsController>();
+            _championshipController = _kernelWrapper.Get<IChampionshipController>();
         }
 
         public PluginsManager PluginManager
@@ -108,11 +111,12 @@ namespace SecondMonitor.Timing.Controllers
             CreateMapManagementController();
             CreateDriverPresentationManager();
             CreateSessionTelemetryControllerFactory();
-            CreateRatingController();
+            await StartControllers();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
             _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider, _trackRecordsController) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
+            _timingDataViewModel.ChampionshipIconStateViewModel = _championshipController.ChampionshipIconStateViewModel;
             BindCommands();
             CreateGui();
             _timingDataViewModel.GuiDispatcher = _timingGui.Dispatcher;
@@ -157,13 +161,12 @@ namespace SecondMonitor.Timing.Controllers
             {
                 _splashScreen.WindowStyle = WindowStyle.None;
             }
-
-
         }
 
-        private void CreateRatingController()
+        private async Task StartControllers()
         {
-            _ratingApplicationController.StartControllerAsync();
+            await _ratingApplicationController.StartControllerAsync();
+            await _championshipController.StartControllerAsync();
         }
 
         private void CreateReportsController()
@@ -239,6 +242,7 @@ namespace SecondMonitor.Timing.Controllers
         private async void OnGuiClosed(object sender, EventArgs e)
         {
             await _ratingApplicationController.StopControllerAsync();
+            await _championshipController.StopControllerAsync();
             _displaySettingsViewModel.WindowLocationSetting = new WindowLocationSetting()
             {
                 Left = _timingGui.Left,
@@ -273,6 +277,7 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel.OpenCurrentTelemetrySession = new AsyncCommand(OpenCurrentTelemetrySession);
             _timingDataViewModel.OpenLastReportCommand = new RelayCommand(_reportsController.OpenLastReport);
             _timingDataViewModel.OpenReportFolderCommand = new RelayCommand(_reportsController.OpenReportsFolder);
+            _timingDataViewModel.OpenChampionshipWindowCommand = new RelayCommand(_championshipController.OpenChampionshipWindow);
         }
 
         private void UnSelectItem()
