@@ -21,9 +21,9 @@
     using DataModel.Extensions;
     using Controllers;
     using NLog;
-    using Rating.Application.RatingProvider;
-    using Rating.Application.ViewModels;
-    using Rating.Application.ViewModels.Championship.IconState;
+    using Rating.Application.Championship.ViewModels.IconState;
+    using Rating.Application.Rating.RatingProvider;
+    using Rating.Application.Rating.ViewModels;
     using ReportCreation;
     using SecondMonitor.Timing.LapTimings.ViewModel;
     using SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel;

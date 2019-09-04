@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.ViewModels;assembly=Rating.Application"
-                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls">
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
+                    xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Rating.ViewModels;assembly=Rating.Application">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../RatingPresentation.xaml" />
         <ResourceDictionary>

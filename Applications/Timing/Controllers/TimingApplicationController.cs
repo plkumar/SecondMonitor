@@ -25,9 +25,9 @@ namespace SecondMonitor.Timing.Controllers
     using System.Windows;
     using Contracts.NInject;
     using Ninject.Syntax;
-    using Rating.Application.Controller;
-    using Rating.Application.Controller.Championship;
-    using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using Rating.Application.Championship.Controller;
+    using Rating.Application.Rating.Controller;
+    using Rating.Application.Rating.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
     using TrackRecords.Controller;

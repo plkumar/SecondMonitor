@@ -5,8 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
-    using Application.Controller.RaceObserver.States;
-    using Application.ViewModels.Championship.IconState;
+    using Application.Championship.ViewModels.IconState;
 
     public class ChampionshipIconStateToBrushConverter : IValueConverter
     {

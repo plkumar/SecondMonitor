@@ -18,7 +18,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using Drivers;
     using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
     using NLog;
-    using Rating.Application.RatingProvider;
+    using Rating.Application.Rating.RatingProvider;
     using Rating.Common.DataModel.Player;
     using SimdataManagement.DriverPresentation;
     using Telemetry;
