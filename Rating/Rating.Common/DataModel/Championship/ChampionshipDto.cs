@@ -21,6 +21,9 @@
         public string ChampionshipName { get; set; }
 
         [XmlAttribute]
+        public string NextTrack { get; set; }
+
+        [XmlAttribute]
         public ChampionshipState ChampionshipState { get; set; }
 
         [XmlAttribute]
@@ -28,5 +31,11 @@
 
         [XmlAttribute]
         public int CurrentRace { get; set; }
+
+        [XmlAttribute]
+        public int Position { get; set; }
+
+        [XmlAttribute]
+        public int TotalDrivers { get; set; }
     }
 }

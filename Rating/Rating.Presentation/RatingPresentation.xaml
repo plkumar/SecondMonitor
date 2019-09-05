@@ -17,6 +17,7 @@
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelCalculatorControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelPlannerControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/ZoomAndPan/ZoomAndPanControl.xaml"/>
+        
         <ResourceDictionary>
             <converters:SessionKindToBrushConverter x:Key="SessionKindToBrushConverter"/>
             <converters:SessionPhaseToBrushConverter x:Key="SessionPhaseToBrushConverter"/>

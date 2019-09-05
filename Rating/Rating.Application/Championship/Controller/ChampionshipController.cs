@@ -1,47 +1,46 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Controller
 {
-    using System;
     using System.Threading.Tasks;
-    using Common.DataModel.Championship;
-    using Repository;
+    using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
     using ViewModels.IconState;
 
     public class ChampionshipController : IChampionshipController
     {
-        private readonly IViewModelFactory _viewModelFactory;
-        private readonly IChampionshipsRepository _championshipsRepository;
-        private readonly Lazy<AllChampionshipsDto> _allChampionshipDtoLazy;
+        private readonly IChampionshipOverviewController _championshipOverviewController;
 
-        public ChampionshipController(IViewModelFactory viewModelFactory, IChampionshipsRepository championshipsRepository)
+        public ChampionshipController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory)
         {
-            _viewModelFactory = viewModelFactory;
-            _championshipsRepository = championshipsRepository;
-            ChampionshipIconStateViewModel = _viewModelFactory.Create<ChampionshipIconStateViewModel>();
-            _allChampionshipDtoLazy = new Lazy<AllChampionshipsDto>(LoadAllChampionshipsDto);
+            ChampionshipIconStateViewModel =  viewModelFactory.Create<ChampionshipIconStateViewModel>();
+            _championshipOverviewController = childControllerFactory.Create<IChampionshipOverviewController>();
         }
 
         public ChampionshipIconStateViewModel ChampionshipIconStateViewModel { get; }
 
-        protected AllChampionshipsDto AllChampionshipsDto => _allChampionshipDtoLazy.Value;
 
-        public Task StartControllerAsync()
+        public async Task StartControllerAsync()
         {
-            return Task.CompletedTask;
+            await StartChildControllersAsync();
         }
 
-        public Task StopControllerAsync()
+        public async Task StopControllerAsync()
         {
-            return Task.CompletedTask;
+            await StopChildControllersAsync();
         }
 
         public void OpenChampionshipWindow()
         {
+            _championshipOverviewController.OpenChampionshipOverviewWindow();
         }
 
-        private AllChampionshipsDto LoadAllChampionshipsDto()
+        protected async Task StartChildControllersAsync()
         {
-            return _championshipsRepository.LoadRatingsOrCreateNew();
+            await _championshipOverviewController.StartControllerAsync();
+        }
+
+        protected async Task StopChildControllersAsync()
+        {
+            await _championshipOverviewController.StopControllerAsync();
         }
     }
 }

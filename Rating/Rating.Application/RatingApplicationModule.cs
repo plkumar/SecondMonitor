@@ -1,7 +1,9 @@
 ﻿namespace SecondMonitor.Rating.Application
 {
     using Championship.Controller;
+    using Championship.Pool;
     using Championship.Repository;
+    using Championship.ViewModels;
     using Championship.ViewModels.IconState;
     using Ninject.Modules;
     using Rating.Controller;
@@ -46,7 +48,12 @@
 
             Bind<IChampionshipController>().To<ChampionshipController>();
             Bind<IChampionshipsRepository>().To<ChampionshipRepositoryTest>().InSingletonScope();
+            Bind<IChampionshipOverviewController>().To<ChampionshipOverviewController>();
+            Bind<IChampionshipsPool>().To<ChampionshipsPool>().InSingletonScope();
             Bind<ChampionshipIconStateViewModel>().ToSelf();
+
+            Bind<ChampionshipsOverviewViewModel>().ToSelf();
+            Bind<ChampionshipOverviewViewModel>().ToSelf();
 
         }
     }

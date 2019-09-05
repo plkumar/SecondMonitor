@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.ViewModels
 {
+    using Controllers;
     using Factory;
     using Ninject.Modules;
     using PluginsSettings;
@@ -15,6 +16,7 @@
         public override void Load()
         {
             Bind<IViewModelFactory>().To<ViewModelFactory>();
+            Bind<IChildControllerFactory>().To<ChildControllerFactory>();
             Bind<IWindowService>().To<WindowService>();
             Bind<IBroadcastLimitSettingsViewModel>().To<BroadcastLimitSettingsViewModel>();
             Bind<IPluginConfigurationViewModel>().To<PluginConfigurationViewModel>();

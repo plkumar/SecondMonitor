@@ -104,6 +104,8 @@
     <Compile Include="Controllers\AutoUpdateController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Colors\IColorPaletteProvider.cs" />
+    <Compile Include="Controllers\IChildControllerFactory.cs" />
+    <Compile Include="Controllers\ChildControllerFactory.cs" />
     <Compile Include="Factory\IViewModelFactory.cs" />
     <Compile Include="Factory\ViewModelFactory.cs" />
     <Compile Include="IDisableViewModel.cs" />

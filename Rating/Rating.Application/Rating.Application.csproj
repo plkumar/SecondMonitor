@@ -60,9 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Championship\Controller\ChampionshipController.cs" />
+    <Compile Include="Championship\Controller\ChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipController.cs" />
+    <Compile Include="Championship\Controller\IChampionshipOverviewController.cs" />
+    <Compile Include="Championship\Pool\ChampionshipsPool.cs" />
+    <Compile Include="Championship\Pool\IChampionshipsPool.cs" />
     <Compile Include="Championship\Repository\ChampionshipRepositoryTest.cs" />
     <Compile Include="Championship\Repository\IChampionshipsRepository.cs" />
+    <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />

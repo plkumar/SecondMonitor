@@ -8,5 +8,6 @@
         <ResourceDictionary Source="Views/RatingView.xaml"/>
         <ResourceDictionary Source="Views/History/HistoryWindow.xaml"/>
         <ResourceDictionary Source="Views/Overview/OverviewWindow.xaml"/>
+        <ResourceDictionary Source="Views/Championship/ChampionshipsOverview.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

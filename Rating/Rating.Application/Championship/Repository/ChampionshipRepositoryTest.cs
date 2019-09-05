@@ -14,15 +14,21 @@
                 ChampionshipName = "Not Started Champ",
                 TotalRaces = 20,
                 CurrentRace = 1,
+                NextTrack = "Monza",
+                Position = 0,
+                TotalDrivers = 0,
             });
 
             allChampionshipsDto.Championships.Add(new ChampionshipDto()
             {
                 SimulatorName = "R3E",
                 ChampionshipState = ChampionshipState.Started,
-                ChampionshipName = "Not started Champ",
+                ChampionshipName = "Started Champ",
                 TotalRaces = 20,
                 CurrentRace = 15,
+                NextTrack = "Slovakia Ring",
+                Position = 1,
+                TotalDrivers = 23,
             });
 
             allChampionshipsDto.Championships.Add(new ChampionshipDto()
@@ -32,6 +38,9 @@
                 ChampionshipName = "Finished Camp",
                 TotalRaces = 20,
                 CurrentRace = 20,
+                NextTrack = "",
+                Position = 12,
+                TotalDrivers = 23,
             });
 
             return allChampionshipsDto;
