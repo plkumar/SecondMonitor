@@ -1,13 +1,13 @@
-﻿namespace SecondMonitor.Rating.Presentation.Converters
+﻿namespace SecondMonitor.Rating.Presentation.Converters.Championship
 {
     using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
-    using Application.Championship.ViewModels.IconState;
+    using Common.DataModel.Championship;
 
-    public class ChampionshipIconStateToBrushConverter : IValueConverter
+    public class ChampionshipStateToBrushConverter : IValueConverter
     {
         private static readonly  ResourceDictionary ColorResourceDictionary = new ResourceDictionary
         {
@@ -17,16 +17,18 @@
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ChampionshipIconState championshipIconState)
+            if (value is ChampionshipState championshipState)
             {
-                switch (championshipIconState)
+                switch (championshipState)
                 {
-                    case ChampionshipIconState.None:
-                        return ColorResourceDictionary["NoChampionship"];
-                    case ChampionshipIconState.ChampionshipInProgress:
-                        return ColorResourceDictionary["ChampionshipRace"];
-                    case ChampionshipIconState.PotentialChampionship:
+                    case ChampionshipState.NotStarted:
                         return ColorResourceDictionary["PotentialChampionshipRace"];
+                    case ChampionshipState.Started:
+                        return ColorResourceDictionary["ChampionshipRace"];
+                    case ChampionshipState.Finished:
+                        return ColorResourceDictionary["NoChampionship"];
+                    default:
+                        return Brushes.White;
                 }
             }
 

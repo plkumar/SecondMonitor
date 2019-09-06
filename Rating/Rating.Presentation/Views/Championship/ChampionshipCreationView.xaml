@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels;assembly=Rating.Application"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type viewModels:ChampionshipCreationViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10" Text="Select Simulator:"/>
+                            <ComboBox Style="{StaticResource StandardComboBoxStyle}" VerticalContentAlignment="Center" Margin="10" Width="150" ItemsSource="{Binding AvailableSimulators}" IsEnabled="{Binding IsSimulatorSelectionEnabled}"/>
+                            <Button Width="48" Command="{Binding ConfirmSimulatorCommand}"
+                                    Style="{StaticResource StandardButton}"
+                                    ToolTip="Confirm Simulator.">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource OkIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

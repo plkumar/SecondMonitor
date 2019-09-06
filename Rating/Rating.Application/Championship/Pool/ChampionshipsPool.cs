@@ -30,6 +30,11 @@
             return AllChampionshipsDto.Championships.Where(x => x.SimulatorName == simulatorName).ToList();
         }
 
+        public void AddNewChampionship(ChampionshipDto championshipDto)
+        {
+
+        }
+
         private AllChampionshipsDto LoadAllChampionshipsDto()
         {
             return _championshipsRepository.LoadRatingsOrCreateNew();

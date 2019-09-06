@@ -37,5 +37,8 @@
 
         [XmlAttribute]
         public int TotalDrivers { get; set; }
+
+        [XmlAttribute]
+        public string ClassName { get; set; }
     }
 }

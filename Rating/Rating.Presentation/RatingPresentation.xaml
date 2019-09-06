@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:SecondMonitor.Rating.Presentation.Converters">
+                    xmlns:converters="clr-namespace:SecondMonitor.Rating.Presentation.Converters"
+                    xmlns:championship="clr-namespace:SecondMonitor.Rating.Presentation.Converters.Championship">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/WheelStatusControl/WheelStatucControlT.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelLevelControl.xaml"/>
@@ -17,12 +18,13 @@
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelCalculatorControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelPlannerControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/ZoomAndPan/ZoomAndPanControl.xaml"/>
-        
+
         <ResourceDictionary>
             <converters:SessionKindToBrushConverter x:Key="SessionKindToBrushConverter"/>
             <converters:SessionPhaseToBrushConverter x:Key="SessionPhaseToBrushConverter"/>
             <converters:IntToRedGreenConverter x:Key="IntToRedGreenConverter"/>
-            <converters:ChampionshipIconStateToBrushConverter x:Key="ChampionshipIconStateToBrushConverter"/>
+            <championship:ChampionshipIconStateToBrushConverter x:Key="ChampionshipIconStateToBrushConverter"/>
+            <championship:ChampionshipStateToBrushConverter x:Key="ChampionshipStateToBrushConverter"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

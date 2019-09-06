@@ -9,5 +9,6 @@
         <ResourceDictionary Source="Views/History/HistoryWindow.xaml"/>
         <ResourceDictionary Source="Views/Overview/OverviewWindow.xaml"/>
         <ResourceDictionary Source="Views/Championship/ChampionshipsOverview.xaml"/>
+        <ResourceDictionary Source="Views/Championship/ChampionshipCreationView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

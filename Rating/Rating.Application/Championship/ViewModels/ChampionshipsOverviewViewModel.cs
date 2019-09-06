@@ -51,10 +51,9 @@
             set => SetProperty(ref _allChampionships, value);
         }
 
-
         protected override void ApplyModel(IEnumerable<ChampionshipDto> model)
         {
-            AllChampionships = model.Select(x =>
+            AllChampionships = model.OrderBy(x => x.ChampionshipState).Select(x =>
             {
                 var newViewModel = _viewModelFactory.Create<ChampionshipOverviewViewModel>();
                 newViewModel.FromModel(x);

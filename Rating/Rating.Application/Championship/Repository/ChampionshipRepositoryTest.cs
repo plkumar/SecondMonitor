@@ -29,6 +29,7 @@
                 NextTrack = "Slovakia Ring",
                 Position = 1,
                 TotalDrivers = 23,
+                ClassName = "Porsche GT 3",
             });
 
             allChampionshipsDto.Championships.Add(new ChampionshipDto()
@@ -41,6 +42,7 @@
                 NextTrack = "",
                 Position = 12,
                 TotalDrivers = 23,
+                ClassName = "Porsche GT 3",
             });
 
             return allChampionshipsDto;

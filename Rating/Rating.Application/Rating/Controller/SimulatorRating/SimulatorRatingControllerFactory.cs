@@ -9,7 +9,7 @@
     public class SimulatorRatingControllerFactory : ISimulatorRatingControllerFactory
     {
         private readonly IResolutionRoot _resolutionRoot;
-        private static readonly string[] SupportedSimulators = new[] {"R3E", "Assetto Corsa", "AMS", "RFactor 2", "PCars 2"};
+        public static readonly string[] SupportedSimulators = new[] {"R3E", "Assetto Corsa", "AMS", "RFactor 2", "PCars 2"};
         //private static readonly string[] SupportedSimulators = new[] { "R3E", "Assetto Corsa", "RFactor 2", "AMS" };
 
         public SimulatorRatingControllerFactory(IResolutionRoot resolutionRoot)

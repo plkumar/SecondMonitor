@@ -20,24 +20,31 @@
                         Style="{StaticResource StandardText}"
                         Text="Championships:" />
                     <Grid Grid.Row="2">
-                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0">
+                            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
                             <ListBox Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding AllChampionships}" Grid.IsSharedSizeScope="True" Height="400">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="viewModels:ChampionshipOverviewViewModel">
                                         <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                                             <Grid VerticalAlignment="Center">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="64"/>
+                                                    <ColumnDefinition Width="48"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="48"/>
-                                                    <ColumnDefinition Width="Auto"  SharedSizeGroup="ChampPosSharedWidth"/>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ChampPosSharedWidth"/>
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ChampNameSharedWidth"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ChampClassSharedWidth"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ChampNextSharedWidth"/>
                                                 </Grid.ColumnDefinitions>
 
                                                 <wpf:ColorAbleIcon Margin="10"
-                                                                   StrokeBrush="{StaticResource DarkRed01Brush}"
+                                                                   StrokeBrush="{Binding ChampionshipState, Converter={StaticResource ChampionshipStateToBrushConverter}}"
                                                                    RebindOnVisibilityChange="True">
                                                     <ContentPresenter Content="{StaticResource CircleLight2}" />
                                                 </wpf:ColorAbleIcon>
@@ -51,14 +58,32 @@
                                                 <StackPanel Orientation="Horizontal" Grid.Column="5">
                                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="{StaticResource DarkGrey01Brush}" />
                                                 </StackPanel>
-                                                <TextBlock Grid.Column="6" Margin="10" Style="{StaticResource StandardText}" VerticalAlignment="Center" Text="{Binding Progress}"/>
+                                                <TextBlock Grid.Column="6" Margin="10" Style="{StaticResource StandardText}" VerticalAlignment="Center" Text="{Binding ClassName}"/>
+                                                <StackPanel Orientation="Horizontal" Grid.Column="7">
+                                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="{StaticResource DarkGrey01Brush}" />
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="8" Margin="10" Style="{StaticResource StandardText}" VerticalAlignment="Center" Text="{Binding Progress}"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
+                            </ScrollViewer>
                         </Border>
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="1">
+                            <StackPanel Orientation="Vertical">
+                                <Button Width="48" Command="{Binding CreateNewCommand}"
+                                        Style="{StaticResource StandardButton}"
+                                        ToolTip="Create New Championship.">
+                                    <Button.Content>
+                                        <wpf:ColorAbleIcon StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                            <ContentPresenter Content="{StaticResource PlusIcon}" />
+                                        </wpf:ColorAbleIcon>
+                                    </Button.Content>
+                                </Button>
 
+                            </StackPanel>
+                        </Border>
                     </Grid>
                 </Grid>
             </DataTemplate>

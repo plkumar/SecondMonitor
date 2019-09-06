@@ -50,10 +50,12 @@
             Bind<IChampionshipsRepository>().To<ChampionshipRepositoryTest>().InSingletonScope();
             Bind<IChampionshipOverviewController>().To<ChampionshipOverviewController>();
             Bind<IChampionshipsPool>().To<ChampionshipsPool>().InSingletonScope();
+            Bind<IChampionshipCreationController>().To<ChampionshipCreationController>();
             Bind<ChampionshipIconStateViewModel>().ToSelf();
 
             Bind<ChampionshipsOverviewViewModel>().ToSelf();
             Bind<ChampionshipOverviewViewModel>().ToSelf();
+            Bind<ChampionshipCreationViewModel>().ToSelf();
 
         }
     }

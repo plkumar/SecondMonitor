@@ -48,8 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\Championship\ChampionshipStateToBrushConverter.cs" />
     <Compile Include="Converters\IntToRedGreenConverter.cs" />
-    <Compile Include="Converters\ChampionshipIconStateToBrushConverter.cs" />
+    <Compile Include="Converters\Championship\ChampionshipIconStateToBrushConverter.cs" />
     <Compile Include="Converters\SessionKindToBrushConverter.cs" />
     <Compile Include="Converters\SessionPhaseToBrushConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -84,6 +85,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RatingPresentationTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Championship\ChampionshipCreationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
