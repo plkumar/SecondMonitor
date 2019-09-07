@@ -1,6 +1,8 @@
 ﻿namespace SecondMonitor.ViewModels.SimulatorContent
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
     using DataModel;
     using DataModel.SimulatorContent;
@@ -79,6 +81,16 @@
         public void Reset()
         {
 
+        }
+
+        public IReadOnlyCollection<Track> GetAllTracksForSimulator(string simulatorName)
+        {
+            if (_simulatorsContent == null)
+            {
+                return Enumerable.Empty<Track>().ToList();
+            }
+
+            return _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Tracks;
         }
     }
 }

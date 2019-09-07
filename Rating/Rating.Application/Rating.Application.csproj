@@ -75,6 +75,8 @@
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\ExistingTrackTemplateViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\TrackTemplateViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />
@@ -138,6 +140,11 @@
     <Compile Include="Rating\ViewModels\Rating\RatingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Applications\SimdataManagement\SimdataManagement.csproj">
+      <Project>{8971F71E-CF2E-40F8-B881-3F45EB8ECC9B}</Project>
+      <Name>SimdataManagement</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\Contracts\Contracts.csproj">
       <Project>{55275247-8D2E-421F-AB35-4BA77449B05A}</Project>
       <Name>Contracts</Name>

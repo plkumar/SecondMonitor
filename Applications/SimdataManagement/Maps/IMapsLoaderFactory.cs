@@ -2,6 +2,6 @@
 {
     public interface IMapsLoaderFactory
     {
-        MapsLoader Create(string repositoryPath);
+        MapsLoader Create();
     }
 }

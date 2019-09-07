@@ -9,7 +9,6 @@
     using DataModel.Extensions;
     using DataModel.Telemetry;
     using DataModel.TrackMap;
-    using Telemetry.TelemetryManagement.StoryBoard;
 
     public class TrackMapFromTelemetryFactory
     {
