@@ -4,10 +4,12 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Common.DataModel.Championship;
+    using Contracts.Commands;
     using Rating.Controller.SimulatorRating;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
     using ViewModels;
+    using ViewModels.Creation;
 
     public class ChampionshipCreationController : IChampionshipCreationController
     {
@@ -17,6 +19,8 @@
         private Action<ChampionshipDto> _newChampionshipCallback;
         private Action _cancellationCallback;
         private bool _championshipCreated;
+        private ChampionshipCreationViewModel _championshipCreationViewModel;
+        private string _selectedSimulator;
 
         public ChampionshipCreationController(IWindowService windowService, IViewModelFactory viewModelFactory)
         {
@@ -31,6 +35,7 @@
 
         public Task StopControllerAsync()
         {
+            _dialogWindow?.Close();
             return Task.CompletedTask;
         }
 
@@ -43,11 +48,22 @@
         {
             _newChampionshipCallback = newChampionshipCallback;
             _cancellationCallback = cancellationCallback;
-            var champCreationViewModel = _viewModelFactory.Create<ChampionshipCreationViewModel>();
-            champCreationViewModel.IsSimulatorSelectionEnabled = true;
-            champCreationViewModel.AvailableSimulators = SimulatorRatingControllerFactory.SupportedSimulators;
+            _championshipCreationViewModel = _viewModelFactory.Create<ChampionshipCreationViewModel>();
+            _championshipCreationViewModel.IsSimulatorSelectionEnabled = true;
+            _championshipCreationViewModel.AvailableSimulators = SimulatorRatingControllerFactory.SupportedSimulators;
+            _championshipCreationViewModel.ConfirmSimulatorCommand = new RelayCommand(ConfirmSimulatorSelection);
 
-            _dialogWindow = _windowService.OpenWindow(champCreationViewModel, "New Championship", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+            _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+        }
+
+        private void ConfirmSimulatorSelection()
+        {
+            if (string.IsNullOrWhiteSpace(_championshipCreationViewModel.SelectedSimulator))
+            {
+                return;
+            }
+            _championshipCreationViewModel.IsSimulatorSelectionEnabled = false;
+            _selectedSimulator = _championshipCreationViewModel.SelectedSimulator;
         }
 
         private void DialogWindowClosed()

@@ -60,7 +60,7 @@
                 _lastCar = simulatorDataSet.PlayerInfo.CarName;
             }
 
-            if (_lastTrack != simulatorDataSet.SessionInfo.TrackInfo.TrackFullName && !string.IsNullOrEmpty(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName))
+            if (_lastTrack != simulatorDataSet.SessionInfo.TrackInfo.TrackFullName && !string.IsNullOrEmpty(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName) && simulatorDataSet.SessionInfo.TrackInfo.LayoutLength.InMeters > 0)
             {
                 _currentSimulatorContent.AddTrack(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName, simulatorDataSet.SessionInfo.TrackInfo.LayoutLength.InMeters);
                 _lastTrack = simulatorDataSet.SessionInfo.TrackInfo.TrackFullName;
@@ -71,6 +71,7 @@
         private void SwitchSimulatorContent(string simulatorName)
         {
             _currentSimulatorContent = _simulatorsContent.GetOrCreateSimulatorContent(simulatorName);
+            _currentSimulatorContent.Tracks.RemoveAll(x => x.LapDistance == 0);
             _lastCar = string.Empty;
             _lastTrack = string.Empty;
         }

@@ -77,13 +77,18 @@
             _championshipCreationController = null;
         }
 
-        private void WindowClosed()
+        private async void WindowClosed()
         {
             if (_overviewWindow.Content is ChampionshipsOverviewViewModel championshipsOverviewViewModel)
             {
                 championshipsOverviewViewModel.CreateNewCommand = null;
                 championshipsOverviewViewModel.OpenSelectedCommand = null;
                 championshipsOverviewViewModel.DeleteSelectedCommand = null;
+            }
+
+            if (_championshipCreationController != null)
+            {
+                await _championshipCreationController.StopControllerAsync();
             }
 
             _overviewWindow = null;

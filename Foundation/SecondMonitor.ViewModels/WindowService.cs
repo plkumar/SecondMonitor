@@ -27,7 +27,7 @@
         {
             Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent, WindowStartupLocation = startupLocation};
 
-            if (startupLocation == WindowStartupLocation.CenterOwner)
+            if (startupLocation == WindowStartupLocation.CenterOwner && window != Application.Current.MainWindow)
             {
                 window.Owner = Application.Current.MainWindow;
             }

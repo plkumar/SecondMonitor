@@ -223,6 +223,8 @@ namespace SecondMonitor.Timing.Controllers
             _timingGui.Closed += OnGuiClosed;
             _timingGui.MouseLeave += GuiOnMouseLeave;
 
+            Application.Current.MainWindow = _timingGui;
+
             if (_displaySettingsViewModel?.WindowLocationSetting != null)
             {
                 _timingGui.WindowStartupLocation = WindowStartupLocation.Manual;

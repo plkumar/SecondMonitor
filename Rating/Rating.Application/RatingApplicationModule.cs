@@ -4,6 +4,7 @@
     using Championship.Pool;
     using Championship.Repository;
     using Championship.ViewModels;
+    using Championship.ViewModels.Creation;
     using Championship.ViewModels.IconState;
     using Ninject.Modules;
     using Rating.Controller;
@@ -56,6 +57,9 @@
             Bind<ChampionshipsOverviewViewModel>().ToSelf();
             Bind<ChampionshipOverviewViewModel>().ToSelf();
             Bind<ChampionshipCreationViewModel>().ToSelf();
+            Bind<CalendarDefinitionViewModel>().ToSelf();
+            Bind<CreatedCalendarViewModel>().ToSelf();
+            Bind<AvailableTracksViewModel>().ToSelf();
 
         }
     }

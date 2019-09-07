@@ -69,7 +69,10 @@
     <Compile Include="Championship\Pool\IChampionshipsPool.cs" />
     <Compile Include="Championship\Repository\ChampionshipRepositoryTest.cs" />
     <Compile Include="Championship\Repository\IChampionshipsRepository.cs" />
-    <Compile Include="Championship\ViewModels\ChampionshipCreationViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\AvailableTracksViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\CalendarDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
