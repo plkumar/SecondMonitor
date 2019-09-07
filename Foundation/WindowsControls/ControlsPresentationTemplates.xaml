@@ -4,5 +4,6 @@
         <ResourceDictionary Source="WPF/TrackRecords/TrackRecordsTemplates.xaml"/>
         <ResourceDictionary Source="WPF/WheelDiameterWizard/WheelDiameterPresentation.xaml"/>
         <ResourceDictionary Source="WPF/SplashScreen/SplashScreen.xaml"/>
+        <ResourceDictionary Source="WPF/TrackInfoControl/TrackGeometryView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

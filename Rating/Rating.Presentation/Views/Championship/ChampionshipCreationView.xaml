@@ -14,7 +14,7 @@
                     </Grid.RowDefinitions>
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}"  IsEnabled="{Binding IsSimulatorSelectionEnabled}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10" Text="Select Simulator:"/>
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Select Simulator:"/>
                             <ComboBox Style="{StaticResource StandardComboBoxStyle}" VerticalContentAlignment="Center" Margin="10" Width="150" ItemsSource="{Binding AvailableSimulators}" IsEnabled="{Binding IsSimulatorSelectionEnabled}" SelectedItem="{Binding SelectedSimulator}"/>
                             <Button Width="48" Command="{Binding ConfirmSimulatorCommand}"
                                     Style="{StaticResource StandardButton}"

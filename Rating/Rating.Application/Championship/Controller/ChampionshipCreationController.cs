@@ -1,6 +1,8 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Controller
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using Common.DataModel.Championship;
@@ -72,11 +74,21 @@
             _championshipCreationViewModel.IsSimulatorSelectionEnabled = false;
             _selectedSimulator = _championshipCreationViewModel.SelectedSimulator;
 
-            var allTracks = _simulatorContentController.GetAllTracksForSimulator(_selectedSimulator);
+            var allTracks = _simulatorContentController.GetAllTracksForSimulator(_selectedSimulator).OrderBy(x => x.Name);
+            List<AbstractTrackTemplateViewModel> tracksTemplates = new List<AbstractTrackTemplateViewModel>();
             foreach (Track currentTrack in allTracks)
             {
+                var newViewModel = _viewModelFactory.Create<ExistingTrackTemplateViewModel>();
+                newViewModel.TrackName = currentTrack.Name;
                 bool hasMap = _mapsLoader.TryLoadMap(_selectedSimulator, currentTrack.Name, out TrackMapDto trackMapDto);
+                if (hasMap)
+                {
+                    newViewModel.TrackGeometryViewModel.FromModel(trackMapDto.TrackGeometry);
+                }
+                tracksTemplates.Add(newViewModel);
             }
+
+            _championshipCreationViewModel.CalendarDefinitionViewModel.AvailableTracksViewModel.TrackTemplateViewModels = tracksTemplates;
         }
 
         private void DialogWindowClosed()

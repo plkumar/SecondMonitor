@@ -182,6 +182,7 @@
     <Compile Include="TrackRecords\SimulatorRecordsViewModel.cs" />
     <Compile Include="TrackRecords\TrackRecordsViewModel.cs" />
     <Compile Include="TrackRecords\TrackRecordViewModel.cs" />
+    <Compile Include="Track\TrackGeometryViewModel.cs" />
     <Compile Include="ViewModelsModule.cs" />
     <Compile Include="ViewModelsModuleBootstrapper.cs" />
     <Compile Include="WheelDiameterWizard\AccelerationStageViewModel.cs" />

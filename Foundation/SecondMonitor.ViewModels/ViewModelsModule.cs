@@ -8,6 +8,7 @@
     using Settings;
     using SimulatorContent;
     using SplashScreen;
+    using Track;
     using TrackRecords;
     using WheelDiameterWizard;
 
@@ -41,6 +42,7 @@
             Bind<MeasurementPhaseViewModel>().ToSelf();
             Bind<ResultsStageViewModel>().ToSelf();
             Bind<SplashScreenViewModel>().ToSelf();
+            Bind<TrackGeometryViewModel>().ToSelf();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     using SecondMonitor.ViewModels;
 
-    public abstract class TrackTemplateViewModel : AbstractViewModel
+    public abstract class AbstractTrackTemplateViewModel : AbstractViewModel
     {
         public string TrackName { get; set; }
     }

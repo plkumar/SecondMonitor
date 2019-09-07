@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type creation:ExistingTrackTemplateViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource StandardText}" Text="{Binding TrackName}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <ContentPresenter Content="{Binding TrackGeometryViewModel}" Margin="10" MaxHeight="50"/>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

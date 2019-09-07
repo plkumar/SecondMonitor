@@ -76,7 +76,7 @@
     <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ExistingTrackTemplateViewModel.cs" />
-    <Compile Include="Championship\ViewModels\Creation\TrackTemplateViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\AbstractTrackTemplateViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />

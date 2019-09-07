@@ -11,5 +11,6 @@
         <ResourceDictionary Source="Views/Championship/CalendarDefinitionView.xaml"/>
         <ResourceDictionary Source="Views/Championship/AvailableTracksView.xaml"/>
         <ResourceDictionary Source="Views/Championship/CreatedCalendarView.xaml"/>
+        <ResourceDictionary Source="Views/Championship/TrackTemplateView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
