@@ -117,7 +117,7 @@
 
         private static string FormatTrackName(string trackName, string layoutName)
         {
-            return string.IsNullOrEmpty(layoutName) ? trackName : $"{trackName}_{layoutName}";
+            return string.IsNullOrEmpty(layoutName) ? trackName : $"{trackName}-{layoutName}";
         }
 
     }

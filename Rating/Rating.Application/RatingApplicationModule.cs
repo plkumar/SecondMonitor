@@ -60,6 +60,7 @@
             Bind<CalendarDefinitionViewModel>().ToSelf();
             Bind<CreatedCalendarViewModel>().ToSelf();
             Bind<AvailableTracksViewModel>().ToSelf();
+            Bind<CalendarEntryViewModel>().ToSelf();
 
         }
     }

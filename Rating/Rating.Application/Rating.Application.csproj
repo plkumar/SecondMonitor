@@ -34,6 +34,10 @@
     <Reference Include="Glicko2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Glicko-2RankingSystem.2.0.0\lib\Glicko2.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\gong-wpf-dragdrop.2.0.4\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
       <Private>False</Private>
@@ -71,6 +75,7 @@
     <Compile Include="Championship\Repository\IChampionshipsRepository.cs" />
     <Compile Include="Championship\ViewModels\Creation\AvailableTracksViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CalendarDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\CalendarEntryViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />

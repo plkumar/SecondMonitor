@@ -1,6 +1,7 @@
 ﻿ <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application">
+                    xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application"
+                    xmlns:dd="urn:gong-wpf-dragdrop">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
@@ -10,7 +11,7 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Available Tracks:"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
-                            <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding TrackTemplateViewModels }" MaxHeight="1000" Width="350">
+                            <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding TrackTemplateViewModels }" MaxHeight="1000" Width="350" dd:DragDrop.IsDragSource="True">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel VerticalAlignment="Center" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical"></StackPanel>

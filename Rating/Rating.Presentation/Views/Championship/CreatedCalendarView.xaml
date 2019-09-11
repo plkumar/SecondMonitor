@@ -2,12 +2,32 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels;assembly=Rating.Application"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
-                    xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application">
+                    xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application"
+                    xmlns:dd="urn:gong-wpf-dragdrop">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type creation:CreatedCalendarViewModel}">
-                <Grid Background="{StaticResource Anthracite01Brush}" Width="300" Height="300">
+                <Grid Background="Pink" >
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                        <ListBox BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" MaxHeight="1000" Width="350" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel VerticalAlignment="Center" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="300" SharedSizeGroup="TrackTemplateGroup"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Width="300" Height="50" Background="Pink"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}"></Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
