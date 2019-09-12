@@ -15,6 +15,7 @@
     using SecondMonitor.ViewModels.SimulatorContent;
     using SimdataManagement;
     using ViewModels.Creation;
+    using ViewModels.Creation.Calendar;
 
     public class ChampionshipCreationController : IChampionshipCreationController
     {

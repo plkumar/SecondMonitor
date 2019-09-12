@@ -5,6 +5,7 @@
     using Championship.Repository;
     using Championship.ViewModels;
     using Championship.ViewModels.Creation;
+    using Championship.ViewModels.Creation.Calendar;
     using Championship.ViewModels.IconState;
     using Ninject.Modules;
     using Rating.Controller;
@@ -60,7 +61,7 @@
             Bind<CalendarDefinitionViewModel>().ToSelf();
             Bind<CreatedCalendarViewModel>().ToSelf();
             Bind<AvailableTracksViewModel>().ToSelf();
-            Bind<CalendarEntryViewModel>().ToSelf();
+            Bind<EditableCalendarEntryViewModel>().ToSelf();
 
         }
     }

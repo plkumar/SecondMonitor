@@ -27,7 +27,7 @@
                             </Button>
                         </StackPanel>
                     </Border>
-                    <Grid Grid.Row="1" IsEnabled="{Binding IsSimulatorSelectionEnabled, Converter={StaticResource InvertedBooleanConverter}}">
+                    <Grid Grid.Row="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Calendar;
     using SecondMonitor.ViewModels;
 
     public class AvailableTracksViewModel : AbstractViewModel

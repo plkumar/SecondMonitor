@@ -1,4 +1,4 @@
-﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation
+﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar
 {
     using SecondMonitor.ViewModels;
 

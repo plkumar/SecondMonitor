@@ -3,32 +3,78 @@
                     xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels;assembly=Rating.Application"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
                     xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application"
-                    xmlns:dd="urn:gong-wpf-dragdrop">
+                    xmlns:dd="urn:gong-wpf-dragdrop"
+                    xmlns:calendar="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar;assembly=Rating.Application">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type creation:CreatedCalendarViewModel}">
-                <Grid Background="Pink" >
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
-                        <ListBox BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" MaxHeight="1000" Width="350" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
+                <StackPanel Orientation="Vertical" Background="{StaticResource Anthracite01Brush}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0" Text="Calendar:"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource NormalFontSize}" Margin="10,0,0,0" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
+
+                    </StackPanel>
+                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                            <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="1000" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel VerticalAlignment="Center" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical"></StackPanel>
+                                    <StackPanel VerticalAlignment="Top" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical"></StackPanel>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="10">
+                                        <Grid Margin="10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="300" SharedSizeGroup="TrackTemplateGroup"></ColumnDefinition>
+                                            <ColumnDefinition Width="330" SharedSizeGroup="TrackTemplateGroup"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Grid Width="300" Height="50" Background="Pink"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}"></Grid>
+                                            <Grid dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}" HorizontalAlignment="Stretch">
+                                            <ContentPresenter Content="{Binding}" >
+                                            </ContentPresenter>
+                                            </Grid>
+                                            <!--<Grid Width="300" Height="50" Background="Pink"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}" />~1~@1@-->
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </ScrollViewer>
-                </Grid>
+                    </Border>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type calendar:EditableCalendarEntryViewModel}">
+                <Border  BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" >
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,10,10" Text="{Binding EventNumber}"/>
+                        </Grid>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding TrackName}">
+                            </TextBox>
+                        </StackPanel>
+                        <Grid Column="2">
+                            <Button Width="32" HorizontalAlignment="Right" HorizontalContentAlignment="Stretch"
+                                    Command="{Binding DeleteEntryCommand, Mode=OneWay}"
+                                    Style="{StaticResource StandardButton}"
+                                    ToolTip="Deletes the Calendar Entry">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon
+                                        StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource CancelIcon}" Margin="-5" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
             </DataTemplate>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>

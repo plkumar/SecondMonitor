@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation
 {
+    using Calendar;
     using SecondMonitor.ViewModels.Factory;
     using SecondMonitor.ViewModels.Track;
 
