@@ -3,9 +3,9 @@
     using SecondMonitor.ViewModels.Factory;
     using SecondMonitor.ViewModels.Track;
 
-    public class ExistingTrackTemplateViewModel : AbstractTrackTemplateViewModel
+    public class ExistingTrackCalendarEntryViewModel : AbstractCalendarEntryViewModel
     {
-        public ExistingTrackTemplateViewModel(IViewModelFactory viewModelFactory)
+        public ExistingTrackCalendarEntryViewModel(IViewModelFactory viewModelFactory)
         {
             TrackGeometryViewModel = viewModelFactory.Create<TrackGeometryViewModel>();
         }

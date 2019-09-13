@@ -76,11 +76,12 @@
             _selectedSimulator = _championshipCreationViewModel.SelectedSimulator;
 
             var allTracks = _simulatorContentController.GetAllTracksForSimulator(_selectedSimulator).OrderBy(x => x.Name);
-            List<AbstractTrackTemplateViewModel> tracksTemplates = new List<AbstractTrackTemplateViewModel>();
+            List<AbstractTrackTemplateViewModel> tracksTemplates = new List<AbstractTrackTemplateViewModel> {_viewModelFactory.Create<GenericTrackTemplateViewModel>()};
             foreach (Track currentTrack in allTracks)
             {
                 var newViewModel = _viewModelFactory.Create<ExistingTrackTemplateViewModel>();
                 newViewModel.TrackName = currentTrack.Name;
+                newViewModel.LayoutLengthMeters = currentTrack.LapDistance;
                 bool hasMap = _mapsLoader.TryLoadMap(_selectedSimulator, currentTrack.Name, out TrackMapDto trackMapDto);
                 if (hasMap)
                 {

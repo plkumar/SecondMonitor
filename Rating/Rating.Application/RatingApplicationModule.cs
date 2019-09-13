@@ -62,6 +62,11 @@
             Bind<CreatedCalendarViewModel>().ToSelf();
             Bind<AvailableTracksViewModel>().ToSelf();
             Bind<EditableCalendarEntryViewModel>().ToSelf();
+            Bind<ExistingTrackCalendarEntryViewModel>().ToSelf();
+            Bind<GenericTrackTemplateViewModel>().ToSelf();
+            Bind<CalendarPlaceholderEntryViewModel>().ToSelf();
+
+            Bind<ICalendarEntryViewModelFactory>().To<CalendarEntryViewModelFactory>();
 
         }
     }
