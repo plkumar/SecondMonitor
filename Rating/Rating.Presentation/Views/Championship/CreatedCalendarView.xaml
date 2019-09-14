@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels;assembly=Rating.Application"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
                     xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application"
                     xmlns:dd="urn:gong-wpf-dragdrop"
@@ -14,7 +13,7 @@
                         <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0" Text="Calendar:"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource NormalFontSize}" Margin="10,0,0,0" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
+                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
 
                     </StackPanel>
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
@@ -22,8 +21,7 @@
                             <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="1000" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel VerticalAlignment="Top"
-                                                Background="{StaticResource Anthracite01Brush }" Orientation="Vertical" />
+                                    <StackPanel VerticalAlignment="Top" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>

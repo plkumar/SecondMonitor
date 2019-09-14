@@ -45,6 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Championship\Calendar\CalendarTemplate.cs" />
+    <Compile Include="Championship\Calendar\CalendarTemplateGroup.cs" />
+    <Compile Include="Championship\Calendar\EventTemplate.cs" />
+    <Compile Include="Championship\Calendar\Templates\CalendarGroups\AllGroups.cs" />
+    <Compile Include="Championship\Calendar\Templates\CalendarGroups\TCRGroups.cs" />
+    <Compile Include="Championship\Calendar\Templates\WTCRCalendars.cs" />
+    <Compile Include="Championship\Calendar\Tracks\TracksTemplates.cs" />
     <Compile Include="Configuration\ISimulatorRatingConfigurationProvider.cs" />
     <Compile Include="Configuration\SimulatorRatingConfiguration.cs" />
     <Compile Include="Configuration\SimulatorRatingConfigurationProvider.cs" />
@@ -52,6 +59,7 @@
     <Compile Include="DataModel\Championship\AllChampionshipsDto.cs" />
     <Compile Include="DataModel\Championship\ChampionshipDto.cs" />
     <Compile Include="DataModel\Championship\ChampionshipState.cs" />
+    <Compile Include="DataModel\Championship\TrackTemplate.cs" />
     <Compile Include="DataModel\ClassRating.cs" />
     <Compile Include="DataModel\DifficultySettings.cs" />
     <Compile Include="DataModel\DriverFinishState.cs" />
