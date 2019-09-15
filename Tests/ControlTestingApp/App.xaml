@@ -22,6 +22,8 @@
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/ComboboxStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelCalculatorControl.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelPlannerControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelPlannerControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Rating.Presentation;component/RatingPresentationTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

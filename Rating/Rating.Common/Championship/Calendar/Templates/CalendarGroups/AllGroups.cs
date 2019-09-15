@@ -4,6 +4,6 @@
 
     public static class AllGroups
     {
-        public static CalendarTemplateGroup MainGroup = new CalendarTemplateGroup("All", new[] {TCRGroups.AllTCRGroups}, Enumerable.Empty<CalendarTemplate>());
+        public static CalendarTemplateGroup MainGroup = new CalendarTemplateGroup("All", new[] {DtmGroup.AllDtmGroups, TCRGroups.AllTCRGroups}, Enumerable.Empty<CalendarTemplate>());
     }
 }

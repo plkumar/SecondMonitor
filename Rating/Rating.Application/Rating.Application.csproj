@@ -78,10 +78,14 @@
     <Compile Include="Championship\ViewModels\Creation\Calendar\AbstractCalendarEntryViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\CalendarEntryViewModelFactory.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\CalendarPlaceholderEntryViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\CalendarPreviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\CalendarTemplateGroupViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\EditableCalendarEntryViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\ExistingTrackCalendarEntryViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\GenericTrackTemplateViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\ICalendarEntryViewModelFactory.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\CalendarTemplateViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\PredefinedCalendarSelectionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
     <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />

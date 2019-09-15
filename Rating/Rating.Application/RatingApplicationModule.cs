@@ -6,6 +6,7 @@
     using Championship.ViewModels;
     using Championship.ViewModels.Creation;
     using Championship.ViewModels.Creation.Calendar;
+    using Championship.ViewModels.Creation.Calendar.Predefined;
     using Championship.ViewModels.IconState;
     using Ninject.Modules;
     using Rating.Controller;
@@ -65,6 +66,11 @@
             Bind<ExistingTrackCalendarEntryViewModel>().ToSelf();
             Bind<GenericTrackTemplateViewModel>().ToSelf();
             Bind<CalendarPlaceholderEntryViewModel>().ToSelf();
+            Bind<CalendarPreviewViewModel>().ToSelf();
+
+            Bind<CalendarTemplateGroupViewModel>().ToSelf();
+            Bind<CalendarTemplateViewModel>().ToSelf();
+            Bind<PredefinedCalendarSelectionViewModel>().ToSelf();
 
             Bind<ICalendarEntryViewModelFactory>().To<CalendarEntryViewModelFactory>();
 

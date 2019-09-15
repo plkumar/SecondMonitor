@@ -49,7 +49,9 @@
     <Compile Include="Championship\Calendar\CalendarTemplateGroup.cs" />
     <Compile Include="Championship\Calendar\EventTemplate.cs" />
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\AllGroups.cs" />
+    <Compile Include="Championship\Calendar\Templates\CalendarGroups\DtmGroup.cs" />
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\TCRGroups.cs" />
+    <Compile Include="Championship\Calendar\Templates\DtmCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\WTCRCalendars.cs" />
     <Compile Include="Championship\Calendar\Tracks\TracksTemplates.cs" />
     <Compile Include="Configuration\ISimulatorRatingConfigurationProvider.cs" />
