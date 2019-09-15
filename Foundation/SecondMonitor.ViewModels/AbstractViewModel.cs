@@ -21,7 +21,7 @@ namespace SecondMonitor.ViewModels
         public abstract T SaveToNewModel();
     }
 
-    public abstract class AbstractViewModel : DependencyObject, IViewModel
+    public abstract class AbstractViewModel : IViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

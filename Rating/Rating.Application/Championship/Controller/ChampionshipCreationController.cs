@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
+    using Common.Championship.Calendar.Templates.CalendarGroups;
     using Common.DataModel.Championship;
     using Contracts.Commands;
     using DataModel.SimulatorContent;
@@ -16,6 +17,7 @@
     using SimdataManagement;
     using ViewModels.Creation;
     using ViewModels.Creation.Calendar;
+    using ViewModels.Creation.Calendar.Predefined;
 
     public class ChampionshipCreationController : IChampionshipCreationController
     {
@@ -62,8 +64,16 @@
             _championshipCreationViewModel.IsSimulatorSelectionEnabled = true;
             _championshipCreationViewModel.AvailableSimulators = SimulatorRatingControllerFactory.SupportedSimulators;
             _championshipCreationViewModel.ConfirmSimulatorCommand = new RelayCommand(ConfirmSimulatorSelection);
+            _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.SelectPredefinedCalendarCommand = new RelayCommand(SelectPredefinedCalendar);
 
             _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+        }
+
+        private void SelectPredefinedCalendar()
+        {
+            var calendarSelection = _viewModelFactory.Create<PredefinedCalendarSelectionViewModel>();
+            calendarSelection.FromModel(AllGroups.MainGroup);
+            bool? value = _windowService.OpenDialog(calendarSelection, "Select Predefined Calendar", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner);
         }
 
         private void ConfirmSimulatorSelection()

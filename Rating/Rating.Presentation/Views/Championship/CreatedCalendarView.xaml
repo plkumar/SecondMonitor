@@ -9,13 +9,30 @@
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type creation:CreatedCalendarViewModel}">
                 <StackPanel Orientation="Vertical" Background="{StaticResource Anthracite01Brush}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0" Text="Calendar:"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
-
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0" Text="Calendar:"/>
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10,0,0,10" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button
+                                HorizontalAlignment="Right"
+                                Command="{Binding SelectPredefinedCalendarCommand}"
+                                Style="{StaticResource StandardButton}"
+                                ToolTip="Select a predefined calendar." Height="48">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon
+                                                       StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource CalendarIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
                             <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="1000" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">

@@ -5,7 +5,7 @@
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 
-    public class PredefinedCalendarSelectionViewModel : AbstractViewModel<CalendarTemplateGroup>
+    public class PredefinedCalendarSelectionViewModel : AbstractDialogViewModel<CalendarTemplateGroup>
     {
         private readonly IViewModelFactory _viewModelFactory;
         private IReadOnlyCollection<CalendarTemplateGroupViewModel> _treeRoot;

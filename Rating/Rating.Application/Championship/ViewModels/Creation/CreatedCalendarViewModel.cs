@@ -3,9 +3,9 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Windows;
-    using System.Windows.Documents;
-    using System.Windows.Media;
+    using System.Windows.Input;
     using Calendar;
+    using Calendar.Adorners;
     using Contracts.Commands;
     using GongSolutions.Wpf.DragDrop;
     using SecondMonitor.ViewModels;
@@ -33,8 +33,6 @@
 
             RecalculateEventNumbers();
 
-
-
         }
 
         public ObservableCollection<AbstractCalendarEntryViewModel> CalendarEntries { get; }
@@ -43,6 +41,45 @@
         {
             get => _totalEvents;
             set => SetProperty(ref _totalEvents, value);
+        }
+
+        public ICommand SelectPredefinedCalendarCommand
+        {
+            get;
+            set;
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            var target = (dropInfo.VisualTarget as FrameworkElement)?.DataContext;
+            if (target is CreatedCalendarViewModel)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Copy;
+                dropInfo.NotHandled = false;
+            }
+
+            if (target is EditableCalendarEntryViewModel || target is ExistingTrackCalendarEntryViewModel)
+            {
+                dropInfo.DropTargetAdorner = typeof(ForbidDropAdorner);
+                dropInfo.Effects = DragDropEffects.None;
+                dropInfo.NotHandled = false;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var target = (dropInfo.VisualTarget as FrameworkElement)?.DataContext;
+            if (dropInfo.Data is AbstractCalendarEntryViewModel abstractCalendarEntry && ReferenceEquals(target, this))
+            {
+                MoveCalendarEntry(abstractCalendarEntry, dropInfo.InsertIndex);
+                return;
+            }
+
+            if (dropInfo.Data is AbstractTrackTemplateViewModel trackTemplate && ReferenceEquals(target, this))
+            {
+                CreateEntry(trackTemplate, dropInfo.InsertIndex);
+            }
         }
 
         private void DeleteCalendarEntry(AbstractCalendarEntryViewModel entryToDelete)
@@ -80,39 +117,6 @@
             return newViewModel;
         }
 
-        public void DragOver(IDropInfo dropInfo)
-        {
-            var target = (dropInfo.VisualTarget as FrameworkElement)?.DataContext;
-            if (target is CreatedCalendarViewModel)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                dropInfo.Effects = DragDropEffects.Copy;
-                dropInfo.NotHandled = false;
-            }
-
-            if (target is EditableCalendarEntryViewModel || target is ExistingTrackCalendarEntryViewModel)
-            {
-                dropInfo.DropTargetAdorner = typeof(ForbidDropAdorner);
-                dropInfo.Effects = DragDropEffects.None;
-                dropInfo.NotHandled = false;
-            }
-        }
-
-        public void Drop(IDropInfo dropInfo)
-        {
-            var target = (dropInfo.VisualTarget as FrameworkElement)?.DataContext;
-            if (dropInfo.Data is AbstractCalendarEntryViewModel abstractCalendarEntry && ReferenceEquals(target, this))
-            {
-                MoveCalendarEntry(abstractCalendarEntry, dropInfo.InsertIndex);
-                return;
-            }
-
-            if (dropInfo.Data is AbstractTrackTemplateViewModel trackTemplate && ReferenceEquals(target, this))
-            {
-                CreateEntry(trackTemplate, dropInfo.InsertIndex);
-            }
-        }
-
         private void CreateEntry(AbstractTrackTemplateViewModel trackTemplate, int insertionIndex)
         {
             var newEntry = _calendarEntryViewModelFactory.Create(trackTemplate);
@@ -135,46 +139,5 @@
 
             RecalculateEventNumbers();
         }
-    }
-
-    public abstract class ColorRectangleAdorner : DropTargetAdorner
-    {
-        protected ColorRectangleAdorner(UIElement adornedElement, DropInfo dropInfo) : base(adornedElement, dropInfo)
-        {
-        }
-
-        protected abstract Color RenderColor { get; }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            FrameworkElement frameworkElement = AdornedElement as FrameworkElement;
-            Rect adornedElementRect = new Rect(new Point(0, 0), new Size(frameworkElement.ActualWidth, frameworkElement.ActualHeight));
-
-            // Some arbitrary drawing implements.
-            SolidColorBrush renderBrush = new SolidColorBrush(RenderColor);
-            renderBrush.Opacity = 0.5;
-            Pen renderPen = new Pen(new SolidColorBrush(Colors.Navy), 1.5);
-            drawingContext.DrawRectangle(renderBrush, renderPen, adornedElementRect);
-        }
-    }
-
-    public class AllowDropAdorner : ColorRectangleAdorner
-    {
-        public AllowDropAdorner(UIElement adornedElement, DropInfo dropInfo) : base(adornedElement, dropInfo)
-        {
-        }
-
-
-        protected override Color RenderColor => Colors.Green;
-    }
-
-    public class ForbidDropAdorner : ColorRectangleAdorner
-    {
-        public ForbidDropAdorner(UIElement adornedElement, DropInfo dropInfo) : base(adornedElement, dropInfo)
-        {
-        }
-
-
-        protected override Color RenderColor => Colors.Red;
     }
 }

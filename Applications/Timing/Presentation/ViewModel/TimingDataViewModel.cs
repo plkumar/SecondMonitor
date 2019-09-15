@@ -400,9 +400,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(ChangeOrderingMode);
+                Application.Current.Dispatcher.Invoke(ChangeOrderingMode);
                 return;
             }
 
@@ -419,9 +419,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(ChangeTimeDisplayMode);
+                Application.Current.Dispatcher.Invoke(ChangeTimeDisplayMode);
                 return;
             }
 
@@ -469,9 +469,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => RefreshTimingCircle(data));
+                Application.Current.Dispatcher.Invoke(() => RefreshTimingCircle(data));
                 return;
             }
 
@@ -533,9 +533,9 @@
 
         private void CreateTiming(SimulatorDataSet data)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => CreateTiming(data));
+                Application.Current.Dispatcher.Invoke(() => CreateTiming(data));
                 return;
             }
 
@@ -590,9 +590,9 @@
 
         public void StartNewSession(SimulatorDataSet dataSet)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => StartNewSession(dataSet));
+                Application.Current.Dispatcher.Invoke(() => StartNewSession(dataSet));
                 return;
             }
             SessionInfoViewModel.Reset();
@@ -607,9 +607,9 @@
 
         private void InitializeGui(SimulatorDataSet data)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => InitializeGui(data));
+                Application.Current.Dispatcher.Invoke(() => InitializeGui(data));
                 return;
             }
 

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using SecondMonitor.WindowsControls.WPF.CarSettingsControl;
+﻿using SecondMonitor.WindowsControls.WPF.CarSettingsControl;
 
 namespace SecondMonitor.SimdataManagement.ViewModel
 {
@@ -8,10 +7,6 @@ namespace SecondMonitor.SimdataManagement.ViewModel
     using ViewModels;
     public class TyreCompoundPropertiesViewModel : AbstractViewModel<TyreCompoundProperties>, ITyreSettingsViewModel
     {
-        private static readonly DependencyProperty NoWearLimitProperty = DependencyProperty.Register("NoWearLimit", typeof(double), typeof(TyreCompoundPropertiesViewModel));
-        private static readonly DependencyProperty LowWearLimitProperty = DependencyProperty.Register("LowWearLimit", typeof(double), typeof(TyreCompoundPropertiesViewModel));
-        private static readonly DependencyProperty HeavyWearLimitProperty = DependencyProperty.Register("HeavyWearLimit", typeof(double), typeof(TyreCompoundPropertiesViewModel));
-
         private string _compoundName;
 
         private Pressure _minimumIdealTyrePressure;
@@ -90,22 +85,25 @@ namespace SecondMonitor.SimdataManagement.ViewModel
             set => SetProperty(ref _rearMaximumIdealTyrePressure, value);
         }
 
+        private double _noWearLimit;
         public double NoWearLimit
         {
-            get => (double)GetValue(NoWearLimitProperty);
-            set => SetValue(NoWearLimitProperty, value);
+            get => _noWearLimit;
+            set => SetProperty(ref _noWearLimit, value);
         }
 
+        private double _lowWearLimit;
         public double LowWearLimit
         {
-            get => (double)GetValue(LowWearLimitProperty);
-            set => SetValue(LowWearLimitProperty, value);
+            get => _lowWearLimit;
+            set => SetProperty(ref _lowWearLimit, value);
         }
 
+        private double _heavyWearLimit;
         public double HeavyWearLimit
         {
-            get => (double)GetValue(HeavyWearLimitProperty);
-            set => SetValue(HeavyWearLimitProperty, value);
+            get => _heavyWearLimit;
+            set => SetProperty(ref _heavyWearLimit, value);
         }
 
         public Temperature FrontMinimalIdealTyreTemperature

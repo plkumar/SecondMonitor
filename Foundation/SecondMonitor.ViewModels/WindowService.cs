@@ -10,12 +10,23 @@
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
             OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
 
+        public bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
+            OpenDialog(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
 
+        private bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
+        {
+            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent };
+            window.Closed += WindowOnClosed;
+            window.Owner =  owner;
+            window.WindowStartupLocation = startupLocation;
+            viewModel.RegisterWindow(window);
+            return window.ShowDialog();
 
+        }
 
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
         {
-             Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
+            Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
             window.Owner = owner;
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;

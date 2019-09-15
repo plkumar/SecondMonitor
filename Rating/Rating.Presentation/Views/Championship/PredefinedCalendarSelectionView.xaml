@@ -38,7 +38,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type predefined:PredefinedCalendarSelectionViewModel}">
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Background="{StaticResource Anthracite01Brush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -60,8 +60,9 @@
                     <Grid HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal">
                             <Button Height="55" HorizontalAlignment="Right" IsEnabled="{Binding IsOkButtonEnabled}"
-                                    Command="{Binding OkCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Style="{StaticResource StandardButton}">
+                                    IsDefault="True"
+                                    Style="{StaticResource StandardButton}"
+                                    Command="{Binding OkCommand}">
                                 <Button.Content>
                                     <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
                                         <ContentPresenter Content="{StaticResource OkIcon}" />
@@ -69,8 +70,9 @@
                                 </Button.Content>
                             </Button>
                             <Button Height="55" HorizontalAlignment="Right"
-                                    Command="{Binding CancelCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Style="{StaticResource StandardButton}">
+                                    IsCancel="True"
+                                    Style="{StaticResource StandardButton}"
+                                    Command="{Binding CancelCommand}">
                                 <Button.Content>
                                     <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
                                         <ContentPresenter Content="{StaticResource CancelIcon}" />
