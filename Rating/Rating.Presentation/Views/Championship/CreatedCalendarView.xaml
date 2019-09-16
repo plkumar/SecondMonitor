@@ -43,12 +43,12 @@
                             </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Margin="5">
+                                        <Grid Margin="5"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="330" SharedSizeGroup="TrackTemplateGroup" />
                                             </Grid.ColumnDefinitions>
-                                            <Grid dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}" HorizontalAlignment="Stretch">
-                                                <ContentPresenter Content="{Binding}" />
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <ScrollContentPresenter CanVerticallyScroll="False" CanHorizontallyScroll="False" Content="{Binding}" />
                                             </Grid>
                                         </Grid>
                                     </DataTemplate>
@@ -61,7 +61,6 @@
 
             <DataTemplate DataType="{x:Type calendar:EditableCalendarEntryViewModel}">
                 <Border  BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" CornerRadius="5" >
-                    <ScrollViewer CanContentScroll="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -72,6 +71,7 @@
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,10,10" Text="{Binding EventNumber}"/>
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
+                            <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
                             <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding TrackName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
                         </StackPanel>
                         <Grid Column="2">
@@ -88,7 +88,6 @@
                             </Button>
                         </Grid>
                     </Grid>
-                    </ScrollViewer>
                 </Border>
             </DataTemplate>
 
@@ -105,6 +104,7 @@
                             </Grid>
                             <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
                                 <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource SmallFontSize}" Margin="5"  Text="Calendar Template Placeholder:"/>
+                                <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
                                 <TextBlock Style="{StaticResource StandardText}" Margin="5"  Text="{Binding TrackName}"/>
                             </StackPanel>
                             <Grid Column="2">
@@ -138,6 +138,7 @@
                                        Margin="10,10,10,10" Text="{Binding EventNumber}" />
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
+                            <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
                             <TextBlock Style="{StaticResource StandardText}" Margin="5" Text="{Binding TrackName}"/>
                             <ContentPresenter Content="{Binding TrackGeometryViewModel}" Margin="10" MaxHeight="50" IsHitTestVisible="True"/>
                         </StackPanel>

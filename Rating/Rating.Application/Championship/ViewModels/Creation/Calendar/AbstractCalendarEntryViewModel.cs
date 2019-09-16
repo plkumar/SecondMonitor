@@ -8,6 +8,9 @@
         private string _trackName;
         private int _eventNumber;
 
+        private string _customEventName;
+        private string _originalEventName;
+
         public int EventNumber
         {
             get => _eventNumber;
@@ -20,6 +23,19 @@
             set => SetProperty(ref _trackName, value);
         }
 
+        public string CustomEventName
+        {
+            get => string.IsNullOrEmpty(_customEventName) ? _originalEventName : _customEventName;
+            set => SetProperty(ref _customEventName, value);
+        }
+
+        public string OriginalEventName
+        {
+            get => _originalEventName;
+            set => SetProperty(ref _originalEventName, value, nameof(CustomEventName));
+        }
+
         public ICommand DeleteEntryCommand { get; set; }
+
     }
 }

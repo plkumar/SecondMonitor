@@ -4,11 +4,22 @@
 
     public class EventTemplate
     {
-        public EventTemplate(TrackTemplate trackTemplate)
+
+        public EventTemplate(TrackTemplate trackTemplate) : this(trackTemplate, string.Empty)
+        {
+
+        }
+
+        public EventTemplate(TrackTemplate trackTemplate, string eventName)
         {
             TrackTemplate = trackTemplate;
+            EventName = eventName;
         }
 
         public TrackTemplate TrackTemplate { get; }
+
+        public string EventName { get; }
+
+        public bool HasEventName => !string.IsNullOrWhiteSpace(EventName);
     }
 }

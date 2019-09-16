@@ -3,7 +3,8 @@
                     xmlns:predefined="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar.Predefined;assembly=Rating.Application"
                     xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors;assembly=WindowsControls"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls">
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
+                    xmlns:calendar="clr-namespace:SecondMonitor.Rating.Common.Championship.Calendar;assembly=Rating.Common">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
@@ -22,18 +23,20 @@
                                Text="{Binding Title}" />
                 </StackPanel>
             </HierarchicalDataTemplate>
+            <DataTemplate DataType="{x:Type calendar:EventTemplate}">
+                <Border BorderThickness="0.5" BorderBrush="{StaticResource DarkGrey01Brush}" CornerRadius="1" Margin="2" Padding="2">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding EventName}" HorizontalAlignment="Center" FontSize="{StaticResource TimingGridFontSize}" Style="{StaticResource StandardText}" Visibility="{Binding HasEventName, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Text="{Binding TrackTemplate.TrackName}" HorizontalAlignment="Center" Style="{StaticResource StandardText}"/>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type predefined:CalendarPreviewViewModel}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Title, StringFormat='{}{0} Preview'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0"/>
                     <TextBlock Text="{Binding EventCount, StringFormat='{}{0} Races'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,0,0,0"/>
-                    <ItemsControl ItemsSource="{Binding Events}" Margin="10">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" Style="{StaticResource StandardText}" Margin="3"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Events}" Margin="10"/>
                 </StackPanel>
             </DataTemplate>
 
@@ -57,8 +60,16 @@
                             <ContentPresenter Content="{Binding CalendarPreviewViewModel}" />
                         </Border>
                     </Grid>
-                    <Grid HorizontalAlignment="Right">
-                        <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <CheckBox Content="Replace Known Tracks" Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0" IsChecked="{Binding AutoReplaceTracks}" />
+                            <CheckBox Content="Use Event Names" Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0" IsChecked="{Binding UseEventNames}" />
+                        </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                             <Button Height="55" HorizontalAlignment="Right" IsEnabled="{Binding IsOkButtonEnabled}"
                                     IsDefault="True"
                                     Style="{StaticResource StandardButton}"

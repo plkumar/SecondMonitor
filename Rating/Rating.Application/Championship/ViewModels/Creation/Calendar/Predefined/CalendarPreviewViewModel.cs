@@ -1,7 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar.Predefined
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Common.Championship.Calendar;
     using SecondMonitor.ViewModels;
 
@@ -9,7 +8,7 @@
     {
         private string _title;
         private int _eventCount;
-        private IReadOnlyCollection<string> _events;
+        private IReadOnlyCollection<EventTemplate> _events;
 
         public string Title
         {
@@ -23,7 +22,7 @@
             set => SetProperty(ref _eventCount, value);
         }
 
-        public IReadOnlyCollection<string> Events
+        public IReadOnlyCollection<EventTemplate> Events
         {
             get => _events;
             set => SetProperty(ref _events, value);
@@ -34,7 +33,7 @@
         {
             Title = model.CalendarName;
             EventCount = model.Events.Count;
-            Events = model.Events.Select(x => x.TrackTemplate.TrackName).ToList();
+            Events = model.Events;
         }
 
         public override CalendarTemplate SaveToNewModel()

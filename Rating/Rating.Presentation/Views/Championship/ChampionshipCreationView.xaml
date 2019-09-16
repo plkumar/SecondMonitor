@@ -12,10 +12,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}"  IsEnabled="{Binding IsSimulatorSelectionEnabled}">
+                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Select Simulator:"/>
-                            <ComboBox Style="{StaticResource StandardComboBoxStyle}" VerticalContentAlignment="Center" Margin="10" Width="150" ItemsSource="{Binding AvailableSimulators}" IsEnabled="{Binding IsSimulatorSelectionEnabled}" SelectedItem="{Binding SelectedSimulator}"/>
+                            <ComboBox Style="{StaticResource StandardComboBoxStyle}" VerticalContentAlignment="Center" Margin="10" Width="150" ItemsSource="{Binding AvailableSimulators}" IsEnabled="{Binding IsSimulatorSelectionEnabled}" SelectedItem="{Binding SelectedSimulator}" />
                             <Button Width="48" Command="{Binding ConfirmSimulatorCommand}"
                                     Style="{StaticResource StandardButton}"
                                     ToolTip="Confirm Simulator." Visibility="{Binding IsSimulatorSelectionEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -25,6 +25,8 @@
                                     </wpf:ColorAbleIcon>
                                 </Button.Content>
                             </Button>
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Title: "/>
+                            <TextBox Style="{StaticResource StandardTextBox}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" MinWidth="300" Text="{Binding ChampionshipTitle}"/>
                         </StackPanel>
                     </Border>
                     <Grid Grid.Row="1">

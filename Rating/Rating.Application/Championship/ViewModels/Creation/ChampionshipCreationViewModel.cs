@@ -7,10 +7,12 @@
     public class ChampionshipCreationViewModel : AbstractViewModel
     {
         private bool _isSimulatorSelectionEnabled;
+        private string _championshipTitle;
 
         public ChampionshipCreationViewModel(IViewModelFactory viewModelFactory)
         {
             CalendarDefinitionViewModel = viewModelFactory.Create<CalendarDefinitionViewModel>();
+            ChampionshipTitle = "Custom Championship";
         }
 
         public bool IsSimulatorSelectionEnabled
@@ -24,6 +26,12 @@
         public string[] AvailableSimulators { get; set; }
 
         public string SelectedSimulator { get; set; }
+
+        public string ChampionshipTitle
+        {
+            get => _championshipTitle;
+            set => SetProperty(ref _championshipTitle, value);
+        }
 
         public ICommand ConfirmSimulatorCommand { get; set; }
     }

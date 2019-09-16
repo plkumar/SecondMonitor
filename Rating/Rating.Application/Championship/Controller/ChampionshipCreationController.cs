@@ -73,7 +73,15 @@
         {
             var calendarSelection = _viewModelFactory.Create<PredefinedCalendarSelectionViewModel>();
             calendarSelection.FromModel(AllGroups.MainGroup);
-            bool? value = _windowService.OpenDialog(calendarSelection, "Select Predefined Calendar", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner);
+            _windowService.OpenDialog(calendarSelection, "Select Predefined Calendar", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner);
+            if (calendarSelection.DialogResult == true && calendarSelection.SelectedItem is CalendarTemplateViewModel selectedViewModel)
+            {
+                if (calendarSelection.UseEventNames)
+                {
+                    _championshipCreationViewModel.ChampionshipTitle = selectedViewModel.Title;
+                }
+                _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.ApplyCalendarTemplate(selectedViewModel.OriginalModel);
+            }
         }
 
         private void ConfirmSimulatorSelection()

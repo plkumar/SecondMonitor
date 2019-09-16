@@ -11,10 +11,14 @@
         private IReadOnlyCollection<CalendarTemplateGroupViewModel> _treeRoot;
         private AbstractViewModel _selectedItem;
         private CalendarPreviewViewModel _calendarPreviewViewModel;
+        private bool _autoReplaceTracks;
+        private bool _useEventNames;
 
         public PredefinedCalendarSelectionViewModel(IViewModelFactory viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
+            _autoReplaceTracks = true;
+            _useEventNames = true;
         }
 
         public IReadOnlyCollection<CalendarTemplateGroupViewModel> TreeRoot
@@ -31,6 +35,18 @@
                 SetProperty(ref _selectedItem, value);
                 RefreshSelectedEventDetails();
             }
+        }
+
+        public bool AutoReplaceTracks
+        {
+            get => _autoReplaceTracks;
+            set => SetProperty(ref _autoReplaceTracks, value);
+        }
+
+        public bool UseEventNames
+        {
+            get => _useEventNames;
+            set => SetProperty(ref _useEventNames, value);
         }
 
         public bool IsOkButtonEnabled => CalendarPreviewViewModel != null;

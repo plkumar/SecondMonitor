@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar
 {
+    using Common.Championship.Calendar;
     using SecondMonitor.ViewModels.Factory;
 
     public class CalendarEntryViewModelFactory : ICalendarEntryViewModelFactory
@@ -29,6 +30,16 @@
             return new EditableCalendarEntryViewModel()
             {
                 TrackName = "ENTER TRACK NAME"
+            };
+        }
+
+        public AbstractCalendarEntryViewModel Create(EventTemplate eventTemplate, string simulatorName)
+        {
+            return new CalendarPlaceholderEntryViewModel()
+            {
+                CustomEventName = eventTemplate.EventName,
+                LayoutLength = eventTemplate.TrackTemplate.LayoutLength,
+                TrackName = eventTemplate.TrackTemplate.TrackName,
             };
         }
     }
