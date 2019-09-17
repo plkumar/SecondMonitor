@@ -24,6 +24,7 @@
         private readonly IWindowService _windowService;
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ISimulatorContentController _simulatorContentController;
+        private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
         private readonly MapsLoader _mapsLoader;
         private Window _dialogWindow;
         private Action<ChampionshipDto> _newChampionshipCallback;
@@ -32,11 +33,12 @@
         private ChampionshipCreationViewModel _championshipCreationViewModel;
         private string _selectedSimulator;
 
-        public ChampionshipCreationController(IWindowService windowService, IViewModelFactory viewModelFactory, ISimulatorContentController simulatorContentController, IMapsLoaderFactory mapsLoaderFactory)
+        public ChampionshipCreationController(IWindowService windowService, IViewModelFactory viewModelFactory, ISimulatorContentController simulatorContentController, IMapsLoaderFactory mapsLoaderFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper )
         {
             _windowService = windowService;
             _viewModelFactory = viewModelFactory;
             _simulatorContentController = simulatorContentController;
+            _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
             _mapsLoader = mapsLoaderFactory.Create();
         }
 
@@ -48,6 +50,7 @@
         public Task StopControllerAsync()
         {
             _dialogWindow?.Close();
+            _trackTemplateToSimTrackMapper.SaveTrackMappings();
             return Task.CompletedTask;
         }
 
@@ -80,7 +83,7 @@
                 {
                     _championshipCreationViewModel.ChampionshipTitle = selectedViewModel.Title;
                 }
-                _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.ApplyCalendarTemplate(selectedViewModel.OriginalModel);
+                _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.ApplyCalendarTemplate(selectedViewModel.OriginalModel, calendarSelection.UseEventNames, calendarSelection.AutoReplaceTracks);
             }
         }
 
@@ -92,6 +95,8 @@
             }
             _championshipCreationViewModel.IsSimulatorSelectionEnabled = false;
             _selectedSimulator = _championshipCreationViewModel.SelectedSimulator;
+
+            _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.SimulatorName = _selectedSimulator;
 
             var allTracks = _simulatorContentController.GetAllTracksForSimulator(_selectedSimulator).OrderBy(x => x.Name);
             List<AbstractTrackTemplateViewModel> tracksTemplates = new List<AbstractTrackTemplateViewModel> {_viewModelFactory.Create<GenericTrackTemplateViewModel>()};

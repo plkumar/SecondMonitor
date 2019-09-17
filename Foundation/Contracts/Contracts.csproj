@@ -60,6 +60,7 @@
     <Compile Include="FuelInformation\IFuelConsumptionInfo.cs" />
     <Compile Include="FuelInformation\IFuelPlannerViewModel.cs" />
     <Compile Include="FuelInformation\ISessionFuelConsumptionViewModel.cs" />
+    <Compile Include="MutableKeyValuePair.cs" />
     <Compile Include="NInject\BootstrapHelper.cs" />
     <Compile Include="NInject\INinjectModuleBootstrapper.cs" />
     <Compile Include="NInject\KernelWrapper.cs" />

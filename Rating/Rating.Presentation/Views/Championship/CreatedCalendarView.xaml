@@ -35,7 +35,7 @@
                     </Grid>
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
-                            <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="1000" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
+                            <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="800" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel VerticalAlignment="Top" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical" />
@@ -63,7 +63,7 @@
                 <Border  BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" CornerRadius="5" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="32"/>
                         </Grid.ColumnDefinitions>
@@ -95,7 +95,7 @@
                 <Border  BorderThickness="1" BorderBrush="{StaticResource Orange1Brush}" CornerRadius="5" >
                     <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="32"/>
                             </Grid.ColumnDefinitions>
@@ -128,7 +128,7 @@
                 <Border BorderThickness="1" BorderBrush="{StaticResource Green01Brush}" CornerRadius="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="32" />
                         </Grid.ColumnDefinitions>

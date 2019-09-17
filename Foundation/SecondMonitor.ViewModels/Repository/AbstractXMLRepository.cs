@@ -1,9 +1,10 @@
 ﻿namespace SecondMonitor.ViewModels.Repository
 {
+    using System;
     using System.IO;
     using System.Xml.Serialization;
 
-    public abstract class AbstractXmlRepository<T> where T : class, new()
+    public abstract class AbstractXmlRepository<T> : IAbstractXmlRepository<T> where T : class, new()
     {
         private readonly object _lockObject = new  object();
         private readonly XmlSerializer _xmlSerializer;
@@ -35,10 +36,17 @@
                     return new T();
                 }
 
-                using (FileStream file = File.Open(fileName, FileMode.Open, FileAccess.Read))
+                try
                 {
-                    T deserialized = _xmlSerializer.Deserialize(file) as T;
-                    return deserialized ?? new T();
+                    using (FileStream file = File.Open(fileName, FileMode.Open, FileAccess.Read))
+                    {
+                        T deserialized = _xmlSerializer.Deserialize(file) as T;
+                        return deserialized ?? new T();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new T();
                 }
             }
         }

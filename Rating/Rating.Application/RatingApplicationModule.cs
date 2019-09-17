@@ -49,6 +49,9 @@
             Bind<IReferenceRatingProvider>().To<LeaderPlus1ReferenceRatingProvider>().Named("Leader - 1%");
             Bind<IReferenceRatingProvider>().To<LeaderPlus3ReferenceRatingProvider>().Named("Leader - 3%");
 
+            Bind<ISimulatorsTrackMappingRepository>().To<SimulatorsTrackMappingRepository>().InSingletonScope();
+            Bind<ITrackTemplateToSimTrackMapper>().To<TrackTemplateToSimTrackMapper>().InSingletonScope();
+
             Bind<IChampionshipController>().To<ChampionshipController>();
             Bind<IChampionshipsRepository>().To<ChampionshipRepositoryTest>().InSingletonScope();
             Bind<IChampionshipOverviewController>().To<ChampionshipOverviewController>();

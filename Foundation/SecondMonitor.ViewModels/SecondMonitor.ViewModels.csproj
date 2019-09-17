@@ -133,6 +133,7 @@
     <Compile Include="RaceSuggestion\RaceSuggestionController.cs" />
     <Compile Include="RaceSuggestion\RaceSuggestionViewModel.cs" />
     <Compile Include="Repository\AbstractXMLRepository.cs" />
+    <Compile Include="Repository\IAbstractXmlRepository.cs" />
     <Compile Include="Settings\AppDataSettingsProvider.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Settings\Model\ColumnSettings.cs" />

@@ -73,11 +73,6 @@
       <Name>DataModel</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Foundation\Launcher\Launcher.csproj">
-      <Project>{9cb31996-7ff5-4bb2-aaf7-5a9a88aadc48}</Project>
-      <Name>Launcher</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\PluginManager\PluginManager.csproj">
       <Project>{E61DBD85-BC10-4ABD-9C0B-22770399DE70}</Project>
       <Name>PluginManager</Name>

@@ -9,6 +9,7 @@
     using Calendar.Adorners;
     using Common.Championship.Calendar;
     using Contracts.Commands;
+    using Controller;
     using GongSolutions.Wpf.DragDrop;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
@@ -17,13 +18,15 @@
     {
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ICalendarEntryViewModelFactory _calendarEntryViewModelFactory;
+        private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
         private int _totalEvents;
         private ObservableCollection<AbstractCalendarEntryViewModel> _calendarEntries;
 
-        public CreatedCalendarViewModel(IViewModelFactory viewModelFactory, ICalendarEntryViewModelFactory calendarEntryViewModelFactory)
+        public CreatedCalendarViewModel(IViewModelFactory viewModelFactory, ICalendarEntryViewModelFactory calendarEntryViewModelFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper)
         {
             _viewModelFactory = viewModelFactory;
             _calendarEntryViewModelFactory = calendarEntryViewModelFactory;
+            _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
 
             CalendarEntries = new ObservableCollection<AbstractCalendarEntryViewModel>();
             CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Slovakia Ring"));
@@ -58,11 +61,11 @@
             set;
         }
 
-        public void ApplyCalendarTemplate(CalendarTemplate calendarTemplate)
+        public void ApplyCalendarTemplate(CalendarTemplate calendarTemplate, bool useCalendarEventNames, bool autoReplaceKnownTracks)
         {
             ObservableCollection<AbstractCalendarEntryViewModel> newCalendarEntries = new ObservableCollection<AbstractCalendarEntryViewModel>(calendarTemplate.Events.Select(x =>
             {
-                var newEntry = _calendarEntryViewModelFactory.Create(x, SimulatorName);
+                var newEntry = _calendarEntryViewModelFactory.Create(x, SimulatorName, useCalendarEventNames, autoReplaceKnownTracks);
                 newEntry.DeleteEntryCommand = new RelayCommand(() => DeleteCalendarEntry(newEntry));
                 return newEntry;
             }));
@@ -123,6 +126,7 @@
             int index = _calendarEntries.IndexOf(calendarPlaceholder);
             _calendarEntries.Remove(calendarPlaceholder);
             CreateEntry(existingTrackTemplateViewModel, index, calendarPlaceholder.CustomEventName);
+            _trackTemplateToSimTrackMapper.RegisterSimulatorTrackName(SimulatorName, calendarPlaceholder.TrackName, existingTrackTemplateViewModel.TrackName);
 
         }
 

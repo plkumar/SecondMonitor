@@ -1,15 +1,27 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar
 {
+    using System.Linq;
     using Common.Championship.Calendar;
+    using Controller;
+    using DataModel.SimulatorContent;
+    using DataModel.TrackMap;
     using SecondMonitor.ViewModels.Factory;
+    using SecondMonitor.ViewModels.SimulatorContent;
+    using SimdataManagement;
 
     public class CalendarEntryViewModelFactory : ICalendarEntryViewModelFactory
     {
         private readonly IViewModelFactory _viewModelFactory;
+        private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
+        private readonly ISimulatorContentController _simulatorContentController;
+        private readonly MapsLoader _mapsLoader;
 
-        public CalendarEntryViewModelFactory(IViewModelFactory viewModelFactory)
+        public CalendarEntryViewModelFactory(IViewModelFactory viewModelFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper, IMapsLoaderFactory mapsLoaderFactory, ISimulatorContentController simulatorContentController)
         {
             _viewModelFactory = viewModelFactory;
+            _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
+            _simulatorContentController = simulatorContentController;
+            _mapsLoader = mapsLoaderFactory.Create();
         }
 
         public AbstractCalendarEntryViewModel Create(AbstractTrackTemplateViewModel trackTemplate)
@@ -33,14 +45,32 @@
             };
         }
 
-        public AbstractCalendarEntryViewModel Create(EventTemplate eventTemplate, string simulatorName)
+        public AbstractCalendarEntryViewModel Create(EventTemplate eventTemplate, string simulatorName, bool useCalendarEventNames, bool autoReplaceKnownTracks)
         {
-            return new CalendarPlaceholderEntryViewModel()
+            if (!string.IsNullOrEmpty(simulatorName) &&  autoReplaceKnownTracks && _trackTemplateToSimTrackMapper.TryGetSimulatorTrackName(simulatorName, eventTemplate.TrackTemplate.TrackName, out string simulatorTrackName))
             {
-                CustomEventName = eventTemplate.EventName,
-                LayoutLength = eventTemplate.TrackTemplate.LayoutLength,
-                TrackName = eventTemplate.TrackTemplate.TrackName,
-            };
+                Track trackDefinition = _simulatorContentController.GetAllTracksForSimulator(simulatorName).FirstOrDefault(x => x.Name == simulatorTrackName);
+                if (trackDefinition != null)
+                {
+                    var newEntry = _viewModelFactory.Create<ExistingTrackCalendarEntryViewModel>();
+                    newEntry.CustomEventName = useCalendarEventNames ? eventTemplate.EventName : string.Empty;
+                    newEntry.TrackName = simulatorTrackName;
+                    bool hasMap = _mapsLoader.TryLoadMap(simulatorName, simulatorTrackName, out TrackMapDto trackMapDto);
+                    if (hasMap)
+                    {
+                        newEntry.TrackGeometryViewModel.FromModel(trackMapDto.TrackGeometry);
+                    }
+
+                    return newEntry;
+                }
+            }
+            return new CalendarPlaceholderEntryViewModel()
+                {
+                    CustomEventName = useCalendarEventNames ? eventTemplate.EventName : string.Empty,
+                    LayoutLength = eventTemplate.TrackTemplate.LayoutLength,
+                    TrackName = eventTemplate.TrackTemplate.TrackName,
+                };
+
         }
     }
 }

@@ -5,6 +5,6 @@
     public interface ICalendarEntryViewModelFactory
     {
         AbstractCalendarEntryViewModel Create(AbstractTrackTemplateViewModel trackTemplate);
-        AbstractCalendarEntryViewModel Create(EventTemplate eventTemplate, string simulatorName);
+        AbstractCalendarEntryViewModel Create(EventTemplate eventTemplate, string simulatorName, bool useCalendarEventNames, bool autoReplaceKnownTracks);
     }
 }

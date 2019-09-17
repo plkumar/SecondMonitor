@@ -61,6 +61,9 @@
     <Compile Include="DataModel\Championship\AllChampionshipsDto.cs" />
     <Compile Include="DataModel\Championship\ChampionshipDto.cs" />
     <Compile Include="DataModel\Championship\ChampionshipState.cs" />
+    <Compile Include="DataModel\Championship\TrackMapping\SimulatorTrackMapping.cs" />
+    <Compile Include="DataModel\Championship\TrackMapping\SimulatorsTrackMapping.cs" />
+    <Compile Include="DataModel\Championship\TrackMapping\TemplateTrackMapping.cs" />
     <Compile Include="DataModel\Championship\TrackTemplate.cs" />
     <Compile Include="DataModel\ClassRating.cs" />
     <Compile Include="DataModel\DifficultySettings.cs" />
