@@ -63,9 +63,9 @@
                 <Border  BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" CornerRadius="5" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="32"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,10,10" Text="{Binding EventNumber}"/>
@@ -95,9 +95,9 @@
                 <Border  BorderThickness="1" BorderBrush="{StaticResource Orange1Brush}" CornerRadius="5" >
                     <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="32"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10,10,10,10" Text="{Binding EventNumber}"/>
@@ -128,9 +128,9 @@
                 <Border BorderThickness="1" BorderBrush="{StaticResource Green01Brush}" CornerRadius="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="32" />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center"
