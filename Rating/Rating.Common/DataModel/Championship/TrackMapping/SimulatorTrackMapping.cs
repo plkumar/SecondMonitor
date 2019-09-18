@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml.Serialization;
 
     [Serializable]
     public class SimulatorTrackMapping
@@ -12,9 +13,8 @@
             TemplateTrackMappings = new List<TemplateTrackMapping>();
         }
 
+        [XmlAttribute]
         public string SimulatorName { get; set; }
-
-
 
         public List<TemplateTrackMapping> TemplateTrackMappings
         {
