@@ -69,7 +69,7 @@
             _championshipCreationViewModel.ConfirmSimulatorCommand = new RelayCommand(ConfirmSimulatorSelection);
             _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.SelectPredefinedCalendarCommand = new RelayCommand(SelectPredefinedCalendar);
 
-            _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+            _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner, DialogWindowClosed);
         }
 
         private void SelectPredefinedCalendar()

@@ -10,7 +10,8 @@
                 <Grid Background="{StaticResource Anthracite01Brush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" >
                         <StackPanel Orientation="Horizontal">
@@ -29,11 +30,11 @@
                             <TextBox Style="{StaticResource StandardTextBox}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" MinWidth="300" Text="{Binding ChampionshipTitle}"/>
                         </StackPanel>
                     </Border>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Visibility="{Binding IsSimulatorSelectionEnabled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0"  BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                                 <ContentPresenter Content="{Binding CalendarDefinitionViewModel}"/>

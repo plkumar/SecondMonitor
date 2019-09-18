@@ -19,26 +19,18 @@
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ICalendarEntryViewModelFactory _calendarEntryViewModelFactory;
         private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
+        private readonly IDialogService _dialogService;
         private int _totalEvents;
         private ObservableCollection<AbstractCalendarEntryViewModel> _calendarEntries;
 
-        public CreatedCalendarViewModel(IViewModelFactory viewModelFactory, ICalendarEntryViewModelFactory calendarEntryViewModelFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper)
+        public CreatedCalendarViewModel(IViewModelFactory viewModelFactory, ICalendarEntryViewModelFactory calendarEntryViewModelFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper, IDialogService dialogService)
         {
             _viewModelFactory = viewModelFactory;
             _calendarEntryViewModelFactory = calendarEntryViewModelFactory;
             _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
+            _dialogService = dialogService;
 
             CalendarEntries = new ObservableCollection<AbstractCalendarEntryViewModel>();
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Slovakia Ring"));
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Hockeinheim"));
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Road America"));
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Slovakia Ring 1"));
-            CalendarEntries.Add(CreatePlaceholderCalendarEntryViewModel("Laguna Seca"));
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Hockeinheim 2"));
-            CalendarEntries.Add(CreateEditableCalendarEntryViewModel("Road America 3"));
-
-            RecalculateEventNumbers();
-
         }
 
         public ObservableCollection<AbstractCalendarEntryViewModel> CalendarEntries
@@ -126,7 +118,10 @@
             int index = _calendarEntries.IndexOf(calendarPlaceholder);
             _calendarEntries.Remove(calendarPlaceholder);
             CreateEntry(existingTrackTemplateViewModel, index, calendarPlaceholder.CustomEventName);
-            _trackTemplateToSimTrackMapper.RegisterSimulatorTrackName(SimulatorName, calendarPlaceholder.TrackName, existingTrackTemplateViewModel.TrackName);
+            if (_dialogService.ShowYesNoDialog("Always Replace", $"Do you want to always replace \n'{calendarPlaceholder.TrackName}' with \n'{existingTrackTemplateViewModel.TrackName}'?"))
+            {
+                _trackTemplateToSimTrackMapper.RegisterSimulatorTrackName(SimulatorName, calendarPlaceholder.TrackName, existingTrackTemplateViewModel.TrackName);
+            }
 
         }
 

@@ -8,8 +8,8 @@
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type creation:CreatedCalendarViewModel}">
-                <StackPanel Orientation="Vertical" Background="{StaticResource Anthracite01Brush}">
-                    <Grid>
+                <DockPanel Background="{StaticResource Anthracite01Brush}">
+                    <Grid DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -33,14 +33,9 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
-                            <ListBox AlternationCount="100"  BorderThickness="0" VerticalAlignment="Top" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding CalendarEntries }" Height="800" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel VerticalAlignment="Top" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical" />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
+                    <Border DockPanel.Dock="Bottom" BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                        <Grid>
+                            <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}" MinHeight="200"  ItemsSource="{Binding CalendarEntries }" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="5"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}">
@@ -54,9 +49,9 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                    </ScrollViewer>
+                        </Grid>
                     </Border>
-                </StackPanel>
+                </DockPanel>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type calendar:EditableCalendarEntryViewModel}">

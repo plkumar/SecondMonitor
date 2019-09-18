@@ -8,28 +8,26 @@
             <DataTemplate DataType="{x:Type creation:AvailableTracksViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}">
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Available Tracks:"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
-                            <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding TrackTemplateViewModels }" MaxHeight="1000" Width="350" dd:DragDrop.IsDragSource="True">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel VerticalAlignment="Center" Background="{StaticResource Anthracite01Brush }" Orientation="Vertical"></StackPanel>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="300" SharedSizeGroup="TrackTemplateGroup"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                            <ContentPresenter VerticalAlignment="Center" Content="{Binding}"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </ScrollViewer>
-                    </StackPanel>
+                        <DockPanel>
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center"
+                                       FontSize="{StaticResource BigFontSize}" Margin="10" Text="Available Tracks:" DockPanel.Dock="Top" />
+                            <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" DockPanel.Dock="Bottom"
+                                             Background="{StaticResource Anthracite01Brush}"
+                                             ItemsSource="{Binding TrackTemplateViewModels }" Width="350"
+                                             dd:DragDrop.IsDragSource="True">
+                                    <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="300"
+                                                                          SharedSizeGroup="TrackTemplateGroup" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ContentPresenter VerticalAlignment="Center" Content="{Binding}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                        </DockPanel>
                     </Border>
                 </Grid>
             </DataTemplate>

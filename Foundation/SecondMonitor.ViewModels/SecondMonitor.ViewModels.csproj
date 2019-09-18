@@ -107,8 +107,11 @@
     <Compile Include="Colors\IColorPaletteProvider.cs" />
     <Compile Include="Controllers\IChildControllerFactory.cs" />
     <Compile Include="Controllers\ChildControllerFactory.cs" />
+    <Compile Include="DialogService.cs" />
+    <Compile Include="Dialogs\YesNoDialogViewModel.cs" />
     <Compile Include="Factory\IViewModelFactory.cs" />
     <Compile Include="Factory\ViewModelFactory.cs" />
+    <Compile Include="IDialogService.cs" />
     <Compile Include="IDialogViewModel.cs" />
     <Compile Include="IDisableViewModel.cs" />
     <Compile Include="IViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.ViewModels
 {
     using Controllers;
+    using Dialogs;
     using Factory;
     using Ninject.Modules;
     using PluginsSettings;
@@ -19,6 +20,7 @@
             Bind<IViewModelFactory>().To<ViewModelFactory>();
             Bind<IChildControllerFactory>().To<ChildControllerFactory>();
             Bind<IWindowService>().To<WindowService>();
+            Bind<IDialogService>().To<DialogService>();
             Bind<IBroadcastLimitSettingsViewModel>().To<BroadcastLimitSettingsViewModel>();
             Bind<IPluginConfigurationViewModel>().To<PluginConfigurationViewModel>();
             Bind<IPluginsConfigurationViewModel>().To<PluginsConfigurationViewModel>();
@@ -43,6 +45,8 @@
             Bind<ResultsStageViewModel>().ToSelf();
             Bind<SplashScreenViewModel>().ToSelf();
             Bind<TrackGeometryViewModel>().ToSelf();
+
+            Bind<YesNoDialogViewModel>().ToSelf();
         }
     }
 }

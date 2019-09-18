@@ -30,6 +30,7 @@
 
         public void SetTrackMapping(string trackTemplateName, string simulatorTrackName)
         {
+            TemplateTrackMappings.RemoveAll(x => x.TemplateTrackName == trackTemplateName);
             TemplateTrackMappings.Add(new TemplateTrackMapping() {SimulatorTrackName = simulatorTrackName, TemplateTrackName = trackTemplateName});
         }
 

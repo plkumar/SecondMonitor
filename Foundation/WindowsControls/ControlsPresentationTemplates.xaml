@@ -1,9 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="WPF/TrackRecords/TrackRecordsTemplates.xaml"/>
         <ResourceDictionary Source="WPF/WheelDiameterWizard/WheelDiameterPresentation.xaml"/>
         <ResourceDictionary Source="WPF/SplashScreen/SplashScreen.xaml"/>
         <ResourceDictionary Source="WPF/TrackInfoControl/TrackGeometryView.xaml"/>
+        <ResourceDictionary Source="WPF/Dialogs/DialogPresentations.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
