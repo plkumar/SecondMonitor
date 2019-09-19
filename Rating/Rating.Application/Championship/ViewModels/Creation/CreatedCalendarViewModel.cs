@@ -68,28 +68,23 @@
         public void DragOver(IDropInfo dropInfo)
         {
             var target = (dropInfo.VisualTarget as FrameworkElement)?.DataContext;
-            if (target is CreatedCalendarViewModel)
+            switch (target)
             {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-                dropInfo.Effects = DragDropEffects.Copy;
-                dropInfo.NotHandled = false;
-                return;
+                case CreatedCalendarViewModel _:
+                    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                    dropInfo.Effects = DragDropEffects.Copy;
+                    dropInfo.NotHandled = false;
+                    return;
+                case CalendarPlaceholderEntryViewModel _ when dropInfo.Data is ExistingTrackTemplateViewModel:
+                    dropInfo.DropTargetAdorner = typeof(AllowDropAdorner);
+                    dropInfo.Effects = DragDropEffects.Copy;
+                    dropInfo.NotHandled = false;
+                    return;
             }
 
-            if (target is CalendarPlaceholderEntryViewModel && dropInfo.Data is ExistingTrackTemplateViewModel)
-            {
-                dropInfo.DropTargetAdorner = typeof(AllowDropAdorner);
-                dropInfo.Effects = DragDropEffects.Copy;
-                dropInfo.NotHandled = false;
-                return;
-            }
-
-            /*if (dropInfo.TargetItem is AbstractCalendarEntryViewModel && (target is EditableCalendarEntryViewModel || target is ExistingTrackCalendarEntryViewModel || target is CalendarPlaceholderEntryViewModel))
-            {*/
-                dropInfo.DropTargetAdorner = typeof(ForbidDropAdorner);
-                dropInfo.Effects = DragDropEffects.None;
-                dropInfo.NotHandled = false;
-            /*}*/
+            dropInfo.DropTargetAdorner = typeof(ForbidDropAdorner);
+            dropInfo.Effects = DragDropEffects.None;
+               dropInfo.NotHandled = false;
         }
 
         public void Drop(IDropInfo dropInfo)
@@ -139,26 +134,6 @@
                 CalendarEntries[i].EventNumber = i + 1;
                 CalendarEntries[i].OriginalEventName = "Event " + (i + 1);
             }
-        }
-
-        private CalendarPlaceholderEntryViewModel CreatePlaceholderCalendarEntryViewModel(string trackName)
-        {
-            CalendarPlaceholderEntryViewModel newViewModel = new CalendarPlaceholderEntryViewModel()
-            {
-                TrackName = trackName,
-            };
-            newViewModel.DeleteEntryCommand = new RelayCommand(() => DeleteCalendarEntry(newViewModel));
-            return newViewModel;
-        }
-
-        private EditableCalendarEntryViewModel CreateEditableCalendarEntryViewModel(string trackName)
-        {
-            EditableCalendarEntryViewModel newViewModel = new EditableCalendarEntryViewModel()
-            {
-                TrackName = trackName,
-            };
-            newViewModel.DeleteEntryCommand = new RelayCommand(() => DeleteCalendarEntry(newViewModel));
-            return newViewModel;
         }
 
         private void CreateEntry(AbstractTrackTemplateViewModel trackTemplate, int insertionIndex, string customEventName = "")

@@ -39,6 +39,9 @@
                             <Border Grid.Column="0"  BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                                 <ContentPresenter Content="{Binding CalendarDefinitionViewModel}"/>
                             </Border>
+                            <Border Grid.Column="1"  BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                                <ContentPresenter Content="{Binding SessionsDefinitionViewModel}"/>
+                            </Border>
                         </Grid>
                     </Grid>
                 </Grid>

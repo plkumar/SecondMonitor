@@ -55,7 +55,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type calendar:EditableCalendarEntryViewModel}">
-                <Border  BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" CornerRadius="5" >
+                <Border  BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" CornerRadius="5" Background="{StaticResource Anthracite02Brush}" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -87,7 +87,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type calendar:CalendarPlaceholderEntryViewModel}">
-                <Border  BorderThickness="1" BorderBrush="{StaticResource Orange1Brush}" CornerRadius="5" >
+                <Border  BorderThickness="1" BorderBrush="{StaticResource Orange1Brush}" CornerRadius="5" Background="{StaticResource Anthracite02Brush}" >
                     <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -120,7 +120,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type calendar:ExistingTrackCalendarEntryViewModel}">
-                <Border BorderThickness="1" BorderBrush="{StaticResource Green01Brush}" CornerRadius="5">
+                <Border BorderThickness="1" BorderBrush="{StaticResource Green01Brush}" CornerRadius="5" Background="{StaticResource Anthracite02Brush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

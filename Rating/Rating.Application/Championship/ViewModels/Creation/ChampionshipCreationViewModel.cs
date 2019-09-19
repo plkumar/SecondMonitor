@@ -3,6 +3,7 @@
     using System.Windows.Input;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
+    using Session;
 
     public class ChampionshipCreationViewModel : AbstractViewModel
     {
@@ -12,6 +13,7 @@
         public ChampionshipCreationViewModel(IViewModelFactory viewModelFactory)
         {
             CalendarDefinitionViewModel = viewModelFactory.Create<CalendarDefinitionViewModel>();
+            SessionsDefinitionViewModel = viewModelFactory.Create<SessionsDefinitionViewModel>();
             ChampionshipTitle = "Custom Championship";
         }
 
@@ -22,6 +24,8 @@
         }
 
         public CalendarDefinitionViewModel CalendarDefinitionViewModel { get;}
+
+        public SessionsDefinitionViewModel SessionsDefinitionViewModel { get; }
 
         public string[] AvailableSimulators { get; set; }
 

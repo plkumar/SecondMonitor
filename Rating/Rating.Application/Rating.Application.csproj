@@ -98,6 +98,10 @@
     <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\ExistingTrackTemplateViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\AbstractTrackTemplateViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\ISessionDefinitionViewModelFactory.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionDefinitionViewModelFactory.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionsDefinitionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />

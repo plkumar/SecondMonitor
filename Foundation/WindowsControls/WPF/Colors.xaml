@@ -40,6 +40,8 @@
     <Color x:Shared="False" x:Key="DarkGrey05Color">#FF7F7F7F</Color>
 
     <Color x:Shared="False" x:Key="Anthracite01Color">#2B292E</Color>
+    <Color x:Shared="False" x:Key="Anthracite02Color">#262429</Color>
+
 
     <Color x:Shared="False" x:Key="Sector1Color">#666699</Color>
     <Color x:Shared="False" x:Key="Sector2Color">#669999</Color>
@@ -56,6 +58,7 @@
     <SolidColorBrush x:Shared="False" x:Key="DarkGrey05Brush" Color="{StaticResource DarkGrey05Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="Anthracite01Brush" Color="{StaticResource Anthracite01Color}"/>
+    <SolidColorBrush x:Shared="False" x:Key="Anthracite02Brush" Color="{StaticResource Anthracite02Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="LightRed01Brush" Color="{StaticResource LightRed01Color}" />
     <SolidColorBrush x:Shared="False" x:Key="LightRed02Brush" Color="{StaticResource LightRed02Color}" />

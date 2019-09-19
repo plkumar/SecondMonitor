@@ -7,6 +7,7 @@
     using Championship.ViewModels.Creation;
     using Championship.ViewModels.Creation.Calendar;
     using Championship.ViewModels.Creation.Calendar.Predefined;
+    using Championship.ViewModels.Creation.Session;
     using Championship.ViewModels.IconState;
     using Ninject.Modules;
     using Rating.Controller;
@@ -75,7 +76,10 @@
             Bind<CalendarTemplateViewModel>().ToSelf();
             Bind<PredefinedCalendarSelectionViewModel>().ToSelf();
 
+            Bind<SessionsDefinitionViewModel>().ToSelf();
+
             Bind<ICalendarEntryViewModelFactory>().To<CalendarEntryViewModelFactory>();
+            Bind<ISessionDefinitionViewModelFactory>().To<SessionDefinitionViewModelFactory>();
 
         }
     }

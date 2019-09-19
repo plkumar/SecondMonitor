@@ -7,7 +7,7 @@
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type calendar:ExistingTrackTemplateViewModel}">
-                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Background="{StaticResource Anthracite02Brush}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding TrackName}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
                         <ContentPresenter Content="{Binding TrackGeometryViewModel}" Margin="10" MaxHeight="50"/>
@@ -15,7 +15,7 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type calendar:GenericTrackTemplateViewModel}">
-                <Border BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource LightBlueBrush}" Background="{StaticResource Anthracite02Brush}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Style="{StaticResource StandardText}" Text="{Binding TrackName}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
                         <wpf:ColorAbleIcon StrokeBrush="{StaticResource LightBlueBrush}" Height="48" Margin="5,5,5,10">

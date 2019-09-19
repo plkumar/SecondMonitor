@@ -2665,8 +2665,7 @@
                             FillRule="NonZero" />
                     </Path.Data>
                 </Path>
-                <Path
-                    Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
                     <Path.Data>
                         <PathGeometry
                             Figures="m 37.067 53.733 h 9.2 v 9.201 c 0 2.058 1.675 3.733 3.733 3.733 2.059 0 3.733 -1.675 3.733 -3.733 v -9.201 h 9.2 c 2.059 0 3.733 -1.675 3.733 -3.733 0 -2.058 -1.675 -3.733 -3.733 -3.733 h -9.2 v -9.201 c 0 -2.058 -1.675 -3.733 -3.733 -3.733 -2.059 0 -3.733 1.675 -3.733 3.733 v 9.201 h -9.2 c -2.058 0 -3.733 1.675 -3.733 3.733 0 2.059 1.675 3.733 3.733 3.733 z"
@@ -2676,6 +2675,22 @@
             </Canvas>
         </Canvas>
     </Viewbox>
+
+    <Viewbox x:Key="MinusIcon" x:Shared="False" Stretch="Uniform">
+        <Canvas Width="48" Height="48" >
+            <Canvas>
+                <Canvas.RenderTransform>
+                    <MatrixTransform Matrix="2.1818182 0 0 2.1818182 -10.909091 -10.909091"/>
+                </Canvas.RenderTransform>
+                <Path Fill="{Binding StrokeBrush, RelativeSource={RelativeSource AncestorType=wpf:ColorAbleIcon}, Mode=OneWay, FallbackValue={StaticResource LightGrey01Brush}}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 16 5 C 9.935 5 5 9.935 5 16 5 22.065 9.935 27 16 27 22.065 27 27 22.065 27 16 27 9.935 22.065 5 16 5 Z m 0 20 c -4.962 0 -9 -4.037 -9 -9 0 -4.962 4.038 -9 9 -9 4.962 0 9 4.038 9 9 0 4.963 -4.038 9 -9 9 z m 5 -9 c 0 0.552 -0.448 1 -1 1 h -8 c -0.552 0 -1 -0.448 -1 -1 0 -0.552 0.448 -1 1 -1 h 8 c 0.552 0 1 0.448 1 1 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Canvas>
+    </Viewbox>
+
 
     <Viewbox x:Key="PopupIcon" x:Shared="False" Stretch="Uniform">
         <Canvas Width="34" Height="34">
