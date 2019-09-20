@@ -1,10 +1,19 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Session
 {
+    using SecondMonitor.ViewModels.Factory;
+
     public class SessionDefinitionViewModelFactory : ISessionDefinitionViewModelFactory
     {
+        private readonly IViewModelFactory _viewModelFactory;
+
+        public SessionDefinitionViewModelFactory(IViewModelFactory viewModelFactory)
+        {
+            _viewModelFactory = viewModelFactory;
+        }
+
         public SessionDefinitionViewModel CreateBase()
         {
-            return new SessionDefinitionViewModel()
+            return new SessionDefinitionViewModel(_viewModelFactory)
             {
                 Pos1Points = 25,
                 Pos2Points = 18,

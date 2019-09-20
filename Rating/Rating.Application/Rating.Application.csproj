@@ -101,6 +101,10 @@
     <Compile Include="Championship\ViewModels\Creation\Session\ISessionDefinitionViewModelFactory.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionDefinitionViewModelFactory.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\DistanceLengthDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\ISessionLengthDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\LapsLengthDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\TimeLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionsDefinitionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />

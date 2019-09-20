@@ -1,9 +1,14 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Session
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using SecondMonitor.ViewModels;
+    using SecondMonitor.ViewModels.Factory;
+    using SessionLength;
 
     public class SessionDefinitionViewModel : AbstractViewModel
     {
+        private readonly IViewModelFactory _viewModelFactory;
         private string _originalSessionName;
         private string _customSessionName;
 
@@ -18,6 +23,22 @@
         private int _pos9Points;
         private int _pos10Points;
 
+        private ISessionLengthDefinitionViewModel _selectedSessionLengthDefinitionViewModel;
+
+        public SessionDefinitionViewModel(IViewModelFactory viewModelFactory)
+        {
+            _viewModelFactory = viewModelFactory;
+            AvailableSessionLengthDefinitionViewModels = _viewModelFactory.CreateAll<ISessionLengthDefinitionViewModel>().ToList();
+            SelectedSessionLengthDefinitionViewModel = AvailableSessionLengthDefinitionViewModels.First();
+        }
+
+        public IReadOnlyCollection<ISessionLengthDefinitionViewModel> AvailableSessionLengthDefinitionViewModels { get; set; }
+
+        public ISessionLengthDefinitionViewModel SelectedSessionLengthDefinitionViewModel
+        {
+            get => _selectedSessionLengthDefinitionViewModel;
+            set => SetProperty(ref _selectedSessionLengthDefinitionViewModel, value);
+        }
 
         public int Pos1Points
         {
