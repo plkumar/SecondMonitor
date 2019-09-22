@@ -55,6 +55,8 @@
     <Compile Include="Championship\Calendar\Templates\DtmCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\WTCRCalendars.cs" />
     <Compile Include="Championship\Calendar\Tracks\TracksTemplates.cs" />
+    <Compile Include="Championship\Scoring\Templates\ScoringTemplate.cs" />
+    <Compile Include="Championship\Scoring\Templates\ScoringTemplates.cs" />
     <Compile Include="Configuration\ISimulatorRatingConfigurationProvider.cs" />
     <Compile Include="Configuration\SimulatorRatingConfiguration.cs" />
     <Compile Include="Configuration\SimulatorRatingConfigurationProvider.cs" />

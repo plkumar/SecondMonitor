@@ -28,6 +28,8 @@
                             </Button>
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Title: "/>
                             <TextBox Style="{StaticResource StandardTextBox}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" MinWidth="300" Text="{Binding ChampionshipTitle}"/>
+                            <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Options: "/>
+                            <CheckBox Foreground="{StaticResource LightGrey01Brush}" IsChecked="{Binding AiNamesCanChange}" VerticalAlignment="Center" Content="AI names can change"></CheckBox>
                         </StackPanel>
                     </Border>
                     <Grid Grid.Row="1" Visibility="{Binding IsSimulatorSelectionEnabled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">

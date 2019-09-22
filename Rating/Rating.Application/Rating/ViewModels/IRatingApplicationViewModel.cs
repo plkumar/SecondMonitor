@@ -14,6 +14,8 @@
 
         IRatingViewModel SimulatorRating { get; }
         IRatingViewModel ClassRating { get; }
+        IRatingViewModel DifficultyRating { get; }
+
         string SessionTextInformation { get; set; }
         SessionKind SessionKind { get; set; }
         SessionPhaseKind SessionPhaseKind { get; set; }

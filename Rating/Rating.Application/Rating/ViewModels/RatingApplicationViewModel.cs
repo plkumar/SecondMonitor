@@ -26,6 +26,7 @@
         {
             SimulatorRating = viewModelFactory.Create<IRatingViewModel>();
             ClassRating = viewModelFactory.Create<IRatingViewModel>();
+            DifficultyRating = viewModelFactory.Create<IRatingViewModel>();
             SelectableClasses = new ObservableCollection<string>();
             AiLevels = new ObservableCollection<int>();
             UseSuggestedDifficulty = true;
@@ -55,6 +56,8 @@
 
 
         public IRatingViewModel ClassRating { get; }
+
+        public IRatingViewModel DifficultyRating { get; }
 
         public string SessionTextInformation
         {

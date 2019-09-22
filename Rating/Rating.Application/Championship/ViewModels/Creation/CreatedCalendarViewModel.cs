@@ -21,6 +21,8 @@
         private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
         private readonly IDialogService _dialogService;
         private int _totalEvents;
+        private int _randomEventsCount;
+        private ICommand _randomCalendarCommand;
         private ObservableCollection<AbstractCalendarEntryViewModel> _calendarEntries;
 
         public CreatedCalendarViewModel(IViewModelFactory viewModelFactory, ICalendarEntryViewModelFactory calendarEntryViewModelFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper, IDialogService dialogService)
@@ -29,6 +31,7 @@
             _calendarEntryViewModelFactory = calendarEntryViewModelFactory;
             _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
             _dialogService = dialogService;
+            RandomEventsCount = 6;
 
             CalendarEntries = new ObservableCollection<AbstractCalendarEntryViewModel>();
         }
@@ -51,6 +54,18 @@
         {
             get;
             set;
+        }
+
+        public int RandomEventsCount
+        {
+            get => _randomEventsCount;
+            set => SetProperty(ref _randomEventsCount, value);
+        }
+
+        public ICommand RandomCalendarCommand
+        {
+            get => _randomCalendarCommand;
+            set => SetProperty(ref _randomCalendarCommand, value);
         }
 
         public void ApplyCalendarTemplate(CalendarTemplate calendarTemplate, bool useCalendarEventNames, bool autoReplaceKnownTracks)
@@ -106,6 +121,16 @@
             {
                 CreateEntry(trackTemplate, dropInfo.InsertIndex);
             }
+        }
+
+        public void ClearCalendar()
+        {
+            CalendarEntries.Clear();
+        }
+
+        public void AppendNewEntry(AbstractTrackTemplateViewModel trackTemplate)
+        {
+            CreateEntry(trackTemplate, CalendarEntries.Count);
         }
 
         private void ReplacePlaceHolder(CalendarPlaceholderEntryViewModel calendarPlaceholder, ExistingTrackTemplateViewModel existingTrackTemplateViewModel)

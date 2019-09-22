@@ -85,12 +85,12 @@
 
         public IReadOnlyCollection<Track> GetAllTracksForSimulator(string simulatorName)
         {
-            if (_simulatorsContent == null)
-            {
-                return Enumerable.Empty<Track>().ToList();
-            }
+            return _simulatorsContent == null ? Enumerable.Empty<Track>().ToList() : _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Tracks;
+        }
 
-            return _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Tracks;
+        public IReadOnlyCollection<CarClass> GetAllCarClassesForSimulator(string simulatorName)
+        {
+            return _simulatorsContent == null ? Enumerable.Empty<CarClass>().ToList() : _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Classes;
         }
     }
 }

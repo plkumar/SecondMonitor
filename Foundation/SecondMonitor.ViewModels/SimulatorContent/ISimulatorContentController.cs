@@ -8,5 +8,7 @@
     public interface ISimulatorContentController : IController, ISimulatorDataSetVisitor
     {
         IReadOnlyCollection<Track> GetAllTracksForSimulator(string simulatorName);
+
+        IReadOnlyCollection<CarClass> GetAllCarClassesForSimulator(string simulatorName);
     }
 }

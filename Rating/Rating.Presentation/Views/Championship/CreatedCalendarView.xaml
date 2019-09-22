@@ -9,7 +9,7 @@
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type creation:CreatedCalendarViewModel}">
                 <DockPanel Background="{StaticResource Anthracite01Brush}">
-                    <Grid DockPanel.Dock="Top">
+                    <Grid DockPanel.Dock="Top" MinWidth="300">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -19,6 +19,19 @@
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" Margin="10,0,0,10" Text="{Binding TotalEvents, StringFormat=' {0} Event(s)'}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBox Style="{StaticResource StandardTextBox}" Width="30" VerticalAlignment="Center" Text="{Binding RandomEventsCount, Converter={StaticResource NonNegativeIntToStringConverter}}"/>
+                            <Button
+                                HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Command="{Binding RandomCalendarCommand}"
+                                Style="{StaticResource StandardButton}"
+                                ToolTip="Generate a random calendar." Height="48">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon
+                                        StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource RandomIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
                             <Button
                                 HorizontalAlignment="Right"
                                 Command="{Binding SelectPredefinedCalendarCommand}"

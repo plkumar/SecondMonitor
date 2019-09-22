@@ -9,12 +9,15 @@
     {
         private bool _isSimulatorSelectionEnabled;
         private string _championshipTitle;
+        private bool _aiNamesCanChange;
 
         public ChampionshipCreationViewModel(IViewModelFactory viewModelFactory)
         {
             CalendarDefinitionViewModel = viewModelFactory.Create<CalendarDefinitionViewModel>();
             SessionsDefinitionViewModel = viewModelFactory.Create<SessionsDefinitionViewModel>();
+            AiNamesCanChange = true;
             ChampionshipTitle = "Custom Championship";
+
         }
 
         public bool IsSimulatorSelectionEnabled
@@ -38,5 +41,11 @@
         }
 
         public ICommand ConfirmSimulatorCommand { get; set; }
+
+        public bool AiNamesCanChange
+        {
+            get => _aiNamesCanChange;
+            set => SetProperty(ref _aiNamesCanChange, value);
+        }
     }
 }

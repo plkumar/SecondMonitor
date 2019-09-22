@@ -97,8 +97,14 @@
 
             if (e.PropertyName == nameof(RatingApplicationViewModel.UseSuggestedDifficulty) && RatingApplicationViewModel.UseSuggestedDifficulty)
             {
-                RatingApplicationViewModel.Difficulty = RatingApplicationViewModel.ClassRating.Difficulty;
+                RatingApplicationViewModel.Difficulty = RatingApplicationViewModel.DifficultyRating.OriginalModel.Difficulty;
             }
+
+            if (e.PropertyName == nameof(RatingApplicationViewModel.UseSuggestedDifficulty))
+            {
+                _simulatorRatingController.SetSelectedDifficulty(RatingApplicationViewModel.Difficulty, !RatingApplicationViewModel.UseSuggestedDifficulty, _currentClass);
+            }
+
 
             if (e.PropertyName == nameof(RatingApplicationViewModel.Difficulty))
             {
@@ -235,7 +241,7 @@
             var classRating = _simulatorRatingController.GetPlayerRating(_currentClass);
             _currentState.SharedContext.DifficultyRating = classRating.difficultyRating;
             RatingApplicationViewModel.ClassRating.FromModel(classRating.simRating);
-            RatingApplicationViewModel.ClassRating.Difficulty = classRating.difficultyRating.Difficulty;
+            RatingApplicationViewModel.DifficultyRating.FromModel(classRating.difficultyRating);
             DifficultySettings difficultySettings = _simulatorRatingController.GetDifficultySettings(_currentClass);
 
             RatingApplicationViewModel.UseSuggestedDifficulty = !difficultySettings.WasUserSelected;
@@ -259,6 +265,7 @@
             RatingApplicationViewModel.SessionTextInformation = _currentState.SessionDescription;
             RatingApplicationViewModel.SimulatorRating.RatingChangeVisible = _currentState.ShowRatingChange;
             RatingApplicationViewModel.ClassRating.RatingChangeVisible = _currentState.ShowRatingChange;
+            RatingApplicationViewModel.DifficultyRating.RatingChangeVisible = _currentState.ShowRatingChange;
         }
 
         private void SubscribeSimulatorRatingController()
@@ -269,6 +276,7 @@
             }
             _simulatorRatingController.ClassRatingChanged+= SimulatorRatingControllerOnClassRatingChanged;
             _simulatorRatingController.SimulatorRatingChanged += SimulatorRatingControllerOnSimulatorRatingChanged;
+            _simulatorRatingController.ClassDifficultyRatingChanged += SimulatorRatingControllerOnClassDifficultyRatingChanged;
         }
 
         private void UnSubscribeSimulatorRatingController()
@@ -292,6 +300,12 @@
         {
             RefreshClassRatingOnVm();
             _ratingApplicationViewModel.ClassRating.RatingChange = e.RatingChange;
+        }
+
+        private void SimulatorRatingControllerOnClassDifficultyRatingChanged(object sender, RatingChangeArgs e)
+        {
+            RefreshClassRatingOnVm();
+            _ratingApplicationViewModel.DifficultyRating.RatingChange = e.RatingChange;
         }
 
         public bool TryGetRatingForDriverCurrentSession(string driverName, out DriversRating driversRating)

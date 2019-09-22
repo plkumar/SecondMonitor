@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using Contracts.Commands;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 
@@ -17,7 +18,10 @@
             _viewModelFactory = viewModelFactory;
             _sessionDefinitionViewModelFactory = sessionDefinitionViewModelFactory;
             SessionsDefinitions = new ObservableCollection<SessionDefinitionViewModel> {_sessionDefinitionViewModelFactory.CreateBase()};
+            AddSessionCommand = new RelayCommand(AddNewSession);
+            RemoveSessionCommand = new RelayCommand(RemoveLastSession);
             SetDefaultSessionNames();
+            RefreshCommandAvailability();
         }
 
         public bool IsAddSessionCommandEnabled
@@ -44,6 +48,25 @@
             {
                 SessionsDefinitions[i].OriginalSessionName = "Race " + (i + 1);
             }
+        }
+
+        private void AddNewSession()
+        {
+            SessionsDefinitions.Add(_sessionDefinitionViewModelFactory.CreateBase());
+            SetDefaultSessionNames();
+            RefreshCommandAvailability();
+        }
+
+        private void RemoveLastSession()
+        {
+            SessionsDefinitions.RemoveAt(SessionsDefinitions.Count -1 );
+            RefreshCommandAvailability();
+        }
+
+        private void RefreshCommandAvailability()
+        {
+            IsAddSessionCommandEnabled = SessionsDefinitions.Count < 4;
+            IsRemoveSessionCommandEnabled = SessionsDefinitions.Count > 1;
         }
     }
 }

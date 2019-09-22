@@ -68,8 +68,33 @@
             _championshipCreationViewModel.AvailableSimulators = SimulatorRatingControllerFactory.SupportedSimulators;
             _championshipCreationViewModel.ConfirmSimulatorCommand = new RelayCommand(ConfirmSimulatorSelection);
             _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.SelectPredefinedCalendarCommand = new RelayCommand(SelectPredefinedCalendar);
+            _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.RandomCalendarCommand = new RelayCommand(CreateRandomCalendar);
 
             _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+        }
+
+        private void CreateRandomCalendar()
+        {
+            Random random = new Random();
+            int randomEvents = _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.RandomEventsCount;
+            List<ExistingTrackTemplateViewModel> tracksToChooseFrom =  _championshipCreationViewModel.CalendarDefinitionViewModel.AvailableTracksViewModel.TrackTemplateViewModels.OfType<ExistingTrackTemplateViewModel>().ToList();
+            if (tracksToChooseFrom.Count == 0)
+            {
+                return;
+            }
+
+            _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.ClearCalendar();
+
+            for (int i = 0; i < randomEvents; i++)
+            {
+                int newTrackIndex = random.Next(tracksToChooseFrom.Count - 1);
+                _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.AppendNewEntry(tracksToChooseFrom[newTrackIndex]);
+                tracksToChooseFrom.RemoveAt(newTrackIndex);
+                if (tracksToChooseFrom.Count == 0)
+                {
+                    tracksToChooseFrom = _championshipCreationViewModel.CalendarDefinitionViewModel.AvailableTracksViewModel.TrackTemplateViewModels.OfType<ExistingTrackTemplateViewModel>().ToList();
+                }
+            }
         }
 
         private void SelectPredefinedCalendar()

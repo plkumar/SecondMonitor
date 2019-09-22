@@ -41,13 +41,15 @@
                         </Button>
                     </DockPanel>
                     <Grid Grid.Row="1">
-                        <ItemsControl ItemsSource="{Binding SessionsDefinitions}">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding SessionsDefinitions}" >
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <DockPanel LastChildFill="False"></DockPanel>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </DataTemplate>
@@ -96,8 +98,17 @@
                     </Border>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource LightGrey02Brush}" Margin="5,20,5,0" Padding="5">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Scoring:" Style="{StaticResource StandardText}" Margin="5"/>
-                            <StackPanel Orientation="Horizontal">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Left" Text="Scoring:" VerticalAlignment="Center" Style="{StaticResource StandardText}" Margin="5"/>
+                                <ComboBox Style="{StaticResource StandardComboBoxStyle}" Margin="20,5,5,5" ItemsSource="{Binding ScoringTemplates}" SelectedItem="{Binding SelectedScoringTemplate}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Name}"></TextBlock>
+                                            </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                </DockPanel>
+                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="1st" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center" Width="32"/>
                                 <TextBox Text="{Binding Pos1Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
                             </StackPanel>
@@ -136,6 +147,26 @@
                             <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="10th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
                                 <TextBox Text="{Binding Pos10Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="11th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
+                                <TextBox Text="{Binding Pos11Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="12th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
+                                <TextBox Text="{Binding Pos12Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="13th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
+                                <TextBox Text="{Binding Pos13Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="14th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
+                                <TextBox Text="{Binding Pos14Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="15th" Style="{StaticResource StandardText}" Margin="5" VerticalAlignment="Center"  Width="32"/>
+                                <TextBox Text="{Binding Pos15Points}" Style="{StaticResource StandardTextBox}" Width="32" Margin="5" VerticalAlignment="Center"/>
                             </StackPanel>
                             </StackPanel>
                         </Border>
