@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar.Predefined
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Common.Championship.Calendar;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
@@ -8,7 +9,7 @@
     public class PredefinedCalendarSelectionViewModel : AbstractDialogViewModel<CalendarTemplateGroup>
     {
         private readonly IViewModelFactory _viewModelFactory;
-        private IReadOnlyCollection<CalendarTemplateGroupViewModel> _treeRoot;
+        private IReadOnlyCollection<CalendarTemplateGroupViewModel> _treeRoots;
         private AbstractViewModel _selectedItem;
         private CalendarPreviewViewModel _calendarPreviewViewModel;
         private bool _autoReplaceTracks;
@@ -21,10 +22,10 @@
             _useEventNames = true;
         }
 
-        public IReadOnlyCollection<CalendarTemplateGroupViewModel> TreeRoot
+        public IReadOnlyCollection<CalendarTemplateGroupViewModel> TreeRoots
         {
-            get => _treeRoot;
-            set => SetProperty(ref _treeRoot, value);
+            get => _treeRoots;
+            set => SetProperty(ref _treeRoots, value);
         }
 
         public AbstractViewModel SelectedItem
@@ -72,9 +73,12 @@
 
         protected override void ApplyModel(CalendarTemplateGroup model)
         {
-            var treeRoot = _viewModelFactory.Create<CalendarTemplateGroupViewModel>();
-            treeRoot.FromModel(model);
-            TreeRoot = new[] {treeRoot};
+            TreeRoots = model.ChildGroups.Select(x =>
+            {
+                var newChildGroups = _viewModelFactory.Create<CalendarTemplateGroupViewModel>();
+                newChildGroups.FromModel(x);
+                return newChildGroups;
+            }).ToArray();
         }
 
         public override CalendarTemplateGroup SaveToNewModel()

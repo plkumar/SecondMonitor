@@ -1,11 +1,12 @@
 ﻿ <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:creation="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation;assembly=Rating.Application"
-                    xmlns:dd="urn:gong-wpf-dragdrop">
+                    xmlns:dd="urn:gong-wpf-dragdrop"
+                    xmlns:calendar="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar;assembly=Rating.Application">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
-            <DataTemplate DataType="{x:Type creation:AvailableTracksViewModel}">
+            <DataTemplate DataType="{x:Type calendar:AvailableTracksViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}">
                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                         <DockPanel>
@@ -14,10 +15,14 @@
                             <ListBox BorderThickness="0" Foreground="{StaticResource Anthracite01Brush}" DockPanel.Dock="Bottom"
                                              Background="{StaticResource Anthracite01Brush}"
                                              ItemsSource="{Binding TrackTemplateViewModels }" Width="350"
+                                             SelectedItem="{Binding SelectedTrackTemplateViewModel}"
                                              dd:DragDrop.IsDragSource="True">
                                     <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid >
+                                                    <Grid.InputBindings>
+                                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding UseTemplateInCalendarCommand}"></MouseBinding>
+                                                    </Grid.InputBindings>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="300"
                                                                           SharedSizeGroup="TrackTemplateGroup" />

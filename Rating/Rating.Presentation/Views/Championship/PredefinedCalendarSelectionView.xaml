@@ -48,7 +48,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0" VerticalAlignment="Top">
-                            <TreeView ItemsSource="{Binding TreeRoot}" Background="{StaticResource Anthracite01Brush}"
+                            <TreeView ItemsSource="{Binding TreeRoots}" Background="{StaticResource Anthracite01Brush}"
                                       Width="250" Height="500">
                                 <i:Interaction.Behaviors>
                                     <behaviors:BindableSelectedItemBehavior

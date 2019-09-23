@@ -69,8 +69,21 @@
             _championshipCreationViewModel.ConfirmSimulatorCommand = new RelayCommand(ConfirmSimulatorSelection);
             _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.SelectPredefinedCalendarCommand = new RelayCommand(SelectPredefinedCalendar);
             _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.RandomCalendarCommand = new RelayCommand(CreateRandomCalendar);
+            _championshipCreationViewModel.OkCommand = new RelayCommand(CreateNewChampionship);
+            _championshipCreationViewModel.CancelCommand = new RelayCommand(CancelChampionshipCreation);
 
             _dialogWindow = _windowService.OpenWindow(_championshipCreationViewModel, "New Championship", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner, DialogWindowClosed);
+        }
+
+        private void CancelChampionshipCreation()
+        {
+            _dialogWindow.Close();
+        }
+
+        private void CreateNewChampionship()
+        {
+            _championshipCreated = true;
+            _dialogWindow.Close();
         }
 
         private void CreateRandomCalendar()
@@ -125,11 +138,13 @@
 
             var allTracks = _simulatorContentController.GetAllTracksForSimulator(_selectedSimulator).OrderBy(x => x.Name);
             List<AbstractTrackTemplateViewModel> tracksTemplates = new List<AbstractTrackTemplateViewModel> {_viewModelFactory.Create<GenericTrackTemplateViewModel>()};
+            tracksTemplates[0].UseTemplateInCalendarCommand = new RelayCommand(UseTemplateInCalendar);
             foreach (Track currentTrack in allTracks)
             {
                 var newViewModel = _viewModelFactory.Create<ExistingTrackTemplateViewModel>();
                 newViewModel.TrackName = currentTrack.Name;
                 newViewModel.LayoutLengthMeters = currentTrack.LapDistance;
+                newViewModel.UseTemplateInCalendarCommand = new RelayCommand(UseTemplateInCalendar);
                 bool hasMap = _mapsLoader.TryLoadMap(_selectedSimulator, currentTrack.Name, out TrackMapDto trackMapDto);
                 if (hasMap)
                 {
@@ -139,6 +154,11 @@
             }
 
             _championshipCreationViewModel.CalendarDefinitionViewModel.AvailableTracksViewModel.TrackTemplateViewModels = tracksTemplates;
+        }
+
+        private void UseTemplateInCalendar()
+        {
+            _championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.AppendNewEntry(_championshipCreationViewModel.CalendarDefinitionViewModel.AvailableTracksViewModel.SelectedTrackTemplateViewModel);
         }
 
         private void DialogWindowClosed()

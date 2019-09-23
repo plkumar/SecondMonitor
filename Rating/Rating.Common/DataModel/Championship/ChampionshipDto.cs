@@ -8,14 +8,14 @@
     {
         public ChampionshipDto()
         {
-            SimulatorGlobalId = Guid.NewGuid();
+            ChampionshipGlobalId = Guid.NewGuid();
         }
 
         [XmlAttribute]
         public string SimulatorName { get; set; }
 
         [XmlAttribute]
-        public Guid SimulatorGlobalId { get; set; }
+        public Guid ChampionshipGlobalId { get; set; }
 
         [XmlAttribute]
         public string ChampionshipName { get; set; }
@@ -27,10 +27,13 @@
         public ChampionshipState ChampionshipState { get; set; }
 
         [XmlAttribute]
-        public int TotalRaces { get; set; }
+        public int TotalEvents { get; set; }
 
         [XmlAttribute]
-        public int CurrentRace { get; set; }
+        public int CurrentEventIndex { get; set; }
+
+        [XmlAttribute]
+        public int CurrentSessionIndex { get; set; }
 
         [XmlAttribute]
         public int Position { get; set; }
