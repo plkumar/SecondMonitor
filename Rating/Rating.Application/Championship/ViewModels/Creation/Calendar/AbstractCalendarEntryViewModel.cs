@@ -35,6 +35,8 @@
             set => SetProperty(ref _originalEventName, value, nameof(CustomEventName));
         }
 
+        public double LayoutLength { get; set; }
+
         public ICommand DeleteEntryCommand { get; set; }
 
     }

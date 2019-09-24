@@ -20,6 +20,8 @@
 
         protected AllChampionshipsDto AllChampionshipsDto => _allChampionshipDtoLazy.Value;
 
+        public event EventHandler<ChampionshipEventArgs> ChampionshipAdded;
+
         public IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos()
         {
             return AllChampionshipsDto.Championships.AsReadOnly();
@@ -32,7 +34,9 @@
 
         public void AddNewChampionship(ChampionshipDto championshipDto)
         {
-
+            AllChampionshipsDto.Championships.Add(championshipDto);
+            _championshipsRepository.Save(AllChampionshipsDto);
+            ChampionshipAdded?.Invoke(this, new ChampionshipEventArgs(championshipDto));
         }
 
         private AllChampionshipsDto LoadAllChampionshipsDto()

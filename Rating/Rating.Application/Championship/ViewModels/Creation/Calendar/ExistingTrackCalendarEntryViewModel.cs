@@ -10,8 +10,6 @@
             TrackGeometryViewModel = viewModelFactory.Create<TrackGeometryViewModel>();
         }
 
-        public double LayoutLengthMeters { get; set; }
-
         public TrackGeometryViewModel TrackGeometryViewModel { get; }
     }
 }

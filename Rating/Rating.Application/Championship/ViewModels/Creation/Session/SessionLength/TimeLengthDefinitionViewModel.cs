@@ -20,6 +20,10 @@
         }
 
         public string LengthKind => "Time";
+        public string GetTextualDescription(double layoutLength)
+        {
+            return $"{Length} {SelectedUnits}";
+        }
 
         public string[] AvailableUnits { get; }
 

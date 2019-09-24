@@ -5,5 +5,7 @@
     public interface ISessionLengthDefinitionViewModel : IViewModel
     {
         string LengthKind { get;  }
+
+        string GetTextualDescription(double layoutLength);
     }
 }

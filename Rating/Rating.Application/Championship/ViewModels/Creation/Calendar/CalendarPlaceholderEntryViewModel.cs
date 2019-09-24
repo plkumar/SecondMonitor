@@ -2,6 +2,5 @@
 {
     public class CalendarPlaceholderEntryViewModel : AbstractCalendarEntryViewModel
     {
-        public double LayoutLength { get; set; }
     }
 }

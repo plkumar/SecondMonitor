@@ -25,6 +25,7 @@
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ISimulatorContentController _simulatorContentController;
         private readonly ITrackTemplateToSimTrackMapper _trackTemplateToSimTrackMapper;
+        private readonly IChampionshipFactory _championshipFactory;
         private readonly MapsLoader _mapsLoader;
         private Window _dialogWindow;
         private Action<ChampionshipDto> _newChampionshipCallback;
@@ -33,12 +34,14 @@
         private ChampionshipCreationViewModel _championshipCreationViewModel;
         private string _selectedSimulator;
 
-        public ChampionshipCreationController(IWindowService windowService, IViewModelFactory viewModelFactory, ISimulatorContentController simulatorContentController, IMapsLoaderFactory mapsLoaderFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper )
+        public ChampionshipCreationController(IWindowService windowService, IViewModelFactory viewModelFactory, ISimulatorContentController simulatorContentController, IMapsLoaderFactory mapsLoaderFactory, ITrackTemplateToSimTrackMapper trackTemplateToSimTrackMapper,
+             IChampionshipFactory championshipFactory)
         {
             _windowService = windowService;
             _viewModelFactory = viewModelFactory;
             _simulatorContentController = simulatorContentController;
             _trackTemplateToSimTrackMapper = trackTemplateToSimTrackMapper;
+            _championshipFactory = championshipFactory;
             _mapsLoader = mapsLoaderFactory.Create();
         }
 
@@ -83,7 +86,9 @@
         private void CreateNewChampionship()
         {
             _championshipCreated = true;
-            _dialogWindow.Close();
+            ChampionshipDto newChampionshipDto = _championshipFactory.Create(_championshipCreationViewModel);
+            _newChampionshipCallback(newChampionshipDto);
+            //_dialogWindow.Close();
         }
 
         private void CreateRandomCalendar()

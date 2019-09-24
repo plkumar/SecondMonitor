@@ -35,7 +35,7 @@
                     newEntry.TrackGeometryViewModel.FromModel(existingTrackTemplateViewModel.TrackGeometryViewModel.OriginalModel);
                 }
 
-                newEntry.LayoutLengthMeters = existingTrackTemplateViewModel.LayoutLengthMeters;
+                newEntry.LayoutLength = existingTrackTemplateViewModel.LayoutLengthMeters;
                 return newEntry;
             }
 

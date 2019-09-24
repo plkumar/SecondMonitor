@@ -86,6 +86,8 @@
             Bind<ICalendarEntryViewModelFactory>().To<CalendarEntryViewModelFactory>();
             Bind<ISessionDefinitionViewModelFactory>().To<SessionDefinitionViewModelFactory>();
 
+            Bind<IChampionshipFactory>().To<ChampionshipFactory>();
+
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using Common.DataModel.Championship;
+    using DataModel.Extensions;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 
@@ -14,11 +16,12 @@
         private ICommand _deleteSelectedCommand;
         private ICommand _openSelectedCommand;
         private ChampionshipOverviewViewModel _selectedChampionship;
-        private IReadOnlyCollection<ChampionshipOverviewViewModel> _allChampionships;
+        private ObservableCollection<ChampionshipOverviewViewModel> _allChampionships;
 
         public ChampionshipsOverviewViewModel(IViewModelFactory viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
+            AllChampionships = new ObservableCollection<ChampionshipOverviewViewModel>();
         }
 
         public ICommand CreateNewCommand
@@ -45,7 +48,7 @@
             set => SetProperty(ref _selectedChampionship, value);
         }
 
-        public IReadOnlyCollection<ChampionshipOverviewViewModel> AllChampionships
+        public ObservableCollection<ChampionshipOverviewViewModel> AllChampionships
         {
             get => _allChampionships;
             set => SetProperty(ref _allChampionships, value);
@@ -53,17 +56,28 @@
 
         protected override void ApplyModel(IEnumerable<ChampionshipDto> model)
         {
-            AllChampionships = model.OrderBy(x => x.ChampionshipState).Select(x =>
-            {
-                var newViewModel = _viewModelFactory.Create<ChampionshipOverviewViewModel>();
-                newViewModel.FromModel(x);
-                return newViewModel;
-            }).ToList();
+            AllChampionships.Clear();
+            model.OrderBy(x => x.ChampionshipState).ForEach(AddChampionship);
+
         }
 
         public override IEnumerable<ChampionshipDto> SaveToNewModel()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void InsertChampionshipFirst(ChampionshipDto championshipDto)
+        {
+            var newViewModel = _viewModelFactory.Create<ChampionshipOverviewViewModel>();
+            newViewModel.FromModel(championshipDto);
+            AllChampionships.Insert(0, newViewModel);
+        }
+
+        private void AddChampionship(ChampionshipDto championshipDto)
+        {
+            var newViewModel = _viewModelFactory.Create<ChampionshipOverviewViewModel>();
+            newViewModel.FromModel(championshipDto);
+            AllChampionships.Add(newViewModel);
         }
     }
 }

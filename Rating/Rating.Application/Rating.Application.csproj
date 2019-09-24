@@ -64,12 +64,15 @@
   <ItemGroup>
     <Compile Include="Championship\Controller\ChampionshipController.cs" />
     <Compile Include="Championship\Controller\ChampionshipCreationController.cs" />
+    <Compile Include="Championship\Controller\ChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\ChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipController.cs" />
+    <Compile Include="Championship\Controller\IChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\IChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipCreationController.cs" />
     <Compile Include="Championship\Controller\ITrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Controller\TrackTemplateToSimTrackMapper.cs" />
+    <Compile Include="Championship\Pool\ChampionshipEventArgs.cs" />
     <Compile Include="Championship\Pool\ChampionshipsPool.cs" />
     <Compile Include="Championship\Pool\IChampionshipsPool.cs" />
     <Compile Include="Championship\Repository\ChampionshipRepositoryTest.cs" />

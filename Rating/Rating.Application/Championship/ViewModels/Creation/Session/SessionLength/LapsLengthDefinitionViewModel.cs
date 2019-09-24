@@ -12,6 +12,10 @@
         }
 
         public string LengthKind => "Laps";
+        public string GetTextualDescription(double layoutLength)
+        {
+            return $"{Laps} Laps";
+        }
 
         public int Laps
         {

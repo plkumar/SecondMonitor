@@ -1,7 +1,9 @@
 ﻿namespace SecondMonitor.Rating.Common.DataModel.Championship
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
+    using TrackMapping;
 
     [Serializable]
     public class ChampionshipDto
@@ -9,7 +11,10 @@
         public ChampionshipDto()
         {
             ChampionshipGlobalId = Guid.NewGuid();
+            Events = new List<EventDto>();
         }
+
+        public List<EventDto> Events { get; set; }
 
         [XmlAttribute]
         public string SimulatorName { get; set; }

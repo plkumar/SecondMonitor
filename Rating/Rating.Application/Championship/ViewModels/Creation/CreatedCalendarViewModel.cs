@@ -70,13 +70,13 @@
 
         public void ApplyCalendarTemplate(CalendarTemplate calendarTemplate, bool useCalendarEventNames, bool autoReplaceKnownTracks)
         {
-            ObservableCollection<AbstractCalendarEntryViewModel> newCalendarEntries = new ObservableCollection<AbstractCalendarEntryViewModel>(calendarTemplate.Events.Select(x =>
+            CalendarEntries.Clear();
+            foreach (EventTemplate calendarTemplateEvent in calendarTemplate.Events)
             {
-                var newEntry = _calendarEntryViewModelFactory.Create(x, SimulatorName, useCalendarEventNames, autoReplaceKnownTracks);
+                var newEntry = _calendarEntryViewModelFactory.Create(calendarTemplateEvent, SimulatorName, useCalendarEventNames, autoReplaceKnownTracks);
                 newEntry.DeleteEntryCommand = new RelayCommand(() => DeleteCalendarEntry(newEntry));
-                return newEntry;
-            }));
-            CalendarEntries = newCalendarEntries;
+                CalendarEntries.Add(newEntry);
+            }
             RecalculateEventNumbers();
         }
 

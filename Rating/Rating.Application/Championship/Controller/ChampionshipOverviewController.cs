@@ -18,6 +18,7 @@
         private readonly IWindowService _windowService;
         private IChampionshipCreationController _championshipCreationController;
         private Window _overviewWindow;
+        private ChampionshipsOverviewViewModel _championshipOverviewViewModel;
 
         public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService)
         {
@@ -29,11 +30,18 @@
 
         public Task StartControllerAsync()
         {
+            _championshipsPool.ChampionshipAdded += ChampionshipsPoolOnChampionshipAdded;
             return Task.CompletedTask;
+        }
+
+        private void ChampionshipsPoolOnChampionshipAdded(object sender, ChampionshipEventArgs e)
+        {
+            _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
         }
 
         public Task StopControllerAsync()
         {
+            _championshipsPool.ChampionshipAdded -= ChampionshipsPoolOnChampionshipAdded;
             return Task.CompletedTask;
         }
 
@@ -45,10 +53,10 @@
                 return;
             }
 
-            var overviewViewModel = _viewModelFactory.Create<ChampionshipsOverviewViewModel>();
-            overviewViewModel.CreateNewCommand = new AsyncCommand(CreateNewChampionship);
-            overviewViewModel.FromModel(_championshipsPool.GetAllChampionshipDtos());
-            _overviewWindow = _windowService.OpenWindow(overviewViewModel, "All Championships", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, WindowClosed);
+            _championshipOverviewViewModel = _viewModelFactory.Create<ChampionshipsOverviewViewModel>();
+            _championshipOverviewViewModel.CreateNewCommand = new AsyncCommand(CreateNewChampionship);
+            _championshipOverviewViewModel.FromModel(_championshipsPool.GetAllChampionshipDtos());
+            _overviewWindow = _windowService.OpenWindow(_championshipOverviewViewModel, "All Championships", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, WindowClosed);
         }
 
         private async Task CreateNewChampionship()
@@ -79,12 +87,11 @@
 
         private async void WindowClosed()
         {
-            if (_overviewWindow.Content is ChampionshipsOverviewViewModel championshipsOverviewViewModel)
-            {
-                championshipsOverviewViewModel.CreateNewCommand = null;
-                championshipsOverviewViewModel.OpenSelectedCommand = null;
-                championshipsOverviewViewModel.DeleteSelectedCommand = null;
-            }
+           _championshipOverviewViewModel.CreateNewCommand = null;
+           _championshipOverviewViewModel.OpenSelectedCommand = null;
+           _championshipOverviewViewModel.DeleteSelectedCommand = null;
+
+           _championshipOverviewViewModel = null;
 
             if (_championshipCreationController != null)
             {
