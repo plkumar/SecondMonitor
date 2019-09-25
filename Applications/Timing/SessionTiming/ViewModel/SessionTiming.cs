@@ -257,20 +257,23 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             switch (completedSector.SectorNumber)
             {
                 case 1:
-                    if ((BestSector1 == null || BestSector1 > completedSector) && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector1 == null || BestSector1 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
+                        Logger.Info($"New Best Sector 1, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
                         BestSector1 = completedSector;
                     }
                     break;
                 case 2:
-                    if ((BestSector2 == null || BestSector2 > completedSector) && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector2 == null || BestSector2 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
+                        Logger.Info($"New Best Sector 2, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
                         BestSector2 = completedSector;
                     }
                     break;
                 case 3:
-                    if ((BestSector3 == null || BestSector3 > completedSector) && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector3 == null || BestSector3 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
+                        Logger.Info($"New Best Sector 3, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
                         BestSector3 = completedSector;
                     }
                     break;
