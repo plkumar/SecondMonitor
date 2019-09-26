@@ -239,7 +239,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                 BestSessionLap = lapEventArgs.Lap;
             }
 
-            if (lapEventArgs.Lap.Driver.IsPlayer)
+            if (lapEventArgs.Lap.Driver.IsPlayer && Player != null)
             {
                 Player.IsLastLapTrackRecord = _trackRecordsController.EvaluateFastestLapCandidate(lapEventArgs.Lap);
             }
