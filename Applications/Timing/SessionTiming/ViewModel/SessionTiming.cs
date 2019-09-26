@@ -20,7 +20,6 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using NLog;
     using Rating.Application.Rating.RatingProvider;
     using Rating.Common.DataModel.Player;
-    using SimdataManagement.DriverPresentation;
     using Telemetry;
     using TrackRecords.Controller;
 
@@ -260,6 +259,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                     if ((BestSector1 == null || BestSector1 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
                         Logger.Info($"New Best Sector 1, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
+                        Logger.Info(BestSector1 == null ? "Previous Sector Time was NULL" : $"Previous sector time {BestSector1.Duration.TotalSeconds}");
                         BestSector1 = completedSector;
                     }
                     break;
@@ -267,6 +267,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                     if ((BestSector2 == null || BestSector2 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
                         Logger.Info($"New Best Sector 2, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
+                        Logger.Info(BestSector2 == null ? "Previous Sector Time was NULL" : $"Previous sector time {BestSector2.Duration.TotalSeconds}");
                         BestSector2 = completedSector;
                     }
                     break;
@@ -274,6 +275,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                     if ((BestSector3 == null || BestSector3 > completedSector) && completedSector.Duration > TimeSpan.Zero)
                     {
                         Logger.Info($"New Best Sector 3, By Driver {completedSector.Lap.Driver.Name}. Sector Time: {completedSector.Duration.TotalSeconds} ");
+                        Logger.Info(BestSector3 == null ? "Previous Sector Time was NULL" : $"Previous sector time {BestSector3.Duration.TotalSeconds}");
                         BestSector3 = completedSector;
                     }
                     break;
