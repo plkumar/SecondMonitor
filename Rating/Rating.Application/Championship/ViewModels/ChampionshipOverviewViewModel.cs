@@ -23,7 +23,7 @@
         protected override void ApplyModel(ChampionshipDto model)
         {
             Name = model.ChampionshipName;
-            Progress = string.IsNullOrEmpty(model.NextTrack) ? "Completed" : "Next Race: " + model.CurrentEventIndex + "/" + model.TotalEvents + " " + model.NextTrack;
+            Progress = string.IsNullOrEmpty(model.NextTrack) ? "Completed" : "Next Race: " + model.CompletedRaces + "/" + model.TotalEvents + " " + model.NextTrack;
             Position = model.Position == 0 ?  "-" : "Pos: " + model.Position + "/" + model.TotalDrivers;
             NextTrack = model.NextTrack;
             Simulator = model.SimulatorName;

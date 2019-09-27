@@ -3,11 +3,15 @@
     using System;
     using System.IO;
     using System.Xml.Serialization;
+    using NLog;
 
     public abstract class AbstractXmlRepository<T> : IAbstractXmlRepository<T> where T : class, new()
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly object _lockObject = new  object();
         private readonly XmlSerializer _xmlSerializer;
+
 
         protected AbstractXmlRepository()
         {
@@ -46,6 +50,7 @@
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error(ex, "Error while loading file");
                     return new T();
                 }
             }

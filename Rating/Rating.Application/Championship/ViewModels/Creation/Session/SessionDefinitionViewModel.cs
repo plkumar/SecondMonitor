@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Session
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common.Championship.Scoring.Templates;
@@ -137,6 +138,8 @@
             get => _points[14];
             set => SetProperty(ref _points[14], value);
         }
+
+        public int[] Scoring => _points;
 
 
         public string OriginalSessionName

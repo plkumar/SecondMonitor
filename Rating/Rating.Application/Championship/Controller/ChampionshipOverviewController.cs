@@ -16,22 +16,30 @@
         private readonly IChildControllerFactory _childControllerFactory;
         private readonly IChampionshipsPool _championshipsPool;
         private readonly IWindowService _windowService;
+        private readonly IDialogService _dialogService;
         private IChampionshipCreationController _championshipCreationController;
         private Window _overviewWindow;
         private ChampionshipsOverviewViewModel _championshipOverviewViewModel;
 
-        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService)
+        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService, IDialogService dialogService)
         {
             _viewModelFactory = viewModelFactory;
             _childControllerFactory = childControllerFactory;
             _championshipsPool = championshipsPool;
             _windowService = windowService;
+            _dialogService = dialogService;
         }
 
         public Task StartControllerAsync()
         {
             _championshipsPool.ChampionshipAdded += ChampionshipsPoolOnChampionshipAdded;
+            _championshipsPool.ChampionshipRemoved += ChampionshipsPoolOnChampionshipRemoved;
             return Task.CompletedTask;
+        }
+
+        private void ChampionshipsPoolOnChampionshipRemoved(object sender, ChampionshipEventArgs e)
+        {
+            _championshipOverviewViewModel.RemoveChampionship(e.ChampionshipDto);
         }
 
         private void ChampionshipsPoolOnChampionshipAdded(object sender, ChampionshipEventArgs e)
@@ -42,6 +50,7 @@
         public Task StopControllerAsync()
         {
             _championshipsPool.ChampionshipAdded -= ChampionshipsPoolOnChampionshipAdded;
+            _championshipsPool.ChampionshipRemoved -= ChampionshipsPoolOnChampionshipRemoved;
             return Task.CompletedTask;
         }
 
@@ -55,8 +64,24 @@
 
             _championshipOverviewViewModel = _viewModelFactory.Create<ChampionshipsOverviewViewModel>();
             _championshipOverviewViewModel.CreateNewCommand = new AsyncCommand(CreateNewChampionship);
+            _championshipOverviewViewModel.RemoveSelectedCommand = new RelayCommand(RemoveSelectedChampionship);
             _championshipOverviewViewModel.FromModel(_championshipsPool.GetAllChampionshipDtos());
             _overviewWindow = _windowService.OpenWindow(_championshipOverviewViewModel, "All Championships", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, WindowClosed);
+        }
+
+        private void RemoveSelectedChampionship()
+        {
+            if (_championshipOverviewViewModel.SelectedChampionship == null)
+            {
+                return;
+            }
+
+            if (!_dialogService.ShowYesNoDialog("Confirmation", "Remove Selected Championship?"))
+            {
+                return;
+            }
+
+            _championshipsPool.RemoveChampionship(_championshipOverviewViewModel.SelectedChampionship.OriginalModel);
         }
 
         private async Task CreateNewChampionship()

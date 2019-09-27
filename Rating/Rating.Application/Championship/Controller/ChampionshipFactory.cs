@@ -17,9 +17,11 @@
                 ChampionshipState = ChampionshipState.NotStarted,
                 SimulatorName = championshipCreationViewModel.SelectedSimulator,
                 ChampionshipName = championshipCreationViewModel.ChampionshipTitle,
+                AiNamesCanChange = championshipCreationViewModel.AiNamesCanChange
             };
 
             FillEvents(championship, championshipCreationViewModel);
+            FillScoring(championship, championshipCreationViewModel);
             championship.NextTrack = championship.Events[0].TrackName;
             championship.TotalEvents = championship.Events.Count * championship.Events[0].Sessions.Count;
             return championship;
@@ -29,6 +31,14 @@
         {
             List<SessionDefinitionViewModel> sessionDefinitionViewModels = championshipCreationViewModel.SessionsDefinitionViewModel.SessionsDefinitions.ToList();
             championshipDto.Events = championshipCreationViewModel.CalendarDefinitionViewModel.CalendarViewModel.CalendarEntries.Select(x => CreateEvent(x, sessionDefinitionViewModels)).ToList();
+        }
+
+        public void FillScoring(ChampionshipDto championshipDto, ChampionshipCreationViewModel championshipCreationViewModel)
+        {
+            championshipDto.Scoring = championshipCreationViewModel.SessionsDefinitionViewModel.SessionsDefinitions.Select(x => new ScoringDto()
+            {
+                Scoring = x.Scoring.ToList(),
+            }).ToList();
         }
 
         private EventDto CreateEvent(AbstractCalendarEntryViewModel calendarEntry, List<SessionDefinitionViewModel> sessionDefinitions)

@@ -72,7 +72,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox MinWidth="30" Margin="5" Style="{StaticResource StandardTextBox}" VerticalAlignment="Center" Text="{Binding Length, Converter={StaticResource NonNegativeIntToStringConverter}}"/>
                     <ComboBox Width="100" Style="{StaticResource StandardComboBoxStyle}" VerticalAlignment="Center" ItemsSource="{Binding AvailableUnits }" SelectedItem="{Binding SelectedUnits}"/>
-                    <CheckBox Content="Extra Lap" Margin="10,5,5,5" VerticalAlignment="Center" Foreground="{StaticResource LightGrey01Brush}"></CheckBox>
+                    <CheckBox Content="Extra Lap" Margin="10,5,5,5" VerticalAlignment="Center" Foreground="{StaticResource LightGrey01Brush}" IsChecked="{Binding ExtraLap}"></CheckBox>
                 </StackPanel>
             </DataTemplate>
 

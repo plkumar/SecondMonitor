@@ -5,8 +5,6 @@
 
     public class TimeLengthDefinitionViewModel : AbstractViewModel, ISessionLengthDefinitionViewModel
     {
-
-
         private int _length;
         private bool _extraLap;
         private string _selectedUnits;
@@ -22,7 +20,13 @@
         public string LengthKind => "Time";
         public string GetTextualDescription(double layoutLength)
         {
-            return $"{Length} {SelectedUnits}";
+            string description = $"{Length} {SelectedUnits}";
+            if (ExtraLap)
+            {
+                description += ", plus one lap";
+            }
+
+            return description;
         }
 
         public string[] AvailableUnits { get; }

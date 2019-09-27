@@ -6,12 +6,28 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type viewModels:NextRaceOverviewViewModel}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource StandardText}"
+                               Text="Please use these settings for the next race:"
+                               FontSize="{StaticResource BigFontSize}" Margin="10" />
+                    <ItemsControl ItemsSource="{Binding TextualRequirements}" Margin="15,0,0,10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="5" Style="{StaticResource StandardText}" Text="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModels:ChampionshipsOverviewViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         HorizontalAlignment="Center"
@@ -26,7 +42,7 @@
                         </Grid.ColumnDefinitions>
                         <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0">
                             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-                            <ListBox Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource Anthracite01Brush}"  ItemsSource="{Binding AllChampionships}" Grid.IsSharedSizeScope="True" Height="400">
+                            <ListBox Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource Anthracite01Brush}" MinWidth="800" SelectedItem="{Binding SelectedChampionship}"  ItemsSource="{Binding AllChampionships}" Grid.IsSharedSizeScope="True" Height="400">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="viewModels:ChampionshipOverviewViewModel">
                                         <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
@@ -34,7 +50,7 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="48"/>
                                                     <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="48"/>
+                                                    <ColumnDefinition Width="92"/>
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ChampPosSharedWidth"/>
                                                     <ColumnDefinition Width="Auto" SharedSizeGroup="ChampNameSharedWidth"/>
                                                     <ColumnDefinition Width="Auto"/>
@@ -81,10 +97,22 @@
                                         </wpf:ColorAbleIcon>
                                     </Button.Content>
                                 </Button>
+                                <Button Width="48" Command="{Binding RemoveSelectedCommand}"
+                                        Style="{StaticResource StandardButton}"
+                                        ToolTip="Remove Selected Championship.">
+                                    <Button.Content>
+                                        <wpf:ColorAbleIcon StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                            <ContentPresenter Content="{StaticResource MinusIcon}" />
+                                        </wpf:ColorAbleIcon>
+                                    </Button.Content>
+                                </Button>
 
                             </StackPanel>
                         </Border>
                     </Grid>
+                    <Border Grid.Row="3" BorderThickness="1" BorderBrush="{StaticResource LightGrey01Brush}">
+                        <ContentPresenter Content="{Binding NextRaceOverviewViewModel}"/>
+                    </Border>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>

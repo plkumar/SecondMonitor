@@ -5,7 +5,9 @@
     using System.Linq;
     using System.Windows.Input;
     using Common.DataModel.Championship;
+    using Contracts.Commands;
     using DataModel.Extensions;
+    using IconState;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 
@@ -22,7 +24,11 @@
         {
             _viewModelFactory = viewModelFactory;
             AllChampionships = new ObservableCollection<ChampionshipOverviewViewModel>();
+            NextRaceOverviewViewModel = viewModelFactory.Create<NextRaceOverviewViewModel>();
+
         }
+
+        public NextRaceOverviewViewModel NextRaceOverviewViewModel { get; }
 
         public ICommand CreateNewCommand
         {
@@ -45,7 +51,11 @@
         public ChampionshipOverviewViewModel SelectedChampionship
         {
             get => _selectedChampionship;
-            set => SetProperty(ref _selectedChampionship, value);
+            set
+            {
+                SetProperty(ref _selectedChampionship, value);
+                NextRaceOverviewViewModel.FromModel(value?.OriginalModel);
+            }
         }
 
         public ObservableCollection<ChampionshipOverviewViewModel> AllChampionships
@@ -54,10 +64,13 @@
             set => SetProperty(ref _allChampionships, value);
         }
 
+        public ICommand RemoveSelectedCommand { get; set; }
+
         protected override void ApplyModel(IEnumerable<ChampionshipDto> model)
         {
             AllChampionships.Clear();
             model.OrderBy(x => x.ChampionshipState).ForEach(AddChampionship);
+            SelectedChampionship = AllChampionships.FirstOrDefault();
 
         }
 
@@ -78,6 +91,12 @@
             var newViewModel = _viewModelFactory.Create<ChampionshipOverviewViewModel>();
             newViewModel.FromModel(championshipDto);
             AllChampionships.Add(newViewModel);
+        }
+
+        public void RemoveChampionship(ChampionshipDto championshipDto)
+        {
+            List<ChampionshipOverviewViewModel> toRemove = AllChampionships.Where(x => x.OriginalModel.ChampionshipGlobalId == championshipDto.ChampionshipGlobalId).ToList();
+            toRemove.ForEach(x => AllChampionships.Remove(x));
         }
     }
 }

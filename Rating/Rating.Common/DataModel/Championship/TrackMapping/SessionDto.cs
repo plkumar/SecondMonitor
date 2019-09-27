@@ -6,5 +6,6 @@
     {
         [XmlAttribute]
         public string DistanceDescription { get; set; }
+
     }
 }

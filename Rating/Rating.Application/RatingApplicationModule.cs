@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application
 {
     using Championship.Controller;
+    using Championship.Filters;
     using Championship.Pool;
     using Championship.Repository;
     using Championship.ViewModels;
@@ -55,7 +56,7 @@
             Bind<ITrackTemplateToSimTrackMapper>().To<TrackTemplateToSimTrackMapper>().InSingletonScope();
 
             Bind<IChampionshipController>().To<ChampionshipController>();
-            Bind<IChampionshipsRepository>().To<ChampionshipRepositoryTest>().InSingletonScope();
+            Bind<IChampionshipsRepository>().To<ChampionshipFileRepository>().InSingletonScope();
             Bind<IChampionshipOverviewController>().To<ChampionshipOverviewController>();
             Bind<IChampionshipsPool>().To<ChampionshipsPool>().InSingletonScope();
             Bind<IChampionshipCreationController>().To<ChampionshipCreationController>();
@@ -73,6 +74,8 @@
             Bind<CalendarPlaceholderEntryViewModel>().ToSelf();
             Bind<CalendarPreviewViewModel>().ToSelf();
 
+            Bind<NextRaceOverviewViewModel>().ToSelf();
+
             Bind<CalendarTemplateGroupViewModel>().ToSelf();
             Bind<CalendarTemplateViewModel>().ToSelf();
             Bind<PredefinedCalendarSelectionViewModel>().ToSelf();
@@ -87,6 +90,12 @@
             Bind<ISessionDefinitionViewModelFactory>().To<SessionDefinitionViewModelFactory>();
 
             Bind<IChampionshipFactory>().To<ChampionshipFactory>();
+
+            Bind<IChampionshipRaceRequirement>().To<SimulatorRequirement>();
+            Bind<IChampionshipRaceRequirement>().To<CarClassRequirement>();
+            Bind<IChampionshipRaceRequirement>().To<TrackRequirement>();
+            Bind<IChampionshipRaceRequirement>().To<DistanceRequirement>();
+            Bind<IChampionshipRaceRequirement>().To<OpponentsRequirements>();
 
         }
     }

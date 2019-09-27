@@ -72,9 +72,16 @@
     <Compile Include="Championship\Controller\IChampionshipCreationController.cs" />
     <Compile Include="Championship\Controller\ITrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Controller\TrackTemplateToSimTrackMapper.cs" />
+    <Compile Include="Championship\Filters\CarClassRequirement.cs" />
+    <Compile Include="Championship\Filters\DistanceRequirement.cs" />
+    <Compile Include="Championship\Filters\IChampionshipRaceRequirement.cs" />
+    <Compile Include="Championship\Filters\OpponentsRequirements.cs" />
+    <Compile Include="Championship\Filters\SimulatorRequirement.cs" />
+    <Compile Include="Championship\Filters\TrackRequirement.cs" />
     <Compile Include="Championship\Pool\ChampionshipEventArgs.cs" />
     <Compile Include="Championship\Pool\ChampionshipsPool.cs" />
     <Compile Include="Championship\Pool\IChampionshipsPool.cs" />
+    <Compile Include="Championship\Repository\ChampionshipFileRepository.cs" />
     <Compile Include="Championship\Repository\ChampionshipRepositoryTest.cs" />
     <Compile Include="Championship\Repository\IChampionshipsRepository.cs" />
     <Compile Include="Championship\Repository\ISimulatorsTrackMappingRepository.cs" />
@@ -109,6 +116,7 @@
     <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\LapsLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\TimeLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionsDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\NextRaceOverviewViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />

@@ -12,6 +12,7 @@
         {
             ChampionshipGlobalId = Guid.NewGuid();
             Events = new List<EventDto>();
+            Scoring = new List<ScoringDto>();
         }
 
         public List<EventDto> Events { get; set; }
@@ -48,5 +49,13 @@
 
         [XmlAttribute]
         public string ClassName { get; set; }
+
+        [XmlAttribute]
+        public bool AiNamesCanChange { get; set; }
+
+        public List<ScoringDto> Scoring { get; set; }
+
+        [XmlIgnore]
+        public int CompletedRaces => CurrentEventIndex * Events[0].Sessions.Count + CurrentSessionIndex + 1;
     }
 }

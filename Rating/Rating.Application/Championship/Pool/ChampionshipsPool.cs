@@ -21,6 +21,7 @@
         protected AllChampionshipsDto AllChampionshipsDto => _allChampionshipDtoLazy.Value;
 
         public event EventHandler<ChampionshipEventArgs> ChampionshipAdded;
+        public event EventHandler<ChampionshipEventArgs> ChampionshipRemoved;
 
         public IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos()
         {
@@ -37,6 +38,13 @@
             AllChampionshipsDto.Championships.Add(championshipDto);
             _championshipsRepository.Save(AllChampionshipsDto);
             ChampionshipAdded?.Invoke(this, new ChampionshipEventArgs(championshipDto));
+        }
+
+        public void RemoveChampionship(ChampionshipDto championshipDto)
+        {
+            AllChampionshipsDto.Championships.RemoveAll(x => x.ChampionshipGlobalId == championshipDto.ChampionshipGlobalId);
+            _championshipsRepository.Save(AllChampionshipsDto);
+            ChampionshipRemoved?.Invoke(this, new ChampionshipEventArgs(championshipDto));
         }
 
         private AllChampionshipsDto LoadAllChampionshipsDto()
