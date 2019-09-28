@@ -137,6 +137,10 @@
     <Compile Include="RaceSuggestion\RaceSuggestionViewModel.cs" />
     <Compile Include="Repository\AbstractXMLRepository.cs" />
     <Compile Include="Repository\IAbstractXmlRepository.cs" />
+    <Compile Include="SessionEvents\DataSetArgs.cs" />
+    <Compile Include="SessionEvents\DriversArgs.cs" />
+    <Compile Include="SessionEvents\ISessionEventProvider.cs" />
+    <Compile Include="SessionEvents\SessionEventProvider.cs" />
     <Compile Include="Settings\AppDataSettingsProvider.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Settings\Model\ColumnSettings.cs" />

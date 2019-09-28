@@ -6,6 +6,7 @@
     using Ninject.Modules;
     using PluginsSettings;
     using RaceSuggestion;
+    using SessionEvents;
     using Settings;
     using SimulatorContent;
     using SplashScreen;
@@ -45,6 +46,8 @@
             Bind<ResultsStageViewModel>().ToSelf();
             Bind<SplashScreenViewModel>().ToSelf();
             Bind<TrackGeometryViewModel>().ToSelf();
+
+            Bind<ISessionEventProvider>().To<SessionEventProvider>().InSingletonScope();
 
             Bind<YesNoDialogViewModel>().ToSelf();
         }

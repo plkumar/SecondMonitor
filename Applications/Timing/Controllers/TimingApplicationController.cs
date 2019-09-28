@@ -62,6 +62,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ISimulatorContentController _simulatorContentController;
         private readonly ITrackRecordsController _trackRecordsController;
         private readonly IChampionshipController _championshipController;
+        private readonly ISessionEventsController _sessionEventsController;
         private Window _splashScreen;
 
         public TimingApplicationController()
@@ -73,6 +74,7 @@ namespace SecondMonitor.Timing.Controllers
             _simulatorContentController = _kernelWrapper.Get<ISimulatorContentController>();
             _trackRecordsController = _kernelWrapper.Get<ITrackRecordsController>();
             _championshipController = _kernelWrapper.Get<IChampionshipController>();
+            _sessionEventsController = _kernelWrapper.Get<ISessionEventsController>();
         }
 
         public PluginsManager PluginManager
@@ -160,6 +162,7 @@ namespace SecondMonitor.Timing.Controllers
         {
             await _ratingApplicationController.StartControllerAsync();
             await _championshipController.StartControllerAsync();
+            await _sessionEventsController.StartControllerAsync();
         }
 
         private void CreateReportsController()
@@ -180,6 +183,8 @@ namespace SecondMonitor.Timing.Controllers
 
         private void OnSessionStarted(object sender, DataEventArgs e)
         {
+            _sessionEventsController.Reset();
+            _sessionEventsController.Visit(e.Data);
             _ratingApplicationController.NotifyDataLoaded(e.Data);
             _trackRecordsController.OnSessionStarted(e.Data);
             _timingDataViewModel?.StartNewSession(e.Data);
@@ -190,6 +195,7 @@ namespace SecondMonitor.Timing.Controllers
             SimulatorDataSet dataSet = e.Data;
             try
             {
+                _sessionEventsController.Visit(dataSet);
                 await _ratingApplicationController.NotifyDataLoaded(dataSet);
                 _simSettingController?.ApplySimSettings(dataSet);
                 _simulatorContentController.Visit(dataSet);
@@ -238,6 +244,7 @@ namespace SecondMonitor.Timing.Controllers
         {
             await _ratingApplicationController.StopControllerAsync();
             await _championshipController.StopControllerAsync();
+            await _sessionEventsController.StopControllerAsync();
             _displaySettingsViewModel.WindowLocationSetting = new WindowLocationSetting()
             {
                 Left = _timingGui.Left,

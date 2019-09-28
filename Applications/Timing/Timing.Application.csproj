@@ -101,7 +101,9 @@
       <DependentUpon>CarSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CarSettings\CarSettingsWindowViewModel.cs" />
+    <Compile Include="Controllers\ISessionEventsController.cs" />
     <Compile Include="Controllers\MapManagementController.cs" />
+    <Compile Include="Controllers\SessionEventsController.cs" />
     <Compile Include="Controllers\SimSettingController.cs" />
     <Compile Include="Controllers\TimingApplicationController.cs" />
     <Compile Include="LapTimings\ViewModel\DriverLapsWindowManager.cs" />

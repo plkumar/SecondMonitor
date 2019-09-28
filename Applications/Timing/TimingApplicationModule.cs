@@ -2,7 +2,6 @@
 {
     using Controllers;
     using Ninject.Modules;
-    using TrackRecords;
     using TrackRecords.Controller;
 
     public class TimingApplicationModule : NinjectModule
@@ -12,6 +11,7 @@
             Bind<ITrackRecordsRepositoryFactory>().To<TrackRecordsRepositoryFactory>();
             Bind<ITrackRecordsController>().To<TrackRecordsController>().InSingletonScope();
             Bind<MapManagementController>().ToSelf().InSingletonScope();
+            Bind<ISessionEventsController>().To<SessionEventsController>();
         }
     }
 }
