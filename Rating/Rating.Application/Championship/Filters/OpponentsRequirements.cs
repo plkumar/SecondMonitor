@@ -1,6 +1,9 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Filters
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Common.DataModel.Championship;
+    using DataModel.Snapshot;
 
     public class OpponentsRequirements : IChampionshipRaceRequirement
     {
@@ -12,6 +15,25 @@
             }
 
             return string.Empty;
+        }
+
+        public RequirementResultKind Evaluate(ChampionshipDto championshipDto, SimulatorDataSet dataSet)
+        {
+            if (championshipDto.ChampionshipState == ChampionshipState.NotStarted)
+            {
+                return RequirementResultKind.CanMatch;
+            }
+
+            List<string> filteredDrivers = dataSet.DriversInfo.Where(x => x.CarClassId == dataSet.PlayerInfo.CarClassId).Select(x => x.DriverName).ToList();
+
+            if (championshipDto.AiNamesCanChange)
+            {
+                return championshipDto.Drivers.Count == filteredDrivers.Count ? RequirementResultKind.PerfectMatch : RequirementResultKind.DoesNotMatch;
+            }
+
+            return filteredDrivers.All(x => championshipDto.Drivers.Any(y => y.LastUsedName == x)) ? RequirementResultKind.PerfectMatch : RequirementResultKind.DoesNotMatch;
+
+
         }
     }
 }

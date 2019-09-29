@@ -4,7 +4,7 @@
     using Common.DataModel.Championship;
     using SecondMonitor.ViewModels.Controllers;
 
-    public interface IChampionshipCreationController : IController
+    public interface IChampionshipCreationController : IChildController<IChampionshipOverviewController>
     {
         void TryFocusCreationWindow();
         void OpenChampionshipCreationDialog(Action<ChampionshipDto> newChampionshipCallback, Action cancellationCallback);

@@ -10,7 +10,7 @@
     using SecondMonitor.ViewModels.Factory;
     using ViewModels;
 
-    public class ChampionshipOverviewController : IChampionshipOverviewController
+    public class ChampionshipOverviewController : AbstractChildController<IChampionshipController>, IChampionshipOverviewController
     {
         private readonly IViewModelFactory _viewModelFactory;
         private readonly IChildControllerFactory _childControllerFactory;
@@ -30,7 +30,7 @@
             _dialogService = dialogService;
         }
 
-        public Task StartControllerAsync()
+        public override Task StartControllerAsync()
         {
             _championshipsPool.ChampionshipAdded += ChampionshipsPoolOnChampionshipAdded;
             _championshipsPool.ChampionshipRemoved += ChampionshipsPoolOnChampionshipRemoved;
@@ -47,7 +47,7 @@
             _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
         }
 
-        public Task StopControllerAsync()
+        public override Task StopControllerAsync()
         {
             _championshipsPool.ChampionshipAdded -= ChampionshipsPoolOnChampionshipAdded;
             _championshipsPool.ChampionshipRemoved -= ChampionshipsPoolOnChampionshipRemoved;
@@ -92,7 +92,7 @@
                 return;
             }
 
-            _championshipCreationController = _childControllerFactory.Create<IChampionshipCreationController>();
+            _championshipCreationController = _childControllerFactory.Create<IChampionshipCreationController, IChampionshipOverviewController>(this);
             await _championshipCreationController.StartControllerAsync();
             _championshipCreationController.OpenChampionshipCreationDialog(NewChampionshipCreated, ChampionshipCreationCancelled);
         }

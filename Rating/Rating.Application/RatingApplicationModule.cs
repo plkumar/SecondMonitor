@@ -97,6 +97,8 @@
             Bind<IChampionshipRaceRequirement>().To<DistanceRequirement>();
             Bind<IChampionshipRaceRequirement>().To<OpponentsRequirements>();
 
+            Bind<IChampionshipEvenController>().To<ChampionshipEvenController>();
+
         }
     }
 }

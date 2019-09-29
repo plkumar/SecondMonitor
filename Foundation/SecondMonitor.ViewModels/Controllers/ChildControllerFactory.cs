@@ -1,6 +1,5 @@
 ﻿namespace SecondMonitor.ViewModels.Controllers
 {
-    using System.Collections.Generic;
     using Ninject;
     using Ninject.Syntax;
 
@@ -13,14 +12,11 @@
             _resolutionRoot = resolutionRoot;
         }
 
-        public T Create<T>() where T : IController
+        public T Create<T, TParent>(TParent parentInstance) where T : IChildController<TParent> where TParent : IController
         {
-            return _resolutionRoot.Get<T>();
-        }
-
-        public IEnumerable<T> CreateAll<T>() where T : IController
-        {
-            return _resolutionRoot.GetAll<T>();
+            var childController = _resolutionRoot.Get<T>();
+            childController.ParentController = parentInstance;
+            return childController;
         }
     }
 }

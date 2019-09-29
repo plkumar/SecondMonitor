@@ -67,7 +67,7 @@
             {
                 _sessionEventProvider.NotifyTrackChanged(simulatorDataSet);
                 _lastTrackName = simulatorDataSet.SessionInfo.TrackInfo.TrackFullName;
-                Logger.Info($"Track Change Detected : new Tracl is {_lastTrackName}");
+                Logger.Info($"Track Change Detected : new Track is {_lastTrackName}");
             }
 
             if (simulatorDataSet.PlayerInfo != null)

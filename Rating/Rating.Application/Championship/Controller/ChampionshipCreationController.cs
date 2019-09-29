@@ -12,6 +12,7 @@
     using DataModel.TrackMap;
     using Rating.Controller.SimulatorRating;
     using SecondMonitor.ViewModels;
+    using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
     using SecondMonitor.ViewModels.SimulatorContent;
     using SimdataManagement;
@@ -19,7 +20,7 @@
     using ViewModels.Creation.Calendar;
     using ViewModels.Creation.Calendar.Predefined;
 
-    public class ChampionshipCreationController : IChampionshipCreationController
+    public class ChampionshipCreationController : AbstractChildController<IChampionshipOverviewController>, IChampionshipCreationController
     {
         private readonly IWindowService _windowService;
         private readonly IViewModelFactory _viewModelFactory;
@@ -45,12 +46,12 @@
             _mapsLoader = mapsLoaderFactory.Create();
         }
 
-        public Task StartControllerAsync()
+        public override Task StartControllerAsync()
         {
             return Task.CompletedTask;
         }
 
-        public Task StopControllerAsync()
+        public override Task StopControllerAsync()
         {
             _dialogWindow?.Close();
             _trackTemplateToSimTrackMapper.SaveTrackMappings();

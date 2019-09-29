@@ -2,7 +2,7 @@
 {
     using SecondMonitor.ViewModels.Controllers;
 
-    public interface IChampionshipOverviewController : IController
+    public interface IChampionshipOverviewController : IChildController<IChampionshipController>
     {
         void OpenChampionshipOverviewWindow();
     }

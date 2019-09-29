@@ -102,7 +102,9 @@
     <Compile Include="Colors\HSLColor .cs" />
     <Compile Include="Colors\IClassColorProvider.cs" />
     <Compile Include="Colors\RedGreenGradientPalette.cs" />
+    <Compile Include="Controllers\AbstractChildController.cs" />
     <Compile Include="Controllers\AutoUpdateController.cs" />
+    <Compile Include="Controllers\IChildController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Colors\IColorPaletteProvider.cs" />
     <Compile Include="Controllers\IChildControllerFactory.cs" />

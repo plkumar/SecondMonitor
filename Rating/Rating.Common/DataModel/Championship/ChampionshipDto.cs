@@ -13,6 +13,7 @@
             ChampionshipGlobalId = Guid.NewGuid();
             Events = new List<EventDto>();
             Scoring = new List<ScoringDto>();
+            Drivers = new List<DriverDto>();
         }
 
         public List<EventDto> Events { get; set; }
@@ -54,6 +55,8 @@
         public bool AiNamesCanChange { get; set; }
 
         public List<ScoringDto> Scoring { get; set; }
+
+        public List<DriverDto> Drivers { get; set; }
 
         [XmlIgnore]
         public int CompletedRaces => CurrentEventIndex * Events[0].Sessions.Count + CurrentSessionIndex + 1;

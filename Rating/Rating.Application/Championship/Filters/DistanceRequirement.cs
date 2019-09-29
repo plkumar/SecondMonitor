@@ -2,6 +2,7 @@
 {
     using Common.DataModel.Championship;
     using Common.DataModel.Championship.TrackMapping;
+    using DataModel.Snapshot;
 
     public class DistanceRequirement : IChampionshipRaceRequirement
     {
@@ -14,6 +15,11 @@
 
             SessionDto sessionDto = championshipDto.Events[championshipDto.CurrentEventIndex].Sessions[championshipDto.CurrentEventIndex];
             return $"Session length should be {sessionDto.DistanceDescription}, but this is not enforced.";
+        }
+
+        public RequirementResultKind Evaluate(ChampionshipDto championshipDto, SimulatorDataSet dataSet)
+        {
+            return RequirementResultKind.PerfectMatch;
         }
     }
 }

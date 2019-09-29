@@ -64,9 +64,11 @@
   <ItemGroup>
     <Compile Include="Championship\Controller\ChampionshipController.cs" />
     <Compile Include="Championship\Controller\ChampionshipCreationController.cs" />
+    <Compile Include="Championship\Controller\ChampionshipEvenController.cs" />
     <Compile Include="Championship\Controller\ChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\ChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipController.cs" />
+    <Compile Include="Championship\Controller\IChampionshipEvenController.cs" />
     <Compile Include="Championship\Controller\IChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\IChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipCreationController.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Championship\Filters\DistanceRequirement.cs" />
     <Compile Include="Championship\Filters\IChampionshipRaceRequirement.cs" />
     <Compile Include="Championship\Filters\OpponentsRequirements.cs" />
+    <Compile Include="Championship\Filters\RequirementResultKind.cs" />
     <Compile Include="Championship\Filters\SimulatorRequirement.cs" />
     <Compile Include="Championship\Filters\TrackRequirement.cs" />
     <Compile Include="Championship\Pool\ChampionshipEventArgs.cs" />

@@ -541,7 +541,7 @@
                                 Command="{Binding OpenChampionshipWindowCommand}"
                                 Style="{StaticResource StandardButton}"
                                 Foreground="{Binding ChampionshipIconStateViewModel.ChampionshipIconState, Converter={StaticResource ChampionshipIconStateToBrushConverter}}"
-                                ToolTip="Opens the configuration window for the application.">
+                                ToolTip="{Binding ChampionshipIconStateViewModel.TooltipText}">
                                 <Button.Content>
                                     <wpf:ColorAbleIcon Margin="5,5,5,5"
                                                        StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">

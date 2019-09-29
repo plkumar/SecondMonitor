@@ -1,11 +1,7 @@
 ﻿namespace SecondMonitor.ViewModels.Controllers
 {
-    using System.Collections.Generic;
-
     public interface IChildControllerFactory
     {
-        T Create<T>() where T : IController;
-
-        IEnumerable<T> CreateAll<T>() where T : IController;
+        T Create<T, TParent>(TParent parentInstance) where T : IChildController<TParent> where TParent : IController;
     }
 }
