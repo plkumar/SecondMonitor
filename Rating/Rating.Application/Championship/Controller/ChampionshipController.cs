@@ -20,6 +20,7 @@
         private readonly List<IChampionshipRaceRequirement> _raceRequirements;
         private readonly IChampionshipOverviewController _championshipOverviewController;
         private readonly IChampionshipEvenController _championshipEvenController;
+        private readonly IChampionshipSelectionController _championshipSelectionController;
         private List<ChampionshipDto> _championshipCandidates;
         private ChampionshipDto _runningChampionshipDto;
 
@@ -33,6 +34,7 @@
             SetChampionshipIconToNone();
             _championshipOverviewController = childControllerFactory.Create<IChampionshipOverviewController, IChampionshipController>(this);
             _championshipEvenController = childControllerFactory.Create<IChampionshipEvenController, IChampionshipController>(this);
+            _championshipSelectionController = childControllerFactory.Create<IChampionshipSelectionController, IChampionshipController>(this);
         }
 
         public ChampionshipIconStateViewModel ChampionshipIconStateViewModel { get; }
@@ -165,6 +167,7 @@
 
         private void OpenCandidatesSelector()
         {
+            _championshipSelectionController.ShowOrFocusSelectionDialog(_championshipCandidates);
         }
     }
 }

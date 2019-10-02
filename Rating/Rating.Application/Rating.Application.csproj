@@ -67,11 +67,13 @@
     <Compile Include="Championship\Controller\ChampionshipEvenController.cs" />
     <Compile Include="Championship\Controller\ChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\ChampionshipOverviewController.cs" />
+    <Compile Include="Championship\Controller\ChampionshipSelectionController.cs" />
     <Compile Include="Championship\Controller\IChampionshipController.cs" />
     <Compile Include="Championship\Controller\IChampionshipEvenController.cs" />
     <Compile Include="Championship\Controller\IChampionshipFactory.cs" />
     <Compile Include="Championship\Controller\IChampionshipOverviewController.cs" />
     <Compile Include="Championship\Controller\IChampionshipCreationController.cs" />
+    <Compile Include="Championship\Controller\IChampionshipSelectionController.cs" />
     <Compile Include="Championship\Controller\ITrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Controller\TrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Filters\CarClassRequirement.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\TimeLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionsDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\NextRaceOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Selection\ChampionshipsSelectionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />
     <Compile Include="Rating\Controller\RaceObserver\IRaceStateFactory.cs" />
