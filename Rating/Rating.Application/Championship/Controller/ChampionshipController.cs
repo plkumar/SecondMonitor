@@ -127,7 +127,7 @@
                 return;
             }
 
-            if (_championshipEvenController.TryResumePreviousChampionship())
+            if (_championshipEvenController.TryResumePreviousChampionship(dataSet))
             {
                 ChampionshipIconStateViewModel.ChampionshipIconState = ChampionshipIconState.ChampionshipInProgress;
                 ChampionshipIconStateViewModel.TooltipText = "Opens the overview of the currently running championship";

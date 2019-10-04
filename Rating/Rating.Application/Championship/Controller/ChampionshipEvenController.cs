@@ -2,6 +2,8 @@
 {
     using System.Threading.Tasks;
     using Common.DataModel.Championship;
+    using DataModel.Snapshot;
+    using DataModel.Snapshot.Drivers;
     using SecondMonitor.ViewModels.Controllers;
 
     public class ChampionshipEvenController : AbstractChildController<IChampionshipController>, IChampionshipEvenController
@@ -25,8 +27,13 @@
             _runningChampionship = championship;
         }
 
-        public bool TryResumePreviousChampionship()
+        public bool TryResumePreviousChampionship(SimulatorDataSet dataSet)
         {
+            if (dataSet.PlayerInfo.FinishStatus == DriverFinishStatus.Finished)
+            {
+                return false;
+            }
+
             return _runningChampionship != null;
         }
     }
