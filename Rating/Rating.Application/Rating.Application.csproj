@@ -78,7 +78,7 @@
     <Compile Include="Championship\Controller\TrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Filters\CarClassRequirement.cs" />
     <Compile Include="Championship\Filters\DistanceRequirement.cs" />
-    <Compile Include="Championship\Filters\IChampionshipRaceRequirement.cs" />
+    <Compile Include="Championship\Filters\IChampionshipConditionEvaluator.cs" />
     <Compile Include="Championship\Filters\OpponentsRequirements.cs" />
     <Compile Include="Championship\Filters\RequirementResultKind.cs" />
     <Compile Include="Championship\Filters\SimulatorRequirement.cs" />

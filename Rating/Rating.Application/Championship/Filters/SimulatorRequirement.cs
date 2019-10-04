@@ -3,7 +3,7 @@
     using Common.DataModel.Championship;
     using DataModel.Snapshot;
 
-    public class SimulatorRequirement : IChampionshipRaceRequirement
+    public class SimulatorRequirement : IChampionshipConditionEvaluator
     {
         public string GetDescription(ChampionshipDto championshipDto)
         {

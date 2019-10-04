@@ -4,9 +4,11 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Common.DataModel.Championship;
+    using Contracts.Commands;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
+    using ViewModels;
     using ViewModels.Selection;
 
     public class ChampionshipSelectionController : AbstractChildController<IChampionshipController>, IChampionshipSelectionController
@@ -42,7 +44,27 @@
 
             _championshipsSelectionViewModel = _viewModelFactory.Create<ChampionshipsSelectionViewModel>();
             _championshipsSelectionViewModel.FromModel(championships);
+            _championshipsSelectionViewModel.OkCommand = new RelayCommand(OkAction);
+            _championshipsSelectionViewModel.CancelCommand = new RelayCommand(CancelAction);
             _selectionWindow = _windowService.OpenWindow(_championshipsSelectionViewModel, "Select Championship", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, SelectionWindowOnClose);
+        }
+
+        private void OkAction()
+        {
+            var selectedChampionship = _championshipsSelectionViewModel.SelectedChampionship;
+            _selectionWindow.Close();
+
+            if (selectedChampionship == null)
+            {
+                return;
+            }
+
+            ParentController.StartNextEvent(selectedChampionship.OriginalModel);
+        }
+
+        private void CancelAction()
+        {
+            _selectionWindow?.Close();
         }
 
         private void SelectionWindowOnClose()

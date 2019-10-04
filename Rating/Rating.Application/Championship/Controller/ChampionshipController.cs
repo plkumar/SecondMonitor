@@ -17,14 +17,13 @@
     {
         private readonly ISessionEventProvider _sessionEventProvider;
         private readonly IChampionshipsPool _championshipsPool;
-        private readonly List<IChampionshipRaceRequirement> _raceRequirements;
+        private readonly List<IChampionshipConditionEvaluator> _raceRequirements;
         private readonly IChampionshipOverviewController _championshipOverviewController;
         private readonly IChampionshipEvenController _championshipEvenController;
         private readonly IChampionshipSelectionController _championshipSelectionController;
         private List<ChampionshipDto> _championshipCandidates;
-        private ChampionshipDto _runningChampionshipDto;
 
-        public ChampionshipController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, ISessionEventProvider sessionEventProvider, IChampionshipsPool championshipsPool, IEnumerable<IChampionshipRaceRequirement> raceRequirements)
+        public ChampionshipController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, ISessionEventProvider sessionEventProvider, IChampionshipsPool championshipsPool, IEnumerable<IChampionshipConditionEvaluator> raceRequirements)
         {
             _championshipCandidates = new List<ChampionshipDto>();
             _sessionEventProvider = sessionEventProvider;
@@ -60,12 +59,30 @@
 
         public void OpenChampionshipWindow()
         {
+            if (_championshipEvenController.IsChampionshipActive)
+            {
+                OpenRunningChampionshipDetail();
+                return;
+            }
+
             if (_championshipCandidates.Count > 0)
             {
                 OpenCandidatesSelector();
                 return;
             }
             _championshipOverviewController.OpenChampionshipOverviewWindow();
+        }
+
+        private void OpenRunningChampionshipDetail()
+        {
+        }
+
+        public void StartNextEvent(ChampionshipDto championship)
+        {
+            _championshipCandidates.Clear();
+            _championshipEvenController.StartNextEvent(championship);
+            ChampionshipIconStateViewModel.ChampionshipIconState = ChampionshipIconState.ChampionshipInProgress;
+            ChampionshipIconStateViewModel.TooltipText = "Opens the overview of the currently running championship";
         }
 
         protected async Task StartChildControllersAsync()
@@ -105,9 +122,15 @@
                 return;
             }
 
-            if (_runningChampionshipDto != null && IsRunningChampionshipStillValid(dataSet))
+            if (_championshipEvenController.IsChampionshipActive)
             {
                 return;
+            }
+
+            if (_championshipEvenController.TryResumePreviousChampionship())
+            {
+                ChampionshipIconStateViewModel.ChampionshipIconState = ChampionshipIconState.ChampionshipInProgress;
+                ChampionshipIconStateViewModel.TooltipText = "Opens the overview of the currently running championship";
             }
 
             List<ChampionshipDto> perfectlyMatchingChampionships = new List<ChampionshipDto>();
@@ -144,25 +167,6 @@
 
             ChampionshipIconStateViewModel.ChampionshipIconState = ChampionshipIconState.PotentialChampionship;
             ChampionshipIconStateViewModel.TooltipText = "Opens championships eligible for current session";
-        }
-
-        private bool IsRunningChampionshipStillValid(SimulatorDataSet dataSet)
-        {
-            if (_runningChampionshipDto == null)
-            {
-                return false;
-            }
-
-            List<RequirementResultKind> evaluationResult = _raceRequirements.Select(x => x.Evaluate(_runningChampionshipDto, dataSet)).ToList();
-            return evaluationResult.All(x => x != RequirementResultKind.DoesNotMatch);
-        }
-
-        private void StartNextEvent(ChampionshipDto championship)
-        {
-            _runningChampionshipDto = championship;
-            _championshipEvenController.StartNextEvent(championship);
-            ChampionshipIconStateViewModel.ChampionshipIconState = ChampionshipIconState.ChampionshipInProgress;
-            ChampionshipIconStateViewModel.TooltipText = "Opens the overview of the currently running championship";
         }
 
         private void OpenCandidatesSelector()

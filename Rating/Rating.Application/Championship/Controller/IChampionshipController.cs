@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Controller
 {
+    using Common.DataModel.Championship;
     using SecondMonitor.ViewModels.Controllers;
     using ViewModels.IconState;
 
@@ -8,5 +9,7 @@
         ChampionshipIconStateViewModel ChampionshipIconStateViewModel { get; }
 
         void OpenChampionshipWindow();
+
+        void StartNextEvent(ChampionshipDto championship);
     }
 }

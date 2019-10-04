@@ -6,6 +6,8 @@
 
     public class ChampionshipEvenController : AbstractChildController<IChampionshipController>, IChampionshipEvenController
     {
+        private ChampionshipDto _runningChampionship;
+
         public override Task StartControllerAsync()
         {
             return Task.CompletedTask;
@@ -16,12 +18,16 @@
             return Task.CompletedTask;
         }
 
+        public bool IsChampionshipActive => _runningChampionship != null;
+
         public void StartNextEvent(ChampionshipDto championship)
         {
+            _runningChampionship = championship;
         }
 
-        public void StopCurrentEvent()
+        public bool TryResumePreviousChampionship()
         {
+            return _runningChampionship != null;
         }
     }
 }

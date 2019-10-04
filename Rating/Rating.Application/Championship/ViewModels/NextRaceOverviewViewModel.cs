@@ -8,11 +8,11 @@
 
     public class NextRaceOverviewViewModel : AbstractViewModel<ChampionshipDto>
     {
-        private readonly List<IChampionshipRaceRequirement> _championshipMatches;
+        private readonly List<IChampionshipConditionEvaluator> _championshipMatches;
         private List<string> _textualRequirements;
 
 
-        public NextRaceOverviewViewModel(IEnumerable<IChampionshipRaceRequirement> championshipMatches)
+        public NextRaceOverviewViewModel(IEnumerable<IChampionshipConditionEvaluator> championshipMatches)
         {
             _championshipMatches = championshipMatches.ToList();
         }

@@ -5,7 +5,7 @@
     using Common.DataModel.Championship;
     using DataModel.Snapshot;
 
-    public class OpponentsRequirements : IChampionshipRaceRequirement
+    public class OpponentsRequirements : IChampionshipConditionEvaluator
     {
         public string GetDescription(ChampionshipDto championshipDto)
         {

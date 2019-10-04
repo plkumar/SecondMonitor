@@ -93,11 +93,11 @@
 
             Bind<IChampionshipFactory>().To<ChampionshipFactory>();
 
-            Bind<IChampionshipRaceRequirement>().To<SimulatorRequirement>();
-            Bind<IChampionshipRaceRequirement>().To<CarClassRequirement>();
-            Bind<IChampionshipRaceRequirement>().To<TrackRequirement>();
-            Bind<IChampionshipRaceRequirement>().To<DistanceRequirement>();
-            Bind<IChampionshipRaceRequirement>().To<OpponentsRequirements>();
+            Bind<IChampionshipConditionEvaluator>().To<SimulatorRequirement>();
+            Bind<IChampionshipConditionEvaluator>().To<CarClassRequirement>();
+            Bind<IChampionshipConditionEvaluator>().To<TrackRequirement>();
+            Bind<IChampionshipConditionEvaluator>().To<DistanceRequirement>();
+            Bind<IChampionshipConditionEvaluator>().To<OpponentsRequirements>();
 
             Bind<IChampionshipEvenController>().To<ChampionshipEvenController>();
             Bind<IChampionshipSelectionController>().To<ChampionshipSelectionController>();

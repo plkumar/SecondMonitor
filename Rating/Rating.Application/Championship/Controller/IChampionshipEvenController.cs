@@ -5,7 +5,8 @@
 
     public interface IChampionshipEvenController : IChildController<IChampionshipController>
     {
+        bool IsChampionshipActive { get; }
         void StartNextEvent(ChampionshipDto championship);
-        void StopCurrentEvent();
+        bool TryResumePreviousChampionship();
     }
 }
