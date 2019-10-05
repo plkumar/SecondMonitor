@@ -47,6 +47,13 @@
             ChampionshipRemoved?.Invoke(this, new ChampionshipEventArgs(championshipDto));
         }
 
+        public void UpdateChampionship(ChampionshipDto championshipDto)
+        {
+            AllChampionshipsDto.Championships.RemoveAll(x => x.ChampionshipGlobalId == championshipDto.ChampionshipGlobalId);
+            AllChampionshipsDto.Championships.Add(championshipDto);
+            _championshipsRepository.Save(AllChampionshipsDto);
+        }
+
         private AllChampionshipsDto LoadAllChampionshipsDto()
         {
             return _championshipsRepository.LoadRatingsOrCreateNew();

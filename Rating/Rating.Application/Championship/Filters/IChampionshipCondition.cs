@@ -3,7 +3,7 @@
     using Common.DataModel.Championship;
     using DataModel.Snapshot;
 
-    public interface IChampionshipConditionEvaluator
+    public interface IChampionshipCondition
     {
         string GetDescription(ChampionshipDto championshipDto);
 

@@ -5,7 +5,7 @@
     using Common.DataModel.Championship;
     using DataModel.Snapshot;
 
-    public class OpponentsRequirements : IChampionshipConditionEvaluator
+    public class OpponentsRequirements : IChampionshipCondition
     {
         public string GetDescription(ChampionshipDto championshipDto)
         {
@@ -14,7 +14,7 @@
                 return championshipDto.AiNamesCanChange ? "Use the opponents count, you would like to run the whole championship with. Their names do not matter." : "Use opponents, you would like to run the championship with. Their names need to match for all races";
             }
 
-            return string.Empty;
+            return championshipDto.AiNamesCanChange ? $"Requires {championshipDto.TotalDrivers - 1} opponents. Opponents names can change from previous event." : $"Requires {championshipDto.TotalDrivers - 1} opponents. Opponents names has to be the same, as in previous events. Check championship details if you need the list of all drivers.";
         }
 
         public RequirementResultKind Evaluate(ChampionshipDto championshipDto, SimulatorDataSet dataSet)

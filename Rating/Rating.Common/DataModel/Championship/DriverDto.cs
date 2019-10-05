@@ -10,11 +10,23 @@
         public DriverDto()
         {
             OtherNames = new List<string>();
+            GlobalKey = Guid.NewGuid();
         }
+
+        [XmlAttribute]
+        public Guid GlobalKey { get; set; }
 
         [XmlAttribute]
         public string LastUsedName { get; set; }
 
+        [XmlAttribute]
+        public int TotalPoints { get; set; }
+
+        [XmlAttribute]
+        public bool IsPlayer { get; set; }
+
         public List<string> OtherNames { get; set; }
+
+
     }
 }

@@ -77,12 +77,16 @@
     <Compile Include="Championship\Controller\ITrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Controller\TrackTemplateToSimTrackMapper.cs" />
     <Compile Include="Championship\Filters\CarClassRequirement.cs" />
+    <Compile Include="Championship\Filters\ChampionshipEligibilityEvaluator.cs" />
     <Compile Include="Championship\Filters\DistanceRequirement.cs" />
-    <Compile Include="Championship\Filters\IChampionshipConditionEvaluator.cs" />
+    <Compile Include="Championship\Filters\IChampionshipCondition.cs" />
+    <Compile Include="Championship\Filters\IChampionshipEligibilityEvaluator.cs" />
     <Compile Include="Championship\Filters\OpponentsRequirements.cs" />
     <Compile Include="Championship\Filters\RequirementResultKind.cs" />
     <Compile Include="Championship\Filters\SimulatorRequirement.cs" />
     <Compile Include="Championship\Filters\TrackRequirement.cs" />
+    <Compile Include="Championship\Operations\ChampionshipManipulator.cs" />
+    <Compile Include="Championship\Operations\IChampionshipManipulator.cs" />
     <Compile Include="Championship\Pool\ChampionshipEventArgs.cs" />
     <Compile Include="Championship\Pool\ChampionshipsPool.cs" />
     <Compile Include="Championship\Pool\IChampionshipsPool.cs" />

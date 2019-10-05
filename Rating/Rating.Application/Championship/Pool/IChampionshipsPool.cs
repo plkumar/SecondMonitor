@@ -13,5 +13,6 @@
         IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos(string simulatorName);
         void AddNewChampionship(ChampionshipDto championshipDto);
         void RemoveChampionship(ChampionshipDto championshipDto);
+        void UpdateChampionship(ChampionshipDto championshipDto);
     }
 }

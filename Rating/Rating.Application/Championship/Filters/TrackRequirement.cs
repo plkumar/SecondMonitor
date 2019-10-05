@@ -4,7 +4,7 @@
     using Common.DataModel.Championship.TrackMapping;
     using DataModel.Snapshot;
 
-    public class TrackRequirement : IChampionshipConditionEvaluator
+    public class TrackRequirement : IChampionshipCondition
     {
         public string GetDescription(ChampionshipDto championshipDto)
         {

@@ -4,7 +4,7 @@
     using Common.DataModel.Championship.TrackMapping;
     using DataModel.Snapshot;
 
-    public class DistanceRequirement : IChampionshipConditionEvaluator
+    public class DistanceRequirement : IChampionshipCondition
     {
         public string GetDescription(ChampionshipDto championshipDto)
         {

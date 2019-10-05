@@ -11,5 +11,7 @@
         void OpenChampionshipWindow();
 
         void StartNextEvent(ChampionshipDto championship);
+
+        void EventFinished(ChampionshipDto championship);
     }
 }

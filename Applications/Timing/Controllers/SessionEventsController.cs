@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
+    using DataModel.Snapshot.Drivers;
     using NLog;
     using ViewModels.SessionEvents;
 
@@ -17,6 +18,7 @@
         private string _lastTrackName;
         private string _lastPlayersCar;
         private string _lastPlayersClass;
+        private DriverFinishStatus _lastPlayerFinishStatus;
 
         public SessionEventsController(ISessionEventProvider sessionEventProvider)
         {
@@ -44,6 +46,8 @@
                 return;
             }
 
+            _sessionEventProvider.SetLastDataSet(simulatorDataSet);
+
             if (_lastSessionType != simulatorDataSet.SessionInfo.SessionType)
             {
                 _sessionEventProvider.NotifySessionTypeChanged(simulatorDataSet);
@@ -56,6 +60,12 @@
 
         private void CheckPeriodicProperties(SimulatorDataSet simulatorDataSet)
         {
+            if (simulatorDataSet.PlayerInfo.FinishStatus != _lastPlayerFinishStatus)
+            {
+                _sessionEventProvider.NotifyPlayerFinishStateChanged(simulatorDataSet);
+                _lastPlayerFinishStatus = simulatorDataSet.PlayerInfo.FinishStatus;
+            }
+
             if (_periodicCheckStopwatch.ElapsedMilliseconds < 1000)
             {
                 return;
@@ -93,6 +103,7 @@
             _lastTrackName = string.Empty;
             _lastPlayersCar = string.Empty;
             _lastPlayersClass = string.Empty;
+            _lastPlayerFinishStatus = DriverFinishStatus.Na;
         }
 
 

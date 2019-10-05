@@ -2,6 +2,7 @@
 {
     using Championship.Controller;
     using Championship.Filters;
+    using Championship.Operations;
     using Championship.Pool;
     using Championship.Repository;
     using Championship.ViewModels;
@@ -93,14 +94,17 @@
 
             Bind<IChampionshipFactory>().To<ChampionshipFactory>();
 
-            Bind<IChampionshipConditionEvaluator>().To<SimulatorRequirement>();
-            Bind<IChampionshipConditionEvaluator>().To<CarClassRequirement>();
-            Bind<IChampionshipConditionEvaluator>().To<TrackRequirement>();
-            Bind<IChampionshipConditionEvaluator>().To<DistanceRequirement>();
-            Bind<IChampionshipConditionEvaluator>().To<OpponentsRequirements>();
+            Bind<IChampionshipCondition>().To<SimulatorRequirement>();
+            Bind<IChampionshipCondition>().To<CarClassRequirement>();
+            Bind<IChampionshipCondition>().To<TrackRequirement>();
+            Bind<IChampionshipCondition>().To<DistanceRequirement>();
+            Bind<IChampionshipCondition>().To<OpponentsRequirements>();
+            Bind<IChampionshipEligibilityEvaluator>().To<ChampionshipEligibilityEvaluator>();
 
             Bind<IChampionshipEvenController>().To<ChampionshipEvenController>();
             Bind<IChampionshipSelectionController>().To<ChampionshipSelectionController>();
+
+            Bind<IChampionshipManipulator>().To<ChampionshipManipulator>();
 
         }
     }

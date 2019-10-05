@@ -8,20 +8,23 @@
     public class SessionEventProvider : ISessionEventProvider
     {
         public event EventHandler<DataSetArgs> SessionTypeChange;
-        public event EventHandler<DataSetArgs> PlayerFinished;
+        public event EventHandler<DataSetArgs> PlayerFinishStateChanged;
         public event EventHandler<DriversArgs> DriversAdded;
         public event EventHandler<DriversArgs> DriversRemoved;
         public event EventHandler<DataSetArgs> TrackChanged;
         public event EventHandler<DataSetArgs> PlayerPropertiesChanged;
+
+        public SimulatorDataSet LastDataSet { get; private set; }
+        public SimulatorDataSet BeforeLastDataSet { get; private set; }
 
         public void NotifySessionTypeChanged(SimulatorDataSet dataSet)
         {
             SessionTypeChange?.Invoke(this, new DataSetArgs(dataSet));
         }
 
-        public void NotifyPlayerFinished(SimulatorDataSet dataSet)
+        public void NotifyPlayerFinishStateChanged(SimulatorDataSet dataSet)
         {
-            PlayerFinished?.Invoke(this, new DataSetArgs(dataSet));
+            PlayerFinishStateChanged?.Invoke(this, new DataSetArgs(dataSet));
         }
 
         public void NotifyDriversAdded(SimulatorDataSet dataSet, IEnumerable<DriverInfo> drivers)
@@ -42,6 +45,12 @@
         public void NotifyPlayerPropertiesChanged(SimulatorDataSet dataSet)
         {
             PlayerPropertiesChanged?.Invoke(this, new DataSetArgs(dataSet));
+        }
+
+        public void SetLastDataSet(SimulatorDataSet dataSet)
+        {
+            BeforeLastDataSet = LastDataSet;
+            LastDataSet = dataSet;
         }
     }
 }
