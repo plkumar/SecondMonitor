@@ -59,12 +59,7 @@
 
         private void SessionEventProviderOnSessionTypeChange(object sender, DataSetArgs e)
         {
-            if (!IsChampionshipActive)
-            {
-                return;
-            }
-
-            if (_sessionEventProvider.BeforeLastDataSet == null)
+            if (!IsChampionshipActive || _sessionEventProvider.BeforeLastDataSet == null)
             {
                 return;
             }
@@ -79,8 +74,6 @@
             {
                 FinishCurrentEvent(_sessionEventProvider.BeforeLastDataSet);
             }
-
-
         }
 
         private void SessionEventProviderOnPlayerFinishStateChanged(object sender, DataSetArgs e)

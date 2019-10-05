@@ -17,6 +17,9 @@
     </Window.DataContext>
     <Grid Background="{StaticResource Anthracite01Brush}">
         <TabControl Background="{StaticResource Anthracite01Brush}">
+            <TabItem Header="Sequence View">
+                <controls:SequenceControlTestControl DataContext="{Binding SequenceViewTestViewModel}"/>
+            </TabItem>
             <TabItem Header="Calendar View">
                 <controls:CalendarTreeTestControl/>
             </TabItem>

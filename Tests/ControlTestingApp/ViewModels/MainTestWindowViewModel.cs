@@ -17,8 +17,12 @@
 
             CalendarTemplateGroupViewModel = _viewModelFactory.Create<PredefinedCalendarSelectionViewModel>();
             CalendarTemplateGroupViewModel.FromModel(AllGroups.MainGroup);
+
+            SequenceViewTestViewModel = new SequenceViewTestViewModel();
         }
 
         public PredefinedCalendarSelectionViewModel CalendarTemplateGroupViewModel { get; }
+
+        public SequenceViewTestViewModel SequenceViewTestViewModel { get;  }
     }
 }
