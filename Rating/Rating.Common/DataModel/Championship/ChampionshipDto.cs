@@ -60,5 +60,10 @@
 
         [XmlIgnore]
         public int CompletedRaces => CurrentEventIndex * Events[0].Sessions.Count + CurrentSessionIndex + 1;
+
+        public EventDto GetCurrentEvent()
+        {
+            return Events[CurrentEventIndex];
+        }
     }
 }

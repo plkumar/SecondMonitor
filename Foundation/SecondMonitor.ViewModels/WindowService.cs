@@ -7,8 +7,14 @@
     {
         public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual, (Window)null);
 
-        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
-            OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
+        public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation)
+        {
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation));
+            }
+            return OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
+        }
 
         public bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
             OpenDialog(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
@@ -26,6 +32,10 @@
 
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
         {
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, owner));
+            }
             Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
             window.Owner = owner;
@@ -36,6 +46,11 @@
 
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Action onClose)
         {
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, onClose));
+            }
+
             Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent, WindowStartupLocation = startupLocation};
 
             if (startupLocation == WindowStartupLocation.CenterOwner && window != Application.Current.MainWindow)

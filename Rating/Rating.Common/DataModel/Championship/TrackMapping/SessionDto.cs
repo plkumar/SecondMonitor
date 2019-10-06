@@ -7,5 +7,7 @@
         [XmlAttribute]
         public string DistanceDescription { get; set; }
 
+        [XmlAttribute]
+        public string Name { get; set; }
     }
 }

@@ -50,7 +50,7 @@
                 IsTrackNameExact = calendarEntry is ExistingTrackCalendarEntryViewModel,
                 Sessions = sessionDefinitions.Select(x =>
                 {
-                    SessionDto sessionDto = new SessionDto() {DistanceDescription = x.SelectedSessionLengthDefinitionViewModel.GetTextualDescription(calendarEntry.LayoutLength),};
+                    SessionDto sessionDto = new SessionDto() {DistanceDescription = x.SelectedSessionLengthDefinitionViewModel.GetTextualDescription(calendarEntry.LayoutLength), Name = x.CustomSessionName};
                     return sessionDto;
                 }).ToList(),
             };

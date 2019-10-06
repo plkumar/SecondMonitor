@@ -15,5 +15,6 @@
         <ResourceDictionary Source="Views/Championship/PredefinedCalendarSelectionView.xaml"/>
         <ResourceDictionary Source="Views/Championship/SessionsDefinitionView.xaml"/>
         <ResourceDictionary Source="Views/Championship/ChampionshipSelectionView.xaml"/>
+        <ResourceDictionary Source="Views/Championship/EventStartingView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

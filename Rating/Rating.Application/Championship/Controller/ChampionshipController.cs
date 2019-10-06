@@ -86,7 +86,11 @@
 
         public void EventFinished(ChampionshipDto championship)
         {
-            _championshipsPool.UpdateChampionship(championship);
+            if (championship != null)
+            {
+                _championshipsPool.UpdateChampionship(championship);
+            }
+
             ReEvaluateChampionships(_sessionEventProvider.LastDataSet);
         }
 

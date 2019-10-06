@@ -1,49 +1,60 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:layouts="clr-namespace:SecondMonitor.WindowsControls.WPF.Layouts">
+                    xmlns:layouts="clr-namespace:SecondMonitor.WindowsControls.WPF.Layouts"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="../ButtonStyles.xaml"></ResourceDictionary>
         <ResourceDictionary>
-            <Style TargetType="{x:Type layouts:ViewSequenceControl}">
+            <Style TargetType="{x:Type layouts:ViewSequenceControl}" x:Key="StandardSequenceStyle">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate  TargetType="{x:Type layouts:ViewSequenceControl}">
-
-                    <Grid Width="300" Height="300" Background="Pink">
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" x:Name="PART_Grid1">
-                        <ContentPresenter Content="{Binding CurrentView, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}"/>
-                    </Grid>
-                    <Grid Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Height="55" HorizontalAlignment="Right" Style="{StaticResource StandardButton}"
-                    IsEnabled="{Binding IsPreviousButtonEnabled, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}">
-                            <Button.Content>
-                                <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
-                                    <ContentPresenter Content="{StaticResource PreviousFrame}" />
-                                </wpf:ColorAbleIcon>
-                            </Button.Content>
-                        </Button>
-                        <Button x:Name="PART_NextButton" Grid.Column="2" Height="55" HorizontalAlignment="Right" Style="{StaticResource StandardButton}" IsEnabled="{Binding IsNextButtonEnabled, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}">
-                            <Button.Content>
-                                <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
-                                    <ContentPresenter Content="{StaticResource NextFrame}" />
-                                </wpf:ColorAbleIcon>
-                            </Button.Content>
-                        </Button>
-                    </Grid>-->
-                </Grid>
-            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ResourceDictionary>
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
+                            <Grid ClipToBounds="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" x:Name="PART_Grid1">
+                                    <ContentPresenter
+                                        Content="{Binding CurrentView1, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}" />
+                                </Grid>
+                                <Grid Grid.Row="0" x:Name="PART_Grid2">
+                                    <ContentPresenter
+                                        Content="{Binding CurrentView2, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}" />
+                                </Grid>
+                                <Grid Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="PART_PreviousButton" Grid.Column="0" Height="55" HorizontalAlignment="Right"
+                                            Style="{StaticResource StandardButton}"
+                                            IsEnabled="{Binding IsPreviousButtonEnabled, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}">
+                                        <Button.Content>
+                                            <wpf:ColorAbleIcon Margin="5,0,5,0"
+                                                               StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                                <ContentPresenter Content="{StaticResource PreviousFrame}" />
+                                            </wpf:ColorAbleIcon>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="PART_NextButton" Grid.Column="2" Height="55"
+                                            HorizontalAlignment="Right" Style="{StaticResource StandardButton}"
+                                            IsEnabled="{Binding IsNextButtonEnabled, RelativeSource={RelativeSource AncestorType=layouts:ViewSequenceControl}}">
+                                        <Button.Content>
+                                            <wpf:ColorAbleIcon Margin="5,0,5,0"
+                                                               StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                                <ContentPresenter Content="{StaticResource NextFrame}" />
+                                            </wpf:ColorAbleIcon>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

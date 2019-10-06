@@ -58,6 +58,17 @@
             CheckPeriodicProperties(simulatorDataSet);
         }
 
+
+        public void Reset()
+        {
+            if (!_isStarted)
+            {
+                return;
+            }
+            ResetProperties();
+        }
+
+
         private void CheckPeriodicProperties(SimulatorDataSet simulatorDataSet)
         {
             if (simulatorDataSet.PlayerInfo.FinishStatus != _lastPlayerFinishStatus)
@@ -104,16 +115,6 @@
             _lastPlayersCar = string.Empty;
             _lastPlayersClass = string.Empty;
             _lastPlayerFinishStatus = DriverFinishStatus.Na;
-        }
-
-
-        public void Reset()
-        {
-            if (!_isStarted)
-            {
-                return;
-            }
-            ResetProperties();
         }
     }
 }

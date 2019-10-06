@@ -11,6 +11,7 @@
     using Championship.ViewModels.Creation.Calendar.Predefined;
     using Championship.ViewModels.Creation.Session;
     using Championship.ViewModels.Creation.Session.SessionLength;
+    using Championship.ViewModels.Events;
     using Championship.ViewModels.IconState;
     using Championship.ViewModels.Selection;
     using Ninject.Modules;
@@ -84,6 +85,9 @@
 
             Bind<SessionsDefinitionViewModel>().ToSelf();
             Bind<ChampionshipsSelectionViewModel>().ToSelf();
+
+            Bind<EventStartingViewModel>().ToSelf();
+            Bind<TrackOverviewViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

@@ -125,6 +125,8 @@
     <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\LapsLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionLength\TimeLengthDefinitionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\SessionsDefinitionViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\EventStartingViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\TrackOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\NextRaceOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Selection\ChampionshipsSelectionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
