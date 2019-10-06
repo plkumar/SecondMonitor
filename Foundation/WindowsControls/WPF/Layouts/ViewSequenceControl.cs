@@ -1,17 +1,15 @@
-﻿using System.Windows.Controls;
-
-namespace SecondMonitor.WindowsControls.WPF.Layouts
+﻿namespace SecondMonitor.WindowsControls.WPF.Layouts
 {
     using System.Collections.Generic;
     using System.Windows;
+    using System.Windows.Controls;
     using ViewModels;
 
-    /// <summary>
-    /// Interaction logic for ViewSequenceControl.xaml
-    /// </summary>
-    public partial class ViewSequenceControl : UserControl
+    public class ViewSequenceControl : Control
     {
-        public static readonly DependencyProperty CurrentViewProperty = DependencyProperty.Register("CurrentView", typeof(IViewModel), typeof(ViewSequenceControl), new PropertyMetadata(CurrentViewPropertyChanged) );
+        private const string NextButtonName = "PART_NextButton";
+
+        public static readonly DependencyProperty CurrentViewProperty = DependencyProperty.Register("CurrentView", typeof(IViewModel), typeof(ViewSequenceControl), new PropertyMetadata(CurrentViewPropertyChanged));
 
         public static readonly DependencyProperty ViewsProperty = DependencyProperty.Register("Views", typeof(List<IViewModel>), typeof(ViewSequenceControl), new PropertyMetadata(ViewPropertyChanged));
         public static readonly DependencyProperty IsNextButtonEnabledProperty = DependencyProperty.Register("IsNextButtonEnabled", typeof(bool), typeof(ViewSequenceControl), new PropertyMetadata(default(bool)));
@@ -19,34 +17,30 @@ namespace SecondMonitor.WindowsControls.WPF.Layouts
 
         public bool IsPreviousButtonEnabled
         {
-            get => (bool) GetValue(IsPreviousButtonEnabledProperty);
+            get => (bool)GetValue(IsPreviousButtonEnabledProperty);
             set => SetValue(IsPreviousButtonEnabledProperty, value);
         }
 
         public bool IsNextButtonEnabled
         {
-            get => (bool) GetValue(IsNextButtonEnabledProperty);
+            get => (bool)GetValue(IsNextButtonEnabledProperty);
             set => SetValue(IsNextButtonEnabledProperty, value);
         }
 
         public List<IViewModel> Views
         {
-            get => (List<IViewModel>) GetValue(ViewsProperty);
+            get => (List<IViewModel>)GetValue(ViewsProperty);
             set => SetValue(ViewsProperty, value);
         }
 
         public IViewModel CurrentView
         {
-            get => (IViewModel) GetValue(CurrentViewProperty);
+            get => (IViewModel)GetValue(CurrentViewProperty);
             set => SetValue(CurrentViewProperty, value);
         }
 
         private int CurrentViewIndex { get; set; }
 
-        public ViewSequenceControl()
-        {
-            InitializeComponent();
-        }
 
         private void PreviousButtonClick(object sender, RoutedEventArgs e)
         {
@@ -56,8 +50,42 @@ namespace SecondMonitor.WindowsControls.WPF.Layouts
 
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
+            var foo = Template.FindName("PART_Grid1", this);
             CurrentViewIndex++;
             CurrentView = Views[CurrentViewIndex];
+        }
+
+        protected override void OnTemplateChanged(ControlTemplate oldTemplate, ControlTemplate newTemplate)
+        {
+            Unsubscribe(oldTemplate);
+            base.OnTemplateChanged(oldTemplate, newTemplate);
+            Subscribe(newTemplate);
+        }
+
+        private void Unsubscribe(ControlTemplate template)
+        {
+            if (template == null)
+            {
+                return;
+            }
+
+            if (template.FindName(NextButtonName, this) is Button nextButton)
+            {
+                nextButton.Click -= NextButtonClick;
+            }
+        }
+
+        private void Subscribe(ControlTemplate template)
+        {
+            if (template == null)
+            {
+                return;
+            }
+
+            if (template.FindName(NextButtonName, this) is Button nextButton)
+            {
+                nextButton.Click += NextButtonClick;
+            }
         }
 
         private static void ViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
