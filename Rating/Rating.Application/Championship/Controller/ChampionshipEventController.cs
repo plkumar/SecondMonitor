@@ -5,10 +5,13 @@
     using System.Windows;
     using Common.DataModel.Championship;
     using Common.DataModel.Championship.TrackMapping;
+    using Contracts.Commands;
+    using Contracts.TrackRecords;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
     using DataModel.TrackMap;
+    using DataModel.TrackRecords;
     using Filters;
     using Operations;
     using SecondMonitor.ViewModels;
@@ -20,7 +23,7 @@
     using SimdataManagement;
     using ViewModels.Events;
 
-    public class ChampionshipEvenController : AbstractChildController<IChampionshipController>, IChampionshipEvenController
+    public class ChampionshipEventController : AbstractChildController<IChampionshipController>, IChampionshipEventController
     {
         private readonly IChampionshipManipulator _championshipManipulator;
         private readonly ISessionEventProvider _sessionEventProvider;
@@ -28,11 +31,12 @@
         private readonly IWindowService _windowService;
         private readonly IViewModelFactory _viewModelFactory;
         private readonly ISettingsProvider _settingsProvider;
+        private readonly ITrackRecordsProvider _trackRecordsProvider;
         private readonly MapsLoader _mapsLoader;
         private ChampionshipDto _runningChampionship;
 
-        public ChampionshipEvenController(IChampionshipManipulator championshipManipulator, ISessionEventProvider sessionEventProvider, IChampionshipEligibilityEvaluator championshipEligibilityEvaluator,
-            IWindowService windowService, IMapsLoaderFactory mapsLoaderFactory, IViewModelFactory viewModelFactory, ISettingsProvider settingsProvider)
+        public ChampionshipEventController(IChampionshipManipulator championshipManipulator, ISessionEventProvider sessionEventProvider, IChampionshipEligibilityEvaluator championshipEligibilityEvaluator,
+            IWindowService windowService, IMapsLoaderFactory mapsLoaderFactory, IViewModelFactory viewModelFactory, ISettingsProvider settingsProvider, ITrackRecordsProvider trackRecordsProvider)
         {
             _championshipManipulator = championshipManipulator;
             _sessionEventProvider = sessionEventProvider;
@@ -40,6 +44,7 @@
             _windowService = windowService;
             _viewModelFactory = viewModelFactory;
             _settingsProvider = settingsProvider;
+            _trackRecordsProvider = trackRecordsProvider;
             _mapsLoader = mapsLoaderFactory.Create();
         }
 
@@ -54,7 +59,7 @@
             }
 
             IsChampionshipActive = true;
-            ShowWelcomeScreen(_sessionEventProvider.LastDataSet.SessionInfo.TrackInfo);
+            ShowWelcomeScreen(_sessionEventProvider.LastDataSet);
         }
 
         public bool TryResumePreviousChampionship(SimulatorDataSet dataSet)
@@ -117,8 +122,9 @@
             ParentController.EventFinished(_runningChampionship);
         }
 
-        private void ShowWelcomeScreen(TrackInfo trackInfo)
+        private void ShowWelcomeScreen(SimulatorDataSet dataSet)
         {
+            TrackInfo trackInfo = dataSet.SessionInfo.TrackInfo;
             bool hasMap = _mapsLoader.TryLoadMap(_runningChampionship.SimulatorName, trackInfo.TrackFullName, out TrackMapDto trackMapDto);
 
             EventDto currentEvent = _runningChampionship.GetCurrentEvent();
@@ -139,10 +145,31 @@
                 trackOverviewViewModel.TrackGeometryViewModel.FromModel(trackMapDto.TrackGeometry);
             }
 
+            if (_trackRecordsProvider.TryGetOverallBestRecord(dataSet.Source, trackInfo.TrackFullName, SessionType.Race, out RecordEntryDto recordEntry))
+            {
+                trackOverviewViewModel.OverallRecord.FromModel(recordEntry);
+            }
+
+            if (_trackRecordsProvider.TryGetCarBestRecord(dataSet.Source, trackInfo.TrackFullName, dataSet.PlayerInfo.CarName, SessionType.Race, out recordEntry))
+            {
+                trackOverviewViewModel.CarRecord.FromModel(recordEntry);
+            }
+
+            if (_trackRecordsProvider.TryGetClassBestRecord(dataSet.Source, trackInfo.TrackFullName, dataSet.PlayerInfo.CarName, SessionType.Race, out recordEntry))
+            {
+                trackOverviewViewModel.ClassRecord.FromModel(recordEntry);
+            }
+
             eventStartingViewModel.Screens.Add(trackOverviewViewModel);
             eventStartingViewModel.Screens.Add(new SplashScreenViewModel(){PrimaryInformation = "TEXT"});
 
-            _windowService.OpenWindow(eventStartingViewModel, "Event Starting", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            Window window = _windowService.OpenWindow(eventStartingViewModel, "Event Starting", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            eventStartingViewModel.CloseCommand = new RelayCommand(() => CloseEventStartingView(window));
+        }
+
+        private void CloseEventStartingView(Window window)
+        {
+            window.Close();
         }
     }
 }

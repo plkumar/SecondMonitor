@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Timing
 {
+    using Contracts.TrackRecords;
     using Controllers;
     using Ninject.Modules;
     using TrackRecords.Controller;
@@ -9,7 +10,7 @@
         public override void Load()
         {
             Bind<ITrackRecordsRepositoryFactory>().To<TrackRecordsRepositoryFactory>();
-            Bind<ITrackRecordsController>().To<TrackRecordsController>().InSingletonScope();
+            Bind<ITrackRecordsController, ITrackRecordsProvider>().To<TrackRecordsController>().InSingletonScope();
             Bind<MapManagementController>().ToSelf().InSingletonScope();
             Bind<ISessionEventsController>().To<SessionEventsController>();
         }

@@ -19,7 +19,7 @@
         private readonly IChampionshipsPool _championshipsPool;
         private readonly IChampionshipEligibilityEvaluator _championshipEligibilityEvaluator;
         private readonly IChampionshipOverviewController _championshipOverviewController;
-        private readonly IChampionshipEvenController _championshipEvenController;
+        private readonly IChampionshipEventController _championshipEventController;
         private readonly IChampionshipSelectionController _championshipSelectionController;
         private List<ChampionshipDto> _championshipCandidates;
 
@@ -32,7 +32,7 @@
             ChampionshipIconStateViewModel =  viewModelFactory.Create<ChampionshipIconStateViewModel>();
             SetChampionshipIconToNone();
             _championshipOverviewController = childControllerFactory.Create<IChampionshipOverviewController, IChampionshipController>(this);
-            _championshipEvenController = childControllerFactory.Create<IChampionshipEvenController, IChampionshipController>(this);
+            _championshipEventController = childControllerFactory.Create<IChampionshipEventController, IChampionshipController>(this);
             _championshipSelectionController = childControllerFactory.Create<IChampionshipSelectionController, IChampionshipController>(this);
         }
 
@@ -59,7 +59,7 @@
 
         public void OpenChampionshipWindow()
         {
-            if (_championshipEvenController.IsChampionshipActive && ChampionshipIconStateViewModel.ChampionshipIconState == ChampionshipIconState.ChampionshipInProgress)
+            if (_championshipEventController.IsChampionshipActive && ChampionshipIconStateViewModel.ChampionshipIconState == ChampionshipIconState.ChampionshipInProgress)
             {
                 OpenRunningChampionshipDetail();
                 return;
@@ -80,7 +80,7 @@
         public void StartNextEvent(ChampionshipDto championship)
         {
             _championshipCandidates.Clear();
-            _championshipEvenController.StartNextEvent(championship);
+            _championshipEventController.StartNextEvent(championship);
             SetIconToRunning();
         }
 
@@ -97,7 +97,7 @@
         protected async Task StartChildControllersAsync()
         {
             await _championshipOverviewController.StartControllerAsync();
-            await _championshipEvenController.StartControllerAsync();
+            await _championshipEventController.StartControllerAsync();
         }
 
         protected async Task StopChildControllersAsync()
@@ -131,13 +131,13 @@
                 return;
             }
 
-            if (_championshipEvenController.IsChampionshipActive)
+            if (_championshipEventController.IsChampionshipActive)
             {
                 SetIconToRunning();
                 return;
             }
 
-            if (_championshipEvenController.TryResumePreviousChampionship(dataSet))
+            if (_championshipEventController.TryResumePreviousChampionship(dataSet))
             {
                 SetIconToRunning();
                 return;

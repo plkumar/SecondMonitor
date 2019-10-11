@@ -69,6 +69,7 @@
     <Compile Include="TrackMap\IMapManagementController.cs" />
     <Compile Include="TrackMap\ITrackDtoManipulator.cs" />
     <Compile Include="TrackMap\MapEventArgs.cs" />
+    <Compile Include="TrackRecords\TrackRecordsProvider.cs" />
     <Compile Include="UserInput\IUserInputProvider.cs" />
     <Compile Include="WheelInformation\IIdealWheelQuantitiesFiller.cs" />
   </ItemGroup>

@@ -105,7 +105,7 @@
             Bind<IChampionshipCondition>().To<OpponentsRequirements>();
             Bind<IChampionshipEligibilityEvaluator>().To<ChampionshipEligibilityEvaluator>();
 
-            Bind<IChampionshipEvenController>().To<ChampionshipEvenController>();
+            Bind<IChampionshipEventController>().To<ChampionshipEventController>();
             Bind<IChampionshipSelectionController>().To<ChampionshipSelectionController>();
 
             Bind<IChampionshipManipulator>().To<ChampionshipManipulator>();

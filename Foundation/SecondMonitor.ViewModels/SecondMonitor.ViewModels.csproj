@@ -190,6 +190,7 @@
     <Compile Include="TrackRecords\CarRecordViewModel.cs" />
     <Compile Include="TrackRecords\IRecordViewModel.cs" />
     <Compile Include="TrackRecords\ITrackRecordsViewModel.cs" />
+    <Compile Include="TrackRecords\RecordEntryViewModel.cs" />
     <Compile Include="TrackRecords\RecordViewModel.cs" />
     <Compile Include="TrackRecords\SimulatorRecordsViewModel.cs" />
     <Compile Include="TrackRecords\TrackRecordsViewModel.cs" />

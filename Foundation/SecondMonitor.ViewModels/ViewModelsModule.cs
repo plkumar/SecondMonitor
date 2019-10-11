@@ -39,6 +39,7 @@
             Bind<CarRecordViewModel>().ToSelf();
             Bind<SimulatorRecordsViewModel>().ToSelf();
             Bind<CarRecordsCollectionViewModel>().ToSelf();
+            Bind<RecordEntryViewModel>().ToSelf();
             Bind<WelcomeStageViewModel>().ToSelf();
             Bind<AccelerationStageViewModel>().ToSelf();
             Bind<PreparationStageViewModel>().ToSelf();

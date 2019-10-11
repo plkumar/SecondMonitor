@@ -5,6 +5,11 @@
         <ResourceDictionary Source="../CommonResources.xaml" />
         <ResourceDictionary Source="../ButtonStyles.xaml" />
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type trackRecords:RecordEntryViewModel}">
+                <Grid Visibility="{Binding IsFilled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <TextBlock Style="{StaticResource StandardText}" Text="No Entry"/>
+                </Grid>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type trackRecords:TrackRecordsViewModel}">
                 <Border BorderBrush="{StaticResource TrackRecordBrush}" BorderThickness="2" CornerRadius="3"
                         Background="{StaticResource Anthracite01Brush}" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">

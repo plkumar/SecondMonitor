@@ -23,10 +23,12 @@
         public int TotalPoints { get; set; }
 
         [XmlAttribute]
+        public int Position { get; set; }
+
+        [XmlAttribute]
         public bool IsPlayer { get; set; }
 
         public List<string> OtherNames { get; set; }
-
 
     }
 }

@@ -12,11 +12,27 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <DockPanel LastChildFill="False" Grid.Row="0" Background="{StaticResource Anthracite02Brush}">
+                    <DockPanel LastChildFill="False" Grid.Row="0" Background="{StaticResource DarkGrey01Brush}">
                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="35" Text="{Binding TrackName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <TextBlock Margin="30,0,0,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding LayoutLength}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </DockPanel>
-                    <ContentPresenter Grid.Row="1" Content="{Binding TrackGeometryViewModel}"/>
+                    <Border BorderThickness="2" Margin="5" BorderBrush="{StaticResource LightGrey01Brush}" CornerRadius="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource Anthracite02Brush}">
+                        <ContentPresenter  Content="{Binding TrackGeometryViewModel}"/>
+                    </Border>
+                    <StackPanel Grid.Row="2">
+                        <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
+                            <TextBlock Background="{StaticResource DarkGrey01Brush}" Style="{StaticResource StandardText}" Text="Track Record:" FontSize="{StaticResource BigFontSize}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Grid>
+                        <ContentPresenter Content="{Binding OverallRecord}" Margin="10,0,0,0"/>
+                        <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Class Record:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Grid>
+                        <ContentPresenter Content="{Binding ClassRecord}" Margin="10,0,0,0"/>
+                        <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Vehicle Record:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Grid>
+                        <ContentPresenter Content="{Binding CarRecord}" Margin="10,0,0,0"/>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
 
@@ -28,12 +44,12 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Margin="10">
                         <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <DockPanel LastChildFill="False" Background="{StaticResource Anthracite02Brush}">
+                        <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
                             <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                             <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         </DockPanel>
-                        <DockPanel LastChildFill="False" Background="{StaticResource Anthracite02Brush}">
+                        <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
                             <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                             <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -41,7 +57,7 @@
                         </DockPanel>
                     </StackPanel>
                     <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Grid.Row="1" Padding="10">
-                        <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}"/>
+                        <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}" />
                     </Border>
                 </Grid>
             </DataTemplate>

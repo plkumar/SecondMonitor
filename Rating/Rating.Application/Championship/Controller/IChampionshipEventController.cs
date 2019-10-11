@@ -4,7 +4,7 @@
     using DataModel.Snapshot;
     using SecondMonitor.ViewModels.Controllers;
 
-    public interface IChampionshipEvenController : IChildController<IChampionshipController>
+    public interface IChampionshipEventController : IChildController<IChampionshipController>
     {
         bool IsChampionshipActive { get; }
         void StartNextEvent(ChampionshipDto championship);

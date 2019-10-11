@@ -16,6 +16,7 @@
 
         private void InitializeDrivers(ChampionshipDto championship, SimulatorDataSet dataSet)
         {
+            int position = 0;
             List<DriverInfo> eligibleDrivers = dataSet.DriversInfo.Where(x => x.CarClassId == dataSet.PlayerInfo.CarClassId).ToList();
             championship.ClassName = dataSet.PlayerInfo.CarClassName;
             championship.TotalDrivers = eligibleDrivers.Count;
@@ -23,6 +24,7 @@
             {
                 LastUsedName = x.DriverName,
                 IsPlayer = x.IsPlayer,
+                Position = ++position,
             }).ToList();
 
             championship.Position = eligibleDrivers.FindIndex(x => x.IsPlayer) + 1;

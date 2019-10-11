@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using ViewModels;
@@ -22,6 +23,13 @@
         public static readonly DependencyProperty ViewsProperty = DependencyProperty.Register("Views", typeof(List<IViewModel>), typeof(ViewSequenceControl), new PropertyMetadata(ViewPropertyChanged));
         public static readonly DependencyProperty IsNextButtonEnabledProperty = DependencyProperty.Register("IsNextButtonEnabled", typeof(bool), typeof(ViewSequenceControl), new PropertyMetadata(default(bool)));
         public static readonly DependencyProperty IsPreviousButtonEnabledProperty = DependencyProperty.Register("IsPreviousButtonEnabled", typeof(bool), typeof(ViewSequenceControl));
+        public static readonly DependencyProperty CloseButtonCommandProperty = DependencyProperty.Register("CloseButtonCommand", typeof(ICommand), typeof(ViewSequenceControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand CloseButtonCommand
+        {
+            get => (ICommand) GetValue(CloseButtonCommandProperty);
+            set => SetValue(CloseButtonCommandProperty, value);
+        }
 
         private bool _isSecondViewActive;
         private Grid _grid1;
