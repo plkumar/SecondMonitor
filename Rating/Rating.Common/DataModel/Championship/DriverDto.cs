@@ -28,6 +28,9 @@
         [XmlAttribute]
         public bool IsPlayer { get; set; }
 
+        [XmlAttribute]
+        public string LastCarName { get; set; }
+
         public List<string> OtherNames { get; set; }
 
     }

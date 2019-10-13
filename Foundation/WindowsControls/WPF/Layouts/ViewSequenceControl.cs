@@ -190,8 +190,6 @@
         {
             Grid activeGrid = GetActiveGrid();
             Grid inActiveGrid = GetInactiveGrid();
-            ScrollOut(activeGrid, true);
-            ScrollIn(inActiveGrid, true);
             CurrentViewIndex++;
             if (_isSecondViewActive)
             {
@@ -203,6 +201,8 @@
                 _isSecondViewActive = true;
                 CurrentView2 = Views[CurrentViewIndex];
             }
+            ScrollOut(activeGrid, true);
+            ScrollIn(inActiveGrid, true);
             SetNavigationButtons();
         }
 

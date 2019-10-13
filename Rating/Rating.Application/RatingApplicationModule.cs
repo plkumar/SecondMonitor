@@ -89,6 +89,9 @@
             Bind<EventStartingViewModel>().ToSelf();
             Bind<TrackOverviewViewModel>().ToSelf();
 
+            Bind<DriverStandingViewModel>().ToSelf();
+            Bind<StandingOverviewViewModel>().ToSelf();
+
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<DistanceLengthDefinitionViewModel>();

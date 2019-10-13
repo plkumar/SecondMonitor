@@ -25,6 +25,7 @@
                 LastUsedName = x.DriverName,
                 IsPlayer = x.IsPlayer,
                 Position = ++position,
+                LastCarName = x.CarName,
             }).ToList();
 
             championship.Position = eligibleDrivers.FindIndex(x => x.IsPlayer) + 1;

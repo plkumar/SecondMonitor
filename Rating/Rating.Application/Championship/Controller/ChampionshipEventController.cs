@@ -1,6 +1,5 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Controller
 {
-    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
     using System.Windows;
     using Common.DataModel.Championship;
@@ -19,7 +18,6 @@
     using SecondMonitor.ViewModels.Factory;
     using SecondMonitor.ViewModels.SessionEvents;
     using SecondMonitor.ViewModels.Settings;
-    using SecondMonitor.ViewModels.SplashScreen;
     using SimdataManagement;
     using ViewModels.Events;
 
@@ -72,13 +70,23 @@
         {
             _sessionEventProvider.PlayerFinishStateChanged += SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange += SessionEventProviderOnSessionTypeChange;
+            _sessionEventProvider.TrackChanged += SessionEventProviderOnTrackChanged;
             return Task.CompletedTask;
+        }
+
+        private void SessionEventProviderOnTrackChanged(object sender, DataSetArgs e)
+        {
+            if (_runningChampionship != null && _championshipEligibilityEvaluator.EvaluateChampionship(_runningChampionship, e.DataSet) == RequirementResultKind.DoesNotMatch)
+            {
+                _runningChampionship = null;
+            }
         }
 
         public override Task StopControllerAsync()
         {
             _sessionEventProvider.PlayerFinishStateChanged -= SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange -= SessionEventProviderOnSessionTypeChange;
+            _sessionEventProvider.TrackChanged -= SessionEventProviderOnTrackChanged;
             return Task.CompletedTask;
         }
 
@@ -124,9 +132,6 @@
 
         private void ShowWelcomeScreen(SimulatorDataSet dataSet)
         {
-            TrackInfo trackInfo = dataSet.SessionInfo.TrackInfo;
-            bool hasMap = _mapsLoader.TryLoadMap(_runningChampionship.SimulatorName, trackInfo.TrackFullName, out TrackMapDto trackMapDto);
-
             EventDto currentEvent = _runningChampionship.GetCurrentEvent();
             var eventStartingViewModel = _viewModelFactory.Create<EventStartingViewModel>();
             eventStartingViewModel.ChampionshipName = _runningChampionship.ChampionshipName;
@@ -137,6 +142,17 @@
             eventStartingViewModel.SessionName = currentSession.Name;
             eventStartingViewModel.SessionIndex = $"({_runningChampionship.CurrentSessionIndex + 1} / {currentEvent.Sessions.Count})";
 
+            eventStartingViewModel.Screens.Add(CreateTrackOverviewViewModel(dataSet));
+            eventStartingViewModel.Screens.Add(CreateStandingOverviewViewModel());
+
+            Window window = _windowService.OpenWindow(eventStartingViewModel, "Event Starting", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            eventStartingViewModel.CloseCommand = new RelayCommand(() => CloseEventStartingView(window));
+        }
+
+        private TrackOverviewViewModel CreateTrackOverviewViewModel(SimulatorDataSet dataSet)
+        {
+            TrackInfo trackInfo = dataSet.SessionInfo.TrackInfo;
+            bool hasMap = _mapsLoader.TryLoadMap(_runningChampionship.SimulatorName, trackInfo.TrackFullName, out TrackMapDto trackMapDto);
             var trackOverviewViewModel = _viewModelFactory.Create<TrackOverviewViewModel>();
             trackOverviewViewModel.TrackName = trackInfo.TrackFullName;
             trackOverviewViewModel.LayoutLength = $"{trackInfo.LayoutLength.GetByUnit(_settingsProvider.DisplaySettingsViewModel.DistanceUnits):N2} {Distance.GetUnitsSymbol(_settingsProvider.DisplaySettingsViewModel.DistanceUnits)} ";
@@ -160,11 +176,14 @@
                 trackOverviewViewModel.ClassRecord.FromModel(recordEntry);
             }
 
-            eventStartingViewModel.Screens.Add(trackOverviewViewModel);
-            eventStartingViewModel.Screens.Add(new SplashScreenViewModel(){PrimaryInformation = "TEXT"});
+            return trackOverviewViewModel;
+        }
 
-            Window window = _windowService.OpenWindow(eventStartingViewModel, "Event Starting", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
-            eventStartingViewModel.CloseCommand = new RelayCommand(() => CloseEventStartingView(window));
+        private StandingOverviewViewModel CreateStandingOverviewViewModel()
+        {
+            var standingOverviewViewModel = _viewModelFactory.Create<StandingOverviewViewModel>();
+            standingOverviewViewModel.FromModel(_runningChampionship.Drivers);
+            return standingOverviewViewModel;
         }
 
         private void CloseEventStartingView(Window window)
