@@ -13,6 +13,7 @@
     using Championship.ViewModels.Creation.Session.SessionLength;
     using Championship.ViewModels.Events;
     using Championship.ViewModels.IconState;
+    using Championship.ViewModels.Overview;
     using Championship.ViewModels.Selection;
     using Ninject.Modules;
     using Rating.Controller;
@@ -91,6 +92,7 @@
 
             Bind<DriverStandingViewModel>().ToSelf();
             Bind<StandingOverviewViewModel>().ToSelf();
+            Bind<ChampionshipDetailViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

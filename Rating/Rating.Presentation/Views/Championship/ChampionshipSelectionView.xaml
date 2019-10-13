@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:viewModels="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels;assembly=Rating.Application"
     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
-    xmlns:selection="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Selection;assembly=Rating.Application">
+    xmlns:selection="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Selection;assembly=Rating.Application"
+    xmlns:overview="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Overview;assembly=Rating.Application">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
@@ -26,7 +27,7 @@
                             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
                                 <ListBox Foreground="{StaticResource LightGrey01Brush}" Background="{StaticResource Anthracite01Brush}" MinWidth="800" SelectedItem="{Binding SelectedChampionship}"  ItemsSource="{Binding Championships}" Grid.IsSharedSizeScope="True" Height="400">
                                     <ListBox.ItemTemplate>
-                                        <DataTemplate DataType="viewModels:ChampionshipOverviewViewModel">
+                                        <DataTemplate DataType="overview:ChampionshipOverviewViewModel">
                                             <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}">
                                                 <Grid VerticalAlignment="Center">
                                                     <Grid.ColumnDefinitions>

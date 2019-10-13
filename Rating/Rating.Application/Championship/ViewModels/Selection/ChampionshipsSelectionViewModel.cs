@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Windows.Input;
     using Common.DataModel.Championship;
+    using Overview;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 

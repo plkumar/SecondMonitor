@@ -1,13 +1,11 @@
-﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels
+﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Overview
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using Common.DataModel.Championship;
-    using Contracts.Commands;
     using DataModel.Extensions;
-    using IconState;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 

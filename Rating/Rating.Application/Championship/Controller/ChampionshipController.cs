@@ -75,6 +75,7 @@
 
         private void OpenRunningChampionshipDetail()
         {
+            _championshipOverviewController.OpenChampionshipDetailsWindow(_championshipEventController.CurrentChampionship);
         }
 
         public void StartNextEvent(ChampionshipDto championship)

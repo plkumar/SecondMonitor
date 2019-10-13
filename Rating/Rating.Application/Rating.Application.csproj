@@ -113,8 +113,8 @@
     <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\PredefinedCalendarSelectionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
-    <Compile Include="Championship\ViewModels\ChampionshipOverviewViewModel.cs" />
-    <Compile Include="Championship\ViewModels\ChampionshipsOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\ChampionshipOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\ExistingTrackTemplateViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\AbstractTrackTemplateViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Session\ISessionDefinitionViewModelFactory.cs" />
@@ -129,7 +129,8 @@
     <Compile Include="Championship\ViewModels\Events\EventStartingViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\StandingOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\TrackOverviewViewModel.cs" />
-    <Compile Include="Championship\ViewModels\NextRaceOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\NextRaceOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\ChampionshipDetailViewModel.cs" />
     <Compile Include="Championship\ViewModels\Selection\ChampionshipsSelectionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />

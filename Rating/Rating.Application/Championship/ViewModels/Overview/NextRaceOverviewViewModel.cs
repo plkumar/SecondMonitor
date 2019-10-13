@@ -1,4 +1,4 @@
-﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels
+﻿namespace SecondMonitor.Rating.Application.Championship.ViewModels.Overview
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -7,6 +7,7 @@
     public interface IChampionshipEventController : IChildController<IChampionshipController>
     {
         bool IsChampionshipActive { get; }
+        ChampionshipDto CurrentChampionship { get; }
         void StartNextEvent(ChampionshipDto championship);
         bool TryResumePreviousChampionship(SimulatorDataSet dataSet);
     }

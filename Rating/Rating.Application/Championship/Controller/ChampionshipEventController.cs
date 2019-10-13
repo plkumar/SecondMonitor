@@ -48,6 +48,8 @@
 
         public bool IsChampionshipActive { get; private set; }
 
+        public ChampionshipDto CurrentChampionship => _runningChampionship;
+
         public void StartNextEvent(ChampionshipDto championship)
         {
             _runningChampionship = championship;

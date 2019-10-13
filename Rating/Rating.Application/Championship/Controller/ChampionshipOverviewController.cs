@@ -8,7 +8,7 @@
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
-    using ViewModels;
+    using ViewModels.Overview;
 
     public class ChampionshipOverviewController : AbstractChildController<IChampionshipController>, IChampionshipOverviewController
     {
@@ -37,17 +37,7 @@
             return Task.CompletedTask;
         }
 
-        private void ChampionshipsPoolOnChampionshipRemoved(object sender, ChampionshipEventArgs e)
-        {
-            _championshipOverviewViewModel.RemoveChampionship(e.ChampionshipDto);
-        }
-
-        private void ChampionshipsPoolOnChampionshipAdded(object sender, ChampionshipEventArgs e)
-        {
-            _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
-        }
-
-        public override Task StopControllerAsync()
+       public override Task StopControllerAsync()
         {
             _championshipsPool.ChampionshipAdded -= ChampionshipsPoolOnChampionshipAdded;
             _championshipsPool.ChampionshipRemoved -= ChampionshipsPoolOnChampionshipRemoved;
@@ -69,6 +59,13 @@
             _overviewWindow = _windowService.OpenWindow(_championshipOverviewViewModel, "All Championships", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, WindowClosed);
         }
 
+        public void OpenChampionshipDetailsWindow(ChampionshipDto championship)
+        {
+            var detailViewModel = _viewModelFactory.Create<ChampionshipDetailViewModel>();
+            detailViewModel.FromModel(championship);
+            _windowService.OpenWindow(detailViewModel, "Championships Details", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+        }
+
         private void RemoveSelectedChampionship()
         {
             if (_championshipOverviewViewModel.SelectedChampionship == null)
@@ -82,6 +79,16 @@
             }
 
             _championshipsPool.RemoveChampionship(_championshipOverviewViewModel.SelectedChampionship.OriginalModel);
+        }
+
+        private void ChampionshipsPoolOnChampionshipRemoved(object sender, ChampionshipEventArgs e)
+        {
+            _championshipOverviewViewModel.RemoveChampionship(e.ChampionshipDto);
+        }
+
+        private void ChampionshipsPoolOnChampionshipAdded(object sender, ChampionshipEventArgs e)
+        {
+            _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
         }
 
         private async Task CreateNewChampionship()
