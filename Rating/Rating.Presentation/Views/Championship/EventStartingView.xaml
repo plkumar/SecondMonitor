@@ -21,15 +21,15 @@
                     </Border>
                     <StackPanel Grid.Row="2">
                         <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
-                            <TextBlock Background="{StaticResource DarkGrey01Brush}" Style="{StaticResource StandardText}" Text="Track Record:" FontSize="{StaticResource BigFontSize}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Background="{StaticResource DarkGrey01Brush}" Style="{StaticResource StandardText}" Text="Track Record (Race):" FontSize="{StaticResource BigFontSize}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         </Grid>
                         <ContentPresenter Content="{Binding OverallRecord}" Margin="10,0,0,0"/>
                         <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
-                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Class Record:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Class Record (Race):" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         </Grid>
                         <ContentPresenter Content="{Binding ClassRecord}" Margin="10,0,0,0"/>
                         <Grid  Background="{StaticResource DarkGrey01Brush}" Margin="10" >
-                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Vehicle Record:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Vehicle Record (Race):" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         </Grid>
                         <ContentPresenter Content="{Binding CarRecord}" Margin="10,0,0,0"/>
                     </StackPanel>

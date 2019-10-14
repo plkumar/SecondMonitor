@@ -56,7 +56,7 @@
                                         <Button.Content>
                                             <wpf:ColorAbleIcon Margin="5,0,5,0"
                                                                StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
-                                                <ContentPresenter Content="{StaticResource CancelIcon}" />
+                                                <ContentPresenter Content="{StaticResource OkIcon}" />
                                             </wpf:ColorAbleIcon>
                                         </Button.Content>
                                     </Button>

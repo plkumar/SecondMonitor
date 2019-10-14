@@ -251,14 +251,14 @@
 
         private static DriversRating UpdateDeviation(DriversRating driversRating)
         {
-            int daysOfInactivity = (int)Math.Floor((DateTime.Now - driversRating.CreationTime).TotalDays);
+            /*int daysOfInactivity = (int)Math.Floor((DateTime.Now - driversRating.CreationTime).TotalDays);
             double newDeviation = driversRating.Deviation;
             for (int i = 0; i < daysOfInactivity; i++)
             {
                 newDeviation = Math.Min(350, Math.Sqrt(Math.Pow(newDeviation, 2) + Math.Pow(GlickoDeviationC, 2)));
             }
 
-            driversRating.Deviation = (int) newDeviation;
+            driversRating.Deviation = (int) newDeviation;*/
             driversRating.Volatility = 0.06;
             return driversRating;
         }

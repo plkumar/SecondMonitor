@@ -31,6 +31,7 @@
         private readonly ISettingsProvider _settingsProvider;
         private readonly ITrackRecordsProvider _trackRecordsProvider;
         private readonly MapsLoader _mapsLoader;
+        private string _lastTrack;
         private ChampionshipDto _runningChampionship;
 
         public ChampionshipEventController(IChampionshipManipulator championshipManipulator, ISessionEventProvider sessionEventProvider, IChampionshipEligibilityEvaluator championshipEligibilityEvaluator,
@@ -65,6 +66,10 @@
         public bool TryResumePreviousChampionship(SimulatorDataSet dataSet)
         {
             IsChampionshipActive = dataSet.PlayerInfo.FinishStatus != DriverFinishStatus.Finished && _runningChampionship != null && _championshipEligibilityEvaluator.EvaluateChampionship(_runningChampionship, dataSet) != RequirementResultKind.DoesNotMatch;
+            if (IsChampionshipActive && dataSet.SessionInfo.TrackInfo.TrackFullName != _lastTrack)
+            {
+                ShowWelcomeScreen(dataSet);
+            }
             return IsChampionshipActive;
         }
 
@@ -72,23 +77,13 @@
         {
             _sessionEventProvider.PlayerFinishStateChanged += SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange += SessionEventProviderOnSessionTypeChange;
-            _sessionEventProvider.TrackChanged += SessionEventProviderOnTrackChanged;
             return Task.CompletedTask;
-        }
-
-        private void SessionEventProviderOnTrackChanged(object sender, DataSetArgs e)
-        {
-            if (_runningChampionship != null && _championshipEligibilityEvaluator.EvaluateChampionship(_runningChampionship, e.DataSet) == RequirementResultKind.DoesNotMatch)
-            {
-                _runningChampionship = null;
-            }
         }
 
         public override Task StopControllerAsync()
         {
             _sessionEventProvider.PlayerFinishStateChanged -= SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange -= SessionEventProviderOnSessionTypeChange;
-            _sessionEventProvider.TrackChanged -= SessionEventProviderOnTrackChanged;
             return Task.CompletedTask;
         }
 
@@ -134,6 +129,7 @@
 
         private void ShowWelcomeScreen(SimulatorDataSet dataSet)
         {
+            _lastTrack = dataSet.SessionInfo.TrackInfo.TrackFullName;
             EventDto currentEvent = _runningChampionship.GetCurrentEvent();
             var eventStartingViewModel = _viewModelFactory.Create<EventStartingViewModel>();
             eventStartingViewModel.ChampionshipName = _runningChampionship.ChampionshipName;
@@ -173,7 +169,7 @@
                 trackOverviewViewModel.CarRecord.FromModel(recordEntry);
             }
 
-            if (_trackRecordsProvider.TryGetClassBestRecord(dataSet.Source, trackInfo.TrackFullName, dataSet.PlayerInfo.CarName, SessionType.Race, out recordEntry))
+            if (_trackRecordsProvider.TryGetClassBestRecord(dataSet.Source, trackInfo.TrackFullName, dataSet.PlayerInfo.CarClassName, SessionType.Race, out recordEntry))
             {
                 trackOverviewViewModel.ClassRecord.FromModel(recordEntry);
             }

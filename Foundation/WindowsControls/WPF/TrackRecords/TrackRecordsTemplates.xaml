@@ -6,8 +6,18 @@
         <ResourceDictionary Source="../ButtonStyles.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type trackRecords:RecordEntryViewModel}">
-                <Grid Visibility="{Binding IsFilled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                    <TextBlock Style="{StaticResource StandardText}" Text="No Entry"/>
+                <Grid>
+                    <Grid
+                        Visibility="{Binding IsFilled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                        <TextBlock Style="{StaticResource StandardText}" Text="No Entry" />
+                    </Grid>
+                    <Grid Visibility="{Binding IsFilled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding LapTime, Converter={StaticResource TimeSpanToMinutesSecondMilisecondsConverter}}" Margin="10,0,10,0" />
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding CarName}"  Margin="40,0,10,0" />
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding CreationDate, StringFormat='on {0}', Converter={StaticResource DateTimeToCurrentConverter}}"  Margin="10,0,10,0" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type trackRecords:TrackRecordsViewModel}">

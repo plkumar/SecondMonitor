@@ -14,9 +14,9 @@
 
         public string CarName { get; set; }
 
-        private TimeSpan LapTime { get; set; }
+        public TimeSpan LapTime { get; set; }
 
-        private DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         protected override void ApplyModel(RecordEntryDto model)
         {
