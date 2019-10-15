@@ -33,5 +33,14 @@
 
         public List<string> OtherNames { get; set; }
 
+        public void SetAnotherName(string driverName)
+        {
+            if (!OtherNames.Contains(LastUsedName))
+            {
+                OtherNames.Add(LastUsedName);
+            }
+
+            LastUsedName = driverName;
+        }
     }
 }

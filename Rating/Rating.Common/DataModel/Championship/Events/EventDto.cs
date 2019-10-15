@@ -1,4 +1,4 @@
-﻿namespace SecondMonitor.Rating.Common.DataModel.Championship.TrackMapping
+﻿namespace SecondMonitor.Rating.Common.DataModel.Championship.Events
 {
     using System;
     using System.Collections.Generic;

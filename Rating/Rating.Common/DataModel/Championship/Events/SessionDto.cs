@@ -1,4 +1,4 @@
-﻿namespace SecondMonitor.Rating.Common.DataModel.Championship.TrackMapping
+﻿namespace SecondMonitor.Rating.Common.DataModel.Championship.Events
 {
     using System.Xml.Serialization;
 
@@ -9,5 +9,7 @@
 
         [XmlAttribute]
         public string Name { get; set; }
+
+        public SessionResultDto SessionResult { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Filters
 {
     using Common.DataModel.Championship;
+    using Common.DataModel.Championship.Events;
     using Common.DataModel.Championship.TrackMapping;
     using DataModel.Snapshot;
 

@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml.Serialization;
-    using TrackMapping;
+    using Events;
 
     [Serializable]
     public class ChampionshipDto
@@ -58,12 +59,24 @@
 
         public List<DriverDto> Drivers { get; set; }
 
+        public Dictionary<Guid, DriverDto> GetGuidToDriverDictionary() => Drivers.ToDictionary(x => x.GlobalKey, x => x);
+
         [XmlIgnore]
         public int CompletedRaces => CurrentEventIndex * Events[0].Sessions.Count + CurrentSessionIndex + 1;
 
         public EventDto GetCurrentEvent()
         {
             return Events[CurrentEventIndex];
+        }
+
+        public IEnumerable<SessionDto> GetAllSessions()
+        {
+            return Events.SelectMany(x => x.Sessions);
+        }
+
+        public IEnumerable<SessionResultDto> GetAllResults()
+        {
+            return Events.SelectMany(x => x.Sessions).Select(x => x.SessionResult).Where(x => x != null);
         }
     }
 }

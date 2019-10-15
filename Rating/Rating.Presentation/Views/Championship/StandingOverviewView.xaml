@@ -12,7 +12,9 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingCarName"/>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding Position }"/>
+                    <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding Position }"/>
+                    </Grid>
                     <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding DriverName }" Margin="10,0,10,0"/>
                     <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"   Text="{Binding CarName }" Margin="10,0,10,0"/>
                     <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding TotalPoints, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>

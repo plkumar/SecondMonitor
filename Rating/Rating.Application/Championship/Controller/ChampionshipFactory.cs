@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.DataModel.Championship;
-    using Common.DataModel.Championship.TrackMapping;
+    using Common.DataModel.Championship.Events;
     using ViewModels.Creation;
     using ViewModels.Creation.Calendar;
     using ViewModels.Creation.Session;
