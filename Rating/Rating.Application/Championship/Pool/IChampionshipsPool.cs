@@ -8,6 +8,7 @@
     {
         event EventHandler<ChampionshipEventArgs> ChampionshipAdded;
         event EventHandler<ChampionshipEventArgs> ChampionshipRemoved;
+        event EventHandler<ChampionshipEventArgs> ChampionshipUpdated;
 
         IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos();
         IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos(string simulatorName);

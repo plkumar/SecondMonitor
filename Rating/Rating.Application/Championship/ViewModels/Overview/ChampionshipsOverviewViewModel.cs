@@ -23,7 +23,6 @@
             _viewModelFactory = viewModelFactory;
             AllChampionships = new ObservableCollection<ChampionshipOverviewViewModel>();
             NextRaceOverviewViewModel = viewModelFactory.Create<NextRaceOverviewViewModel>();
-
         }
 
         public NextRaceOverviewViewModel NextRaceOverviewViewModel { get; }

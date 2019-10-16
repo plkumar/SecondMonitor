@@ -17,6 +17,8 @@
             <SolidColorBrush x:Shared="False" x:Key="NoChampionship" Color="{StaticResource LightGrey01Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="ChampionshipRace" Color="{StaticResource Green05Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="PotentialChampionshipRace" Color="{StaticResource Blue04Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="LastSessionCanceled" Color="{StaticResource Orange01Color}"/>
+
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

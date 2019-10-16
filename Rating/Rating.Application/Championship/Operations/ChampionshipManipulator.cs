@@ -67,6 +67,25 @@
             }
         }
 
+        public void CommitLastSessionResults(ChampionshipDto championship)
+        {
+            var currentEvent = championship.GetCurrentEvent();
+            var currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
+            var guidDriverDictionary = championship.GetGuidToDriverDictionary();
+
+            if (currentSession.SessionResult == null)
+            {
+                return;
+            }
+
+            foreach (DriverSessionResultDto driverSessionResultDto in currentSession.SessionResult.DriverSessionResult)
+            {
+                DriverDto driverDto = guidDriverDictionary[driverSessionResultDto.DriverGuid];
+                driverDto.TotalPoints = driverSessionResultDto.TotalPoints;
+                driverDto.Position = driverSessionResultDto.AfterEventPosition;
+            }
+        }
+
         private SessionResultDto CreateResultDto(ChampionshipDto championship, SimulatorDataSet dataSet)
         {
             var scoring = championship.Scoring[championship.CurrentSessionIndex];

@@ -4,6 +4,7 @@
     using System.Windows;
     using Common.DataModel.Championship;
     using Contracts.Commands;
+    using Operations;
     using Pool;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Controllers;
@@ -17,30 +18,34 @@
         private readonly IChampionshipsPool _championshipsPool;
         private readonly IWindowService _windowService;
         private readonly IDialogService _dialogService;
+        private readonly IChampionshipManipulator _championshipManipulator;
         private IChampionshipCreationController _championshipCreationController;
         private Window _overviewWindow;
         private ChampionshipsOverviewViewModel _championshipOverviewViewModel;
 
-        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService, IDialogService dialogService)
+        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService, IDialogService dialogService, IChampionshipManipulator championshipManipulator)
         {
             _viewModelFactory = viewModelFactory;
             _childControllerFactory = childControllerFactory;
             _championshipsPool = championshipsPool;
             _windowService = windowService;
             _dialogService = dialogService;
+            _championshipManipulator = championshipManipulator;
         }
 
         public override Task StartControllerAsync()
         {
             _championshipsPool.ChampionshipAdded += ChampionshipsPoolOnChampionshipAdded;
             _championshipsPool.ChampionshipRemoved += ChampionshipsPoolOnChampionshipRemoved;
+            _championshipsPool.ChampionshipUpdated += ChampionshipsPoolOnChampionshipUpdated;
             return Task.CompletedTask;
         }
 
-       public override Task StopControllerAsync()
+        public override Task StopControllerAsync()
         {
             _championshipsPool.ChampionshipAdded -= ChampionshipsPoolOnChampionshipAdded;
             _championshipsPool.ChampionshipRemoved -= ChampionshipsPoolOnChampionshipRemoved;
+            _championshipsPool.ChampionshipUpdated -= ChampionshipsPoolOnChampionshipUpdated;
             return Task.CompletedTask;
         }
 
@@ -55,8 +60,20 @@
             _championshipOverviewViewModel = _viewModelFactory.Create<ChampionshipsOverviewViewModel>();
             _championshipOverviewViewModel.CreateNewCommand = new AsyncCommand(CreateNewChampionship);
             _championshipOverviewViewModel.RemoveSelectedCommand = new RelayCommand(RemoveSelectedChampionship);
+            _championshipOverviewViewModel.NextRaceOverviewViewModel.DnfSessionCommand = new RelayCommand(DnfSelectedChampionshipSession);
+            _championshipOverviewViewModel.OpenSelectedCommand = new RelayCommand(OpenSelectedChampionship);
             _championshipOverviewViewModel.FromModel(_championshipsPool.GetAllChampionshipDtos());
             _overviewWindow = _windowService.OpenWindow(_championshipOverviewViewModel, "All Championships", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner, WindowClosed);
+        }
+
+        private void OpenSelectedChampionship()
+        {
+            if (_championshipOverviewViewModel.SelectedChampionship == null)
+            {
+                return;
+            }
+
+            OpenChampionshipDetailsWindow(_championshipOverviewViewModel.SelectedChampionship.OriginalModel);
         }
 
         public void OpenChampionshipDetailsWindow(ChampionshipDto championship)
@@ -89,6 +106,25 @@
         private void ChampionshipsPoolOnChampionshipAdded(object sender, ChampionshipEventArgs e)
         {
             _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
+        }
+
+        private void ChampionshipsPoolOnChampionshipUpdated(object sender, ChampionshipEventArgs e)
+        {
+            _championshipOverviewViewModel?.RemoveChampionship(e.ChampionshipDto);
+            _championshipOverviewViewModel?.InsertChampionshipFirst(e.ChampionshipDto);
+        }
+
+        private void DnfSelectedChampionshipSession()
+        {
+            if (_championshipOverviewViewModel.SelectedChampionship == null)
+            {
+                return;
+            }
+
+            ChampionshipDto selectedChampionship = _championshipOverviewViewModel.SelectedChampionship.OriginalModel;
+
+            _championshipManipulator.CommitLastSessionResults(selectedChampionship);
+            _championshipsPool.UpdateChampionship(selectedChampionship);
         }
 
         private async Task CreateNewChampionship()

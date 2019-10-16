@@ -110,6 +110,7 @@
             if (_sessionEventProvider.BeforeLastDataSet.SessionInfo.SessionType == SessionType.Race)
             {
                 _championshipManipulator.AddResultsForCurrentSession(_runningChampionship, _sessionEventProvider.BeforeLastDataSet);
+                _runningChampionship.ChampionshipState = ChampionshipState.LastSessionCanceled;
                 FinishCurrentEvent(_sessionEventProvider.BeforeLastDataSet);
                 return;
             }

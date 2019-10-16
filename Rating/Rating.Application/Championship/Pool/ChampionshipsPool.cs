@@ -22,6 +22,7 @@
 
         public event EventHandler<ChampionshipEventArgs> ChampionshipAdded;
         public event EventHandler<ChampionshipEventArgs> ChampionshipRemoved;
+        public event EventHandler<ChampionshipEventArgs> ChampionshipUpdated;
 
         public IReadOnlyCollection<ChampionshipDto> GetAllChampionshipDtos()
         {
@@ -52,6 +53,7 @@
             AllChampionshipsDto.Championships.RemoveAll(x => x.ChampionshipGlobalId == championshipDto.ChampionshipGlobalId);
             AllChampionshipsDto.Championships.Add(championshipDto);
             _championshipsRepository.Save(AllChampionshipsDto);
+            ChampionshipUpdated?.Invoke(this, new ChampionshipEventArgs(championshipDto));
         }
 
         private AllChampionshipsDto LoadAllChampionshipsDto()

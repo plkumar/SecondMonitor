@@ -9,5 +9,6 @@
         void StartNextEvent(ChampionshipDto championship, SimulatorDataSet dataSet);
         void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet);
         void UpdateAiDriversNames(ChampionshipDto championship, SimulatorDataSet dataSet);
+        void CommitLastSessionResults(ChampionshipDto championship);
     }
 }

@@ -42,8 +42,8 @@
                         <ItemsControl ItemsSource="{Binding DriversStanding}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="5">
-                                        <Grid Margin="10" Background="{StaticResource Anthracite02Brush}">
+                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
+                                        <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
                                             <ContentPresenter Content="{Binding }"></ContentPresenter>
                                         </Grid>
                                     </Border>

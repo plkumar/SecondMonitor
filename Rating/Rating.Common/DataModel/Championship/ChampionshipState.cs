@@ -2,6 +2,6 @@
 {
     public enum ChampionshipState
     {
-        NotStarted, Started, Finished
+        LastSessionCanceled, NotStarted, Started, Finished
     }
 }

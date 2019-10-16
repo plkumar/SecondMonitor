@@ -22,6 +22,10 @@
 
         protected override void ApplyModel(ChampionshipDto model)
         {
+            if (model == null)
+            {
+                return;
+            }
             ChampionshipName = model.ChampionshipName;
             StandingOverviewViewModel.FromModel(model.Drivers);
         }

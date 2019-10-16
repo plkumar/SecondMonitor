@@ -27,6 +27,8 @@
                         return ColorResourceDictionary["ChampionshipRace"];
                     case ChampionshipState.Finished:
                         return ColorResourceDictionary["NoChampionship"];
+                    case ChampionshipState.LastSessionCanceled:
+                        return ColorResourceDictionary["LastSessionCanceled"];
                     default:
                         return Brushes.White;
                 }
