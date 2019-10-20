@@ -78,5 +78,11 @@
         {
             return Events.SelectMany(x => x.Sessions).Select(x => x.SessionResult).Where(x => x != null);
         }
+
+        public (EventDto eventDto, SessionDto sessionDto) GetLastSessionWithResults()
+        {
+            var lastEvent = Events.Last(x => x.Sessions.Any(y => y.SessionResult != null));
+            return (lastEvent, lastEvent.Sessions.Last(x => x.SessionResult != null));
+        }
     }
 }

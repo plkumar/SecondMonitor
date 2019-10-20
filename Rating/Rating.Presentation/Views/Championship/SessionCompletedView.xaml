@@ -5,6 +5,121 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type events:DriversNewStandingsViewModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="20">
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Standing After:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
+                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
+                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding DriversNewStandings}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
+                                        <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
+                                            <ContentPresenter Content="{Binding }"></ContentPresenter>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type events:DriverNewStandingViewModel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="42"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding Position }"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource NormalFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{Binding PositionsGained, Converter={StaticResource IntToRedGreenConverter}}" Text="{Binding PositionsGained, Converter={StaticResource IntegerToStringWithSignConverter} }"/>
+                    </Grid>
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding Name }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding TotalPoints, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource Green01Brush}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type events:DriverFinishViewModel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversFinishName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriverFinishPoints"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding FinishPosition }"/>
+                    </Grid>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding DriverName }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding PointsGain, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource Green01Brush}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type events:DriversFinishViewModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="20">
+                        <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding Header}"/>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding DriversFinish}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
+                                        <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
+                                            <ContentPresenter Content="{Binding }"></ContentPresenter>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type events:PodiumViewModel}">
                 <Grid>
                     <Grid.RowDefinitions>

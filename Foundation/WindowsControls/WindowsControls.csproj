@@ -158,6 +158,7 @@
     <Compile Include="WPF\Converters\DoubleToScalableDecimalsConverter.cs" />
     <Compile Include="WPF\Converters\DoubleToStringNoDecimalConverter.cs" />
     <Compile Include="WPF\Converters\FormattedTimeToBrushConverter.cs" />
+    <Compile Include="WPF\Converters\IntegerToStringWithSignConverter.cs" />
     <Compile Include="WPF\Converters\IntToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanConverter.cs" />

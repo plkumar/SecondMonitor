@@ -96,6 +96,10 @@
 
             Bind<SessionCompletedViewModel>().ToSelf();
             Bind<PodiumViewModel>().ToSelf();
+            Bind<DriverFinishViewModel>().ToSelf();
+            Bind<DriversFinishViewModel>().ToSelf();
+            Bind<DriverNewStandingViewModel>().ToSelf();
+            Bind<DriversNewStandingsViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

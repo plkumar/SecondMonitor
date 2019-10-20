@@ -118,6 +118,7 @@
                     FinishPosition = position,
                     PointsGain = position <= scoring.Scoring.Count ? scoring.Scoring[position - 1] : 0,
                     BeforeEventPosition = championshipDriver.Position,
+                    IsPlayer = championshipDriver.IsPlayer,
                 };
                 driverResult.TotalPoints = championshipDriver.TotalPoints + driverResult.PointsGain;
 

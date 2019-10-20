@@ -114,6 +114,10 @@
     <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\PredefinedCalendarSelectionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\DriverFinishViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\DriverNewStandingViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\DriversFinishViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\DriversNewStandingsViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\PodiumViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\SessionCompletedViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\ChampionshipOverviewViewModel.cs" />

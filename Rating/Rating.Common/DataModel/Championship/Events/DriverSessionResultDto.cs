@@ -27,6 +27,9 @@
         public int AfterEventPosition { get; set; }
 
         [XmlIgnore]
-        public int PositionGained => AfterEventPosition - BeforeEventPosition;
+        public int PositionGained =>  BeforeEventPosition - AfterEventPosition;
+
+        [XmlAttribute]
+        public bool IsPlayer { get; set; }
     }
 }
