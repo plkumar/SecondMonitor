@@ -4,7 +4,6 @@
     using System.Windows;
     using Common.DataModel.Championship;
     using Common.DataModel.Championship.Events;
-    using Common.DataModel.Championship.TrackMapping;
     using Contracts.Commands;
     using Contracts.TrackRecords;
     using DataModel.BasicProperties;
@@ -109,7 +108,7 @@
 
             if (_sessionEventProvider.BeforeLastDataSet.SessionInfo.SessionType == SessionType.Race)
             {
-                _championshipManipulator.AddResultsForCurrentSession(_runningChampionship, _sessionEventProvider.BeforeLastDataSet);
+                _championshipManipulator.AddResultsForCurrentSession(_runningChampionship, _sessionEventProvider.BeforeLastDataSet, shiftPlayerToLastPlace: true);
                 _runningChampionship.ChampionshipState = ChampionshipState.LastSessionCanceled;
                 FinishCurrentEvent(_sessionEventProvider.BeforeLastDataSet);
                 return;

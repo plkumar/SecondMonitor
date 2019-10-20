@@ -66,7 +66,7 @@
 
         public EventDto GetCurrentEvent()
         {
-            return Events[CurrentEventIndex];
+            return CurrentEventIndex < Events.Count ? Events[CurrentEventIndex] : Events.Last();
         }
 
         public IEnumerable<SessionDto> GetAllSessions()

@@ -21,11 +21,11 @@
             currentEvent.TrackName = dataSet.SessionInfo.TrackInfo.TrackFullName;
         }
 
-        public void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet)
+        public void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet, bool shiftPlayerToLastPlace)
         {
             var currentEvent = championship.GetCurrentEvent();
             var currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
-            currentSession.SessionResult = CreateResultDto(championship, dataSet);
+            currentSession.SessionResult = CreateResultDto(championship, dataSet, shiftPlayerToLastPlace);
         }
 
         public void UpdateAiDriversNames(ChampionshipDto championship, SimulatorDataSet dataSet)
@@ -84,21 +84,39 @@
                 driverDto.TotalPoints = driverSessionResultDto.TotalPoints;
                 driverDto.Position = driverSessionResultDto.AfterEventPosition;
             }
+
+            AdvanceChampionship(championship);
         }
 
-        private SessionResultDto CreateResultDto(ChampionshipDto championship, SimulatorDataSet dataSet)
+        private void AdvanceChampionship(ChampionshipDto championship)
+        {
+            var currentEvent = championship.GetCurrentEvent();
+            championship.CurrentSessionIndex = (championship.CurrentSessionIndex + 1) % currentEvent.Sessions.Count;
+            if (championship.CurrentSessionIndex == 0)
+            {
+                championship.CurrentEventIndex++;
+                currentEvent = championship.GetCurrentEvent();
+                championship.NextTrack = currentEvent.TrackName;
+            }
+
+            championship.ChampionshipState = championship.CurrentEventIndex >= championship.Events.Count ? ChampionshipState.Finished : ChampionshipState.Started;
+        }
+
+        private SessionResultDto CreateResultDto(ChampionshipDto championship, SimulatorDataSet dataSet, bool shiftPlayerToLastPlace)
         {
             var scoring = championship.Scoring[championship.CurrentSessionIndex];
+            Dictionary<string, int> positionMap = CreateFinishPositionDictionary(dataSet.DriversInfo.Where(x => x.CarClassId == dataSet.PlayerInfo.CarClassId).ToList(), shiftPlayerToLastPlace);
             SessionResultDto resultDto = new SessionResultDto();
             foreach (DriverDto championshipDriver in championship.Drivers)
             {
                 DriverInfo sessionDriver = dataSet.DriversInfo.First(x => x.DriverName == championshipDriver.LastUsedName);
+                int position = positionMap[sessionDriver.DriverName];
                 DriverSessionResultDto driverResult = new DriverSessionResultDto()
                 {
                     DriverGuid = championshipDriver.GlobalKey,
                     DriverName = championshipDriver.LastUsedName,
-                    FinishPosition = sessionDriver.Position,
-                    PointsGain = sessionDriver.PositionInClass <= scoring.Scoring.Count ? scoring.Scoring[sessionDriver.PositionInClass - 1] : 0,
+                    FinishPosition = position,
+                    PointsGain = position <= scoring.Scoring.Count ? scoring.Scoring[position - 1] : 0,
                     BeforeEventPosition = championshipDriver.Position,
                 };
                 driverResult.TotalPoints = championshipDriver.TotalPoints + driverResult.PointsGain;
@@ -114,6 +132,31 @@
             }
 
             return resultDto;
+        }
+
+        private static Dictionary<string, int> CreateFinishPositionDictionary(List<DriverInfo> eligibleDrivers, bool playerLast)
+        {
+            if (!playerLast)
+            {
+                return eligibleDrivers.ToDictionary(x => x.DriverName, x => x.PositionInClass);
+            }
+
+            bool playerShifted = false;
+            Dictionary<string, int> positionMap = new Dictionary<string, int>();
+            foreach (var driver in eligibleDrivers.OrderBy(x => x.Position))
+            {
+                if (driver.IsPlayer)
+                {
+                    var lastDriver = eligibleDrivers.Last(x => x.FinishStatus != DriverFinishStatus.Dnf);
+                    positionMap[driver.DriverName] = lastDriver.PositionInClass;
+                    playerShifted = true;
+                    continue;
+                }
+
+                positionMap[driver.DriverName] = playerShifted ? driver.PositionInClass - 1 : driver.PositionInClass;
+            }
+
+            return positionMap;
         }
 
         private void InitializeDrivers(ChampionshipDto championship, SimulatorDataSet dataSet)

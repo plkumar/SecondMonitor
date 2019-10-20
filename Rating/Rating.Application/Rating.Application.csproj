@@ -114,6 +114,8 @@
     <Compile Include="Championship\ViewModels\Creation\Calendar\Predefined\PredefinedCalendarSelectionViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\CreatedCalendarViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\PodiumViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\SessionCompletedViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\ChampionshipOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\ChampionshipsOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Creation\Calendar\ExistingTrackTemplateViewModel.cs" />

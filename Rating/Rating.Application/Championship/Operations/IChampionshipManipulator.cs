@@ -7,7 +7,7 @@
     {
         void StartChampionship(ChampionshipDto championship, SimulatorDataSet dataSet);
         void StartNextEvent(ChampionshipDto championship, SimulatorDataSet dataSet);
-        void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet);
+        void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet, bool shiftPlayerToLastPlace = false);
         void UpdateAiDriversNames(ChampionshipDto championship, SimulatorDataSet dataSet);
         void CommitLastSessionResults(ChampionshipDto championship);
     }

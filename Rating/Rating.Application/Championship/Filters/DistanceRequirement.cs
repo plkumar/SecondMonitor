@@ -2,7 +2,6 @@
 {
     using Common.DataModel.Championship;
     using Common.DataModel.Championship.Events;
-    using Common.DataModel.Championship.TrackMapping;
     using DataModel.Snapshot;
 
     public class DistanceRequirement : IChampionshipCondition
@@ -14,7 +13,7 @@
                 return string.Empty;
             }
 
-            SessionDto sessionDto = championshipDto.Events[championshipDto.CurrentEventIndex].Sessions[championshipDto.CurrentEventIndex];
+            SessionDto sessionDto = championshipDto.Events[championshipDto.CurrentEventIndex].Sessions[championshipDto.CurrentSessionIndex];
             return $"Session length should be {sessionDto.DistanceDescription}, but this is not enforced.";
         }
 

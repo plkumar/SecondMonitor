@@ -112,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Championship\SessionCompletedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Championship\SessionsDefinitionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

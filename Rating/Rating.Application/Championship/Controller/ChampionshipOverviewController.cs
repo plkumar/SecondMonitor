@@ -9,6 +9,7 @@
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
+    using ViewModels.Events;
     using ViewModels.Overview;
 
     public class ChampionshipOverviewController : AbstractChildController<IChampionshipController>, IChampionshipOverviewController
@@ -125,6 +126,26 @@
 
             _championshipManipulator.CommitLastSessionResults(selectedChampionship);
             _championshipsPool.UpdateChampionship(selectedChampionship);
+            ShowLastEvenResultWindow(selectedChampionship);
+        }
+
+        private void ShowLastEvenResultWindow(ChampionshipDto championship)
+        {
+            var sessionCompletedViewmodel = _viewModelFactory.Create<SessionCompletedViewModel>();
+            sessionCompletedViewmodel.Title = "Session Completed";
+
+            var podiumViewModel = _viewModelFactory.Create<PodiumViewModel>();
+            podiumViewModel.FromModel(championship);
+
+            sessionCompletedViewmodel.Screens.Add(podiumViewModel);
+
+            Window window = _windowService.OpenWindow(sessionCompletedViewmodel, "Session Completed", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            sessionCompletedViewmodel.CloseCommand = new RelayCommand(() => CloseSessionCompletedWindow(window));
+        }
+
+        private void CloseSessionCompletedWindow(Window window)
+        {
+            window.Close();
         }
 
         private async Task CreateNewChampionship()

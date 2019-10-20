@@ -94,6 +94,9 @@
             Bind<StandingOverviewViewModel>().ToSelf();
             Bind<ChampionshipDetailViewModel>().ToSelf();
 
+            Bind<SessionCompletedViewModel>().ToSelf();
+            Bind<PodiumViewModel>().ToSelf();
+
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<DistanceLengthDefinitionViewModel>();
