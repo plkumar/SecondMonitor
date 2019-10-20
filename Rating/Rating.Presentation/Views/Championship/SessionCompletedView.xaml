@@ -135,19 +135,19 @@
                     <Grid Column="0" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource StandardText}" Text="{Binding Second}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}" Height="200"/>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Silver01Brush}" Height="200"/>
                         </StackPanel>
                     </Grid>
                     <Grid Column="1" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource StandardText}" Text="{Binding First}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}" Height="400"/>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Gold01Brush}" Height="400"/>
                         </StackPanel>
                     </Grid>
                     <Grid Column="2" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource StandardText}" Text="{Binding Third}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource DarkGrey01Brush}" Height="100"/>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Bronze01Brush}" Height="100"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
