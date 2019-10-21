@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.Rating.Application
 {
+    using Championship;
     using Championship.Controller;
     using Championship.Filters;
     using Championship.Operations;
@@ -121,6 +122,7 @@
             Bind<IChampionshipSelectionController>().To<ChampionshipSelectionController>();
 
             Bind<IChampionshipManipulator>().To<ChampionshipManipulator>();
+            Bind<IChampionshipDialogProvider>().To<ChampionshipDialogProvider>();
 
         }
     }

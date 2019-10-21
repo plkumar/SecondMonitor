@@ -62,6 +62,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Championship\ChampionshipDialogProvider.cs" />
     <Compile Include="Championship\Controller\ChampionshipController.cs" />
     <Compile Include="Championship\Controller\ChampionshipCreationController.cs" />
     <Compile Include="Championship\Controller\ChampionshipEventController.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Championship\Filters\RequirementResultKind.cs" />
     <Compile Include="Championship\Filters\SimulatorRequirement.cs" />
     <Compile Include="Championship\Filters\TrackRequirement.cs" />
+    <Compile Include="Championship\IChampionshipDialogProvider.cs" />
     <Compile Include="Championship\Operations\ChampionshipManipulator.cs" />
     <Compile Include="Championship\Operations\DriverPositionComparer.cs" />
     <Compile Include="Championship\Operations\IChampionshipManipulator.cs" />

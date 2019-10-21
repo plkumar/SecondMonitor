@@ -25,7 +25,6 @@
                                 <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                 <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                 <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
                             </DockPanel>
                         </StackPanel>
                     </Grid>
@@ -134,20 +133,86 @@
                     </Grid.ColumnDefinitions>
                     <Grid Column="0" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Second}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Silver01Brush}" Height="200"/>
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Second}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Silver01Brush}" Height="200">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Style="{StaticResource StandardText}" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="125" FontWeight="ExtraBold">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect
+                                                    ShadowDepth="4"
+                                                    Direction="330"
+                                                    Color="Black"
+                                                    Opacity="0.5"
+                                                    BlurRadius="4"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </Grid>
+                            </Border>
                         </StackPanel>
                     </Grid>
                     <Grid Column="1" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding First}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Gold01Brush}" Height="400"/>
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding First}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Gold01Brush}" Height="400">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Style="{StaticResource StandardText}" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="150" FontWeight="ExtraBold">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                                                ShadowDepth="4"
+                                                Direction="330"
+                                                Color="Black"
+                                                Opacity="0.5"
+                                                BlurRadius="4"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
                         </StackPanel>
                     </Grid>
                     <Grid Column="2" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Third}" HorizontalAlignment="Center" Margin="10" FontSize="50"></TextBlock>
-                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Bronze01Brush}" Height="100"/>
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Third}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Bronze01Brush}" Height="100">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Style="{StaticResource StandardText}" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" FontWeight="ExtraBold">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect
+                                                    ShadowDepth="4"
+                                                    Direction="330"
+                                                    Color="Black"
+                                                    Opacity="0.5"
+                                                    BlurRadius="4"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </Grid>
+                            </Border>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -165,7 +230,9 @@
                             <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                         <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Grid.Row="1" Padding="10">
-                            <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}" />
+                            <Grid>
+                                <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}" />
+                            </Grid>
                         </Border>
                     </Grid>
                 </Border>

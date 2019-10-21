@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -201,6 +202,8 @@
                 _isSecondViewActive = true;
                 CurrentView2 = Views[CurrentViewIndex];
             }
+
+
             ScrollOut(activeGrid, true);
             ScrollIn(inActiveGrid, true);
             SetNavigationButtons();
@@ -210,8 +213,7 @@
         {
             Grid activeGrid = GetActiveGrid();
             Grid inActiveGrid = GetInactiveGrid();
-            ScrollOut(activeGrid, false);
-            ScrollIn(inActiveGrid, false);
+
             CurrentViewIndex--;
             if (_isSecondViewActive)
             {
@@ -223,6 +225,9 @@
                 _isSecondViewActive = true;
                 CurrentView2 = Views[CurrentViewIndex];
             }
+
+            ScrollOut(activeGrid, false);
+            ScrollIn(inActiveGrid, false);
             SetNavigationButtons();
         }
 

@@ -1,17 +1,14 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Controller
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using Common.DataModel.Championship;
-    using Common.DataModel.Championship.Events;
     using Contracts.Commands;
     using Operations;
     using Pool;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Controllers;
     using SecondMonitor.ViewModels.Factory;
-    using ViewModels.Events;
     using ViewModels.Overview;
 
     public class ChampionshipOverviewController : AbstractChildController<IChampionshipController>, IChampionshipOverviewController
@@ -22,11 +19,12 @@
         private readonly IWindowService _windowService;
         private readonly IDialogService _dialogService;
         private readonly IChampionshipManipulator _championshipManipulator;
+        private readonly IChampionshipDialogProvider _championshipDialogProvider;
         private IChampionshipCreationController _championshipCreationController;
         private Window _overviewWindow;
         private ChampionshipsOverviewViewModel _championshipOverviewViewModel;
 
-        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService, IDialogService dialogService, IChampionshipManipulator championshipManipulator)
+        public ChampionshipOverviewController(IViewModelFactory viewModelFactory, IChildControllerFactory childControllerFactory, IChampionshipsPool championshipsPool, IWindowService windowService, IDialogService dialogService, IChampionshipManipulator championshipManipulator, IChampionshipDialogProvider championshipDialogProvider)
         {
             _viewModelFactory = viewModelFactory;
             _childControllerFactory = childControllerFactory;
@@ -34,6 +32,7 @@
             _windowService = windowService;
             _dialogService = dialogService;
             _championshipManipulator = championshipManipulator;
+            _championshipDialogProvider = championshipDialogProvider;
         }
 
         public override Task StartControllerAsync()
@@ -133,44 +132,7 @@
 
         private void ShowLastEvenResultWindow(ChampionshipDto championship)
         {
-            var sessionCompletedViewmodel = _viewModelFactory.Create<SessionCompletedViewModel>();
-            (EventDto eventDto, SessionDto sessionDto) = championship.GetLastSessionWithResults();
-            var lastResult = sessionDto.SessionResult;
-            if (lastResult == null)
-            {
-                return;
-            }
-
-            sessionCompletedViewmodel.Title = "Session Completed";
-
-            var podiumViewModel = _viewModelFactory.Create<PodiumViewModel>();
-            podiumViewModel.FromModel(lastResult);
-
-            var driversFinishViewModel = _viewModelFactory.Create<DriversFinishViewModel>();
-            driversFinishViewModel.Header = "Session Results";
-            driversFinishViewModel.FromModel(lastResult);
-
-            var driversNewStandingsViewModel = _viewModelFactory.Create<DriversNewStandingsViewModel>();
-
-            driversNewStandingsViewModel.ChampionshipName = championship.ChampionshipName;
-            driversNewStandingsViewModel.EventName = eventDto.EventName;
-            driversNewStandingsViewModel.EventIndex = $"({championship.Events.IndexOf(eventDto) + 1} / {championship.TotalEvents})";
-            driversNewStandingsViewModel.SessionName = sessionDto.Name;
-            driversNewStandingsViewModel.SessionIndex = $"({eventDto.Sessions.IndexOf(sessionDto) + 1} / {eventDto.Sessions.Count})";
-
-            driversNewStandingsViewModel.FromModel(lastResult);
-
-            sessionCompletedViewmodel.Screens.Add(podiumViewModel);
-            sessionCompletedViewmodel.Screens.Add(driversFinishViewModel);
-            sessionCompletedViewmodel.Screens.Add(driversNewStandingsViewModel);
-
-            Window window = _windowService.OpenWindow(sessionCompletedViewmodel, "Session Completed", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
-            sessionCompletedViewmodel.CloseCommand = new RelayCommand(() => CloseSessionCompletedWindow(window));
-        }
-
-        private void CloseSessionCompletedWindow(Window window)
-        {
-            window.Close();
+            _championshipDialogProvider.ShowLastEvenResultWindow(championship);
         }
 
         private async Task CreateNewChampionship()
