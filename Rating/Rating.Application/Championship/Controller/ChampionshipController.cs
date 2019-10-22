@@ -6,6 +6,7 @@
     using Common.DataModel.Championship;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
+    using DataModel.Snapshot.Drivers;
     using Filters;
     using Pool;
     using SecondMonitor.ViewModels.Controllers;
@@ -129,6 +130,11 @@
             if (dataSet.SessionInfo.SessionType == SessionType.Na)
             {
                 SetChampionshipIconToNone();
+                return;
+            }
+
+            if (dataSet.PlayerInfo?.FinishStatus == DriverFinishStatus.Finished)
+            {
                 return;
             }
 

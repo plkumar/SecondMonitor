@@ -127,6 +127,7 @@
 
             _championshipManipulator.CommitLastSessionResults(selectedChampionship);
             _championshipsPool.UpdateChampionship(selectedChampionship);
+
             ShowLastEvenResultWindow(selectedChampionship);
         }
 
