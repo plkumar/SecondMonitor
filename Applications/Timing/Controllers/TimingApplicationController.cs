@@ -353,8 +353,8 @@ namespace SecondMonitor.Timing.Controllers
 
         private async void TimingDataViewModelOnSessionCompleted(object sender, SessionSummaryEventArgs e)
         {
-            _reportsController?.CreateReport(e.Summary);
             await _ratingApplicationController.NotifySessionCompletion(e.Summary);
+            _reportsController?.CreateReport(e.Summary);
         }
     }
 }

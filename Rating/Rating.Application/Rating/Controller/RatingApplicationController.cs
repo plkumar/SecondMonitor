@@ -149,10 +149,12 @@
         {
             if (_inMp || !_displaySettingsViewModel.RatingSettingsViewModel.IsEnabled || !RatingApplicationViewModel.IsRateRaceCheckboxChecked)
             {
+                Logger.Info("Session Completed Notified - but is either MP or rating is disabled");
                 return;
             }
             try
             {
+                Logger.Info("Session Completed Notified");
                 await _raceObserverController.NotifySessionCompletion(sessionSummary);
             }
             catch (Exception ex)

@@ -1,14 +1,18 @@
 ﻿namespace SecondMonitor.Rating.Application.Championship.Operations
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common.DataModel.Championship;
     using Common.DataModel.Championship.Events;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
+    using NLog;
 
     public class ChampionshipManipulator : IChampionshipManipulator
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public void StartChampionship(ChampionshipDto championship, SimulatorDataSet dataSet)
         {
             InitializeDrivers(championship, dataSet);
@@ -109,7 +113,12 @@
             SessionResultDto resultDto = new SessionResultDto();
             foreach (DriverDto championshipDriver in championship.Drivers)
             {
-                DriverInfo sessionDriver = dataSet.DriversInfo.First(x => x.DriverName == championshipDriver.LastUsedName);
+                DriverInfo sessionDriver = dataSet.DriversInfo.FirstOrDefault(x => x.DriverName == championshipDriver.LastUsedName);
+                if (sessionDriver == null)
+                {
+                    Logger.Error($"Driver {championshipDriver.LastUsedName} not found");
+                    throw new InvalidOperationException($"Driver {championshipDriver.LastUsedName} not found");
+                }
                 int position = positionMap[sessionDriver.DriverName];
                 DriverSessionResultDto driverResult = new DriverSessionResultDto()
                 {

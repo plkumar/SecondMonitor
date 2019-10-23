@@ -135,6 +135,7 @@
 
             if (dataSet.PlayerInfo?.FinishStatus == DriverFinishStatus.Finished)
             {
+                SetChampionshipIconToNone();
                 return;
             }
 

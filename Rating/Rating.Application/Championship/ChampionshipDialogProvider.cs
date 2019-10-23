@@ -39,7 +39,7 @@
             var eventStartingViewModel = _viewModelFactory.Create<EventStartingViewModel>();
             eventStartingViewModel.ChampionshipName = championship.ChampionshipName;
             eventStartingViewModel.EventName = currentEvent.EventName;
-            eventStartingViewModel.EventIndex = $"({championship.CurrentEventIndex + 1} / {championship.TotalEvents})";
+            eventStartingViewModel.EventIndex = $"({championship.CurrentEventIndex + 1} / {championship.Events.Count})";
 
             SessionDto currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
             eventStartingViewModel.SessionName = currentSession.Name;
@@ -75,7 +75,7 @@
 
             driversNewStandingsViewModel.ChampionshipName = championship.ChampionshipName;
             driversNewStandingsViewModel.EventName = eventDto.EventName;
-            driversNewStandingsViewModel.EventIndex = $"({championship.Events.IndexOf(eventDto) + 1} / {championship.TotalEvents})";
+            driversNewStandingsViewModel.EventIndex = $"({championship.Events.IndexOf(eventDto) + 1} / {championship.Events.Count})";
             driversNewStandingsViewModel.SessionName = sessionDto.Name;
             driversNewStandingsViewModel.SessionIndex = $"({eventDto.Sessions.IndexOf(sessionDto) + 1} / {eventDto.Sessions.Count})";
 

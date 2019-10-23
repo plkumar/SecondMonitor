@@ -59,10 +59,17 @@
         {
             IsChampionshipActive = dataSet.PlayerInfo.FinishStatus != DriverFinishStatus.Finished && _runningChampionship != null && _championshipEligibilityEvaluator.EvaluateChampionship(_runningChampionship, dataSet) != RequirementResultKind.DoesNotMatch;
             Logger.Info($"TryResumePreviousChampionship result is {IsChampionshipActive}");
+
+            if (IsChampionshipActive)
+            {
+                _championshipManipulator.UpdateAiDriversNames(_runningChampionship, _sessionEventProvider.LastDataSet);
+            }
+
             if (IsChampionshipActive && dataSet.SessionInfo.TrackInfo.TrackFullName != _lastTrack)
             {
                 ShowWelcomeScreen(dataSet);
             }
+
             return IsChampionshipActive;
         }
 
