@@ -55,6 +55,7 @@
                     var newEntry = _viewModelFactory.Create<ExistingTrackCalendarEntryViewModel>();
                     newEntry.CustomEventName = useCalendarEventNames ? eventTemplate.EventName : string.Empty;
                     newEntry.TrackName = simulatorTrackName;
+                    newEntry.LayoutLength = trackDefinition.LapDistance;
                     bool hasMap = _mapsLoader.TryLoadMap(simulatorName, simulatorTrackName, out TrackMapDto trackMapDto);
                     if (hasMap)
                     {
