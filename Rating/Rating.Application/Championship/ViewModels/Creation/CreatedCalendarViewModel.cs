@@ -157,7 +157,7 @@
             for (int i = 0; i < CalendarEntries.Count; i++)
             {
                 CalendarEntries[i].EventNumber = i + 1;
-                CalendarEntries[i].OriginalEventName = "Event " + (i + 1);
+                CalendarEntries[i].OriginalEventName = "Round " + (i + 1);
             }
         }
 
