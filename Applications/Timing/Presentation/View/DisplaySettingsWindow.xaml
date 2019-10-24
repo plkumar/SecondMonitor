@@ -148,6 +148,7 @@
                                 </DockPanel>
                                 <DockPanel DockPanel.Dock="Top">
                                     <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Rating" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.Rating.Visible}"></CheckBox>
+                                    <CheckBox DockPanel.Dock="Left" Foreground="White" Content="Champ. Points" Margin="10,0,0,10" IsChecked="{Binding ColumnsSettingsView.ChampionshipPoints.Visible}"></CheckBox>
                                 </DockPanel>
                             </DockPanel>
                         </Grid>

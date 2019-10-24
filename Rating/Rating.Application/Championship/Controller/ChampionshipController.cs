@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Common.DataModel.Championship;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
+    using DataModel.Summary;
     using Filters;
     using Pool;
     using SecondMonitor.ViewModels.Controllers;
@@ -14,7 +16,7 @@
     using SecondMonitor.ViewModels.SessionEvents;
     using ViewModels.IconState;
 
-    public class ChampionshipController : IChampionshipController
+    public class ChampionshipController : IChampionshipController, IChampionshipCurrentEventPointsProvider
     {
         private readonly ISessionEventProvider _sessionEventProvider;
         private readonly IChampionshipsPool _championshipsPool;
@@ -56,6 +58,19 @@
             _sessionEventProvider.PlayerFinishStateChanged -= ReEvaluateChampionships;
             _sessionEventProvider.PlayerPropertiesChanged -= ReEvaluateChampionships;
             await StopChildControllersAsync();
+        }
+
+        public bool TryGetPointsForDriver(string driverName, out int points)
+        {
+            if (!_championshipEventController.IsChampionshipActive)
+            {
+                points = 0;
+                return false;
+            }
+
+            DriverDto driver = _championshipEventController.CurrentChampionship.Drivers.FirstOrDefault(x => x.LastUsedName == driverName);
+            points = driver?.TotalPoints ?? 0;
+            return driver != null;
         }
 
         public void OpenChampionshipWindow()
@@ -154,7 +169,7 @@
             List<ChampionshipDto> perfectlyMatchingChampionships = new List<ChampionshipDto>();
             List<ChampionshipDto> matchingChampionships = new List<ChampionshipDto>();
 
-            foreach (ChampionshipDto championship in _championshipsPool.GetAllChampionshipDtos())
+            foreach (ChampionshipDto championship in _championshipsPool.GetAllChampionshipDtos().Where(x => x.ChampionshipState != ChampionshipState.Finished))
             {
                 RequirementResultKind evaluationResult = _championshipEligibilityEvaluator.EvaluateChampionship(championship, dataSet);
                 switch (evaluationResult)

@@ -164,6 +164,7 @@
         public Velocity TopSpeed { get; private set; } = Velocity.Zero;
 
         public int Rating { get; set; }
+        public int ChampionshipPoints { get; set; }
         public bool IsLastLapTrackRecord { get; set; }
 
 

@@ -268,6 +268,11 @@
                                             ElementStyle="{StaticResource TextBoxStyleRating}"
                                             Header="Rating"
                                             Visibility="{Binding Source={StaticResource proxy}, Path=Data.CurrentSessionOptionsView.ColumnsSettingsView.Rating.Visible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                        <DataGridTextColumn Width="{Binding Source={StaticResource proxy}, Path=Data.CurrentSessionOptionsView.ColumnsSettingsView.ChampionshipPoints.Width, Mode=TwoWay, Converter={StaticResource lengthConverter}}"
+                                            Binding="{Binding ChampionshipPoints, Mode=OneWay}"
+                                            ElementStyle="{StaticResource TextBoxStyle}"
+                                            Header="Points"
+                                            Visibility="{Binding Source={StaticResource proxy}, Path=Data.CurrentSessionOptionsView.ColumnsSettingsView.ChampionshipPoints.Visible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                     </timingGridControl:TimingGrid.Columns>
                 </timingGridControl:TimingGrid>
             </Grid>

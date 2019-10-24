@@ -323,6 +323,15 @@
             private set;
         }
 
+
+        private int _championshipPoints;
+
+        public int ChampionshipPoints
+        {
+            get => _championshipPoints;
+            set => SetProperty(ref _championshipPoints, value);
+        }
+
         private string _ratingFormatted;
         public string RatingFormatted
         {
@@ -378,6 +387,7 @@
                 IsLastLapBestSessionLap = DriverTiming.IsLastLapBestSessionLap;
                 IsLastLapBestLap = DriverTiming.IsLastLapBestLap;
                 IsLastLapTrackRecord = DriverTiming.IsLastLapTrackRecord;
+                ChampionshipPoints = DriverTiming.ChampionshipPoints;
 
                 Sector1 = GetSector1();
                 Sector2 = GetSector2();
@@ -477,7 +487,7 @@
             }
             IsPlayersRatingBetter = DriverTiming.Session.Player.Rating >= DriverTiming.Rating;
             Rating = DriverTiming.Rating;
-            RatingFormatted = $"{Rating - DriverTiming.Session.Player.Rating} / {Rating}";
+            RatingFormatted = $"{Rating - DriverTiming.Session.Player.Rating:+#;-#;0} / {Rating}";
         }
 
         private string FormatPositionInClass()

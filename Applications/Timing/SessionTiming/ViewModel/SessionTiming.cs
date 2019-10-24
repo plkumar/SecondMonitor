@@ -18,6 +18,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using Drivers;
     using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
     using NLog;
+    using Rating.Application.Championship;
     using Rating.Application.Rating.RatingProvider;
     using Rating.Common.DataModel.Player;
     using Telemetry;
@@ -27,6 +28,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     {
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
+        private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public class DriverNotFoundException : Exception
@@ -60,10 +62,11 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
 
         private CombinedLapPortionComparatorsViewModel _combinedLapPortionComparatorsViewModel;
 
-        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
+        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider)
         {
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
+            _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
             PaceLaps = 4;
             DisplayBindTimeRelative = false;
             TimingDataViewModel = timingDataViewModel;
@@ -177,12 +180,12 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
-        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
+        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider)
         {
 
             Dictionary<string, DriverTiming> drivers = new Dictionary<string, DriverTiming>();
             Logger.Info($"New Seesion Started :{dataSet.SessionInfo.SessionType.ToString()}");
-            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController)
+            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController, championshipCurrentEventPointsProvider)
                                        {
                                            SessionStarTime = dataSet.SessionInfo.SessionTime,
                                            SessionType = dataSet.SessionInfo.SessionType,
@@ -192,26 +195,26 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             Array.ForEach(
                 dataSet.DriversInfo,
                 s =>
+                {
+                    string name = s.DriverName;
+                    if (drivers.Keys.Contains(name))
                     {
-                        var name = s.DriverName;
-                if (drivers.Keys.Contains(name))
-                {
-                    return;
-                }
+                        return;
+                    }
 
-                DriverTiming newDriver = DriverTiming.FromModel(s, timing, invalidateFirstLap);
-                newDriver.SectorCompletedEvent += timing.OnSectorCompletedEvent;
-                newDriver.LapInvalidated += timing.LapInvalidatedHandler;
-                newDriver.LapCompleted += timing.DriverOnLapCompleted;
-                newDriver.LapTimeReevaluated += timing.DriverOnLapTimeReevaluated;
-                drivers.Add(name, newDriver);
-                Logger.Info($"Driver Added: {name}");
-                if (newDriver.DriverInfo.IsPlayer)
-                {
-                    timing.Player = newDriver;
-                    timing.CombinedLapPortionComparator = new CombinedLapPortionComparatorsViewModel(newDriver);
-                }
-                    });
+                    DriverTiming newDriver = DriverTiming.FromModel(s, timing, invalidateFirstLap);
+                    newDriver.SectorCompletedEvent += timing.OnSectorCompletedEvent;
+                    newDriver.LapInvalidated += timing.LapInvalidatedHandler;
+                    newDriver.LapCompleted += timing.DriverOnLapCompleted;
+                    newDriver.LapTimeReevaluated += timing.DriverOnLapTimeReevaluated;
+                    drivers.Add(name, newDriver);
+                    Logger.Info($"Driver Added: {name}");
+                    if (newDriver.DriverInfo.IsPlayer)
+                    {
+                        timing.Player = newDriver;
+                        timing.CombinedLapPortionComparator = new CombinedLapPortionComparatorsViewModel(newDriver);
+                    }
+                });
             timing.Drivers = drivers;
             if (dataSet.SessionInfo.SessionLengthType == SessionLengthType.Time || dataSet.SessionInfo.SessionLengthType == SessionLengthType.TimeWithExtraLap)
             {
@@ -309,6 +312,16 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             {
                 CombinedLapPortionComparator = new CombinedLapPortionComparatorsViewModel(newDriver);
             }
+
+            if (_ratingProvider.TryGetRatingForDriverCurrentSession(newDriverInfo.DriverName, out DriversRating driversRating))
+            {
+                newDriver.Rating = driversRating.Rating;
+            }
+
+            if (_championshipCurrentEventPointsProvider.TryGetPointsForDriver(newDriverInfo.DriverName, out int points))
+            {
+                newDriver.ChampionshipPoints = points;
+            }
             RaiseDriverAddedEvent(newDriver);
             Logger.Info($"Added new driver");
         }
@@ -360,36 +373,31 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
         {
             try
             {
-                bool updateRating = _ratingUpdateStopwatch.ElapsedMilliseconds > 10000;
+                bool updateRating = _ratingUpdateStopwatch.ElapsedMilliseconds > 1000;
                 if (updateRating)
                 {
                     _ratingUpdateStopwatch.Restart();
                 }
                 HashSet<string> updatedDrivers = new HashSet<string>();
-               Array.ForEach( dataSet.DriversInfo,
-                    s =>
+                foreach (DriverInfo driverInfo in dataSet.DriversInfo)
+                {
+                    updatedDrivers.Add(driverInfo.DriverName);
+                    if (Drivers.ContainsKey(driverInfo.DriverName) && Drivers[driverInfo.DriverName].IsActive)
+                    {
+                        DriverTiming driverToUpdate = Drivers[driverInfo.DriverName];
+                        UpdateDriver(driverInfo, driverToUpdate, dataSet, updateRating);
+
+                        if (Drivers[driverInfo.DriverName].IsPlayer)
                         {
-                            updatedDrivers.Add(s.DriverName);
-                            if (Drivers.ContainsKey(s.DriverName) && Drivers[s.DriverName].IsActive)
-                            {
-                                DriverTiming driverToUpdate = Drivers[s.DriverName];
-                                UpdateDriver(s, driverToUpdate, dataSet);
+                            Player = Drivers[driverInfo.DriverName];
+                        }
+                    }
+                    else
+                    {
+                        AddNewDriver(driverInfo);
+                    }
+                }
 
-                                if (Drivers[s.DriverName].IsPlayer)
-                                {
-                                    Player = Drivers[s.DriverName];
-                                }
-
-                                if (updateRating && _ratingProvider.TryGetRatingForDriverCurrentSession(s.DriverName, out DriversRating driversRating))
-                                {
-                                    driverToUpdate.Rating = driversRating.Rating;
-                                }
-                            }
-                            else
-                            {
-                                AddNewDriver(s);
-                            }
-                        });
                 List<string> driversToRemove = Drivers.Keys.Where(s => !updatedDrivers.Contains(s) && Drivers[s].IsActive).ToList();
 
                 driversToRemove.ForEach(s =>
@@ -408,7 +416,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
-        private void UpdateDriver(DriverInfo modelInfo, DriverTiming timingInfo, SimulatorDataSet set)
+        private void UpdateDriver(DriverInfo modelInfo, DriverTiming timingInfo, SimulatorDataSet set, bool updateRating)
         {
             timingInfo.DriverInfo = modelInfo;
             if (timingInfo.UpdateLaps(set) && timingInfo.LastCompletedLap != null && timingInfo.LastCompletedLap.LapTime != TimeSpan.Zero && (_bestSessionLap == null || timingInfo.LastCompletedLap.LapTime < _bestSessionLap.LapTime))
@@ -419,6 +427,16 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             if (timingInfo.Position == 1)
             {
                 Leader = timingInfo;
+            }
+
+            if (updateRating && timingInfo.Rating == 0 && _ratingProvider.TryGetRatingForDriverCurrentSession(modelInfo.DriverName, out DriversRating driversRating))
+            {
+                timingInfo.Rating = driversRating.Rating;
+            }
+
+            if (updateRating && timingInfo.ChampionshipPoints == 0 && _championshipCurrentEventPointsProvider.TryGetPointsForDriver(modelInfo.DriverName, out int points))
+            {
+                timingInfo.ChampionshipPoints = points;
             }
         }
 

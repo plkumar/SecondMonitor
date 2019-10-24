@@ -116,6 +116,13 @@
             set => SetProperty(ref _rating, value);
         }
 
+        private ColumnSettingsViewModel _championshipPoints;
+        public ColumnSettingsViewModel ChampionshipPoints
+        {
+            get => _championshipPoints;
+            set => SetProperty(ref _championshipPoints, value);
+        }
+
         public static ColumnsSettingsViewModel CreateFromModel(ColumnsSettings columnsSettings)
         {
             ColumnsSettingsViewModel newColumnSettingsViewModel = new ColumnsSettingsViewModel();
@@ -142,6 +149,7 @@
             Sector2 = ColumnSettingsViewModel.CreateFromModel(columnsSettings.Sector2);
             Sector3 = ColumnSettingsViewModel.CreateFromModel(columnsSettings.Sector3);
             Rating = ColumnSettingsViewModel.CreateFromModel(columnsSettings.Rating);
+            ChampionshipPoints = ColumnSettingsViewModel.CreateFromModel(columnsSettings.ChampionshipPoints);
         }
 
         public override ColumnsSettings SaveToNewModel()
@@ -164,6 +172,7 @@
                 Sector2 = Sector2.ToModel(),
                 Sector3 = Sector3.ToModel(),
                 Rating = Rating.ToModel(),
+                ChampionshipPoints = ChampionshipPoints.ToModel(),
             };
         }
     }

@@ -60,7 +60,7 @@
             Bind<ISimulatorsTrackMappingRepository>().To<SimulatorsTrackMappingRepository>().InSingletonScope();
             Bind<ITrackTemplateToSimTrackMapper>().To<TrackTemplateToSimTrackMapper>().InSingletonScope();
 
-            Bind<IChampionshipController>().To<ChampionshipController>();
+            Bind<IChampionshipController, IChampionshipCurrentEventPointsProvider>().To<ChampionshipController>().InSingletonScope();
             Bind<IChampionshipsRepository>().To<ChampionshipFileRepository>().InSingletonScope();
             Bind<IChampionshipOverviewController>().To<ChampionshipOverviewController>();
             Bind<IChampionshipsPool>().To<ChampionshipsPool>().InSingletonScope();

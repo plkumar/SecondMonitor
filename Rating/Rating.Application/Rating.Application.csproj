@@ -86,6 +86,7 @@
     <Compile Include="Championship\Filters\RequirementResultKind.cs" />
     <Compile Include="Championship\Filters\SimulatorRequirement.cs" />
     <Compile Include="Championship\Filters\TrackRequirement.cs" />
+    <Compile Include="Championship\IChampionshipCurrentEventPointsProvider.cs" />
     <Compile Include="Championship\IChampionshipDialogProvider.cs" />
     <Compile Include="Championship\Operations\ChampionshipManipulator.cs" />
     <Compile Include="Championship\Operations\DriverPositionComparer.cs" />
