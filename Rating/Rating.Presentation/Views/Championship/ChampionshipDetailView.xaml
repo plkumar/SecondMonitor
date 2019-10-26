@@ -29,7 +29,15 @@
                                         <TextBlock Text="Calendar" Style="{StaticResource StandardText}"></TextBlock>
                                     </Border>
                                 </TabItem.Header>
-                                <ContentPresenter Content="{Binding ChampionshipResultsOverview}"/>
+                                <ContentPresenter Content="{Binding CalendarResultsOverview}"/>
+                            </TabItem>
+                            <TabItem Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Results" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
+                                <ContentPresenter Content="{Binding ChampionshipSessionsResults}"/>
                             </TabItem>
                         </TabControl>
                     </Grid>

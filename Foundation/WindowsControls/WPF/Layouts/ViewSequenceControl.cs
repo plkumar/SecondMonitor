@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -25,6 +24,9 @@
         public static readonly DependencyProperty IsNextButtonEnabledProperty = DependencyProperty.Register("IsNextButtonEnabled", typeof(bool), typeof(ViewSequenceControl), new PropertyMetadata(default(bool)));
         public static readonly DependencyProperty IsPreviousButtonEnabledProperty = DependencyProperty.Register("IsPreviousButtonEnabled", typeof(bool), typeof(ViewSequenceControl));
         public static readonly DependencyProperty CloseButtonCommandProperty = DependencyProperty.Register("CloseButtonCommand", typeof(ICommand), typeof(ViewSequenceControl), new PropertyMetadata(default(ICommand)));
+        public static readonly DependencyProperty StartFromLastProperty = DependencyProperty.Register("StartFromLast", typeof(bool), typeof(ViewSequenceControl), new PropertyMetadata(ViewPropertyChanged));
+
+
 
         public ICommand CloseButtonCommand
         {
@@ -54,6 +56,12 @@
         {
             get => (bool)GetValue(IsNextButtonEnabledProperty);
             set => SetValue(IsNextButtonEnabledProperty, value);
+        }
+
+        public bool StartFromLast
+        {
+            get => (bool)GetValue(StartFromLastProperty);
+            set => SetValue(StartFromLastProperty, value);
         }
 
         public List<IViewModel> Views
@@ -245,7 +253,8 @@
                 return;
             }
 
-            CurrentViewIndex = 0;
+            CurrentViewIndex = StartFromLast ? views.Count - 1 : 0;
+
             CurrentView1 = views[CurrentViewIndex];
         }
 

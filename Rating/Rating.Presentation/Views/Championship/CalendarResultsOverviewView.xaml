@@ -32,7 +32,7 @@
                     </Grid>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type overview:ChampionshipResultsOverviewViewModel}">
+            <DataTemplate DataType="{x:Type overview:CalendarResultsOverviewViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <StackPanel Grid.IsSharedSizeScope="True">

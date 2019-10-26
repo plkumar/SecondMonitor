@@ -6,11 +6,11 @@
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
 
-    public class DriversFinishViewModel : AbstractViewModel<SessionResultDto>
+    public class SessionResultViewModel : AbstractViewModel<SessionResultDto>
     {
         private readonly IViewModelFactory _viewModelFactory;
 
-        public DriversFinishViewModel(IViewModelFactory viewModelFactory)
+        public SessionResultViewModel(IViewModelFactory viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
             DriversFinish = new List<DriverFinishViewModel>();

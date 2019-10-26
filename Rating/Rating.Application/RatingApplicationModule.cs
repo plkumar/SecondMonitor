@@ -98,13 +98,15 @@
             Bind<SessionCompletedViewModel>().ToSelf();
             Bind<PodiumViewModel>().ToSelf();
             Bind<DriverFinishViewModel>().ToSelf();
-            Bind<DriversFinishViewModel>().ToSelf();
+            Bind<SessionResultViewModel>().ToSelf();
             Bind<DriverNewStandingViewModel>().ToSelf();
             Bind<DriversNewStandingsViewModel>().ToSelf();
             Bind<EventTitleViewModel>().ToSelf();
 
-            Bind<ChampionshipResultsOverviewViewModel>().ToSelf();
+            Bind<CalendarResultsOverviewViewModel>().ToSelf();
             Bind<EventResultOverviewViewModel>().ToSelf();
+            Bind<SessionResultWithTitleViewModel>().ToSelf();
+            Bind<ChampionshipSessionsResultsViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

@@ -19,6 +19,7 @@
         <ResourceDictionary Source="Views/Championship/StandingOverviewView.xaml"/>
         <ResourceDictionary Source="Views/Championship/ChampionshipDetailView.xaml"/>
         <ResourceDictionary Source="Views/Championship/SessionCompletedView.xaml"/>
-        <ResourceDictionary Source="Views/Championship/ChampionshipResultsOverviewView.xaml"/>
+        <ResourceDictionary Source="Views/Championship/CalendarResultsOverviewView.xaml"/>
+        <ResourceDictionary Source="Views/Championship/ChampionshipSessionsResultsView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

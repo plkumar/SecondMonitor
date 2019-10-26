@@ -8,12 +8,12 @@
     using SecondMonitor.ViewModels.Factory;
     using SimdataManagement;
 
-    public class ChampionshipResultsOverviewViewModel : AbstractViewModel<ChampionshipDto>
+    public class CalendarResultsOverviewViewModel : AbstractViewModel<ChampionshipDto>
     {
         private readonly IViewModelFactory _viewModelFactory;
         private readonly MapsLoader _mapsLoader;
 
-        public ChampionshipResultsOverviewViewModel(IViewModelFactory viewModelFactory, IMapsLoaderFactory mapsLoaderFactory)
+        public CalendarResultsOverviewViewModel(IViewModelFactory viewModelFactory, IMapsLoaderFactory mapsLoaderFactory)
         {
             _viewModelFactory = viewModelFactory;
             _mapsLoader = mapsLoaderFactory.Create();

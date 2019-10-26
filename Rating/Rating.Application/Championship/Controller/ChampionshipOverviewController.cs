@@ -80,9 +80,7 @@
 
         public void OpenChampionshipDetailsWindow(ChampionshipDto championship)
         {
-            var detailViewModel = _viewModelFactory.Create<ChampionshipDetailViewModel>();
-            detailViewModel.FromModel(championship);
-            _windowService.OpenWindow(detailViewModel, "Championships Details", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            _championshipDialogProvider.OpenChampionshipDetailsWindow(championship);
         }
 
         private void RemoveSelectedChampionship()

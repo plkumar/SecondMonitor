@@ -39,7 +39,7 @@
             <DataTemplate DataType="{x:Type events:EventTitleViewModel}">
                 <StackPanel Orientation="Vertical" Margin="10">
                     <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}" HorizontalAlignment="Center">
+                    <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}" >
                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>

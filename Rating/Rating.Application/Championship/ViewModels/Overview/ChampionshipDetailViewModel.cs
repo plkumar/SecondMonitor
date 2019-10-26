@@ -7,20 +7,18 @@
 
     public class ChampionshipDetailViewModel : AbstractViewModel<ChampionshipDto>
     {
-        private readonly IViewModelFactory _viewModelFactory;
-
         public ChampionshipDetailViewModel(IViewModelFactory viewModelFactory)
         {
-            _viewModelFactory = viewModelFactory;
-            StandingOverviewViewModel = _viewModelFactory.Create<StandingOverviewViewModel>();
-            ChampionshipResultsOverview = _viewModelFactory.Create<ChampionshipResultsOverviewViewModel>();
+            StandingOverviewViewModel = viewModelFactory.Create<StandingOverviewViewModel>();
+            CalendarResultsOverview = viewModelFactory.Create<CalendarResultsOverviewViewModel>();
+            ChampionshipSessionsResults = viewModelFactory.Create<ChampionshipSessionsResultsViewModel>();
         }
 
         public string ChampionshipName { get; private set; }
 
         public StandingOverviewViewModel StandingOverviewViewModel { get; }
-        public ChampionshipResultsOverviewViewModel ChampionshipResultsOverview { get; }
-
+        public CalendarResultsOverviewViewModel CalendarResultsOverview { get; }
+        public ChampionshipSessionsResultsViewModel ChampionshipSessionsResults { get; }
 
         protected override void ApplyModel(ChampionshipDto model)
         {
@@ -30,7 +28,8 @@
             }
             ChampionshipName = model.ChampionshipName;
             StandingOverviewViewModel.FromModel(model.Drivers);
-            ChampionshipResultsOverview.FromModel(model);
+            CalendarResultsOverview.FromModel(model);
+            ChampionshipSessionsResults.FromModel(model);
         }
 
         public override ChampionshipDto SaveToNewModel()

@@ -88,8 +88,17 @@
                 driverDto.TotalPoints = driverSessionResultDto.TotalPoints;
                 driverDto.Position = driverSessionResultDto.AfterEventPosition;
             }
-
+            UpdateResultsName(championship);
             AdvanceChampionship(championship);
+        }
+
+        private void UpdateResultsName(ChampionshipDto championship)
+        {
+            var driverDictionary = championship.GetGuidToDriverDictionary();
+            foreach (var driverResult in championship.GetAllResults().SelectMany(x => x.DriverSessionResult))
+            {
+                driverResult.DriverName = driverDictionary[driverResult.DriverGuid].LastUsedName;
+            }
         }
 
         private void AdvanceChampionship(ChampionshipDto championship)

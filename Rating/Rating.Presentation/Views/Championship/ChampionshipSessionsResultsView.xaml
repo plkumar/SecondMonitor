@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:overview="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Overview;assembly=Rating.Application"
+                    xmlns:events="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Events;assembly=Rating.Application"
+                    xmlns:layouts="clr-namespace:SecondMonitor.WindowsControls.WPF.Layouts;assembly=WindowsControls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type events:SessionResultWithTitleViewModel}">
+                <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <ContentPresenter Content="{Binding EventTitleViewModel}"/>
+                        <ContentPresenter Content="{Binding SessionResultViewModel}"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type overview:ChampionshipSessionsResultsViewModel}">
+                <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Padding="10">
+                    <layouts:ViewSequenceControl Views="{Binding ResultsHistory}" StartFromLast="True" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}"  />
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+        </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

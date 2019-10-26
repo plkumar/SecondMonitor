@@ -15,6 +15,7 @@
     using SecondMonitor.ViewModels.Settings;
     using SimdataManagement;
     using ViewModels.Events;
+    using ViewModels.Overview;
 
     public class ChampionshipDialogProvider : IChampionshipDialogProvider
     {
@@ -63,7 +64,7 @@
             var podiumViewModel = _viewModelFactory.Create<PodiumViewModel>();
             podiumViewModel.FromModel(lastResult);
 
-            var driversFinishViewModel = _viewModelFactory.Create<DriversFinishViewModel>();
+            var driversFinishViewModel = _viewModelFactory.Create<SessionResultViewModel>();
             driversFinishViewModel.Header = "Session Results";
             driversFinishViewModel.FromModel(lastResult);
 
@@ -116,6 +117,14 @@
             }
 
             return trackOverviewViewModel;
+        }
+
+        public void OpenChampionshipDetailsWindow(ChampionshipDto championship)
+        {
+            var detailViewModel = _viewModelFactory.Create<ChampionshipDetailViewModel>();
+            detailViewModel.FromModel(championship);
+            Window window = _windowService.OpenWindow(detailViewModel, "Championships Details", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
+            detailViewModel.ChampionshipSessionsResults.CloseCommand = new RelayCommand(() => CloseWindow(window));
         }
 
         private StandingOverviewViewModel CreateStandingOverviewViewModel(ChampionshipDto championship)

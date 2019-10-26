@@ -119,9 +119,11 @@
     <Compile Include="Championship\ViewModels\Creation\ChampionshipCreationViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\DriverFinishViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\DriverNewStandingViewModel.cs" />
-    <Compile Include="Championship\ViewModels\Events\DriversFinishViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\SessionResultViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Events\SessionResultWithTitleViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\DriversNewStandingsViewModel.cs" />
-    <Compile Include="Championship\ViewModels\Overview\ChampionshipResultsOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\CalendarResultsOverviewViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\ChampionshipSessionsResultsViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\EventResultOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\EventTitleViewModel.cs" />
     <Compile Include="Championship\ViewModels\Events\PodiumViewModel.cs" />

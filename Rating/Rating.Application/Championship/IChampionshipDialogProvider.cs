@@ -7,5 +7,6 @@
     {
         void ShowWelcomeScreen(SimulatorDataSet dataSet, ChampionshipDto championship);
         void ShowLastEvenResultWindow(ChampionshipDto championship);
+        void OpenChampionshipDetailsWindow(ChampionshipDto championship);
     }
 }

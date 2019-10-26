@@ -82,7 +82,7 @@
                     </Grid.Style>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type events:DriversFinishViewModel}">
+            <DataTemplate DataType="{x:Type events:SessionResultViewModel}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
