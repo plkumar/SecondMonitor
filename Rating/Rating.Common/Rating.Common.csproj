@@ -66,6 +66,7 @@
     <Compile Include="DataModel\Championship\ChampionshipState.cs" />
     <Compile Include="DataModel\Championship\DriverDto.cs" />
     <Compile Include="DataModel\Championship\Events\DriverSessionResultDto.cs" />
+    <Compile Include="DataModel\Championship\Events\EventStatus.cs" />
     <Compile Include="DataModel\Championship\Events\SessionResultDto.cs" />
     <Compile Include="DataModel\Championship\ScoringDto.cs" />
     <Compile Include="DataModel\Championship\Events\EventDto.cs" />

@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:overview="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Overview;assembly=Rating.Application">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type overview:EventResultOverviewViewModel}">
+                <Border BorderThickness="2" BorderBrush="{Binding EventStatus, Converter={StaticResource EventStatusToBrushConverter}}" Margin="2" CornerRadius="5">
+                    <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" DockPanel.Dock="Top" Margin="10,10,10,0" HorizontalAlignment="Center"/>
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource NormalFontSize}" Text="{Binding TrackName}" DockPanel.Dock="Top" Margin="2,2,2,10" HorizontalAlignment="Center"/>
+                            <ContentPresenter Content="{Binding TrackGeometryViewModel}" DockPanel.Dock="Bottom" MaxHeight="200"/>
+                        </DockPanel>
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="1" VerticalAlignment="Center">
+                            <ItemsControl ItemsSource="{Binding SessionsResults}" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding Key}" DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center"/>
+                                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text=", Finished:" DockPanel.Dock="Top" Margin="0,10,0,10" HorizontalAlignment="Center"/>
+                                            <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding Value}" DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type overview:ChampionshipResultsOverviewViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Grid.IsSharedSizeScope="True">
+                            <ItemsControl ItemsSource="{Binding EventsResults}" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentPresenter Content="{Binding }"></ContentPresenter>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

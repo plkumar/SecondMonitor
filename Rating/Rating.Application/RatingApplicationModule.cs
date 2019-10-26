@@ -101,6 +101,10 @@
             Bind<DriversFinishViewModel>().ToSelf();
             Bind<DriverNewStandingViewModel>().ToSelf();
             Bind<DriversNewStandingsViewModel>().ToSelf();
+            Bind<EventTitleViewModel>().ToSelf();
+
+            Bind<ChampionshipResultsOverviewViewModel>().ToSelf();
+            Bind<EventResultOverviewViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

@@ -13,11 +13,13 @@
         {
             _viewModelFactory = viewModelFactory;
             StandingOverviewViewModel = _viewModelFactory.Create<StandingOverviewViewModel>();
+            ChampionshipResultsOverview = _viewModelFactory.Create<ChampionshipResultsOverviewViewModel>();
         }
 
         public string ChampionshipName { get; private set; }
 
         public StandingOverviewViewModel StandingOverviewViewModel { get; }
+        public ChampionshipResultsOverviewViewModel ChampionshipResultsOverview { get; }
 
 
         protected override void ApplyModel(ChampionshipDto model)
@@ -28,6 +30,7 @@
             }
             ChampionshipName = model.ChampionshipName;
             StandingOverviewViewModel.FromModel(model.Drivers);
+            ChampionshipResultsOverview.FromModel(model);
         }
 
         public override ChampionshipDto SaveToNewModel()

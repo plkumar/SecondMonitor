@@ -26,6 +26,7 @@
             <converters:IntToRedGreenConverter x:Key="IntToRedGreenConverter"/>
             <championship:ChampionshipIconStateToBrushConverter x:Key="ChampionshipIconStateToBrushConverter"/>
             <championship:ChampionshipStateToBrushConverter x:Key="ChampionshipStateToBrushConverter"/>
+            <converters:EventStatusToBrushConverter x:Key="EventStatusToBrushConverter"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

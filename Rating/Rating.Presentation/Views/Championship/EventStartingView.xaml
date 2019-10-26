@@ -36,26 +36,29 @@
                 </Grid>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type events:EventTitleViewModel}">
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}" HorizontalAlignment="Center">
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </DockPanel>
+                </StackPanel>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type events:EventStartingViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Margin="10">
-                        <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        </DockPanel>
-                        <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                        </DockPanel>
-                    </StackPanel>
+                    <ContentPresenter Content="{Binding EventTitleViewModel}"/>
                     <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Grid.Row="1" Padding="10">
                         <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}" />
                     </Border>

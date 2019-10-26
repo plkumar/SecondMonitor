@@ -11,6 +11,8 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingCarName"/>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
                         <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding Position }"/>
@@ -18,6 +20,8 @@
                     <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding DriverName }" Margin="10,0,10,0"/>
                     <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"   Text="{Binding CarName }" Margin="10,0,10,0"/>
                     <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding TotalPoints, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding GapToPrevious, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="5" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding GapToLeader, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Style.Triggers>
@@ -39,7 +43,27 @@
                         <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding Header}"/>
                     </Grid>
                     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding DriversStanding}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
+                        <StackPanel Grid.IsSharedSizeScope="True">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingCarName"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriverStandingsPoints"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                                    <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="#" Foreground="{StaticResource LightBlueBrush}" />
+                            </Grid>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Foreground="{StaticResource LightBlueBrush}"  Text="Driver Name" Margin="10,0,10,0"/>
+                                <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"   Text="Car" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                                <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Total Points" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                                <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Prev." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                                <TextBlock Grid.Column="5" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Lead." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding DriversStanding}" VerticalAlignment="Top" HorizontalAlignment="Center" >
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
@@ -50,6 +74,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                        </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </DataTemplate>

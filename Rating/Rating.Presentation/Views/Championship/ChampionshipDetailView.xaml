@@ -15,8 +15,21 @@
                             <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding ChampionshipName}" Margin="30"/>
                         </Grid>
                         <TabControl Grid.Row="1" Background="{StaticResource Anthracite01Brush}">
-                            <TabItem Header="Standing" Background="{StaticResource Anthracite01Brush}">
+                            <TabItem Background="{StaticResource Anthracite01Brush}">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Standings" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
                                 <ContentPresenter Content="{Binding StandingOverviewViewModel}"/>
+                            </TabItem>
+                            <TabItem Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Calendar" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
+                                <ContentPresenter Content="{Binding ChampionshipResultsOverview}"/>
                             </TabItem>
                         </TabControl>
                     </Grid>

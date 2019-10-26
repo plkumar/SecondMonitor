@@ -10,6 +10,8 @@
         public int TotalPoints { get; set; }
         public int Position { get; private set; }
         public bool IsPlayer { get; private set; }
+        public int GapToPrevious { get; set; }
+        public int GapToLeader { get; set; }
 
 
         protected override void ApplyModel(DriverDto model)

@@ -3,25 +3,19 @@
     using System.Collections.Generic;
     using System.Windows.Input;
     using SecondMonitor.ViewModels;
+    using SecondMonitor.ViewModels.Factory;
 
     public class EventStartingViewModel : AbstractViewModel
     {
         private ICommand _closeCommand;
 
-        public EventStartingViewModel()
+        public EventStartingViewModel(IViewModelFactory viewModelFactory)
         {
             Screens = new List<IViewModel>();
+            EventTitleViewModel = viewModelFactory.Create<EventTitleViewModel>();
         }
 
-        public string ChampionshipName { get; set; }
-
-        public string EventName { get; set; }
-
-        public string EventIndex { get; set; }
-
-        public string SessionName { get; set; }
-
-        public string SessionIndex { get; set; }
+        public EventTitleViewModel EventTitleViewModel { get; }
 
         public List<IViewModel> Screens { get; }
 

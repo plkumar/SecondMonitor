@@ -14,17 +14,11 @@
         {
             _viewModelFactory = viewModelFactory;
             DriversNewStandings = new List<DriverNewStandingViewModel>();
+            EventTitleViewModel = _viewModelFactory.Create<EventTitleViewModel>();
         }
 
-        public string ChampionshipName { get; set; }
 
-        public string EventName { get; set; }
-
-        public string EventIndex { get; set; }
-
-        public string SessionName { get; set; }
-
-        public string SessionIndex { get; set; }
+        public EventTitleViewModel EventTitleViewModel { get; }
 
         public List<DriverNewStandingViewModel> DriversNewStandings { get; }
 

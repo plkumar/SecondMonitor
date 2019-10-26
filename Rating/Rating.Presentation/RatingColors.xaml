@@ -19,6 +19,10 @@
             <SolidColorBrush x:Shared="False" x:Key="PotentialChampionshipRace" Color="{StaticResource Blue04Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="LastSessionCanceled" Color="{StaticResource Orange01Color}"/>
 
+            <SolidColorBrush x:Shared="False" x:Key="EventNotStarted" Color="{StaticResource LightGrey01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="EventCompleted" Color="{StaticResource Green05Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="EventInProgress" Color="{StaticResource Blue04Color}"/>
+
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

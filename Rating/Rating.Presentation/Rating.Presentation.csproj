@@ -59,6 +59,7 @@
     <Compile Include="Converters\IntToRedGreenConverter.cs" />
     <Compile Include="Converters\Championship\ChampionshipIconStateToBrushConverter.cs" />
     <Compile Include="Converters\SessionKindToBrushConverter.cs" />
+    <Compile Include="Converters\EventStatusToBrushConverter.cs" />
     <Compile Include="Converters\SessionPhaseToBrushConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -97,6 +98,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Championship\ChampionshipDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Championship\ChampionshipResultsOverviewView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -21,10 +21,23 @@
 
         protected override void ApplyModel(IEnumerable<DriverDto> model)
         {
+            int totalGap = 0;
+            int previousPoints = 0;
+            bool isFirst = true;
             DriversStanding = model.OrderBy(x => x.Position).Select(x =>
             {
                 var newViewModel = _viewModelFactory.Create<DriverStandingViewModel>();
                 newViewModel.FromModel(x);
+                if (!isFirst)
+                {
+                    int gap = x.TotalPoints - previousPoints;
+                    totalGap = gap + totalGap;
+                    newViewModel.GapToPrevious = gap;
+                    newViewModel.GapToLeader = totalGap;
+                }
+
+                previousPoints = x.TotalPoints;
+                isFirst = false;
                 return newViewModel;
             }).ToList();
         }

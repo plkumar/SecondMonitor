@@ -35,15 +35,11 @@
 
         public void ShowWelcomeScreen(SimulatorDataSet dataSet, ChampionshipDto championship)
         {
-            EventDto currentEvent = championship.GetCurrentEvent();
             var eventStartingViewModel = _viewModelFactory.Create<EventStartingViewModel>();
-            eventStartingViewModel.ChampionshipName = championship.ChampionshipName;
-            eventStartingViewModel.EventName = currentEvent.EventName;
-            eventStartingViewModel.EventIndex = $"({championship.CurrentEventIndex + 1} / {championship.Events.Count})";
 
+            EventDto currentEvent = championship.GetCurrentEvent();
             SessionDto currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
-            eventStartingViewModel.SessionName = currentSession.Name;
-            eventStartingViewModel.SessionIndex = $"({championship.CurrentSessionIndex + 1} / {currentEvent.Sessions.Count})";
+            eventStartingViewModel.EventTitleViewModel.FromModel((championship, currentEvent, currentSession));
 
             eventStartingViewModel.Screens.Add(CreateTrackOverviewViewModel(dataSet, championship));
             eventStartingViewModel.Screens.Add(CreateStandingOverviewViewModel(championship));
@@ -72,12 +68,7 @@
             driversFinishViewModel.FromModel(lastResult);
 
             var driversNewStandingsViewModel = _viewModelFactory.Create<DriversNewStandingsViewModel>();
-
-            driversNewStandingsViewModel.ChampionshipName = championship.ChampionshipName;
-            driversNewStandingsViewModel.EventName = eventDto.EventName;
-            driversNewStandingsViewModel.EventIndex = $"({championship.Events.IndexOf(eventDto) + 1} / {championship.Events.Count})";
-            driversNewStandingsViewModel.SessionName = sessionDto.Name;
-            driversNewStandingsViewModel.SessionIndex = $"({eventDto.Sessions.IndexOf(sessionDto) + 1} / {eventDto.Sessions.Count})";
+            driversNewStandingsViewModel.EventTitleViewModel.FromModel((championship, eventDto, sessionDto));
 
             driversNewStandingsViewModel.FromModel(lastResult);
 

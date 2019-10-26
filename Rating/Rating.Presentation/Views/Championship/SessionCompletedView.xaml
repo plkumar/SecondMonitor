@@ -13,20 +13,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="20">
-                        <StackPanel Orientation="Vertical" Margin="10">
-                            <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding ChampionshipName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Standing After:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
-                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="Round" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <TextBlock Margin="10,0,20,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding EventName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DockPanel>
-                            <DockPanel LastChildFill="False" Background="{StaticResource DarkGrey01Brush}">
-                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="Session" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <TextBlock Margin="10,0,10,0" DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionIndex}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource StandardText}" Text="{Binding SessionName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DockPanel>
-                        </StackPanel>
+                        <ContentPresenter Content="{Binding EventTitleViewModel}"/>
                     </Grid>
                     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{Binding DriversNewStandings}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
