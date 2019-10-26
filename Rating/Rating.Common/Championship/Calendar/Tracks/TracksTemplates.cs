@@ -36,6 +36,7 @@
         public static TrackTemplate SlovakiaRingTrack4 = new TrackTemplate("Slovakia Ring - Layout 4 (Present)", 5922);
 
         public static TrackTemplate SuzukaGPPresent = new TrackTemplate("Suzuka - Grand Prix (Present)", 5807);
+        public static TrackTemplate SuzukaEastPresent = new TrackTemplate("Suzuka - East Circuit (Present)", 2243);
 
         public static TrackTemplate TTAssenGpPresent = new TrackTemplate("TT Circuit Asses - Grand PRix (Present)", 4555);
 

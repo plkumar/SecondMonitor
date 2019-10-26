@@ -14,7 +14,7 @@
             new EventTemplate(TracksTemplates.SlovakiaRingTrack4, "Race of Slovakia"),
             new EventTemplate(TracksTemplates.NingboPresent, "Race of China – Ningbo"),
             new EventTemplate(TracksTemplates.WuhanStreetCircuitPresent, "Race of China – Wuhan"),
-            new EventTemplate(TracksTemplates.SuzukaGPPresent, "JVCKENWOOD Race of Japan"),
+            new EventTemplate(TracksTemplates.SuzukaEastPresent, "JVCKENWOOD Race of Japan"),
             new EventTemplate(TracksTemplates.MacauPresent, "Guia Race of Macau"),
 
         });
@@ -28,7 +28,7 @@
             new EventTemplate(TracksTemplates.NordschleifeWithGPNoArena, "Race of Germany"),
             new EventTemplate(TracksTemplates.VilaRealPresent, "Race of Portugal"),
             new EventTemplate(TracksTemplates.NingboPresent, "Race of China"),
-            new EventTemplate(TracksTemplates.SuzukaGPPresent, "Race of Japan"),
+            new EventTemplate(TracksTemplates.SuzukaEastPresent, "Race of Japan"),
             new EventTemplate(TracksTemplates.MacauPresent, "Guia Race of Macau"),
             new EventTemplate(TracksTemplates.SepangGPPresent, "Race of Malaysia"),
         });
