@@ -64,7 +64,7 @@
         [XmlIgnore]
         public int CompletedRaces => CurrentEventIndex * Events[0].Sessions.Count + CurrentSessionIndex + 1;
 
-        public EventDto GetCurrentEvent()
+        public EventDto GetCurrentOrLastEvent()
         {
             return CurrentEventIndex < Events.Count ? Events[CurrentEventIndex] : Events.Last();
         }

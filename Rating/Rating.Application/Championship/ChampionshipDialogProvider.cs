@@ -38,7 +38,7 @@
         {
             var eventStartingViewModel = _viewModelFactory.Create<EventStartingViewModel>();
 
-            EventDto currentEvent = championship.GetCurrentEvent();
+            EventDto currentEvent = championship.GetCurrentOrLastEvent();
             SessionDto currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
             eventStartingViewModel.EventTitleViewModel.FromModel((championship, currentEvent, currentSession));
 

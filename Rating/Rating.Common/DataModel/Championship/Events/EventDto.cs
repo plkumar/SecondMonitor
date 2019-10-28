@@ -22,25 +22,8 @@
         [XmlAttribute]
         public bool IsTrackNameExact { get; set; }
 
-        [XmlIgnore]
-        public EventStatus EventStatus
-        {
-            get
-            {
-                int sessionsWithResults = Sessions.Count(x => x.SessionResult != null);
-                if (sessionsWithResults == 0)
-                {
-                    return EventStatus.NotStarted;
-                }
-
-                if (sessionsWithResults == Sessions.Count)
-                {
-                    return EventStatus.Finished;
-                }
-
-                return EventStatus.InProgress;
-            }
-        }
+        [XmlAttribute]
+        public EventStatus EventStatus { get; set; }
 
         public List<SessionDto> Sessions { get; set; }
     }

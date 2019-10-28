@@ -16,18 +16,19 @@
         public void StartChampionship(ChampionshipDto championship, SimulatorDataSet dataSet)
         {
             InitializeDrivers(championship, dataSet);
+            championship.GetCurrentOrLastEvent().EventStatus = EventStatus.InProgress;
             championship.ChampionshipState = ChampionshipState.Started;
         }
 
         public void StartNextEvent(ChampionshipDto championship, SimulatorDataSet dataSet)
         {
-            var currentEvent = championship.GetCurrentEvent();
+            var currentEvent = championship.GetCurrentOrLastEvent();
             currentEvent.TrackName = dataSet.SessionInfo.TrackInfo.TrackFullName;
         }
 
         public void AddResultsForCurrentSession(ChampionshipDto championship, SimulatorDataSet dataSet, bool shiftPlayerToLastPlace)
         {
-            var currentEvent = championship.GetCurrentEvent();
+            var currentEvent = championship.GetCurrentOrLastEvent();
             var currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
             currentSession.SessionResult = CreateResultDto(championship, dataSet, shiftPlayerToLastPlace);
         }
@@ -69,11 +70,13 @@
             {
                 driverPool[i].SetAnotherName(driversToAssign[i].DriverName);
             }
+
+            UpdateResultsName(championship);
         }
 
         public void CommitLastSessionResults(ChampionshipDto championship)
         {
-            var currentEvent = championship.GetCurrentEvent();
+            var currentEvent = championship.GetCurrentOrLastEvent();
             var currentSession = currentEvent.Sessions[championship.CurrentSessionIndex];
             var guidDriverDictionary = championship.GetGuidToDriverDictionary();
 
@@ -88,7 +91,6 @@
                 driverDto.TotalPoints = driverSessionResultDto.TotalPoints;
                 driverDto.Position = driverSessionResultDto.AfterEventPosition;
             }
-            UpdateResultsName(championship);
             AdvanceChampionship(championship);
         }
 
@@ -103,12 +105,18 @@
 
         private void AdvanceChampionship(ChampionshipDto championship)
         {
-            var currentEvent = championship.GetCurrentEvent();
+            var currentEvent = championship.GetCurrentOrLastEvent();
             championship.CurrentSessionIndex = (championship.CurrentSessionIndex + 1) % currentEvent.Sessions.Count;
             if (championship.CurrentSessionIndex == 0)
             {
+                currentEvent.EventStatus = EventStatus.Finished;
                 championship.CurrentEventIndex++;
-                currentEvent = championship.GetCurrentEvent();
+                currentEvent = championship.GetCurrentOrLastEvent();
+
+                if (currentEvent.EventStatus == EventStatus.NotStarted)
+                {
+                    currentEvent.EventStatus = EventStatus.InProgress;
+                }
                 championship.NextTrack = currentEvent.TrackName;
             }
 
