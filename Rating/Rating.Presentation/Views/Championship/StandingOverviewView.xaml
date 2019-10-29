@@ -56,7 +56,7 @@
                             <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
                                     <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="#" Foreground="{StaticResource LightBlueBrush}" />
                             </Grid>
-                            <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Foreground="{StaticResource LightBlueBrush}"  Text="Driver Name" Margin="10,0,10,0"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Foreground="{StaticResource LightBlueBrush}"  Text="Driver Name" Margin="10,0,10,0"/>
                                 <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"   Text="Car" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
                                 <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Total Points" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
                                 <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Prev." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />

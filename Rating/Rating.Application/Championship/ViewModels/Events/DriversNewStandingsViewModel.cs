@@ -24,9 +24,24 @@
 
         protected override void ApplyModel(SessionResultDto model)
         {
+            int totalGap = 0;
+            int previousPoints = 0;
+            bool isFirst = true;
             foreach (DriverSessionResultDto driverSessionResultDto in model.DriverSessionResult.OrderBy(x => x.AfterEventPosition))
             {
                 var newDriverNewStanding = _viewModelFactory.Create<DriverNewStandingViewModel>();
+
+                if (!isFirst)
+                {
+                    int gap = driverSessionResultDto.TotalPoints - previousPoints;
+                    totalGap = gap + totalGap;
+                    newDriverNewStanding.GapToPrevious = gap;
+                    newDriverNewStanding.GapToLeader = totalGap;
+                }
+
+                previousPoints = driverSessionResultDto.TotalPoints;
+                isFirst = false;
+
                 newDriverNewStanding.FromModel(driverSessionResultDto);
                 DriversNewStandings.Add(newDriverNewStanding);
             }

@@ -70,7 +70,7 @@
 
             var driversNewStandingsViewModel = _viewModelFactory.Create<DriversNewStandingsViewModel>();
             driversNewStandingsViewModel.EventTitleViewModel.FromModel((championship, eventDto, sessionDto));
-
+            driversNewStandingsViewModel.EventTitleViewModel.ChampionshipName = "Current Standings";
             driversNewStandingsViewModel.FromModel(lastResult);
 
             sessionCompletedViewmodel.Screens.Add(podiumViewModel);
