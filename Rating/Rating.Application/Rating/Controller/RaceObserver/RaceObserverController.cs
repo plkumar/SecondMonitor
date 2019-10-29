@@ -9,6 +9,7 @@
     using DataModel.Extensions;
     using DataModel.Snapshot;
     using DataModel.Summary;
+    using NLog;
     using RatingProvider;
     using SimulatorRating;
     using States;
@@ -16,6 +17,8 @@
 
     public class RaceObserverController : IRaceObserverController
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly ISimulatorRatingControllerFactory _simulatorRatingControllerFactory;
         private readonly IRaceStateFactory _raceStateFactory;
         private string _currentClass;
@@ -122,6 +125,10 @@
 
         public Task NotifySessionCompletion(SessionSummary sessionSummary)
         {
+            if (_currentState != null)
+            {
+                Logger.Info($"Notified Session Completed, current state - {_currentState.GetType()}");
+            }
             if (_currentState != null && _currentState.DoSessionCompletion(sessionSummary))
             {
                 _currentState = _currentState.NextState;

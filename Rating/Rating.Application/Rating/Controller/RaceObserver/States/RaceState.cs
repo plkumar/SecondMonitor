@@ -158,6 +158,7 @@
         public override bool DoSessionCompletion(SessionSummary sessionSummary)
         {
 
+            Logger.Info($"Session Completed, status = {SessionPhaseKind}");
             Driver player = sessionSummary.Drivers.FirstOrDefault(x => x.IsPlayer);
             if (_ratingComputed || player == null)
             {
