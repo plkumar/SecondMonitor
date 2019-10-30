@@ -26,6 +26,9 @@
             <TabItem Header="Status Icons">
                 <controls:StatusIconTC/>
             </TabItem>
+            <TabItem Header="Trophy">
+                <ContentPresenter Content="{Binding TrophyViewModel}"></ContentPresenter>
+            </TabItem>
             <!--<TabItem Header="Geometry Test">
                 <controls:GeometryTestControl/>
             </TabItem>

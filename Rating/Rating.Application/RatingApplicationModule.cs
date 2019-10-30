@@ -107,6 +107,7 @@
             Bind<EventResultOverviewViewModel>().ToSelf();
             Bind<SessionResultWithTitleViewModel>().ToSelf();
             Bind<ChampionshipSessionsResultsViewModel>().ToSelf();
+            Bind<TrophyViewModel>().ToSelf();
 
             Bind<ISessionLengthDefinitionViewModel>().To<TimeLengthDefinitionViewModel>();
             Bind<ISessionLengthDefinitionViewModel>().To<LapsLengthDefinitionViewModel>();

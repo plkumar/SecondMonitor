@@ -1,9 +1,29 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:events="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Events;assembly=Rating.Application">
+                    xmlns:events="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Events;assembly=Rating.Application"
+                    xmlns:overview="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Overview;assembly=Rating.Application"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type overview:TrophyViewModel}">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" MaxHeight="600"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Style="{StaticResource StandardText}" FontSize="42" HorizontalAlignment="Center"  Text="Congratulations" Margin="10"/>
+                    <Grid  Grid.Row="1" HorizontalAlignment="Stretch">
+                        <wpf:ColorAbleIcon StrokeBrush="{Binding Position, Converter={StaticResource PositionToBrushConverter}}" HorizontalAlignment="Center" Margin="20">
+                            <ContentPresenter Content="{StaticResource Trophy1Icon}" />
+                        </wpf:ColorAbleIcon>
+                    </Grid>
+                    <TextBlock Grid.Row="2" Style="{StaticResource StandardText}" FontSize="42" HorizontalAlignment="Center"  Text="{Binding Position, Converter={StaticResource PositionToDescriptionConverter}}" Margin="10"/>
+                    <TextBlock Grid.Row="3" Style="{StaticResource StandardText}" FontSize="42" HorizontalAlignment="Center"  Text="{Binding DriverName}" Margin="10"/>
+                </Grid>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type events:DriverStandingViewModel}">
                 <Grid >
                     <Grid.ColumnDefinitions>

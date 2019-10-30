@@ -77,8 +77,17 @@
             sessionCompletedViewmodel.Screens.Add(driversFinishViewModel);
             sessionCompletedViewmodel.Screens.Add(driversNewStandingsViewModel);
 
+
             if (championship.ChampionshipState == ChampionshipState.Finished)
             {
+                DriverDto player = championship.Drivers.First(x => x.IsPlayer);
+                if (player.Position <= 3)
+                {
+                    var trophyViewModel = _viewModelFactory.Create<TrophyViewModel>();
+                    trophyViewModel.Position = player.Position;
+                    trophyViewModel.DriverName = player.LastUsedName;
+                    sessionCompletedViewmodel.Screens.Add(trophyViewModel);
+                }
                 var championshipFinalStandings = _viewModelFactory.Create<StandingOverviewViewModel>();
                 championshipFinalStandings.Header = "Final Standing: ";
                 championshipFinalStandings.FromModel(championship.Drivers.OrderBy(x => x.Position));

@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\Championship\ChampionshipStateToBrushConverter.cs" />
+    <Compile Include="Converters\Championship\PositionToDescriptionConverter.cs" />
+    <Compile Include="Converters\Championship\PositionToBrushConverter.cs" />
     <Compile Include="Converters\IntToRedGreenConverter.cs" />
     <Compile Include="Converters\Championship\ChampionshipIconStateToBrushConverter.cs" />
     <Compile Include="Converters\SessionKindToBrushConverter.cs" />

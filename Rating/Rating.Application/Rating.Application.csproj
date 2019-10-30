@@ -146,6 +146,7 @@
     <Compile Include="Championship\ViewModels\Events\TrackOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\NextRaceOverviewViewModel.cs" />
     <Compile Include="Championship\ViewModels\Overview\ChampionshipDetailViewModel.cs" />
+    <Compile Include="Championship\ViewModels\Overview\TrophyViewModel.cs" />
     <Compile Include="Championship\ViewModels\Selection\ChampionshipsSelectionViewModel.cs" />
     <Compile Include="Rating\Controller\IRatingApplicationController.cs" />
     <Compile Include="Rating\Controller\IRatingStorageController.cs" />

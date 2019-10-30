@@ -2,6 +2,7 @@
 {
     using SecondMonitor.Contracts.NInject;
     using SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar.Predefined;
+    using SecondMonitor.Rating.Application.Championship.ViewModels.Overview;
     using SecondMonitor.Rating.Common.Championship.Calendar.Templates.CalendarGroups;
     using SecondMonitor.ViewModels;
     using SecondMonitor.ViewModels.Factory;
@@ -19,10 +20,17 @@
             CalendarTemplateGroupViewModel.FromModel(AllGroups.MainGroup);
 
             SequenceViewTestViewModel = new SequenceViewTestViewModel();
+            TrophyViewModel = new TrophyViewModel()
+            {
+                DriverName = "Fooo Foookovic",
+                Position = 3,
+            };
         }
 
         public PredefinedCalendarSelectionViewModel CalendarTemplateGroupViewModel { get; }
 
         public SequenceViewTestViewModel SequenceViewTestViewModel { get;  }
+
+        public TrophyViewModel TrophyViewModel { get; }
     }
 }
