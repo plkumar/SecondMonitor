@@ -2,9 +2,12 @@
 {
     using System;
     using System.Windows;
+    using NLog;
 
     public class WindowService : IWindowService
     {
+        private readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual, (Window)null);
 
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation)
@@ -21,6 +24,7 @@
 
         private bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
         {
+            LogWindow(owner);
             Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
             window.Owner =  owner;
@@ -36,6 +40,7 @@
             {
                 return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, owner));
             }
+            LogWindow(owner);
             Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
             window.Owner = owner;
@@ -82,5 +87,18 @@
             window.Content = null;
             window.Closed -= WindowOnClosed;
         }
+
+        private void LogWindow(Window window)
+        {
+            if (window == null)
+            {
+                Logger.Info("Parent Window is null");
+                return;
+            }
+
+            Logger.Info($"Parent Window is of type {window.GetType()}, location {window.Margin.Left}, {window.Margin.Right}");
+
+        }
+
     }
 }
