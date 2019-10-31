@@ -96,7 +96,7 @@
                 return;
             }
 
-            Logger.Info($"Parent Window is of type {window.GetType()}, location {window.Margin.Left}, {window.Margin.Right}");
+            Logger.Info($"Parent Window is of type {window.GetType()}, location {window.Left}, {window.Top}");
 
         }
 
