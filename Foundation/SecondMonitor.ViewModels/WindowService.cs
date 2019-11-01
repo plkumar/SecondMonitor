@@ -6,7 +6,7 @@
 
     public class WindowService : IWindowService
     {
-        private readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public Window OpenWindow(IViewModel viewModel, string title) => OpenWindow(viewModel, title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.Manual, (Window)null);
 
@@ -19,21 +19,6 @@
             return OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
         }
 
-        public bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
-            OpenDialog(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
-
-        private bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
-        {
-            LogWindow(owner);
-            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent };
-            window.Closed += WindowOnClosed;
-            window.Owner =  owner;
-            window.WindowStartupLocation = startupLocation;
-            viewModel.RegisterWindow(window);
-            return window.ShowDialog();
-
-        }
-
         public Window OpenWindow(IViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
         {
             if (!Application.Current.Dispatcher.CheckAccess())
@@ -41,11 +26,12 @@
                 return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, owner));
             }
             LogWindow(owner);
-            Window window = new Window() {WindowState = startState, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
+            Window window = new Window() {WindowState = WindowState.Normal, Title = title,  Content = viewModel, SizeToContent = sizeToContent };
             window.Closed += WindowOnClosed;
             window.Owner = owner;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.WindowStartupLocation = startupLocation;
             window.Show();
+            window.WindowState = startState;
             return window;
         }
 
@@ -75,6 +61,21 @@
             };
             window.Show();
             return window;
+        }
+
+        public bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation) =>
+            OpenDialog(viewModel, title, startState, sizeToContent, startupLocation, Application.Current.MainWindow);
+
+        private bool? OpenDialog(IDialogViewModel viewModel, string title, WindowState startState, SizeToContent sizeToContent, WindowStartupLocation startupLocation, Window owner)
+        {
+            LogWindow(owner);
+            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent };
+            window.Closed += WindowOnClosed;
+            window.Owner = owner;
+            window.WindowStartupLocation = startupLocation;
+            viewModel.RegisterWindow(window);
+            return window.ShowDialog();
+
         }
 
         private void WindowOnClosed(object sender, EventArgs e)
