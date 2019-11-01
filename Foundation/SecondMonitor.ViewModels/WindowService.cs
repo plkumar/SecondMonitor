@@ -42,7 +42,7 @@
                 return Application.Current.Dispatcher.Invoke(() => OpenWindow(viewModel, title, startState, sizeToContent, startupLocation, onClose));
             }
 
-            Window window = new Window() { WindowState = startState, Title = title, Content = viewModel, SizeToContent = sizeToContent, WindowStartupLocation = startupLocation};
+            Window window = new Window() { WindowState = WindowState.Normal, Title = title, Content = viewModel, SizeToContent = sizeToContent, WindowStartupLocation = startupLocation};
 
             if (startupLocation == WindowStartupLocation.CenterOwner && window != Application.Current.MainWindow)
             {
@@ -60,6 +60,7 @@
 
             };
             window.Show();
+            window.WindowState = startState;
             return window;
         }
 

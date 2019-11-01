@@ -15,7 +15,6 @@
                 TotalEvents = 20,
                 CurrentEventIndex = 1,
                 NextTrack = "Monza",
-                Position = 0,
                 TotalDrivers = 0,
             });
 
@@ -27,7 +26,6 @@
                 TotalEvents = 20,
                 CurrentEventIndex = 15,
                 NextTrack = "Slovakia Ring",
-                Position = 1,
                 TotalDrivers = 23,
                 ClassName = "Porsche GT 3",
             });
@@ -40,7 +38,6 @@
                 TotalEvents = 20,
                 CurrentEventIndex = 20,
                 NextTrack = "",
-                Position = 12,
                 TotalDrivers = 23,
                 ClassName = "Porsche GT 3",
             });

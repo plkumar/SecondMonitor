@@ -43,8 +43,8 @@
         [XmlAttribute]
         public int CurrentSessionIndex { get; set; }
 
-        [XmlAttribute]
-        public int Position { get; set; }
+        [XmlIgnore]
+        public int Position => Drivers?.FirstOrDefault(x => x.IsPlayer)?.Position ?? 0;
 
         [XmlAttribute]
         public int TotalDrivers { get; set; }
