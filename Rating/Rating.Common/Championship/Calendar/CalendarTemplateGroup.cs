@@ -5,6 +5,14 @@
 
     public class CalendarTemplateGroup
     {
+        public CalendarTemplateGroup(string groupName, IEnumerable<CalendarTemplate> childCalendars) : this(groupName, Enumerable.Empty<CalendarTemplateGroup>(), childCalendars)
+        {
+        }
+
+        public CalendarTemplateGroup(string groupName, IEnumerable<CalendarTemplateGroup> childGroups) : this(groupName, childGroups, Enumerable.Empty<CalendarTemplate>())
+        {
+        }
+
         public CalendarTemplateGroup(string groupName, IEnumerable<CalendarTemplateGroup> childGroups, IEnumerable<CalendarTemplate> childCalendars)
         {
             GroupName = groupName;

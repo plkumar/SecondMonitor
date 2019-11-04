@@ -73,7 +73,7 @@
 
         protected override void ApplyModel(CalendarTemplateGroup model)
         {
-            TreeRoots = model.ChildGroups.Select(x =>
+            TreeRoots = model.ChildGroups.OrderBy(x => x.GroupName).Select(x =>
             {
                 var newChildGroups = _viewModelFactory.Create<CalendarTemplateGroupViewModel>();
                 newChildGroups.FromModel(x);

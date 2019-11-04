@@ -49,6 +49,7 @@
     <Compile Include="Championship\Calendar\CalendarTemplateGroup.cs" />
     <Compile Include="Championship\Calendar\EventTemplate.cs" />
     <Compile Include="Championship\Calendar\SessionLengthKind.cs" />
+    <Compile Include="Championship\Calendar\Templates\AudiTTCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\AllGroups.cs" />
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\DtmGroup.cs" />
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\TCRGroups.cs" />

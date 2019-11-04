@@ -30,6 +30,7 @@
         public static TrackTemplate NurburgringGpPresent = new TrackTemplate("Nürburgring - Grand Prix (Present)", 5137);
         public static TrackTemplate NurburgringSprintPresent = new TrackTemplate("Nürburgring - Sprint (Present)", 3619);
 
+        public static TrackTemplate RedBullRing = new TrackTemplate("Red Bull Ring - National", 4318);
 
         public static TrackTemplate SepangGPPresent = new TrackTemplate("Sepang - Grand Prix", 5543);
 
@@ -38,7 +39,7 @@
         public static TrackTemplate SuzukaGPPresent = new TrackTemplate("Suzuka - Grand Prix (Present)", 5807);
         public static TrackTemplate SuzukaEastPresent = new TrackTemplate("Suzuka - East Circuit (Present)", 2243);
 
-        public static TrackTemplate TTAssenGpPresent = new TrackTemplate("TT Circuit Asses - Grand PRix (Present)", 4555);
+        public static TrackTemplate TTAssenGpPresent = new TrackTemplate("TT Circuit Asses - Grand Prix (Present)", 4555);
 
 
         public static TrackTemplate VilaRealPresent = new TrackTemplate("Vila Real (Present)", 4600);
