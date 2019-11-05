@@ -20,7 +20,8 @@
         private readonly IChampionshipEligibilityEvaluator _championshipEligibilityEvaluator;
         private readonly IChampionshipDialogProvider _championshipDialogProvider;
         private string _lastTrack;
-        private bool _startedSessionWasRace;
+        private bool _isSessionRace;
+        private bool _hasPlayerFinished;
         private ChampionshipDto _runningChampionship;
 
         public ChampionshipEventController(IChampionshipManipulator championshipManipulator, ISessionEventProvider sessionEventProvider, IChampionshipEligibilityEvaluator championshipEligibilityEvaluator, IChampionshipDialogProvider championshipDialogProvider)
@@ -43,7 +44,6 @@
             if (_runningChampionship.ChampionshipState == ChampionshipState.NotStarted)
             {
                 _championshipManipulator.StartChampionship(championship, _sessionEventProvider.LastDataSet);
-
             }
             else
             {
@@ -51,9 +51,9 @@
             }
 
             _championshipManipulator.StartNextEvent(championship, _sessionEventProvider.LastDataSet);
+            InitializePropertiesOnSessionStart(_sessionEventProvider.LastDataSet);
 
             IsChampionshipActive = true;
-            _startedSessionWasRace = _sessionEventProvider.LastDataSet.SessionInfo.SessionType == SessionType.Race;
             ShowWelcomeScreen(_sessionEventProvider.LastDataSet);
         }
 
@@ -64,7 +64,7 @@
 
             if (IsChampionshipActive)
             {
-                _startedSessionWasRace = _sessionEventProvider.LastDataSet.SessionInfo.SessionType == SessionType.Race;
+                InitializePropertiesOnSessionStart(_sessionEventProvider.LastDataSet);
                 _championshipManipulator.UpdateAiDriversNames(_runningChampionship, _sessionEventProvider.LastDataSet);
             }
 
@@ -108,7 +108,10 @@
             if (e.DataSet.SessionInfo.SessionType != SessionType.Na && _championshipEligibilityEvaluator.EvaluateChampionship(_runningChampionship, e.DataSet) == RequirementResultKind.DoesNotMatch)
             {
                 FinishCurrentEvent(_sessionEventProvider.BeforeLastDataSet);
+                return;
             }
+
+            InitializePropertiesOnSessionStart(e.DataSet);
         }
 
         private void SessionEventProviderOnPlayerFinishStateChanged(object sender, DataSetArgs e)
@@ -118,8 +121,9 @@
                 return;
             }
 
-            if (e.DataSet.PlayerInfo.FinishStatus == DriverFinishStatus.Finished && _sessionEventProvider.BeforeLastDataSet?.SessionInfo?.SessionType == SessionType.Race && _startedSessionWasRace)
+            if (e.DataSet.PlayerInfo.FinishStatus == DriverFinishStatus.Finished && _sessionEventProvider.BeforeLastDataSet?.SessionInfo?.SessionType == SessionType.Race && _isSessionRace && !_hasPlayerFinished)
             {
+                _hasPlayerFinished = true;
                 _championshipManipulator.AddResultsForCurrentSession(_runningChampionship, e.DataSet);
                 _championshipManipulator.CommitLastSessionResults(_runningChampionship);
                 _championshipDialogProvider.ShowLastEvenResultWindow(_runningChampionship);
@@ -127,6 +131,7 @@
                 _runningChampionship = null;
             }
 
+            _hasPlayerFinished = e.DataSet.PlayerInfo.FinishStatus == DriverFinishStatus.Finished;
         }
 
         private void FinishCurrentEvent(SimulatorDataSet simulatorDataSet)
@@ -140,6 +145,12 @@
         {
             _lastTrack = dataSet.SessionInfo.TrackInfo.TrackFullName;
             _championshipDialogProvider.ShowWelcomeScreen(dataSet, _runningChampionship);
+        }
+
+        private void InitializePropertiesOnSessionStart(SimulatorDataSet dataSet)
+        {
+            _isSessionRace = dataSet.SessionInfo.SessionType == SessionType.Race;
+            _hasPlayerFinished = dataSet.PlayerInfo?.FinishStatus == DriverFinishStatus.Finished;
         }
     }
 }

@@ -4,6 +4,8 @@
 
     public static class TracksTemplates
     {
+        public static TrackTemplate AutodromMost = new TrackTemplate(" Autodrom Most", 4222);
+
         public static TrackTemplate BrandsHatchGpPresent = new TrackTemplate("Brands Hatch - Grand Prix (Present)", 3916);
         public static TrackTemplate BrandsHatchIndyPresent = new TrackTemplate("Brands Hatch - Indy (Present)", 1944);
 
@@ -30,11 +32,17 @@
         public static TrackTemplate NurburgringGpPresent = new TrackTemplate("Nürburgring - Grand Prix (Present)", 5137);
         public static TrackTemplate NurburgringSprintPresent = new TrackTemplate("Nürburgring - Sprint (Present)", 3619);
 
+        public static TrackTemplate Oschersleben = new TrackTemplate("Oschersleben - Full Course", 3696);
+
         public static TrackTemplate RedBullRing = new TrackTemplate("Red Bull Ring - National", 4318);
+
+        public static TrackTemplate SachsenringPresent = new TrackTemplate("Sachsenring (Present)", 3671);
 
         public static TrackTemplate SepangGPPresent = new TrackTemplate("Sepang - Grand Prix", 5543);
 
         public static TrackTemplate SlovakiaRingTrack4 = new TrackTemplate("Slovakia Ring - Layout 4 (Present)", 5922);
+
+        public static TrackTemplate SpaPresent = new TrackTemplate("Spa-Francorchamps (2007 - Present), 7004 ");
 
         public static TrackTemplate SuzukaGPPresent = new TrackTemplate("Suzuka - Grand Prix (Present)", 5807);
         public static TrackTemplate SuzukaEastPresent = new TrackTemplate("Suzuka - East Circuit (Present)", 2243);
