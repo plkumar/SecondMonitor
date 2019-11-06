@@ -4,7 +4,7 @@
 
     public static class AllGroups
     {
-        public static CalendarTemplateGroup MainGroup = new CalendarTemplateGroup("All", new[] {DtmGroup.AllDtmGroups, TCRGroups.AllTCRGroups, AudiTTGroup, AdacGTMasterCalendars.AllCalendars}, Enumerable.Empty<CalendarTemplate>());
+        public static CalendarTemplateGroup MainGroup = new CalendarTemplateGroup("All", new[] {DtmGroup.AllDtmGroups, TCRGroups.AllTCRGroups, AudiTTGroup, AdacGTMasterCalendars.AllCalendars, DrmCalendars.AllCalendars}, Enumerable.Empty<CalendarTemplate>());
 
         public static CalendarTemplateGroup AudiTTGroup => new CalendarTemplateGroup("Audi TT Cup", new []{AudiTTCalendars.AudiTT2016, AudiTTCalendars.AudiTT2017});
     }
