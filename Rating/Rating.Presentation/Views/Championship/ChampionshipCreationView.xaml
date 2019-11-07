@@ -30,7 +30,7 @@
                             <TextBox Style="{StaticResource StandardTextBox}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" MinWidth="300" Text="{Binding ChampionshipTitle}" DockPanel.Dock="Left"/>
                             <TextBlock Style="{StaticResource StandardText}" VerticalAlignment="Center" FontSize="{StaticResource BigFontSize}" Margin="10" Text="Options: " DockPanel.Dock="Left"/>
                             <CheckBox Foreground="{StaticResource LightGrey01Brush}" IsChecked="{Binding AiNamesCanChange}" VerticalAlignment="Center" Content="AI names can change" DockPanel.Dock="Left"/>
-                            <helpButton:HelpButton HelpUrl="https://gitlab.com/winzarten/SecondMonitor/wikis/home" Width="48" DockPanel.Dock="Right"></helpButton:HelpButton>
+                            <helpButton:HelpButton HelpUrl="https://gitlab.com/winzarten/SecondMonitor/wikis/Championship-Creation" Width="48" DockPanel.Dock="Right"></helpButton:HelpButton>
                         </DockPanel>
                     </Border>
                     <Grid Grid.Row="1" Visibility="{Binding IsSimulatorSelectionEnabled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">

@@ -21,6 +21,7 @@
 
 
         public static TrackTemplate LausitzringGpPresent = new TrackTemplate("EuroSpeedway Lausitzring - Grand Prix (Present)", 4345);
+        public static TrackTemplate LausitzringDtmShortCoursePresent = new TrackTemplate("EuroSpeedway Lausitzring - DTM Short course(Present)", 3478);
 
         public static TrackTemplate KasselCaldenAirfield = new TrackTemplate("Kassel-Calden Airfield", 2591);
 
@@ -32,6 +33,8 @@
         public static TrackTemplate MarrakechPresent = new TrackTemplate("Marrakesh (Present)", 3000);
 
         public static TrackTemplate MisanoWorldCircuitPresent = new TrackTemplate("Misano - World Circuit (Present)", 4200);
+
+        public static TrackTemplate MoscowRacewayFim = new TrackTemplate("Moscow Raceway - Grand Prix FIM (Present)", 3931);
 
 
         public static TrackTemplate NingboPresent = new TrackTemplate("Ningbo International Speedway", 4015);
@@ -47,7 +50,7 @@
 
         public static TrackTemplate Oschersleben = new TrackTemplate("Oschersleben - Full Course", 3696);
 
-        public static TrackTemplate RedBullRing = new TrackTemplate("Red Bull Ring - National", 4318);
+        public static TrackTemplate RedBullRing = new TrackTemplate("Red Bull Ring - Grand Prix", 4318);
 
         public static TrackTemplate Salzburgring7685 = new TrackTemplate("Salzburgring (1976 - 1985)", 4246);
 

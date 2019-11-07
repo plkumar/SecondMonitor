@@ -4,6 +4,6 @@
 
     public class DtmGroup
     {
-        public static CalendarTemplateGroup AllDtmGroups => new CalendarTemplateGroup("DTM", new CalendarTemplateGroup[0], new CalendarTemplate[]{DtmCalendars.DTM2019});
+        public static CalendarTemplateGroup AllDtmGroups => new CalendarTemplateGroup("Deutsche Tourenwagen Masters (DTM)", new CalendarTemplateGroup[] { DtmCalendars.Dtm2010Group});
     }
 }
