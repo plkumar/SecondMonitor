@@ -40,6 +40,7 @@
     using TrackRecords.Controller;
     using ViewModels.Colors;
     using ViewModels.Controllers;
+    using ViewModels.SessionEvents;
     using ViewModels.Settings.Model;
     using ViewModels.Settings.ViewModel;
     using ViewModels.TrackRecords;
@@ -52,6 +53,7 @@
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
         private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
+        private readonly ISessionEventProvider _sessionEventProvider;
 
         private ICommand _resetCommand;
 
@@ -76,7 +78,9 @@
         private DisplaySettingsViewModel _displaySettingsViewModel;
 
 
-        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider)
+        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager,
+            ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider,
+            ISessionEventProvider sessionEventProvider)
         {
             TimingDataGridViewModel = new TimingDataGridViewModel(driverPresentationsManager, displaySettingsViewModel, new ClassColorProvider(new BasicColorPaletteProvider()));
             SessionInfoViewModel = new SessionInfoViewModel();
@@ -86,6 +90,7 @@
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
             _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
+            _sessionEventProvider = sessionEventProvider;
             DoubleLeftClickCommand = _driverLapsWindowManager.OpenWindowCommand;
             DisplaySettingsViewModel = displaySettingsViewModel;
             TrackRecordsViewModel = _trackRecordsController.TrackRecordsViewModel;
@@ -553,7 +558,7 @@
                                 data.SessionInfo.SessionType != SessionType.Race;
             _lastDataSet = data;
             CheckAndNotifySessionCompleted();
-            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController, _championshipCurrentEventPointsProvider);
+            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider);
             SessionInfoViewModel.SessionTiming = _sessionTiming;
             SessionTiming.DriverAdded += SessionTimingDriverAdded;
             SessionTiming.DriverRemoved += SessionTimingDriverRemoved;

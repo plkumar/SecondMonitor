@@ -258,7 +258,7 @@
                     _driverNameTimingMap.Add(driversToAdd[i].Name, driversToAdd[i]);
                     RebindViewModel(DriversViewModels.First(x => x.Name == driversToRemove[i].Name), driversToAdd[i]);
                 }
-
+                
                 driversToRemove.Skip(i).ForEach(RemoveDriver);
                 AddDrivers(driversToAdd.Skip(i));
             }

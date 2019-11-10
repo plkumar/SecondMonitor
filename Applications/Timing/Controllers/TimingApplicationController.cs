@@ -32,6 +32,7 @@ namespace SecondMonitor.Timing.Controllers
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
     using TrackRecords.Controller;
+    using ViewModels.SessionEvents;
     using ViewModels.Settings;
     using ViewModels.Settings.Model;
     using ViewModels.SimulatorContent;
@@ -64,6 +65,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ITrackRecordsController _trackRecordsController;
         private readonly IChampionshipController _championshipController;
         private readonly ISessionEventsController _sessionEventsController;
+        private readonly ISessionEventProvider _sessionEventProvider;
         private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
         private Window _splashScreen;
 
@@ -77,6 +79,7 @@ namespace SecondMonitor.Timing.Controllers
             _trackRecordsController = _kernelWrapper.Get<ITrackRecordsController>();
             _championshipController = _kernelWrapper.Get<IChampionshipController>();
             _sessionEventsController = _kernelWrapper.Get<ISessionEventsController>();
+            _sessionEventProvider = _kernelWrapper.Get<ISessionEventProvider>();
             _championshipCurrentEventPointsProvider = _kernelWrapper.Get<IChampionshipCurrentEventPointsProvider>();
         }
 
@@ -111,7 +114,8 @@ namespace SecondMonitor.Timing.Controllers
             CreateSessionTelemetryControllerFactory();
             await StartControllers();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
-            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider, _trackRecordsController, _championshipCurrentEventPointsProvider) {MapManagementController = _mapManagementController};
+            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
+                _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
             _timingDataViewModel.ChampionshipIconStateViewModel = _championshipController.ChampionshipIconStateViewModel;

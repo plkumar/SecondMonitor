@@ -23,12 +23,14 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using Rating.Common.DataModel.Player;
     using Telemetry;
     using TrackRecords.Controller;
+    using ViewModels.SessionEvents;
 
     public class SessionTiming : DependencyObject, IEnumerable, INotifyPropertyChanged
     {
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
         private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
+        private readonly ISessionEventProvider _sessionEventProvider;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public class DriverNotFoundException : Exception
@@ -62,11 +64,13 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
 
         private CombinedLapPortionComparatorsViewModel _combinedLapPortionComparatorsViewModel;
 
-        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider)
+        private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider,
+            ISessionEventProvider sessionEventProvider)
         {
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
             _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
+            _sessionEventProvider = sessionEventProvider;
             PaceLaps = 4;
             DisplayBindTimeRelative = false;
             TimingDataViewModel = timingDataViewModel;
@@ -180,12 +184,13 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
-        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider)
+        public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController,
+            IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider, ISessionEventProvider sessionEventProvider)
         {
 
             Dictionary<string, DriverTiming> drivers = new Dictionary<string, DriverTiming>();
             Logger.Info($"New Seesion Started :{dataSet.SessionInfo.SessionType.ToString()}");
-            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController, championshipCurrentEventPointsProvider)
+            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController, championshipCurrentEventPointsProvider, sessionEventProvider)
                                        {
                                            SessionStarTime = dataSet.SessionInfo.SessionTime,
                                            SessionType = dataSet.SessionInfo.SessionType,
@@ -285,11 +290,11 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
-        private void AddNewDriver(DriverInfo newDriverInfo)
+        private void AddNewDriver(SimulatorDataSet dataSet, DriverInfo newDriverInfo)
         {
             if (TimingDataViewModel.GuiDispatcher != null && !TimingDataViewModel.GuiDispatcher.CheckAccess())
             {
-                TimingDataViewModel.GuiDispatcher.Invoke(() => AddNewDriver(newDriverInfo));
+                TimingDataViewModel.GuiDispatcher.Invoke(() => AddNewDriver(dataSet, newDriverInfo));
                 return;
             }
 
@@ -322,7 +327,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             {
                 newDriver.ChampionshipPoints = points;
             }
-            RaiseDriverAddedEvent(newDriver);
+            RaiseDriverAddedEvent(dataSet, newDriver);
             Logger.Info($"Added new driver");
         }
 
@@ -394,7 +399,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                     }
                     else
                     {
-                        AddNewDriver(driverInfo);
+                        AddNewDriver(dataSet, driverInfo);
                     }
                 }
 
@@ -403,7 +408,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                 driversToRemove.ForEach(s =>
                 {
                     Logger.Info($"Removing driver {Drivers[s].Name}");
-                    RaiseDriverRemovedEvent(Drivers[s]);
+                    RaiseDriverRemovedEvent(dataSet, Drivers[s]);
                     Drivers[s].IsActive = false;
                     Logger.Info($"Driver Removed");
                 });
@@ -445,13 +450,15 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             return Drivers.Values.GetEnumerator();
         }
 
-        public void RaiseDriverAddedEvent(DriverTiming driver)
+        public void RaiseDriverAddedEvent(SimulatorDataSet dataSet, DriverTiming driver)
         {
+            _sessionEventProvider.NotifyDriversAdded(dataSet, new []{driver.DriverInfo});
             DriverAdded?.Invoke(this, new DriverListModificationEventArgs(driver));
         }
 
-        public void RaiseDriverRemovedEvent(DriverTiming driver)
+        public void RaiseDriverRemovedEvent(SimulatorDataSet dataSet, DriverTiming driver)
         {
+            _sessionEventProvider.NotifyDriversRemoved(dataSet, new[] { driver.DriverInfo });
             DriverRemoved?.Invoke(this, new DriverListModificationEventArgs(driver));
         }
 
