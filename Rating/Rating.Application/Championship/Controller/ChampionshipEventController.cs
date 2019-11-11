@@ -80,6 +80,8 @@
         {
             _sessionEventProvider.PlayerFinishStateChanged += SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange += SessionEventProviderOnSessionTypeChange;
+            _sessionEventProvider.DriversAdded += SessionEventProviderOnDriversChanged;
+            _sessionEventProvider.DriversRemoved += SessionEventProviderOnDriversChanged;
             return Task.CompletedTask;
         }
 
@@ -87,7 +89,24 @@
         {
             _sessionEventProvider.PlayerFinishStateChanged -= SessionEventProviderOnPlayerFinishStateChanged;
             _sessionEventProvider.SessionTypeChange -= SessionEventProviderOnSessionTypeChange;
+            _sessionEventProvider.DriversAdded -= SessionEventProviderOnDriversChanged;
+            _sessionEventProvider.DriversRemoved -= SessionEventProviderOnDriversChanged;
             return Task.CompletedTask;
+        }
+
+        private void SessionEventProviderOnDriversChanged(object sender, DriversArgs e)
+        {
+            if (!IsChampionshipActive || _sessionEventProvider.BeforeLastDataSet == null)
+            {
+                return;
+            }
+
+            if (_sessionEventProvider.BeforeLastDataSet.SessionInfo.SessionType == SessionType.Race)
+            {
+                _championshipManipulator.AddResultsForCurrentSession(_runningChampionship, _sessionEventProvider.BeforeLastDataSet, shiftPlayerToLastPlace: true);
+                _runningChampionship.ChampionshipState = ChampionshipState.LastSessionCanceled;
+                FinishCurrentEvent(_sessionEventProvider.BeforeLastDataSet);
+            }
         }
 
         private void SessionEventProviderOnSessionTypeChange(object sender, DataSetArgs e)
