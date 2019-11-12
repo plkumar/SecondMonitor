@@ -4,20 +4,37 @@
 
     public static class TracksTemplates
     {
+        public static TrackTemplate AdriaFull = new TrackTemplate("Adria - Full Circuit", 2702);
+
+        public static TrackTemplate Alemannenring = new TrackTemplate("Alemannenring", 2800);
+
         public static TrackTemplate AutodromMost = new TrackTemplate("Autodrom Most", 4222);
 
         public static TrackTemplate AVUSBerling = new TrackTemplate("AVUS (Berlin)", 8300);
 
+
         public static TrackTemplate BrandsHatchGpPresent = new TrackTemplate("Brands Hatch - Grand Prix (Present)", 3916);
         public static TrackTemplate BrandsHatchIndyPresent = new TrackTemplate("Brands Hatch - Indy (Present)", 1944);
 
+        public static TrackTemplate BrnoPresent = new TrackTemplate("Brno - Grand Prix (Present)", 5403);
+
+
+        public static TrackTemplate DoningtonPark = new TrackTemplate("Donington Park - Grand Prix", 4020);
+
         public static TrackTemplate DiepholzAirfieldCircuit = new TrackTemplate("Diepholz Airfield Circuit", 2720);
 
+        public static TrackTemplate EstorilGp94to99 = new TrackTemplate("Estoril - Grand Prix (1994 - 1999)", 4360);
 
-        public static TrackTemplate HockenheimringGp7080 = new TrackTemplate("Hockenheimring - Grand Prix (1970 - 1980)", 6790);
+
+        public static TrackTemplate HelsinkyThunder = new TrackTemplate("Helsinki Thunder - Street Circuit", 3301);
+
+        public static TrackTemplate HockenheimringGp7080 = new TrackTemplate("Hockenheimring - Grand Prix (Historic, 1970 - 1980)", 6790);
+        public static TrackTemplate HockenheimringGp92to01 = new TrackTemplate("Hockenheimring - Grand Prix (Historic, 1992 - 2001)", 6825);
         public static TrackTemplate HockenheimringGpPresent = new TrackTemplate("Hockenheimring - Grand Prix (Present)", 4574);
 
         public static TrackTemplate HungaroringPresent = new TrackTemplate("Hungaroring (Present)", 4381);
+
+        public static TrackTemplate IstanbulParkGp = new TrackTemplate("Istanbul Park - Grand Prix", 5333);
 
 
         public static TrackTemplate LausitzringGpPresent = new TrackTemplate("EuroSpeedway Lausitzring - Grand Prix (Present)", 4345);
@@ -25,6 +42,8 @@
 
         public static TrackTemplate KasselCaldenAirfield = new TrackTemplate("Kassel-Calden Airfield", 2591);
 
+
+        public static TrackTemplate MagnyCourseGp92to02 = new TrackTemplate("Magny-Cours - Grand Prix (1992 - 2002)", 4250);
 
         public static TrackTemplate MainzFinthenAirport = new TrackTemplate("Mainz-Finthen Airport", 2250);
 
@@ -36,6 +55,8 @@
 
         public static TrackTemplate MoscowRacewayFim = new TrackTemplate("Moscow Raceway - Grand Prix FIM (Present)", 3931);
 
+        public static TrackTemplate MugelloGpPresent = new TrackTemplate("Mugello - Grand Prix (Present)", 5245);
+
 
         public static TrackTemplate NingboPresent = new TrackTemplate("Ningbo International Speedway", 4015);
 
@@ -43,14 +64,19 @@
 
         public static TrackTemplate NordschleifeWithGPNoArena = new TrackTemplate("Nordschleife with GP, no Arena", 25378);
         public static TrackTemplate Nordschleife7382 = new TrackTemplate("Nordschleife (1973 - 1982)", 22834);
+        public static TrackTemplate NordschleifeWithGp8302 = new TrackTemplate("Nordschleife with GP (1983 - 2002)", 25359);
         public static TrackTemplate NordschleifeBetonschleife = new TrackTemplate("Nürburgring - Betonschleife (1973 - 1982)", 2292);
 
+
+        public static TrackTemplate NurburgringGp84to02 = new TrackTemplate("Nürburgring - Grand Prix (1984 - 2004, no Arena)", 4551);
         public static TrackTemplate NurburgringGpPresent = new TrackTemplate("Nürburgring - Grand Prix (Present)", 5137);
         public static TrackTemplate NurburgringSprintPresent = new TrackTemplate("Nürburgring - Sprint (Present)", 3619);
 
         public static TrackTemplate Oschersleben = new TrackTemplate("Oschersleben - Full Course", 3696);
+        public static TrackTemplate Oschersleben00to06 = new TrackTemplate("Oschersleben - Full Course (2000 - 2006)", 3668);
 
         public static TrackTemplate RedBullRing = new TrackTemplate("Red Bull Ring - Grand Prix", 4318);
+        public static TrackTemplate RedBullA1Ring = new TrackTemplate("A1 Ring - Grand Prix (1996 - 2004", 4326);
 
         public static TrackTemplate Salzburgring7685 = new TrackTemplate("Salzburgring (1976 - 1985)", 4246);
 
@@ -71,6 +97,7 @@
 
         public static TrackTemplate VilaRealPresent = new TrackTemplate("Vila Real (Present)", 4600);
 
+        public static TrackTemplate WunstorfAirfield = new TrackTemplate("Wunstorf Airfield", 5047);
 
         public static TrackTemplate WuhanStreetCircuitPresent = new TrackTemplate("Wuhan Street Circuit", 2984);
 
@@ -79,6 +106,7 @@
         public static TrackTemplate Zandvoort79 = new TrackTemplate("Zandvoort (1979)", 4226);
 
         public static TrackTemplate ZolderGpPresent = new TrackTemplate("Zolder - Grand Prix (Present)", 4010);
+        public static TrackTemplate ZolderGp86to93 = new TrackTemplate("Zolder - Grand Prix (1986 - 1993)", 4194);
         public static TrackTemplate ZolderGp7581 = new TrackTemplate("Zolder - Grand Prix (1975 - 1981)", 4262);
     }
 }
