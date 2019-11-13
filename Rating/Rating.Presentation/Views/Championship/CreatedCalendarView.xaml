@@ -80,7 +80,7 @@
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
                             <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
-                            <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding TrackName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
+                            <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding TrackName}" BorderBrush="{StaticResource LightBlueBrush}" ToolTip="{Binding TrackName}" BorderThickness="0.5"/>
                         </StackPanel>
                         <Grid Column="2">
                             <Button Width="32" HorizontalAlignment="Right" HorizontalContentAlignment="Stretch"
@@ -113,7 +113,7 @@
                             <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
                                 <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource SmallFontSize}" Margin="5"  Text="Calendar Template Placeholder:"/>
                                 <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
-                                <TextBlock Style="{StaticResource StandardText}" Margin="5"  Text="{Binding TrackName}"/>
+                                <TextBlock Style="{StaticResource StandardText}" Margin="5"  Text="{Binding TrackName}" ToolTip="{Binding TrackName}"/>
                             </StackPanel>
                             <Grid Column="2">
                                 <Button Width="32" HorizontalAlignment="Right" HorizontalContentAlignment="Stretch"
@@ -147,7 +147,7 @@
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Column="1" Background="Transparent">
                             <TextBox Style="{StaticResource StandardTextBox}" Margin="5"  Text="{Binding CustomEventName}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0.5"/>
-                            <TextBlock Style="{StaticResource StandardText}" Margin="5" Text="{Binding TrackName}"/>
+                            <TextBlock Style="{StaticResource StandardText}" Margin="5" Text="{Binding TrackName}" ToolTip="{Binding TrackName}"/>
                             <ContentPresenter Content="{Binding TrackGeometryViewModel}" Margin="10" MaxHeight="50" IsHitTestVisible="True"/>
                         </StackPanel>
                         <Grid Column="2">

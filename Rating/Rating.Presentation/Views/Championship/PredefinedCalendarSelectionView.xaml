@@ -36,7 +36,9 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Title, StringFormat='{}{0} Preview'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0"/>
                     <TextBlock Text="{Binding EventCount, StringFormat='{}{0} Races'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,0,0,0"/>
-                    <ItemsControl ItemsSource="{Binding Events}" Margin="10"/>
+                    <ScrollViewer MaxHeight="800">
+                        <ItemsControl ItemsSource="{Binding Events}" Margin="10"/>
+                    </ScrollViewer>
                 </StackPanel>
             </DataTemplate>
 
