@@ -8,10 +8,16 @@
 
         public static TrackTemplate Alemannenring = new TrackTemplate("Alemannenring", 2800);
 
+        public static TrackTemplate AlbertPartPresent = new TrackTemplate("Albert Park, Melbourne (Present)", 5303);
+
         public static TrackTemplate AutodromMost = new TrackTemplate("Autodrom Most", 4222);
 
         public static TrackTemplate AVUSBerling = new TrackTemplate("AVUS (Berlin)", 8300);
 
+
+        public static TrackTemplate BahrainGP = new TrackTemplate("Bahrain International Circuit - Grand Prix", 5411);
+
+        public static TrackTemplate BakuGP = new TrackTemplate("Baku - Grand Prix", 6003);
 
         public static TrackTemplate BarberMotorsportsPark = new TrackTemplate("Barber Motorsports Park", 3700);
 
@@ -19,6 +25,11 @@
         public static TrackTemplate BrandsHatchIndyPresent = new TrackTemplate("Brands Hatch - Indy (Present)", 1944);
 
         public static TrackTemplate BrnoPresent = new TrackTemplate("Brno - Grand Prix (Present)", 5403);
+
+
+        public static TrackTemplate CircuitDeCatalunyaGpPresent = new TrackTemplate("Circuit de Catalunya - Grand Prix (Present)", 4655);
+
+        public static TrackTemplate CotaGP = new TrackTemplate("Circuit of the Americas - Grand Prix", 5515);
 
 
         public static TrackTemplate DetroitBelleIsle = new TrackTemplate("Detroit Belle Isle", 3798);
@@ -41,11 +52,15 @@
 
         public static TrackTemplate IowaSpeedwayOval = new TrackTemplate("Iowa Speedway - Oval", 1408);
 
+        public static TrackTemplate InterlagosGpPresent = new TrackTemplate("Interlagos - Grand Prix (Present)", 4309);
+
         public static TrackTemplate IndianapolisMotorSpeedwayRoadPresent = new TrackTemplate("Indianapolis Motor Speedway - Road Course (Present)", 3925);
         public static TrackTemplate IndianapolisMotorSpeedwayOval = new TrackTemplate("Indianapolis Motor Speedway - Oval", 4023);
 
         public static TrackTemplate IstanbulParkGp = new TrackTemplate("Istanbul Park - Grand Prix", 5333);
 
+
+        public static TrackTemplate LagunaSecaPresent = new TrackTemplate("Laguna Seca", 3602);
 
         public static TrackTemplate LongBeach = new TrackTemplate("Long Beach", 3167);
 
@@ -63,9 +78,17 @@
 
         public static TrackTemplate MarrakechPresent = new TrackTemplate("Marrakesh (Present)", 3000);
 
+        public static TrackTemplate MexicoGpPresent = new TrackTemplate("Autódromo Hermanos Rodríguez - Grand Prix (Present)", 4580);
+
         public static TrackTemplate MidOhioMainWithoutChicane = new TrackTemplate("Mid-Ohio - Main Circuit, without chicane", 3621);
 
         public static TrackTemplate MisanoWorldCircuitPresent = new TrackTemplate("Misano - World Circuit (Present)", 4200);
+
+        public static TrackTemplate MonacoPresent = new TrackTemplate("Circuit de Monaco (Present)", 3337);
+
+        public static TrackTemplate MontrealGpPresent = new TrackTemplate("Circuit Gilles Villenueve - Grand Prix (Present)", 4361);
+
+        public static TrackTemplate MonzaGpPresent = new TrackTemplate("Monza - Present", 5793);
 
         public static TrackTemplate MoscowRacewayFim = new TrackTemplate("Moscow Raceway - Grand Prix FIM (Present)", 3931);
 
@@ -90,7 +113,11 @@
         public static TrackTemplate Oschersleben00to06 = new TrackTemplate("Oschersleben - Full Course (2000 - 2006)", 3668);
 
 
+        public static TrackTemplate PaulRicard1CV2 = new TrackTemplate("Paul Ricard - Circuit 1C 2V", 5842);
+
         public static TrackTemplate PoconoRacewayOval = new TrackTemplate("Pocono Raceway - Oval", 4023);
+
+        public static TrackTemplate PortlandInternationalRacewayPresent = new TrackTemplate("Portland International Raceway (Present)", 3166);
 
         public static TrackTemplate PhoenixInternationalRaceway = new TrackTemplate("Phoenix International Raceway (2011 - 2018)", 1645);
 
@@ -103,11 +130,19 @@
 
         public static TrackTemplate Salzburgring7685 = new TrackTemplate("Salzburgring (1976 - 1985)", 4246);
 
+        public static TrackTemplate ShanghaiGp = new TrackTemplate("Shanghai International Circuit - Grand Prix", 5451);
+
         public static TrackTemplate SachsenringPresent = new TrackTemplate("Sachsenring (Present)", 3671);
 
         public static TrackTemplate SepangGPPresent = new TrackTemplate("Sepang - Grand Prix", 5543);
 
+        public static TrackTemplate SilverstoneGpPresent = new TrackTemplate("Silverstone - Grand Prix (Presetn)", 5890);
+
+        public static TrackTemplate Singapore = new TrackTemplate("Singapore Marina Bay", 5065);
+
         public static TrackTemplate SlovakiaRingTrack4 = new TrackTemplate("Slovakia Ring - Layout 4 (Present)", 5922);
+
+        public static TrackTemplate SochipGp = new TrackTemplate("Sochi - Grand Prix", 5872);
 
         public static TrackTemplate SonomaRacewayIndy = new TrackTemplate("Sonoma Raceway - IndyCar Circuit", 3838);
 
@@ -132,9 +167,15 @@
 
         public static TrackTemplate WatkinsGlenGpWithInnerLoop = new TrackTemplate("Watkins Glen - Grand Prix, with inner loop.", 5552);
 
+        public static TrackTemplate WorldWideTechnologyRacewayGatewayOval = new TrackTemplate("World Wide Technology Raceway at Gateway - Oval", 2012);
+
         public static TrackTemplate WunstorfAirfield = new TrackTemplate("Wunstorf Airfield", 5047);
 
         public static TrackTemplate WuhanStreetCircuitPresent = new TrackTemplate("Wuhan Street Circuit", 2984);
+
+
+        public static TrackTemplate YasMarinaGrandPrix = new TrackTemplate("Yas Marina - Grand Prix (Present)", 5554);
+
 
         public static TrackTemplate ZandvoortGPPresent = new TrackTemplate("Zandvoort - Grand Prix (Present)", 4307);
         public static TrackTemplate Zandvoort7578 = new TrackTemplate("Zandvoort (1975 - 1978)", 4226);
