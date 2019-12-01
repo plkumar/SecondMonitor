@@ -4,9 +4,34 @@
 
     public static class Formula1Calendars
     {
-        public static CalendarTemplateGroup Formula1AllGroup => new CalendarTemplateGroup("Formula1", new CalendarTemplateGroup[] { Formula1V6HybridEra });
+        public static CalendarTemplateGroup Formula1AllGroup => new CalendarTemplateGroup("Formula1", new CalendarTemplateGroup[] { Formula120092013, Formula1V6HybridEra });
 
-        public static CalendarTemplateGroup Formula1V6HybridEra => new CalendarTemplateGroup("V6 Hybrid Era", new CalendarTemplate[]{Formula12019});
+        public static CalendarTemplateGroup Formula120092013 => new CalendarTemplateGroup("2009 - 2013", new CalendarTemplate[] { Formula12013 });
+
+        public static CalendarTemplateGroup Formula1V6HybridEra => new CalendarTemplateGroup("2014 - Present (V6 Hybrid Era)", new CalendarTemplate[]{Formula12019});
+
+        public static CalendarTemplate Formula12013 = new CalendarTemplate("2013 - Formula 1", new []
+        {
+            new EventTemplate(TracksTemplates.AlbertPartPresent),
+            new EventTemplate(TracksTemplates.SepangGPPresent),
+            new EventTemplate(TracksTemplates.ShanghaiGp),
+            new EventTemplate(TracksTemplates.BahrainGP),
+            new EventTemplate(TracksTemplates.CircuitDeCatalunyaGpPresent),
+            new EventTemplate(TracksTemplates.MonacoPresent),
+            new EventTemplate(TracksTemplates.MontrealGpPresent),
+            new EventTemplate(TracksTemplates.SilverstoneGpPresent),
+            new EventTemplate(TracksTemplates.HockenheimringGpPresent),
+            new EventTemplate(TracksTemplates.HungaroringPresent),
+            new EventTemplate(TracksTemplates.SpaPresent),
+            new EventTemplate(TracksTemplates.MonzaGpPresent),
+            new EventTemplate(TracksTemplates.Singapore),
+            new EventTemplate(TracksTemplates.KoreaGp),
+            new EventTemplate(TracksTemplates.SuzukaGPPresent),
+            new EventTemplate(TracksTemplates.BudhGp),
+            new EventTemplate(TracksTemplates.YasMarinaGrandPrix),
+            new EventTemplate(TracksTemplates.CotaGP),
+            new EventTemplate(TracksTemplates.InterlagosGpPresent),
+        });
 
         public static CalendarTemplate Formula12019 => new CalendarTemplate("2019 - Formula 1", new[]
         {

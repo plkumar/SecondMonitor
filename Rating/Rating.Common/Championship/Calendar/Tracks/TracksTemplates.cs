@@ -26,6 +26,8 @@
 
         public static TrackTemplate BrnoPresent = new TrackTemplate("Brno - Grand Prix (Present)", 5403);
 
+        public static TrackTemplate BudhGp = new TrackTemplate("Buddh International Circuit - Grand Prix", 5137);
+
 
         public static TrackTemplate CircuitDeCatalunyaGpPresent = new TrackTemplate("Circuit de Catalunya - Grand Prix (Present)", 4655);
 
@@ -67,7 +69,10 @@
         public static TrackTemplate LausitzringGpPresent = new TrackTemplate("EuroSpeedway Lausitzring - Grand Prix (Present)", 4345);
         public static TrackTemplate LausitzringDtmShortCoursePresent = new TrackTemplate("EuroSpeedway Lausitzring - DTM Short course(Present)", 3478);
 
+
         public static TrackTemplate KasselCaldenAirfield = new TrackTemplate("Kassel-Calden Airfield", 2591);
+
+        public static TrackTemplate KoreaGp = new TrackTemplate("Korea International Circuit - Grand Prix", 5615);
 
 
         public static TrackTemplate MagnyCourseGp92to02 = new TrackTemplate("Magny-Cours - Grand Prix (1992 - 2002)", 4250);

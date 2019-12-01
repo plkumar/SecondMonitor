@@ -43,15 +43,18 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type predefined:PredefinedCalendarSelectionViewModel}">
-                <StackPanel Orientation="Vertical" Background="{StaticResource Anthracite01Brush}">
-                    <Grid>
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0" VerticalAlignment="Top">
-                            <TreeView ItemsSource="{Binding TreeRoots}" Background="{StaticResource Anthracite01Brush}"
-                                      Width="500" Height="500">
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0">
+                            <TreeView ItemsSource="{Binding TreeRoots}" Background="{StaticResource Anthracite01Brush}">
                                 <i:Interaction.Behaviors>
                                     <behaviors:BindableSelectedItemBehavior
                                         SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
@@ -62,7 +65,7 @@
                             <ContentPresenter Content="{Binding CalendarPreviewViewModel}" />
                         </Border>
                     </Grid>
-                    <Grid>
+                    <Grid Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -95,7 +98,7 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                </StackPanel>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>

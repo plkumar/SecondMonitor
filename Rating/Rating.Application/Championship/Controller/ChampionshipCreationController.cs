@@ -120,7 +120,7 @@
         {
             var calendarSelection = _viewModelFactory.Create<PredefinedCalendarSelectionViewModel>();
             calendarSelection.FromModel(AllGroups.MainGroup);
-            _windowService.OpenDialog(calendarSelection, "Select Predefined Calendar", WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner);
+            _windowService.OpenDialog(calendarSelection, "Select Predefined Calendar", WindowState.Maximized, SizeToContent.Manual, WindowStartupLocation.CenterOwner);
             if (calendarSelection.DialogResult == true && calendarSelection.SelectedItem is CalendarTemplateViewModel selectedViewModel)
             {
                 if (calendarSelection.UseEventNames)
