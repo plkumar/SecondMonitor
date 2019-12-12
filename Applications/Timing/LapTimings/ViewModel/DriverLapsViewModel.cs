@@ -15,16 +15,15 @@
 
     public class DriverLapsViewModel : AbstractViewModel
     {
-        public static readonly DependencyProperty LapsProperty = DependencyProperty.Register("Laps", typeof(ObservableCollection<LapViewModel>), typeof(DriverLapsViewModel));
-        public static readonly DependencyProperty DriverNameProperty = DependencyProperty.Register("DriverName", typeof(string), typeof(DriverLapsViewModel));
-
         private readonly DriverTimingViewModel _driverTiming;
 
         private readonly DriverLapsWindow _gui;
+        private ObservableCollection<LapViewModel> _laps;
         private readonly DriverPresentationsManager _driverPresentationsManager;
         private ColorDto _outLineColor;
         private bool _hasCustomOutline;
         private bool _isPlayer;
+        private string _driverName;
 
         public DriverLapsViewModel()
         {
@@ -54,8 +53,8 @@
 
         public ObservableCollection<LapViewModel> Laps
         {
-            get => (ObservableCollection<LapViewModel>)GetValue(LapsProperty);
-            private set => SetValue(LapsProperty, value);
+            get => _laps;
+            private set => SetProperty(ref _laps, value);
         }
 
         public ColorDto OutLineColor
@@ -88,8 +87,8 @@
 
         public string DriverName
         {
-            get => (string)GetValue(DriverNameProperty);
-            private set => SetValue(DriverNameProperty, value);
+            get => _driverName;
+            private set => SetProperty(ref _driverName, value);
         }
 
         public void UnRegisterOnGui()

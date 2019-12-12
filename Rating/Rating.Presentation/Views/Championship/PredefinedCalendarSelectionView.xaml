@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:predefined="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Creation.Calendar.Predefined;assembly=Rating.Application"
+                    xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors;assembly=WindowsControls"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF;assembly=WindowsControls"
+                    xmlns:calendar="clr-namespace:SecondMonitor.Rating.Common.Championship.Calendar;assembly=Rating.Common">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+
+            <HierarchicalDataTemplate DataType="{x:Type predefined:CalendarTemplateViewModel}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource NormalFontSize}"
+                               Text="{Binding Title}" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type predefined:CalendarTemplateGroupViewModel}"
+                                      ItemsSource="{Binding AllChildEntries}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"
+                               Text="{Binding Title}" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+            <DataTemplate DataType="{x:Type calendar:EventTemplate}">
+                <Border BorderThickness="0.5" BorderBrush="{StaticResource DarkGrey01Brush}" CornerRadius="1" Margin="2" Padding="2">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding EventName}" HorizontalAlignment="Center" FontSize="{StaticResource TimingGridFontSize}" Style="{StaticResource StandardText}" Visibility="{Binding HasEventName, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Text="{Binding TrackTemplate.TrackName}" HorizontalAlignment="Center" Style="{StaticResource StandardText}"/>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type predefined:CalendarPreviewViewModel}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Title, StringFormat='{}{0} Preview'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,10,0,0"/>
+                    <TextBlock Text="{Binding EventCount, StringFormat='{}{0} Races'}" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Margin="10,0,0,0"/>
+                    <ScrollViewer MaxHeight="800">
+                        <ItemsControl ItemsSource="{Binding Events}" Margin="10"/>
+                    </ScrollViewer>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type predefined:PredefinedCalendarSelectionViewModel}">
+                <Grid Background="{StaticResource Anthracite01Brush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="0">
+                            <TreeView ItemsSource="{Binding TreeRoots}" Background="{StaticResource Anthracite01Brush}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:BindableSelectedItemBehavior
+                                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+                                </i:Interaction.Behaviors>
+                            </TreeView>
+                        </Border>
+                        <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Grid.Column="1">
+                            <ContentPresenter Content="{Binding CalendarPreviewViewModel}" />
+                        </Border>
+                    </Grid>
+                    <Grid Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <CheckBox Content="Replace Known Tracks" Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0" IsChecked="{Binding AutoReplaceTracks}" />
+                            <CheckBox Content="Use Event Names" Foreground="{StaticResource LightGrey01Brush}" Margin="5,0,0,0" IsChecked="{Binding UseEventNames}" />
+                        </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                            <Button Height="55" HorizontalAlignment="Right" IsEnabled="{Binding IsOkButtonEnabled}"
+                                    IsDefault="True"
+                                    Style="{StaticResource StandardButton}"
+                                    Command="{Binding OkCommand}">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource OkIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+                            </Button>
+                            <Button Height="55" HorizontalAlignment="Right"
+                                    IsCancel="True"
+                                    Style="{StaticResource StandardButton}"
+                                    Command="{Binding CancelCommand}">
+                                <Button.Content>
+                                    <wpf:ColorAbleIcon Margin="5,0,5,0" StrokeBrush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}, Mode=OneWay}">
+                                        <ContentPresenter Content="{StaticResource CancelIcon}" />
+                                    </wpf:ColorAbleIcon>
+                                </Button.Content>
+
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

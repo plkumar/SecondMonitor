@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:track="clr-namespace:SecondMonitor.ViewModels.Track;assembly=SecondMonitor.ViewModels"
+                    xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type track:TrackGeometryViewModel}">
+                <Grid>
+                    <wpf:ColorAbleIcon StrokeBrush="{StaticResource DarkGrey01Brush}" Visibility="{Binding IsGeometryFilled, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                        <ContentPresenter Content="{StaticResource NotAvailableIcon}" />
+                    </wpf:ColorAbleIcon>
+                    <Viewbox Stretch="Uniform" Visibility="{Binding IsGeometryFilled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Canvas Width="{Binding Width}" Height="{Binding Height}">
+                            <Canvas>
+                                <Path Stroke="{StaticResource LightGrey01Brush}" StrokeThickness="15" Data="{Binding TrackGeometry}"/>
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="{Binding LeftOffset}" Y="{Binding TopOffset}"></TranslateTransform>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </Canvas>
+                    </Viewbox>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

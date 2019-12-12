@@ -1,10 +1,19 @@
 ﻿namespace SecondMonitor.SimdataManagement
 {
+    using ViewModels.Settings;
+
     public class MapsLoaderFactory : IMapsLoaderFactory
     {
-        public MapsLoader Create(string repositoryPath)
+        private readonly ISettingsProvider _settingsProvider;
+
+        public MapsLoaderFactory(ISettingsProvider settingsProvider)
         {
-            return new MapsLoader(repositoryPath);
+            _settingsProvider = settingsProvider;
+        }
+
+        public MapsLoader Create()
+        {
+            return new MapsLoader(_settingsProvider.MapRepositoryPath);
         }
     }
 }

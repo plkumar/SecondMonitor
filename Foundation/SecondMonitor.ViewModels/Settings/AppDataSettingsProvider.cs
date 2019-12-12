@@ -13,6 +13,7 @@
         private const string TelemetryFolder = "Telemetry";
         private const string ContentFolder = "Content";
         private const string RecordsFolder = "Records";
+        private const string ChampionshipsFolder = "Championships";
         private static readonly string SettingsPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "SecondMonitor\\settings.json");
@@ -34,6 +35,7 @@
         public string SimulatorContentRepository => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, ContentFolder);
         public string TrackRecordsPath => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, RecordsFolder);
         public string CarSpecificationPath => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, SettingsFolder);
+        public string ChampionshipRepositoryPath => Path.Combine(DisplaySettingsViewModel.ReportingSettingsView.ExportDirectoryReplacedSpecialDirs, ChampionshipsFolder);
 
         private DisplaySettingsViewModel LoadSettings()
         {

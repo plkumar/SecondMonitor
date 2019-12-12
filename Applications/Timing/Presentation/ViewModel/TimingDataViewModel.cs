@@ -21,13 +21,13 @@
     using DataModel.Extensions;
     using Controllers;
     using NLog;
-    using NLog.Fluent;
-    using Rating.Application.RatingProvider;
-    using Rating.Application.ViewModels;
+    using Rating.Application.Championship;
+    using Rating.Application.Championship.ViewModels.IconState;
+    using Rating.Application.Rating.RatingProvider;
+    using Rating.Application.Rating.ViewModels;
     using ReportCreation;
     using SecondMonitor.Timing.LapTimings.ViewModel;
     using SecondMonitor.Timing.SessionTiming.Drivers.Presentation.ViewModel;
-    using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
     using SecondMonitor.Timing.SessionTiming.ViewModel;
     using SessionTiming;
     using ViewModels;
@@ -40,6 +40,7 @@
     using TrackRecords.Controller;
     using ViewModels.Colors;
     using ViewModels.Controllers;
+    using ViewModels.SessionEvents;
     using ViewModels.Settings.Model;
     using ViewModels.Settings.ViewModel;
     using ViewModels.TrackRecords;
@@ -51,6 +52,8 @@
         private readonly ISessionTelemetryControllerFactory _sessionTelemetryControllerFactory;
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
+        private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
+        private readonly ISessionEventProvider _sessionEventProvider;
 
         private ICommand _resetCommand;
 
@@ -75,7 +78,9 @@
         private DisplaySettingsViewModel _displaySettingsViewModel;
 
 
-        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController)
+        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager,
+            ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider,
+            ISessionEventProvider sessionEventProvider)
         {
             TimingDataGridViewModel = new TimingDataGridViewModel(driverPresentationsManager, displaySettingsViewModel, new ClassColorProvider(new BasicColorPaletteProvider()));
             SessionInfoViewModel = new SessionInfoViewModel();
@@ -84,6 +89,8 @@
             _sessionTelemetryControllerFactory = sessionTelemetryControllerFactory;
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
+            _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
+            _sessionEventProvider = sessionEventProvider;
             DoubleLeftClickCommand = _driverLapsWindowManager.OpenWindowCommand;
             DisplaySettingsViewModel = displaySettingsViewModel;
             TrackRecordsViewModel = _trackRecordsController.TrackRecordsViewModel;
@@ -157,6 +164,10 @@
         public ICommand OpenCurrentTelemetrySession { get; set; }
 
         public ICommand OpenCarSettingsCommand { get; set; }
+
+        public ICommand OpenChampionshipWindowCommand { get; set; }
+
+        public ChampionshipIconStateViewModel ChampionshipIconStateViewModel { get; set; }
 
         public bool IsOpenCarSettingsCommandEnable
         {
@@ -397,9 +408,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(ChangeOrderingMode);
+                Application.Current.Dispatcher.Invoke(ChangeOrderingMode);
                 return;
             }
 
@@ -416,9 +427,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(ChangeTimeDisplayMode);
+                Application.Current.Dispatcher.Invoke(ChangeTimeDisplayMode);
                 return;
             }
 
@@ -466,9 +477,9 @@
                 return;
             }
 
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => RefreshTimingCircle(data));
+                Application.Current.Dispatcher.Invoke(() => RefreshTimingCircle(data));
                 return;
             }
 
@@ -530,9 +541,9 @@
 
         private void CreateTiming(SimulatorDataSet data)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => CreateTiming(data));
+                Application.Current.Dispatcher.Invoke(() => CreateTiming(data));
                 return;
             }
 
@@ -547,7 +558,7 @@
                                 data.SessionInfo.SessionType != SessionType.Race;
             _lastDataSet = data;
             CheckAndNotifySessionCompleted();
-            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController);
+            SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider);
             SessionInfoViewModel.SessionTiming = _sessionTiming;
             SessionTiming.DriverAdded += SessionTimingDriverAdded;
             SessionTiming.DriverRemoved += SessionTimingDriverRemoved;
@@ -587,9 +598,9 @@
 
         public void StartNewSession(SimulatorDataSet dataSet)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => StartNewSession(dataSet));
+                Application.Current.Dispatcher.Invoke(() => StartNewSession(dataSet));
                 return;
             }
             SessionInfoViewModel.Reset();
@@ -604,9 +615,9 @@
 
         private void InitializeGui(SimulatorDataSet data)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => InitializeGui(data));
+                Application.Current.Dispatcher.Invoke(() => InitializeGui(data));
                 return;
             }
 

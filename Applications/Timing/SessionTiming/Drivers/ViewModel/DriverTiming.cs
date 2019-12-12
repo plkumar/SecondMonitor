@@ -164,6 +164,7 @@
         public Velocity TopSpeed { get; private set; } = Velocity.Zero;
 
         public int Rating { get; set; }
+        public int ChampionshipPoints { get; set; }
         public bool IsLastLapTrackRecord { get; set; }
 
 
@@ -435,19 +436,19 @@
             switch (completedSector.SectorNumber)
             {
                 case 1:
-                    if ((BestSector1 == null || BestSector1.Duration > completedSector.Duration) && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector1 == null || BestSector1.Duration > completedSector.Duration) && completedSector.Duration > TimeSpan.Zero)
                     {
                         BestSector1 = completedSector;
                     }
                     break;
                 case 2:
-                    if ((BestSector2 == null || BestSector2.Duration > completedSector.Duration)  && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector2 == null || BestSector2.Duration > completedSector.Duration)  && completedSector.Duration > TimeSpan.Zero)
                     {
                         BestSector2 = completedSector;
                     }
                     break;
                 case 3:
-                    if ((BestSector3 == null || BestSector3.Duration > completedSector.Duration)  && completedSector.Duration != TimeSpan.Zero)
+                    if ((BestSector3 == null || BestSector3.Duration > completedSector.Duration)  && completedSector.Duration > TimeSpan.Zero)
                     {
                         BestSector3 = completedSector;
                     }

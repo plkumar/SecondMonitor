@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Contracts.Commands;
+    using Contracts.TrackRecords;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.TrackRecords;
@@ -16,7 +17,7 @@
     using ViewModels.Settings;
     using ViewModels.TrackRecords;
 
-    public class TrackRecordsController : ITrackRecordsController
+    public class TrackRecordsController : ITrackRecordsController, ITrackRecordsProvider
     {
         private readonly ISettingsProvider _settingsProvider;
         private readonly IViewModelFactory _viewModelFactory;
@@ -108,6 +109,50 @@
             }
 
             return isVehicleRecord || isClassRecord || isTrackRecord;
+        }
+
+        public bool TryGetOverallBestRecord(string simulatorName, string trackFullName, SessionType sessionType, out RecordEntryDto recordEntry)
+        {
+            var simulatorSet = _simulatorsRecords.GetOrCreateSimulatorRecords(simulatorName);
+            var trackRecordSet = simulatorSet.TrackRecords.FirstOrDefault(x => x.TrackName == trackFullName);
+            if (trackRecordSet == null)
+            {
+                recordEntry = null;
+                return false;
+            }
+
+            recordEntry = trackRecordSet.OverallRecord.GetProperEntry(sessionType);
+            return recordEntry != null;
+        }
+
+        public bool TryGetCarBestRecord(string simulatorName, string trackFullName, string carName, SessionType sessionType, out RecordEntryDto recordEntry)
+        {
+            var simulatorSet = _simulatorsRecords.GetOrCreateSimulatorRecords(simulatorName);
+            var trackRecordSet = simulatorSet.TrackRecords.FirstOrDefault(x => x.TrackName == trackFullName);
+            if (trackRecordSet == null)
+            {
+                recordEntry = null;
+                return false;
+            }
+
+            var carRecord = trackRecordSet.GetOrCreateVehicleRecord(carName);
+            recordEntry = carRecord.GetProperEntry(sessionType);
+            return recordEntry != null;
+        }
+
+        public bool TryGetClassBestRecord(string simulatorName, string trackFullName, string className, SessionType sessionType, out RecordEntryDto recordEntry)
+        {
+            var simulatorSet = _simulatorsRecords.GetOrCreateSimulatorRecords(simulatorName);
+            var trackRecordSet = simulatorSet.TrackRecords.FirstOrDefault(x => x.TrackName == trackFullName);
+            if (trackRecordSet == null)
+            {
+                recordEntry = null;
+                return false;
+            }
+
+            var carRecord = trackRecordSet.GetOrCreateClassRecord(className);
+            recordEntry = carRecord.GetProperEntry(sessionType);
+            return recordEntry != null;
         }
 
         private bool EvaluateAsTrackRecord(ILapInfo lapInfo)
@@ -320,6 +365,5 @@
             carRecordsViewModel.ChildViewModels = trackRecords;
             _windowService.OpenWindow(carRecordsViewModel, carRecordsViewModel.Title, WindowState.Normal, SizeToContent.WidthAndHeight, WindowStartupLocation.CenterOwner);
         }
-
     }
 }

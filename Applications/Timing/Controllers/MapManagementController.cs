@@ -103,24 +103,29 @@
             SaveMap(e.Lap.Driver.Session.LastSet.Source, formattedTrackName, newTrack);
         }
 
-        public bool TryGetMap(string simulator, string trackName, string layoutName, out TrackMapDto trackMapDto)
+        public bool TryGetMap(string simulator, string fullTrackName, out TrackMapDto trackMapDto)
         {
-            string formattedTrackName = FormatTrackName(trackName, layoutName);
-            if (!_mapsLoader.TryLoadMap(simulator, formattedTrackName, out trackMapDto))
+            if (!_mapsLoader.TryLoadMap(simulator, fullTrackName, out trackMapDto))
             {
-                Logger.Info($"Trying to get map: {formattedTrackName}, Map unknown");
-                _lastUnknownMap = formattedTrackName;
+                Logger.Info($"Trying to get map: {fullTrackName}, Map unknown");
+                _lastUnknownMap = fullTrackName;
                 return false;
             }
 
             if (trackMapDto.TrackGeometry.ExporterVersion == TrackMapFromTelemetryFactory.ExporterVersion)
             {
-                Logger.Info($"Trying to get map: {formattedTrackName}, Map Loaded.");
+                Logger.Info($"Trying to get map: {fullTrackName}, Map Loaded.");
                 return true;
             }
-            Logger.Info($"Trying to get map: {formattedTrackName}, Map Loaded, but outdated version.");
-            _lastUnknownMap = formattedTrackName;
+            Logger.Info($"Trying to get map: {fullTrackName}, Map Loaded, but outdated version.");
+            _lastUnknownMap = fullTrackName;
             return false;
+        }
+
+        public bool TryGetMap(string simulator, string trackName, string layoutName, out TrackMapDto trackMapDto)
+        {
+            string formattedTrackName = FormatTrackName(trackName, layoutName);
+            return TryGetMap(simulator, formattedTrackName, out trackMapDto);
         }
 
         public void RemoveMap(string simulator, string trackName, string layoutName)
@@ -161,7 +166,7 @@
 
         private static string FormatTrackName(string trackName, string layoutName)
         {
-           return string.IsNullOrEmpty(layoutName) ? trackName :  $"{trackName}_{layoutName}";
+           return string.IsNullOrEmpty(layoutName) ? trackName :  $"{trackName}-{layoutName}";
         }
 
         public void SaveMap(string simulator, string trackName, string layoutName, TrackMapDto trackMapDto)

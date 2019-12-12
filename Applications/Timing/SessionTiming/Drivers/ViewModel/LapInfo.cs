@@ -301,7 +301,12 @@ namespace SecondMonitor.Timing.SessionTiming.Drivers.ViewModel
                 return;
             }
 
-            FinishSectorAndCheckIfPending(CurrentSector, driverInfo, dataSet);
+            //F1 2019 Fix : Because F1 2019 has flashback functionality, we have to check if the sector change was in forward or backward direction
+            if (CurrentSector.SectorNumber % 3 == driverInfo.Timing.CurrentSector - 1)
+            {
+                FinishSectorAndCheckIfPending(CurrentSector, driverInfo, dataSet);
+            }
+
             switch (driverInfo.Timing.CurrentSector)
             {
                 case 2:

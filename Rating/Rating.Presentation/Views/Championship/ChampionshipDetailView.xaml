@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:overview="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Overview;assembly=Rating.Application">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type overview:ChampionshipDetailViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Background="{StaticResource Anthracite01Brush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding ChampionshipName}" Margin="30"/>
+                        </Grid>
+                        <TabControl Grid.Row="1" Background="{StaticResource Anthracite01Brush}">
+                            <TabItem Background="{StaticResource Anthracite01Brush}">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Standings" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
+                                <ContentPresenter Content="{Binding StandingOverviewViewModel}"/>
+                            </TabItem>
+                            <TabItem Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Calendar" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
+                                <ContentPresenter Content="{Binding CalendarResultsOverview}"/>
+                            </TabItem>
+                            <TabItem Background="{StaticResource Anthracite01Brush}" BorderThickness="0">
+                                <TabItem.Header>
+                                    <Border BorderThickness="2" BorderBrush="{StaticResource DarkGrey05Brush}" Background="{StaticResource Anthracite01Brush}">
+                                        <TextBlock Text="Results" Style="{StaticResource StandardText}"></TextBlock>
+                                    </Border>
+                                </TabItem.Header>
+                                <ContentPresenter Content="{Binding ChampionshipSessionsResults}"/>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

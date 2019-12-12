@@ -60,6 +60,7 @@
     <Compile Include="FuelInformation\IFuelConsumptionInfo.cs" />
     <Compile Include="FuelInformation\IFuelPlannerViewModel.cs" />
     <Compile Include="FuelInformation\ISessionFuelConsumptionViewModel.cs" />
+    <Compile Include="MutableKeyValuePair.cs" />
     <Compile Include="NInject\BootstrapHelper.cs" />
     <Compile Include="NInject\INinjectModuleBootstrapper.cs" />
     <Compile Include="NInject\KernelWrapper.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="TrackMap\IMapManagementController.cs" />
     <Compile Include="TrackMap\ITrackDtoManipulator.cs" />
     <Compile Include="TrackMap\MapEventArgs.cs" />
+    <Compile Include="TrackRecords\TrackRecordsProvider.cs" />
     <Compile Include="UserInput\IUserInputProvider.cs" />
     <Compile Include="WheelInformation\IIdealWheelQuantitiesFiller.cs" />
   </ItemGroup>

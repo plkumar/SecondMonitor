@@ -60,7 +60,7 @@
       <HintPath>..\..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.SDK.Expression.Blend.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
@@ -124,6 +124,7 @@
     <Compile Include="WinForms\PlotViewWrapper\PlotViewWrapper.Designer.cs">
       <DependentUpon>PlotViewWrapper.cs</DependentUpon>
     </Compile>
+    <Compile Include="WPF\Behaviors\BindableSelectedItemBehavior.cs" />
     <Compile Include="WPF\Behaviors\RefreshBindingOnVisibilityChangeBehavior.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorAbleIconByLimits.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorByLinearLimitsBehavior.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="WPF\Converters\DoubleToScalableDecimalsConverter.cs" />
     <Compile Include="WPF\Converters\DoubleToStringNoDecimalConverter.cs" />
     <Compile Include="WPF\Converters\FormattedTimeToBrushConverter.cs" />
+    <Compile Include="WPF\Converters\IntegerToStringWithSignConverter.cs" />
     <Compile Include="WPF\Converters\IntToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\InvertedBooleanConverter.cs" />
@@ -183,6 +185,10 @@
     <Compile Include="WPF\FuelControl\FuelOverviewControl.cs" />
     <Compile Include="WPF\FuelControl\FuelPlannerControl.cs" />
     <Compile Include="WPF\FuelControl\SessionFuelConsumptionControl.cs" />
+    <Compile Include="WPF\HelpButton\HelpButton.xaml.cs">
+      <DependentUpon>HelpButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Layouts\ViewSequenceControl.cs" />
     <Compile Include="WPF\PedalControl\PedalGearControl.cs" />
     <Compile Include="WPF\DriverPosition\ISituationOverviewControl.cs" />
     <Compile Include="WPF\DriverPosition\DriverPositionControl.cs" />
@@ -288,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WPF\Dialogs\DialogPresentations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPF\DriverPosition\MapSidePanelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +322,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WPF\HelpButton\HelpButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WPF\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -325,6 +339,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WPF\Layouts\Layouts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Layouts\ViewSequenceControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -367,6 +385,10 @@
     <Page Include="WPF\StatusIcon\StatusIconControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPF\TrackInfoControl\TrackGeometryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WPF\TrackInfoControl\TrackInfoControl.xaml">
       <Generator>MSBuild:Compile</Generator>

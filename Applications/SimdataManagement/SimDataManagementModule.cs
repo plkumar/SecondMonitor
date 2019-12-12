@@ -1,5 +1,6 @@
 ﻿namespace SecondMonitor.SimdataManagement
 {
+    using Contracts.TrackMap;
     using Ninject.Modules;
     using SimSettings;
     using WheelDiameterWizard;
@@ -10,6 +11,7 @@
         {
             Bind<ICarSpecificationProvider>().To<CarSpecificationProvider>().InSingletonScope();
             Bind<IWheelDiameterWizardController>().To<WheelDiameterWizardController>();
+            Bind<ITrackDtoManipulator>().To<TrackDtoManipulator>();
         }
     }
 }

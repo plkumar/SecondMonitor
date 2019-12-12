@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using DataModel.TrackMap;
-    using SecondMonitor.ViewModels.Settings;
     using SimdataManagement;
     using Synchronization;
     using TelemetryManagement.DTO;
@@ -17,11 +16,11 @@
         private bool _mapAvailable;
         private readonly Dictionary<string, MapViewDriverInfoFacade> _fakeDrivers;
 
-        public MapViewController(ISettingsProvider settingsProvider, IMapsLoaderFactory mapsLoaderFactory, ITelemetryViewsSynchronization telemetryViewsSynchronization)
+        public MapViewController(IMapsLoaderFactory mapsLoaderFactory, ITelemetryViewsSynchronization telemetryViewsSynchronization)
         {
             _fakeDrivers = new Dictionary<string, MapViewDriverInfoFacade>();
             _telemetryViewsSynchronization = telemetryViewsSynchronization;
-            _mapsLoader = mapsLoaderFactory.Create(settingsProvider.MapRepositoryPath);
+            _mapsLoader = mapsLoaderFactory.Create();
         }
 
         public IMapViewViewModel MapViewViewModel { get; set; }
@@ -118,7 +117,7 @@
 
         private static string FormatTrackName(string trackName, string layoutName)
         {
-            return string.IsNullOrEmpty(layoutName) ? trackName : $"{trackName}_{layoutName}";
+            return string.IsNullOrEmpty(layoutName) ? trackName : $"{trackName}-{layoutName}";
         }
 
     }

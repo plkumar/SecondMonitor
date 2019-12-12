@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.NamedScope, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.NamedScope.3.3.0\lib\net45\Ninject.Extensions.NamedScope.dll</HintPath>
+    </Reference>
     <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -65,6 +71,9 @@
     <Compile Include="Controls\BarControlTestControl.xaml.cs">
       <DependentUpon>BarControlTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CalendarTreeTestControl.xaml.cs">
+      <DependentUpon>CalendarTreeTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CarSettingsTestControl.xaml.cs">
       <DependentUpon>CarSettingsTestControl.xaml</DependentUpon>
     </Compile>
@@ -83,6 +92,9 @@
     <Compile Include="Controls\PositionCircleTestControl.xaml.cs">
       <DependentUpon>PositionCircleTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SequenceControlTestControl.xaml.cs">
+      <DependentUpon>SequenceControlTestControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StatusIconTC.xaml.cs">
       <DependentUpon>StatusIconTC.xaml</DependentUpon>
     </Compile>
@@ -100,10 +112,16 @@
     <Compile Include="ViewModels\CarStatusTestVM.cs" />
     <Compile Include="ViewModels\FuelCalculatorTestViewModel.cs" />
     <Compile Include="ViewModels\FuelOverviewTestViewModel.cs" />
+    <Compile Include="ViewModels\MainTestWindowViewModel.cs" />
+    <Compile Include="ViewModels\SequenceViewTestViewModel.cs" />
     <Compile Include="ViewModels\StatusIconTcVm.cs" />
     <Compile Include="ViewModels\TemperatureTestViewModel.cs" />
     <Compile Include="ViewModels\WheelStatusTestVM.cs" />
     <Page Include="Controls\BarControlTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CalendarTreeTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PositionCircleTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SequenceControlTestControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,6 +227,18 @@
     <ProjectReference Include="..\..\Foundation\WindowsControls\WindowsControls.csproj">
       <Project>{ea13af3c-a4e0-4ad2-94ae-78006b04fc41}</Project>
       <Name>WindowsControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Rating\Rating.Application\Rating.Application.csproj">
+      <Project>{6afa0291-bd43-461f-98fe-9eb66b4e7c86}</Project>
+      <Name>Rating.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Rating\Rating.Common\Rating.Common.csproj">
+      <Project>{b6f16b0d-c649-42da-af92-6d7dca71b3b4}</Project>
+      <Name>Rating.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Rating\Rating.Presentation\Rating.Presentation.csproj">
+      <Project>{79d11cc1-9e85-440b-9635-5c0638382ac9}</Project>
+      <Name>Rating.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

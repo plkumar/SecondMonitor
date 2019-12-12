@@ -23,6 +23,10 @@
     <Color x:Shared="False" x:Key="InPitsColor">#3F996600</Color>
     <Color x:Shared="False" x:Key="InPitsMovingColor">#FF996600</Color>
 
+    <Color x:Shared="False" x:Key="Gold01Color">#D4AF37</Color>
+    <Color x:Shared="False" x:Key="Silver01Color">#C0C0C0</Color>
+    <Color x:Shared="False" x:Key="Bronze01Color">#cd7f32</Color>
+
     <Color x:Shared="False" x:Key="Green01Color">#0c8d37</Color>
     <Color x:Shared="False" x:Key="Green02Color">#FFC2FF00</Color>
     <Color x:Shared="False" x:Key="Green03Color">#FF00FF1D</Color>
@@ -40,6 +44,8 @@
     <Color x:Shared="False" x:Key="DarkGrey05Color">#FF7F7F7F</Color>
 
     <Color x:Shared="False" x:Key="Anthracite01Color">#2B292E</Color>
+    <Color x:Shared="False" x:Key="Anthracite02Color">#262429</Color>
+
 
     <Color x:Shared="False" x:Key="Sector1Color">#666699</Color>
     <Color x:Shared="False" x:Key="Sector2Color">#669999</Color>
@@ -56,6 +62,7 @@
     <SolidColorBrush x:Shared="False" x:Key="DarkGrey05Brush" Color="{StaticResource DarkGrey05Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="Anthracite01Brush" Color="{StaticResource Anthracite01Color}"/>
+    <SolidColorBrush x:Shared="False" x:Key="Anthracite02Brush" Color="{StaticResource Anthracite02Color}"/>
 
     <SolidColorBrush x:Shared="False" x:Key="LightRed01Brush" Color="{StaticResource LightRed01Color}" />
     <SolidColorBrush x:Shared="False" x:Key="LightRed02Brush" Color="{StaticResource LightRed02Color}" />
@@ -119,6 +126,10 @@
     <SolidColorBrush x:Shared="False" x:Key="TyreHard" Color="#ff8000"/>
     <SolidColorBrush x:Shared="False" x:Key="TyreIntermediate" Color="#33cc33"/>
     <SolidColorBrush x:Shared="False" x:Key="TyreWet" Color="#0066ff"/>
+
+    <SolidColorBrush x:Shared="False" x:Key="Gold01Brush" Color="{StaticResource Gold01Color}"/>
+    <SolidColorBrush x:Shared="False" x:Key="Silver01Brush" Color="{StaticResource Silver01Color}"/>
+    <SolidColorBrush x:Shared="False" x:Key="Bronze01Brush" Color="{StaticResource Bronze01Color}"/>
 
 
 </ResourceDictionary>

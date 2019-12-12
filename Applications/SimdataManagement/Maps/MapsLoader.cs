@@ -23,11 +23,14 @@
         {
             string fullPathName = Path.Combine(Path.Combine(MapsPath, simulator), trackName + FileSuffix);
             Logger.Info($"Trying to Load Map for Simulator {simulator}, track: {trackName}, path: {fullPathName} ");
+            if (!File.Exists(fullPathName))
+            {
+                fullPathName = fullPathName.Replace("-", "_");
+            }
             try
             {
                 using (TextReader file = File.OpenText(fullPathName))
                 {
-
                     XmlReader reader = XmlReader.Create(file, new XmlReaderSettings() { CheckCharacters = false });
                     trackMapDto = (TrackMapDto)_xmlSerializer.Deserialize(reader);
                 }

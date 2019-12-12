@@ -13,6 +13,20 @@
             <SolidColorBrush x:Shared="False" x:Key="StartedPhaseBrush" Color="{StaticResource Green05Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="FreeRestartWindowPhaseBrush" Color="{StaticResource Blue04Color}"/>
             <SolidColorBrush x:Shared="False" x:Key="NotStartedPhaseBrush" Color="{StaticResource LightRed02Color}"/>
+
+            <SolidColorBrush x:Shared="False" x:Key="NoChampionship" Color="{StaticResource LightGrey01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="ChampionshipRace" Color="{StaticResource Green05Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="PotentialChampionshipRace" Color="{StaticResource Blue04Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="LastSessionCanceled" Color="{StaticResource Orange01Color}"/>
+
+            <SolidColorBrush x:Shared="False" x:Key="EventNotStarted" Color="{StaticResource LightGrey01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="EventCompleted" Color="{StaticResource Green05Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="EventInProgress" Color="{StaticResource Blue04Color}"/>
+
+            <SolidColorBrush x:Shared="False" x:Key="FirstPlaceBrush" Color="{StaticResource Gold01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="SecondPlaceBrush" Color="{StaticResource Silver01Color}"/>
+            <SolidColorBrush x:Shared="False" x:Key="ThirdPlaceBrush" Color="{StaticResource Bronze01Color}"/>
+
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

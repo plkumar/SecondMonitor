@@ -1,7 +1,8 @@
 ﻿namespace SecondMonitor.ViewModels.SimulatorContent
 {
-    using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
     using DataModel;
     using DataModel.SimulatorContent;
@@ -61,7 +62,7 @@
                 _lastCar = simulatorDataSet.PlayerInfo.CarName;
             }
 
-            if (_lastTrack != simulatorDataSet.SessionInfo.TrackInfo.TrackFullName && !string.IsNullOrEmpty(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName))
+            if (_lastTrack != simulatorDataSet.SessionInfo.TrackInfo.TrackFullName && !string.IsNullOrEmpty(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName) && simulatorDataSet.SessionInfo.TrackInfo.LayoutLength.InMeters > 0)
             {
                 _currentSimulatorContent.AddTrack(simulatorDataSet.SessionInfo.TrackInfo.TrackFullName, simulatorDataSet.SessionInfo.TrackInfo.LayoutLength.InMeters);
                 _lastTrack = simulatorDataSet.SessionInfo.TrackInfo.TrackFullName;
@@ -72,6 +73,7 @@
         private void SwitchSimulatorContent(string simulatorName)
         {
             _currentSimulatorContent = _simulatorsContent.GetOrCreateSimulatorContent(simulatorName);
+            _currentSimulatorContent.Tracks.RemoveAll(x => x.LapDistance == 0);
             _lastCar = string.Empty;
             _lastTrack = string.Empty;
         }
@@ -79,6 +81,16 @@
         public void Reset()
         {
 
+        }
+
+        public IReadOnlyCollection<Track> GetAllTracksForSimulator(string simulatorName)
+        {
+            return _simulatorsContent == null ? Enumerable.Empty<Track>().ToList() : _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Tracks;
+        }
+
+        public IReadOnlyCollection<CarClass> GetAllCarClassesForSimulator(string simulatorName)
+        {
+            return _simulatorsContent == null ? Enumerable.Empty<CarClass>().ToList() : _simulatorsContent.GetOrCreateSimulatorContent(simulatorName).Classes;
         }
     }
 }

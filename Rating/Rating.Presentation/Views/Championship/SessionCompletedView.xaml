@@ -1,0 +1,253 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:events="clr-namespace:SecondMonitor.Rating.Application.Championship.ViewModels.Events;assembly=Rating.Application"
+                    xmlns:layouts="clr-namespace:SecondMonitor.WindowsControls.WPF.Layouts;assembly=WindowsControls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../RatingPresentation.xaml" />
+        <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type events:DriversNewStandingsViewModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="20">
+                        <ContentPresenter Content="{Binding EventTitleViewModel}"/>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel  Grid.IsSharedSizeScope="True">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="42"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                                <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="#" Foreground="{StaticResource LightBlueBrush}" />
+                            </Grid>
+                            <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"   Text="# +/-" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                            <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Foreground="{StaticResource LightBlueBrush}"  Text="Driver Name" Margin="10,0,10,0"/>
+                            <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Total Points" Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                            <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Prev." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                            <TextBlock Grid.Column="5" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Lead." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
+                        </Grid>
+                            <ItemsControl ItemsSource="{Binding DriversNewStandings}" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
+                                        <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
+                                            <ContentPresenter Content="{Binding }"></ContentPresenter>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type events:DriverNewStandingViewModel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="42"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingPoints"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding Position }"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource NormalFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{Binding PositionsGained, Converter={StaticResource IntToRedGreenConverter}}" Text="{Binding PositionsGained, Converter={StaticResource IntegerToStringWithSignConverter} }"/>
+                    </Grid>
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding Name }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="3" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding TotalPoints, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding GapToPrevious, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="5" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding GapToLeader, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource Green01Brush}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type events:DriverFinishViewModel}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriversFinishName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DriverFinishPoints"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="{StaticResource DarkGrey01Brush}">
+                        <TextBlock  Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"  Text="{Binding FinishPosition }"/>
+                    </Grid>
+                    <TextBlock Grid.Column="1" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding DriverName }" Margin="10,0,10,0"/>
+                    <TextBlock Grid.Column="2" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="{Binding PointsGain, StringFormat=' {0} pts' }" Margin="10,0,10,0"/>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource Green01Brush}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type events:SessionResultViewModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="20">
+                        <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding Header}"/>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding DriversFinish}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Margin="2">
+                                        <Grid Margin="3" Background="{StaticResource Anthracite02Brush}">
+                                            <ContentPresenter Content="{Binding }"></ContentPresenter>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type events:PodiumViewModel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Column="0" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Second}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Silver01Brush}" Height="200">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Style="{StaticResource StandardText}" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="125" FontWeight="ExtraBold">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect
+                                                    ShadowDepth="4"
+                                                    Direction="330"
+                                                    Color="Black"
+                                                    Opacity="0.5"
+                                                    BlurRadius="4"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Column="1" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding First}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Gold01Brush}" Height="400">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Style="{StaticResource StandardText}" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="150" FontWeight="ExtraBold">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                                                ShadowDepth="4"
+                                                Direction="330"
+                                                Color="Black"
+                                                Opacity="0.5"
+                                                BlurRadius="4"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Column="2" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource StandardText}" Text="{Binding Third}" HorizontalAlignment="Center" Margin="10" FontSize="50">
+                                <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            ShadowDepth="4"
+                                            Direction="330"
+                                            Color="{StaticResource LightGrey02Color}"
+                                            Opacity="0.5"
+                                            BlurRadius="4"/>
+                                    </TextBlock.Effect>
+                            </TextBlock>
+                            <Border BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource LightGrey01Brush}" Background="{StaticResource Bronze01Brush}" Height="100">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Style="{StaticResource StandardText}" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" FontWeight="ExtraBold">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect
+                                                    ShadowDepth="4"
+                                                    Direction="330"
+                                                    Color="Black"
+                                                    Opacity="0.5"
+                                                    BlurRadius="4"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type events:SessionCompletedViewModel}">
+                <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Background="{StaticResource Anthracite02Brush}">
+                    <Grid Background="{StaticResource Anthracite01Brush}" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Margin="10">
+                            <TextBlock Style="{StaticResource StandardText}" FontSize="35" Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Grid.Row="1" Padding="10">
+                            <Grid>
+                                <layouts:ViewSequenceControl Views="{Binding Screens}" Style="{StaticResource StandardSequenceStyle}" CloseButtonCommand="{Binding CloseCommand}" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

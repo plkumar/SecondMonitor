@@ -475,9 +475,9 @@
 
         private FullMapControl InitializeFullMap(ITrackMap trackMapDto)
         {
-            if (!Dispatcher.CheckAccess())
+            if (!Application.Current.Dispatcher.CheckAccess())
             {
-                return Dispatcher.Invoke(() => InitializeFullMap(trackMapDto));
+                return Application.Current.Dispatcher.Invoke(() => InitializeFullMap(trackMapDto));
             }
 
             Logger.Info("Initializing Full Map Control");

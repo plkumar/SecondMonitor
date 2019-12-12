@@ -17,5 +17,8 @@
         string TrackRecordsPath { get; }
 
         string CarSpecificationPath { get; }
+
+        string ChampionshipRepositoryPath { get; }
+
     }
 }

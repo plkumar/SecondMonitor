@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ratingHistory="clr-namespace:SecondMonitor.Rating.Application.ViewModels.RatingHistory;assembly=Rating.Application">
+                    xmlns:ratingHistory="clr-namespace:SecondMonitor.Rating.Application.Rating.ViewModels.RatingHistory;assembly=Rating.Application">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../RatingPresentation.xaml" />
         <ResourceDictionary Source="SimulatorHistoryView.xaml" />

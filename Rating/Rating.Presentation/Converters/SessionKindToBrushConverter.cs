@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
-    using Application.Controller.RaceObserver.States;
+    using Application.Rating.Controller.RaceObserver.States;
 
     public class SessionKindToBrushConverter : IValueConverter
     {

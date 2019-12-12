@@ -43,7 +43,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OxyPlot.Core.2.0.0-unstable1035\lib\net45\OxyPlot.dll</HintPath>
@@ -70,6 +70,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractDialogViewModel.cs" />
     <Compile Include="AbstractViewModel.cs" />
     <Compile Include="Base\AbstractTemperatureViewModel.cs" />
     <Compile Include="Base\IViewModelWithIcon.cs" />
@@ -101,11 +102,19 @@
     <Compile Include="Colors\HSLColor .cs" />
     <Compile Include="Colors\IClassColorProvider.cs" />
     <Compile Include="Colors\RedGreenGradientPalette.cs" />
+    <Compile Include="Controllers\AbstractChildController.cs" />
     <Compile Include="Controllers\AutoUpdateController.cs" />
+    <Compile Include="Controllers\IChildController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Colors\IColorPaletteProvider.cs" />
+    <Compile Include="Controllers\IChildControllerFactory.cs" />
+    <Compile Include="Controllers\ChildControllerFactory.cs" />
+    <Compile Include="DialogService.cs" />
+    <Compile Include="Dialogs\YesNoDialogViewModel.cs" />
     <Compile Include="Factory\IViewModelFactory.cs" />
     <Compile Include="Factory\ViewModelFactory.cs" />
+    <Compile Include="IDialogService.cs" />
+    <Compile Include="IDialogViewModel.cs" />
     <Compile Include="IDisableViewModel.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="ISimulatorDataSetViewModel.cs" />
@@ -129,6 +138,11 @@
     <Compile Include="RaceSuggestion\RaceSuggestionController.cs" />
     <Compile Include="RaceSuggestion\RaceSuggestionViewModel.cs" />
     <Compile Include="Repository\AbstractXMLRepository.cs" />
+    <Compile Include="Repository\IAbstractXmlRepository.cs" />
+    <Compile Include="SessionEvents\DataSetArgs.cs" />
+    <Compile Include="SessionEvents\DriversArgs.cs" />
+    <Compile Include="SessionEvents\ISessionEventProvider.cs" />
+    <Compile Include="SessionEvents\SessionEventProvider.cs" />
     <Compile Include="Settings\AppDataSettingsProvider.cs" />
     <Compile Include="Settings\ISettingsProvider.cs" />
     <Compile Include="Settings\Model\ColumnSettings.cs" />
@@ -176,10 +190,12 @@
     <Compile Include="TrackRecords\CarRecordViewModel.cs" />
     <Compile Include="TrackRecords\IRecordViewModel.cs" />
     <Compile Include="TrackRecords\ITrackRecordsViewModel.cs" />
+    <Compile Include="TrackRecords\RecordEntryViewModel.cs" />
     <Compile Include="TrackRecords\RecordViewModel.cs" />
     <Compile Include="TrackRecords\SimulatorRecordsViewModel.cs" />
     <Compile Include="TrackRecords\TrackRecordsViewModel.cs" />
     <Compile Include="TrackRecords\TrackRecordViewModel.cs" />
+    <Compile Include="Track\TrackGeometryViewModel.cs" />
     <Compile Include="ViewModelsModule.cs" />
     <Compile Include="ViewModelsModuleBootstrapper.cs" />
     <Compile Include="WheelDiameterWizard\AccelerationStageViewModel.cs" />

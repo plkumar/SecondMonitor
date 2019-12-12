@@ -13,15 +13,21 @@
     Height="450"
     mc:Ignorable="d">
     <Window.DataContext>
-        <viewModels:TemperatureTestViewModel/>
+        <viewModels:MainTestWindowViewModel/>
     </Window.DataContext>
-    <Grid Background="Black">
-        <TabControl>
-            <TabItem Header="Bar Control">
-                <controls:BarControlTestControl/>
+    <Grid Background="{StaticResource Anthracite01Brush}">
+        <TabControl Background="{StaticResource Anthracite01Brush}">
+            <TabItem Header="Sequence View">
+                <controls:SequenceControlTestControl DataContext="{Binding SequenceViewTestViewModel}"/>
+            </TabItem>
+            <TabItem Header="Calendar View">
+                <controls:CalendarTreeTestControl/>
             </TabItem>
             <TabItem Header="Status Icons">
                 <controls:StatusIconTC/>
+            </TabItem>
+            <TabItem Header="Trophy">
+                <ContentPresenter Content="{Binding TrophyViewModel}"></ContentPresenter>
             </TabItem>
             <!--<TabItem Header="Geometry Test">
                 <controls:GeometryTestControl/>

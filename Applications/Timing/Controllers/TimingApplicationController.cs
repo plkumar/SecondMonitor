@@ -25,11 +25,14 @@ namespace SecondMonitor.Timing.Controllers
     using System.Windows;
     using Contracts.NInject;
     using Ninject.Syntax;
-    using Rating.Application.Controller;
-    using Rating.Application.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
+    using Rating.Application.Championship;
+    using Rating.Application.Championship.Controller;
+    using Rating.Application.Rating.Controller;
+    using Rating.Application.Rating.RatingProvider.FieldRatingProvider.ReferenceRatingProviders;
     using ReportCreation.ViewModel;
     using SessionTiming.Drivers.Presentation.ViewModel;
     using TrackRecords.Controller;
+    using ViewModels.SessionEvents;
     using ViewModels.Settings;
     using ViewModels.Settings.Model;
     using ViewModels.SimulatorContent;
@@ -60,6 +63,10 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ISettingsProvider _settingsProvider;
         private readonly ISimulatorContentController _simulatorContentController;
         private readonly ITrackRecordsController _trackRecordsController;
+        private readonly IChampionshipController _championshipController;
+        private readonly ISessionEventsController _sessionEventsController;
+        private readonly ISessionEventProvider _sessionEventProvider;
+        private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
         private Window _splashScreen;
 
         public TimingApplicationController()
@@ -70,6 +77,10 @@ namespace SecondMonitor.Timing.Controllers
             _settingsProvider = _kernelWrapper.Get<ISettingsProvider>();
             _simulatorContentController = _kernelWrapper.Get<ISimulatorContentController>();
             _trackRecordsController = _kernelWrapper.Get<ITrackRecordsController>();
+            _championshipController = _kernelWrapper.Get<IChampionshipController>();
+            _sessionEventsController = _kernelWrapper.Get<ISessionEventsController>();
+            _sessionEventProvider = _kernelWrapper.Get<ISessionEventProvider>();
+            _championshipCurrentEventPointsProvider = _kernelWrapper.Get<IChampionshipCurrentEventPointsProvider>();
         }
 
         public PluginsManager PluginManager
@@ -93,13 +104,6 @@ namespace SecondMonitor.Timing.Controllers
 
         public async Task RunPlugin()
         {
-            ResourceDictionary dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/TelemetryPresentation;component/TelemetryPresentationTemplates.xaml", UriKind.RelativeOrAbsolute)};
-            Application.Current.Resources.MergedDictionaries.Add(dict);
-            dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/Rating.Presentation;component/RatingPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
-            Application.Current.Resources.MergedDictionaries.Add(dict);
-            dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/WindowsControls;component/ControlsPresentationTemplates.xaml", UriKind.RelativeOrAbsolute) };
-            Application.Current.Resources.MergedDictionaries.Add(dict);
-
             CreateDisplaySettingsViewModel();
             ShowSplashScreen();
 
@@ -108,11 +112,13 @@ namespace SecondMonitor.Timing.Controllers
             CreateMapManagementController();
             CreateDriverPresentationManager();
             CreateSessionTelemetryControllerFactory();
-            CreateRatingController();
+            await StartControllers();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
-            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider, _trackRecordsController) {MapManagementController = _mapManagementController};
+            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
+                _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
+            _timingDataViewModel.ChampionshipIconStateViewModel = _championshipController.ChampionshipIconStateViewModel;
             BindCommands();
             CreateGui();
             _timingDataViewModel.GuiDispatcher = _timingGui.Dispatcher;
@@ -157,13 +163,13 @@ namespace SecondMonitor.Timing.Controllers
             {
                 _splashScreen.WindowStyle = WindowStyle.None;
             }
-
-
         }
 
-        private void CreateRatingController()
+        private async Task StartControllers()
         {
-            _ratingApplicationController.StartControllerAsync();
+            await _ratingApplicationController.StartControllerAsync();
+            await _championshipController.StartControllerAsync();
+            await _sessionEventsController.StartControllerAsync();
         }
 
         private void CreateReportsController()
@@ -184,6 +190,8 @@ namespace SecondMonitor.Timing.Controllers
 
         private void OnSessionStarted(object sender, DataEventArgs e)
         {
+            _sessionEventsController.Reset();
+            _sessionEventsController.Visit(e.Data);
             _ratingApplicationController.NotifyDataLoaded(e.Data);
             _trackRecordsController.OnSessionStarted(e.Data);
             _timingDataViewModel?.StartNewSession(e.Data);
@@ -194,6 +202,7 @@ namespace SecondMonitor.Timing.Controllers
             SimulatorDataSet dataSet = e.Data;
             try
             {
+                _sessionEventsController.Visit(dataSet);
                 await _ratingApplicationController.NotifyDataLoaded(dataSet);
                 _simSettingController?.ApplySimSettings(dataSet);
                 _simulatorContentController.Visit(dataSet);
@@ -234,11 +243,14 @@ namespace SecondMonitor.Timing.Controllers
             }
 
             _timingGui.DataContext = _timingDataViewModel;
+            Application.Current.MainWindow = _timingGui;
         }
 
         private async void OnGuiClosed(object sender, EventArgs e)
         {
             await _ratingApplicationController.StopControllerAsync();
+            await _championshipController.StopControllerAsync();
+            await _sessionEventsController.StopControllerAsync();
             _displaySettingsViewModel.WindowLocationSetting = new WindowLocationSetting()
             {
                 Left = _timingGui.Left,
@@ -273,6 +285,7 @@ namespace SecondMonitor.Timing.Controllers
             _timingDataViewModel.OpenCurrentTelemetrySession = new AsyncCommand(OpenCurrentTelemetrySession);
             _timingDataViewModel.OpenLastReportCommand = new RelayCommand(_reportsController.OpenLastReport);
             _timingDataViewModel.OpenReportFolderCommand = new RelayCommand(_reportsController.OpenReportsFolder);
+            _timingDataViewModel.OpenChampionshipWindowCommand = new RelayCommand(_championshipController.OpenChampionshipWindow);
         }
 
         private void UnSelectItem()
@@ -346,8 +359,8 @@ namespace SecondMonitor.Timing.Controllers
 
         private async void TimingDataViewModelOnSessionCompleted(object sender, SessionSummaryEventArgs e)
         {
-            _reportsController?.CreateReport(e.Summary);
             await _ratingApplicationController.NotifySessionCompletion(e.Summary);
+            _reportsController?.CreateReport(e.Summary);
         }
     }
 }
