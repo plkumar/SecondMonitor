@@ -1,9 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:driverPosition="clr-namespace:SecondMonitor.WindowsControls.WPF.DriverPosition">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="driverPosition:DriverPositionControl" x:Shared="False">
         <Setter Property="Template">
             <Setter.Value>

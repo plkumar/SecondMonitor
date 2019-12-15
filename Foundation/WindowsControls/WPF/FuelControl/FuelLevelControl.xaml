@@ -4,10 +4,6 @@
                     xmlns:fuelControl="clr-namespace:SecondMonitor.WindowsControls.WPF.FuelControl"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
                     xmlns:wpf1="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="{x:Type fuelControl:FuelLevelControl}">
         <Setter Property="Template">
             <Setter.Value>

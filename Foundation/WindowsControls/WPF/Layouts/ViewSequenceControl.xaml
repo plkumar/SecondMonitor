@@ -3,8 +3,6 @@
                     xmlns:layouts="clr-namespace:SecondMonitor.WindowsControls.WPF.Layouts"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="../ButtonStyles.xaml"></ResourceDictionary>
         <ResourceDictionary>
             <Style TargetType="{x:Type layouts:ViewSequenceControl}" x:Key="StandardSequenceStyle">
                 <Setter Property="Template">

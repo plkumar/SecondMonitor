@@ -1,8 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <Storyboard x:Key="MouseOverGridStory"  x:Shared="False" >
         <ColorAnimation To="{StaticResource LightGrey01Color}" Storyboard.TargetName="ButtonGrid"  Storyboard.TargetProperty="Background.Color" Duration="0:0:0.2"/>
         <ColorAnimation To="{StaticResource DarkGrey01Color}" Storyboard.TargetName="TextLabel"  Storyboard.TargetProperty="Foreground.Color" Duration="0:0:0.2"/>

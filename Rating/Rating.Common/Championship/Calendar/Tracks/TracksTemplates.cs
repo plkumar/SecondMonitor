@@ -164,7 +164,7 @@
 
         public static TrackTemplate TorontoExhibitionPlace = new TrackTemplate("Toronto, Exhibition Place", 2824);
 
-        public static TrackTemplate TTAssenGpPresent = new TrackTemplate("TT Circuit Asses - Grand Prix (Present)", 4555);
+        public static TrackTemplate TTAssenGpPresent = new TrackTemplate("TT Circuit Assen - Grand Prix (Present)", 4555);
 
 
         public static TrackTemplate VilaRealPresent = new TrackTemplate("Vila Real (Present)", 4600);

@@ -4,11 +4,6 @@
                     xmlns:quantityText="clr-namespace:SecondMonitor.WindowsControls.WPF.QuantityText"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
                     xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-        <ResourceDictionary Source="../ComboboxStyles.xaml" />
-        <ResourceDictionary Source="../ButtonStyles.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <converters:DoubleToStringNoDecimalConverter x:Key="DoubleToStringNoDecimalConverter" />
     <Style TargetType="carSettingsControl:TyreCompoundSettingsControl">
         <Setter Property="Template">

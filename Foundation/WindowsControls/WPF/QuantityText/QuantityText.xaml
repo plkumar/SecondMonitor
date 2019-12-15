@@ -1,9 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:basicProperties="clr-namespace:SecondMonitor.DataModel.BasicProperties;assembly=DataModel" xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors"
                     xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:local="clr-namespace:SecondMonitor.WindowsControls.WPF.QuantityText">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <converters:DoubleToStringNoDecimalConverter x:Key="DoubleToStringConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"/>

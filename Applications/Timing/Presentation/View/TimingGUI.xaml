@@ -15,7 +15,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Controls/TimingGridControl/TimingGrid.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/CommonResources.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/FuelControl/FuelOverviewControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/TemperatureControl/TemperatureControlT.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/PedalControl/PedalGearControl.xaml" />

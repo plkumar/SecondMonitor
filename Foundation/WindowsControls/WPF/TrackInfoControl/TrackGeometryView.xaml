@@ -3,7 +3,6 @@
                     xmlns:track="clr-namespace:SecondMonitor.ViewModels.Track;assembly=SecondMonitor.ViewModels"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type track:TrackGeometryViewModel}">
                 <Grid>

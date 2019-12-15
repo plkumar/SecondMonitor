@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:trackRecords="clr-namespace:SecondMonitor.ViewModels.TrackRecords;assembly=SecondMonitor.ViewModels">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-        <ResourceDictionary Source="../ButtonStyles.xaml" />
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type trackRecords:RecordEntryViewModel}">
                 <Grid>
