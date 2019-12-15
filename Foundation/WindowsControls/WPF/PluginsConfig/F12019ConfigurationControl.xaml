@@ -6,13 +6,6 @@
              xmlns:local="clr-namespace:SecondMonitor.WindowsControls.WPF.PluginsConfig"
              xmlns:pluginsSettings="clr-namespace:SecondMonitor.ViewModels.PluginsSettings;assembly=SecondMonitor.ViewModels"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance pluginsSettings:F12019ConfigurationViewModel}" >
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrey01Brush}" Padding="5" Background="{StaticResource Anthracite01Brush}">
         <StackPanel Background="{StaticResource Anthracite01Brush}">
             <StackPanel Orientation="Horizontal">

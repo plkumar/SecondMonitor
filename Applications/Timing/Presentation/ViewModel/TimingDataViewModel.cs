@@ -281,7 +281,7 @@
             _lastDataSet = data;
             IsOpenCarSettingsCommandEnable = !string.IsNullOrWhiteSpace(data?.PlayerInfo?.CarName);
             ConnectedSource = _lastDataSet?.Source;
-            if (_sessionTiming == null)
+            if (_sessionTiming == null || data.SessionInfo.SessionType == SessionType.Na)
             {
                 return;
             }
@@ -295,6 +295,7 @@
             // Reset state was detected (either reset button was pressed or timing detected a session change)
             if (_shouldReset != TimingDataViewModelResetModeEnum.NoReset)
             {
+                CheckAndNotifySessionCompleted();
                 CreateTiming(data);
                 _shouldReset = TimingDataViewModelResetModeEnum.NoReset;
             }
@@ -557,7 +558,6 @@
             bool invalidateLap = _shouldReset == TimingDataViewModelResetModeEnum.Manual ||
                                 data.SessionInfo.SessionType != SessionType.Race;
             _lastDataSet = data;
-            CheckAndNotifySessionCompleted();
             SessionTiming = SessionTiming.FromSimulatorData(data, invalidateLap, this, _sessionTelemetryControllerFactory, _ratingProvider, _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider);
             SessionInfoViewModel.SessionTiming = _sessionTiming;
             SessionTiming.DriverAdded += SessionTimingDriverAdded;
@@ -601,6 +601,11 @@
             if (!Application.Current.Dispatcher.CheckAccess())
             {
                 Application.Current.Dispatcher.Invoke(() => StartNewSession(dataSet));
+                return;
+            }
+            CheckAndNotifySessionCompleted();
+            if (dataSet.SessionInfo.SessionType == SessionType.Na)
+            {
                 return;
             }
             SessionInfoViewModel.Reset();

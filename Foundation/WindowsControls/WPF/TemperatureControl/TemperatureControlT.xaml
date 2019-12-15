@@ -4,10 +4,6 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <converters:TemperatureToDoubleConverter x:Key="TemperatureToDoubleConverter"/>
     <Style TargetType="{x:Type local:TemperatureControl}">
         <Setter Property="Template">

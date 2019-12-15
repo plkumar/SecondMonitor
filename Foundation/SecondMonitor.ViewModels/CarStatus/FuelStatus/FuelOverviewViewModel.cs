@@ -348,7 +348,7 @@
         {
             try
             {
-                if (_refreshWatch.ElapsedMilliseconds < 500)
+                if (_refreshWatch.ElapsedMilliseconds < 500 || dataSet.SessionInfo.SessionType  == SessionType.Na)
                 {
                     return;
                 }

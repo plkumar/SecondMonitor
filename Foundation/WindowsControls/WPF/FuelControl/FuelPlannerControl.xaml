@@ -6,13 +6,10 @@
                     mc:Ignorable="d"
                     xmlns:fuelInformation="clr-namespace:SecondMonitor.Contracts.FuelInformation;assembly=Contracts"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
-                   
-                   >
+>
     <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="../CommonResources.xaml" />
     <ResourceDictionary Source="SessionFuelConsumptionControl.xaml" />
     <ResourceDictionary Source="FuelCalculatorControl.xaml" />
-    <ResourceDictionary Source="../ButtonStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="local:FuelPlannerControl">
         <Setter Property="Template">
@@ -48,7 +45,7 @@
                             </ListBox>
                             <local:SessionFuelConsumptionControl Grid.Column="1" AverageConsumption="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.Consumption, RelativeSource={RelativeSource TemplatedParent}}" AvgPerLap="{Binding FuelPlannerVm.SelectedSession.AvgPerLap, RelativeSource={RelativeSource TemplatedParent}}"
                                                              AvgPerMinute="{Binding FuelPlannerVm.SelectedSession.AvgPerMinute, RelativeSource={RelativeSource TemplatedParent}}" SessionType="{Binding FuelPlannerVm.SelectedSession.SessionType, RelativeSource={RelativeSource TemplatedParent}}" TotalConsumedFuel="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.ConsumedFuel, RelativeSource={RelativeSource TemplatedParent}}"
-                                                             TrackName="{Binding FuelPlannerVm.SelectedSession.TrackName, RelativeSource={RelativeSource TemplatedParent}}" RunningTime="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.ElapsedTime, RelativeSource={RelativeSource TemplatedParent}}" TraveledDistance="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.TraveledDistance, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                             TrackName="{Binding FuelPlannerVm.SelectedSession.TrackName, RelativeSource={RelativeSource TemplatedParent}}" RunningTime="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.ElapsedTime, RelativeSource={RelativeSource TemplatedParent}}" TraveledDistance="{Binding FuelPlannerVm.SelectedSession.FuelConsumption.TraveledDistance, RelativeSource={RelativeSource TemplatedParent}}"
                                                                  DistanceUnits="{Binding DistanceUnits, RelativeSource={RelativeSource TemplatedParent}}"
                                                                  VolumeUnits="{Binding VolumeUnits, RelativeSource={RelativeSource TemplatedParent}}"
                                                                  FuelPerDistanceUnits="{Binding FuelPerDistanceUnits, RelativeSource={RelativeSource TemplatedParent}}"/>

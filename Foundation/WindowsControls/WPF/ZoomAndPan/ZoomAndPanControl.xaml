@@ -2,9 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SecondMonitor.WindowsControls.WPF.ZoomAndPan"
                     xmlns:zoomAndPan="clr-namespace:SecondMonitor.WindowsControls.WPF.ZoomAndPan">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="{x:Type zoomAndPan:ZoomAndPanControl}">
         <Setter Property="Template">
             <Setter.Value>

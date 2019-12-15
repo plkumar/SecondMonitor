@@ -11,9 +11,6 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WindowsControls;component/WPF/CommonResources.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <converters:TimeSpanToBrushConverter x:Key="TimeSpanToBrushConverter" />
             <converters:TimeSpanToColorConverter x:Key="TimeSpanToColorConverter" />
             <converters:TimeSpanToSecondsConverter x:Key="TimeSpanToSecondsConverter" />

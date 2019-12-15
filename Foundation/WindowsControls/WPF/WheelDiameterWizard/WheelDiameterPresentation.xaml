@@ -4,8 +4,6 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-        <ResourceDictionary Source="../ButtonStyles.xaml" />
         <ResourceDictionary>
             <system:Double x:Key="WizardFontSizeSecondary">36</system:Double>
             <system:Double x:Key="WizardFontSizeMain">48</system:Double>

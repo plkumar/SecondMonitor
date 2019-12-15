@@ -3,10 +3,6 @@
                     xmlns:volumeBehavior="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors.VolumeBehavior"
                     xmlns:tyreWear="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors.TyreWear"
                     xmlns:converters="clr-namespace:SecondMonitor.WindowsControls.WPF.Converters">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-        <ResourceDictionary Source="../QuantityText/QuantityText.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:InvertedDoubleConverter x:Key="InvertedDoubleConverter"/>
     <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />

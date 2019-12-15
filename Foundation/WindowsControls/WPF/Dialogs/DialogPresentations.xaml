@@ -3,7 +3,6 @@
                     xmlns:dialogs="clr-namespace:SecondMonitor.ViewModels.Dialogs;assembly=SecondMonitor.ViewModels"
                     xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type dialogs:YesNoDialogViewModel}">
                 <Grid Background="{StaticResource Anthracite01Brush}">

@@ -8,13 +8,6 @@
              xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
              xmlns:pitBoard="clr-namespace:SecondMonitor.ViewModels.PitBoard;assembly=SecondMonitor.ViewModels"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance pitBoard:RacePitBoardViewModel}">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Border BorderBrush="{StaticResource LightGrey01Brush}" BorderThickness="2" CornerRadius="10" Padding="5"
             Background="{StaticResource Anthracite01Brush}">
         <Grid>

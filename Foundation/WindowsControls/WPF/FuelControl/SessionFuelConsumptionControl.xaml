@@ -2,10 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SecondMonitor.WindowsControls.WPF.FuelControl"
                     xmlns:quantityText="clr-namespace:SecondMonitor.WindowsControls.WPF.QuantityText">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="local:SessionFuelConsumptionControl">
         <Setter Property="Template">
             <Setter.Value>

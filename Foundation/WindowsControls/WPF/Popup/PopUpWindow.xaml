@@ -9,7 +9,6 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml"/>
                 <ResourceDictionary Source="../DriverPosition/DriverPositionControl.xaml"/>
                 <ResourceDictionary Source="../ZoomAndPan/ZoomAndPanControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>

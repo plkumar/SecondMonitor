@@ -7,14 +7,6 @@
              xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
              mc:Ignorable="d"
              d:DesignHeight="32" d:DesignWidth="32">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml" />
-                <ResourceDictionary Source="../ButtonStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Button Margin="-10"
                 Style="{StaticResource StandardButton}" ToolTip="Pops the control to a new window." Click="OnPopupButtonClicked">

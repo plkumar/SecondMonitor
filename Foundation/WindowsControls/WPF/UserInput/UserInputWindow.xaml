@@ -7,14 +7,6 @@
         xmlns:userInput="clr-namespace:SecondMonitor.WindowsControls.WPF.UserInput"
         mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance userInput:UserInputViewModel}" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="../ButtonStyles.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid Background="{StaticResource Anthracite01Brush}" MinWidth="600">
         <StackPanel>
             <TextBlock Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}" Text="{Binding UserQuestion}"></TextBlock>

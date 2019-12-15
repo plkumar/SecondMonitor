@@ -2,9 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:trackInfoControl="clr-namespace:SecondMonitor.WindowsControls.WPF.TrackInfoControl"
                     xmlns:quantityText="clr-namespace:SecondMonitor.WindowsControls.WPF.QuantityText">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../CommonResources.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
     <Style TargetType="trackInfoControl:TrackInfoControl">
         <Setter Property="Template">

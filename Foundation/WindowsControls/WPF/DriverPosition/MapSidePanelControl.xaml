@@ -7,14 +7,6 @@
              xmlns:wpf="clr-namespace:SecondMonitor.WindowsControls.WPF"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:IMapSidePanelViewModel}">
-    <Control.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml" />
-                <ResourceDictionary Source="../ButtonStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Control.Resources>
     <Grid Background="{StaticResource Anthracite01Brush}">
         <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="1" Padding="1">
         <StackPanel>

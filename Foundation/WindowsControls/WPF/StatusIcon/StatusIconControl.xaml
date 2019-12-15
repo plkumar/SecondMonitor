@@ -9,13 +9,6 @@
              xmlns:fuelControl="clr-namespace:SecondMonitor.WindowsControls.WPF.FuelControl"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance statusIcon:StatusIconViewModel}">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CommonResources.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Border BorderThickness="2.5" CornerRadius="5" BorderBrush="{StaticResource DarkGrey05Brush}">
         <Grid Background="{StaticResource Anthracite01Brush}">
             <Grid.RowDefinitions>
