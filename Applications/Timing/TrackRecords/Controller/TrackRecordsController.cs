@@ -80,7 +80,7 @@
 
         public void OnDataLoaded(SimulatorDataSet dataSet)
         {
-            if (_initialized)
+            if (_initialized && dataSet.SessionInfo.SessionType == _currentSessionType)
             {
                 return;
             }

@@ -3,9 +3,11 @@
     using System.Diagnostics;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
+    using Settings;
 
     public class CarSystemsViewModel : AbstractViewModel, ISimulatorDataSetViewModel
     {
+        private readonly ISettingsProvider _settingsProvider;
 
         private OptimalQuantity<Temperature> _waterTemperature;
         private OptimalQuantity<Temperature> _oilTemperature;
@@ -14,8 +16,9 @@
         private Pressure _waterPressure;
         private Pressure _fuelPressure;
 
-        public CarSystemsViewModel()
+        public CarSystemsViewModel(ISettingsProvider settingsProvider)
         {
+            _settingsProvider = settingsProvider;
             TurboPressure = Pressure.Zero;
         }
 
@@ -62,12 +65,19 @@
                 return;
             }
 
-            WaterTemperature = dataSet.PlayerInfo.CarInfo.WaterSystemInfo.OptimalWaterTemperature;
-            OilTemperature = dataSet.PlayerInfo.CarInfo.OilSystemInfo.OptimalOilTemperature;
-            TurboPressure = dataSet.PlayerInfo.CarInfo.TurboPressure;
-            OilPressure = dataSet.PlayerInfo.CarInfo.OilSystemInfo.OilPressure;
-            WaterPressure = dataSet.PlayerInfo.CarInfo.WaterSystemInfo.WaterPressure;
-            FuelPressure = dataSet.PlayerInfo.CarInfo.FuelSystemInfo.FuelPressure;
+            if (_settingsProvider.DisplaySettingsViewModel.EnableTemperatureInformation)
+            {
+                WaterTemperature = dataSet.PlayerInfo.CarInfo.WaterSystemInfo.OptimalWaterTemperature;
+                OilTemperature = dataSet.PlayerInfo.CarInfo.OilSystemInfo.OptimalOilTemperature;
+            }
+
+            if (_settingsProvider.DisplaySettingsViewModel.EnableNonTemperatureInformation)
+            {
+                TurboPressure = dataSet.PlayerInfo.CarInfo.TurboPressure;
+                OilPressure = dataSet.PlayerInfo.CarInfo.OilSystemInfo.OilPressure;
+                WaterPressure = dataSet.PlayerInfo.CarInfo.WaterSystemInfo.WaterPressure;
+                FuelPressure = dataSet.PlayerInfo.CarInfo.FuelSystemInfo.FuelPressure;
+            }
         }
 
         public void Reset()

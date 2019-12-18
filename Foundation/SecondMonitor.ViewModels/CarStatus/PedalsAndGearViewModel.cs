@@ -1,14 +1,21 @@
 ﻿namespace SecondMonitor.ViewModels.CarStatus
 {
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Runtime.CompilerServices;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using Properties;
+    using Settings;
 
     public class PedalsAndGearViewModel : INotifyPropertyChanged, ISimulatorDataSetViewModel
     {
+        private readonly ISettingsProvider _settingsProvider;
+
+        public PedalsAndGearViewModel(ISettingsProvider settingsProvider)
+        {
+            _settingsProvider = settingsProvider;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public double ThrottlePercentage { get; set; }
@@ -35,7 +42,7 @@
 
         public void ApplyDateSet(SimulatorDataSet dataSet)
         {
-            if (dataSet?.PlayerInfo?.CarInfo == null || dataSet.InputInfo == null)
+            if (dataSet?.PlayerInfo?.CarInfo == null || dataSet.InputInfo == null || !_settingsProvider.DisplaySettingsViewModel.EnablePedalInformation)
             {
                 return;
             }

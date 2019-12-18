@@ -52,6 +52,12 @@
 
         public double MaximumGapHeight { get; set; } = 150;
 
+        public bool EnablePedalInformation { get; set; } = true;
+
+        public bool EnableTemperatureInformation { get; set; } = true;
+
+        public bool EnableNonTemperatureInformation { get; set; } = true;
+
         public SessionOptions PracticeOptions { get; set; } = new SessionOptions { OrderingDisplayMode = DisplayModeEnum.Absolute, TimesDisplayMode = DisplayModeEnum.Absolute, SessionName = "Practice" };
 
         public SessionOptions QualificationOptions { get; set; } = new SessionOptions { OrderingDisplayMode = DisplayModeEnum.Absolute, TimesDisplayMode = DisplayModeEnum.Absolute, SessionName = "Quali" };

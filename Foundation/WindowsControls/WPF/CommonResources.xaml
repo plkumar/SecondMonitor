@@ -27,6 +27,7 @@
     <converters:NonNegativeIntToStringConverter x:Key="NonNegativeIntToStringConverter"/>
     <converters:BoolToRedGreenConverter x:Key="BoolToRedGreenConverter"/>
     <converters:DoubleToScalableDecimalsConverter x:Key="DoubleToScalableDecimalsConverter"/>
+    <converters:StringNotEmptyToVisibilityConverter x:Key="StringNotEmptyToVisibilityConverter"/>
 
 
     <Style x:Key="StandardText" TargetType="TextBlock">

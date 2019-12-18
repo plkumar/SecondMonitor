@@ -115,7 +115,6 @@
     <Compile Include="ViewModels\MainTestWindowViewModel.cs" />
     <Compile Include="ViewModels\SequenceViewTestViewModel.cs" />
     <Compile Include="ViewModels\StatusIconTcVm.cs" />
-    <Compile Include="ViewModels\TemperatureTestViewModel.cs" />
     <Compile Include="ViewModels\WheelStatusTestVM.cs" />
     <Page Include="Controls\BarControlTestControl.xaml">
       <SubType>Designer</SubType>

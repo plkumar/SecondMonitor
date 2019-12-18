@@ -4,6 +4,7 @@
     using Contracts.Commands;
     using DataModel.Snapshot;
     using FuelStatus;
+    using Settings;
 
     public class CarStatusViewModel : AbstractViewModel, ISimulatorDataSetViewModel
     {
@@ -21,10 +22,10 @@
 
         private PedalsAndGearViewModel _pedalAndGearViewModel;
 
-        public CarStatusViewModel(IPaceProvider paceProvider)
+        public CarStatusViewModel(IPaceProvider paceProvider, ISettingsProvider settingsProvider)
         {
             _sessionRemainingCalculator = new SessionRemainingCalculator(paceProvider);
-            _viewModels = new SimulatorDSViewModels {new CarWheelsViewModel(_sessionRemainingCalculator, paceProvider), new FuelOverviewViewModel(_sessionRemainingCalculator), new PedalsAndGearViewModel(), new CarSystemsViewModel(), new DashboardViewModel()};
+            _viewModels = new SimulatorDSViewModels {new CarWheelsViewModel(_sessionRemainingCalculator, paceProvider), new FuelOverviewViewModel(_sessionRemainingCalculator), new PedalsAndGearViewModel(settingsProvider), new CarSystemsViewModel(settingsProvider), new DashboardViewModel()};
             _fuelPlannerViewModelFactory = new FuelPlannerViewModelFactory();;
             RefreshProperties();
         }

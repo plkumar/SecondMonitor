@@ -173,7 +173,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0" Margin="5">
-            <GroupBox Header="Timing Grid" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"
+            <GroupBox Header="Timing Grid" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                       DockPanel.Dock="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -210,7 +210,7 @@
                     <StackPanel Margin="10,0,10,5" Grid.Column="2">
                         <CheckBox Content="Enable Gap Visualization" Foreground="White" VerticalAlignment="Top"
                                   HorizontalAlignment="Left" Margin="0,10,0,0" IsChecked="{Binding IsGapVisualizationEnabled}" />
-                        <Label HorizontalAlignment="Left" Foreground="White"  Content="Gap (seconds) with no gap visualization:"/>
+                        <TextBlock HorizontalAlignment="Left" Foreground="White"  Text="Gap (seconds)with no gap visualization:" />
                         <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding MinimalGapForVisualization, Converter={StaticResource DoubleToScalableDecimalsConverter}}"></TextBox>
                         <Label HorizontalAlignment="Left" Foreground="White"  Content="Gap height for each seconds:"/>
                         <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding GapHeightForOneSecond, Converter={StaticResource DoubleToScalableDecimalsConverter}}"></TextBox>
@@ -356,6 +356,22 @@
                                   SelectedItem="{Binding RatingSettingsViewModel.SelectedReferenceRatingProvider}"  Style="{StaticResource StandardComboBoxStyle}"  />
                         <TextBlock Style="{StaticResource StandardText}" Text="Grace Laps:" FontSize="{StaticResource SmallFontSize}" Margin="5,10,0,2"/>
                         <TextBox Style="{StaticResource StandardTextBox}" HorizontalAlignment="Left" Text="{Binding RatingSettingsViewModel.GraceLapsCount, Converter={StaticResource NonNegativeIntToStringConverter}}" FontSize="{StaticResource SmallFontSize}" Margin="5,0,0,5" Width="50"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Car Info." Foreground="White" HorizontalAlignment="Left" DockPanel.Dock="Left">
+                    <StackPanel>
+                        <CheckBox Content="Enable Pedal and Gear" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding EnablePedalInformation}"
+                                  ToolTip="Enables and Disables the rating application module." />
+                        <CheckBox Content="Enable Temp. Info" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding EnableTemperatureInformation}"
+                                  ToolTip="Enables and Disables the rating application module." />
+                        <CheckBox Content="Enable non. Temp. Info" Foreground="White" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left" Margin="0,10,0,0"
+                                  IsChecked="{Binding EnableNonTemperatureInformation}"
+                                  ToolTip="Enables and Disables the rating application module." />
                     </StackPanel>
                 </GroupBox>
 

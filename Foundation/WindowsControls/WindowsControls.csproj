@@ -167,6 +167,7 @@
     <Compile Include="WPF\Converters\InvertedDoubleConverter.cs" />
     <Compile Include="WPF\Converters\NonNegativeIntToStringConverter.cs" />
     <Compile Include="WPF\Converters\ScaleToPercentConverter.cs" />
+    <Compile Include="WPF\Converters\StringNotEmptyToVisibilityConverter.cs" />
     <Compile Include="WPF\Converters\TemperatureToDoubleConverter.cs" />
     <Compile Include="WPF\Converters\TimeSpanToBrushConverter.cs" />
     <Compile Include="WPF\Converters\TimeSpanToColorConverter.cs" />

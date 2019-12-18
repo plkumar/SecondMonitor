@@ -27,6 +27,7 @@
         private ReportingSettingsViewModel _reportingSettingsView;
         private bool _animateDriverPosition;
         private bool _animateDeltaTimes;
+
         private MapDisplaySettingsViewModel _mapDisplaySettingsViewModel;
         private TelemetrySettingsViewModel _telemetrySettingsViewModel;
         private MultiClassDisplayKind _multiClassDisplayKind;
@@ -41,6 +42,9 @@
         private RatingSettingsViewModel _ratingSettingsViewModel;
         private PitBoardSettingsViewModel _pitBoardSettingsViewModel;
         private TrackRecordsSettingsViewModel _trackRecordsSettingsViewModel;
+        private bool _enablePedalInformation;
+        private bool _enableTemperatureInformation;
+        private bool _enableNonTemperatureInformation;
 
         public ICommand OpenLogDirectoryCommand => new RelayCommand(OpenLogDirectory);
 
@@ -138,6 +142,24 @@
                 _fuelCalculationScope = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public bool EnablePedalInformation
+        {
+            get => _enablePedalInformation;
+            set => SetProperty(ref _enablePedalInformation, value);
+        }
+
+        public bool EnableTemperatureInformation
+        {
+            get => _enableTemperatureInformation;
+            set => SetProperty(ref _enableTemperatureInformation, value);
+        }
+
+        public bool EnableNonTemperatureInformation
+        {
+            get => _enableNonTemperatureInformation;
+            set => SetProperty(ref _enableNonTemperatureInformation, value);
         }
 
         public DistanceUnits DistanceUnits
@@ -427,6 +449,10 @@
 
             PowerUnits = settings.PowerUnits;
             TorqueUnits = settings.TorqueUnits;
+
+            EnablePedalInformation = settings.EnablePedalInformation;
+            EnableNonTemperatureInformation = settings.EnableNonTemperatureInformation;
+            EnableTemperatureInformation = settings.EnableTemperatureInformation;
         }
 
         public override DisplaySettings SaveToNewModel()
@@ -462,6 +488,9 @@
                 TrackRecordsSettings = TrackRecordsSettingsViewModel.SaveToNewModel(),
                 PowerUnits = PowerUnits,
                 TorqueUnits = TorqueUnits,
+                EnablePedalInformation = EnablePedalInformation,
+                EnableTemperatureInformation = EnableTemperatureInformation,
+                EnableNonTemperatureInformation = EnableNonTemperatureInformation,
             };
         }
 

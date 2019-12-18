@@ -8,10 +8,12 @@
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type events:SessionResultWithTitleViewModel}">
                 <Grid>
-                    <StackPanel Orientation="Vertical">
-                        <ContentPresenter Content="{Binding EventTitleViewModel}"/>
-                        <ContentPresenter Content="{Binding SessionResultViewModel}"/>
-                    </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ContentPresenter Grid.Row="0" Content="{Binding EventTitleViewModel}"/>
+                    <ContentPresenter Grid.Row="1" Content="{Binding SessionResultViewModel}"/>
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type overview:ChampionshipSessionsResultsViewModel}">

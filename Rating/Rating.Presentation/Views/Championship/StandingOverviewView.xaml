@@ -64,7 +64,8 @@
                     </Grid>
                     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <StackPanel Grid.IsSharedSizeScope="True">
-                        <Grid HorizontalAlignment="Center">
+                            <Border BorderBrush="{StaticResource DarkGrey01Brush}" BorderThickness="3">
+                            <Grid HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="32"/>
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="DriversStandingName"/>
@@ -82,6 +83,7 @@
                                 <TextBlock Grid.Column="4" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Prev." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
                                 <TextBlock Grid.Column="5" Style="{StaticResource StandardText}" FontSize="{StaticResource BigFontSize}"  Text="Gap to Lead." Margin="10,0,10,0" Foreground="{StaticResource LightBlueBrush}" />
                             </Grid>
+                            </Border>
 
                             <ItemsControl ItemsSource="{Binding DriversStanding}" VerticalAlignment="Top" HorizontalAlignment="Center" >
                             <ItemsControl.ItemTemplate>

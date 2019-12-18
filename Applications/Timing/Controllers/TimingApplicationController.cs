@@ -114,7 +114,7 @@ namespace SecondMonitor.Timing.Controllers
             CreateSessionTelemetryControllerFactory();
             await StartControllers();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
-            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _displaySettingsViewModel, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
+            _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _settingsProvider, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
                 _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;

@@ -112,10 +112,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="20">
+                    <Grid Grid.Row="0" Margin="20" Visibility="{Binding Header, Converter={StaticResource StringNotEmptyToVisibilityConverter}}">
                         <TextBlock Style="{StaticResource StandardText}" FontSize="36" HorizontalAlignment="Center" Text="{Binding Header}"/>
                     </Grid>
-                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{Binding DriversFinish}" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

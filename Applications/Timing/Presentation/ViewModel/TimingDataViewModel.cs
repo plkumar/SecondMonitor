@@ -41,6 +41,7 @@
     using ViewModels.Colors;
     using ViewModels.Controllers;
     using ViewModels.SessionEvents;
+    using ViewModels.Settings;
     using ViewModels.Settings.Model;
     using ViewModels.Settings.ViewModel;
     using ViewModels.TrackRecords;
@@ -49,6 +50,7 @@
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly DriverLapsWindowManager _driverLapsWindowManager;
+        private readonly ISettingsProvider _settingsProvider;
         private readonly ISessionTelemetryControllerFactory _sessionTelemetryControllerFactory;
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
@@ -78,23 +80,24 @@
         private DisplaySettingsViewModel _displaySettingsViewModel;
 
 
-        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, DisplaySettingsViewModel displaySettingsViewModel, DriverPresentationsManager driverPresentationsManager,
+        public TimingDataViewModel(DriverLapsWindowManager driverLapsWindowManager, ISettingsProvider settingsProvider, DriverPresentationsManager driverPresentationsManager,
             ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider,
             ISessionEventProvider sessionEventProvider)
         {
-            TimingDataGridViewModel = new TimingDataGridViewModel(driverPresentationsManager, displaySettingsViewModel, new ClassColorProvider(new BasicColorPaletteProvider()));
+            TimingDataGridViewModel = new TimingDataGridViewModel(driverPresentationsManager, settingsProvider.DisplaySettingsViewModel, new ClassColorProvider(new BasicColorPaletteProvider()));
             SessionInfoViewModel = new SessionInfoViewModel();
             TrackInfoViewModel = new TrackInfoViewModel();
             _driverLapsWindowManager = driverLapsWindowManager;
+            _settingsProvider = settingsProvider;
             _sessionTelemetryControllerFactory = sessionTelemetryControllerFactory;
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
             _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
             _sessionEventProvider = sessionEventProvider;
             DoubleLeftClickCommand = _driverLapsWindowManager.OpenWindowCommand;
-            DisplaySettingsViewModel = displaySettingsViewModel;
+            DisplaySettingsViewModel = settingsProvider.DisplaySettingsViewModel;
             TrackRecordsViewModel = _trackRecordsController.TrackRecordsViewModel;
-            SituationOverviewProvider = new SituationOverviewProvider(TimingDataGridViewModel, displaySettingsViewModel);
+            SituationOverviewProvider = new SituationOverviewProvider(TimingDataGridViewModel, settingsProvider.DisplaySettingsViewModel);
         }
 
         public event EventHandler<SessionSummaryEventArgs> SessionCompleted;
@@ -334,7 +337,7 @@
 
         public void Reset()
         {
-            CarStatusViewModel = new CarStatusViewModel(this);
+            CarStatusViewModel = new CarStatusViewModel(this, _settingsProvider);
             ConnectedSource = "Not Connected";
 
             if (GuiDispatcher != null && GuiDispatcher.CheckAccess())

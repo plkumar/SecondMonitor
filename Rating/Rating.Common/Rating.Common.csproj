@@ -56,6 +56,8 @@
     <Compile Include="Championship\Calendar\Templates\CalendarGroups\TCRGroups.cs" />
     <Compile Include="Championship\Calendar\Templates\DrmCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\DtmCalendars.cs" />
+    <Compile Include="Championship\Calendar\Templates\Formula3Calendars.cs" />
+    <Compile Include="Championship\Calendar\Templates\Formula2Calendars.cs" />
     <Compile Include="Championship\Calendar\Templates\Formula1Calendars.cs" />
     <Compile Include="Championship\Calendar\Templates\IndycarCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\WTCRCalendars.cs" />
