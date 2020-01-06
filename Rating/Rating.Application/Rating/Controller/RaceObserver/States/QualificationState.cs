@@ -57,17 +57,16 @@
                 return false;
             }
 
-            if (_sessionCompleted)
+            if (sessionSummary.SessionType != SessionType.Qualification)
             {
-                Logger.Info("Session already completed");
+                Logger.Info("Session is not qualification");
                 return false;
             }
 
 
             if (!IsSessionResultAcceptable(sessionSummary))
             {
-                Logger.Info("Seesion is not acceptable to be used by rating calculations. Not enough drivers with laps times");
-                SharedContext.QualificationContext = null;
+                Logger.Info("Seesion is not acceptable to be used by rating calculations. Not enough drivers with laps times. Session Summary type was:" +sessionSummary.SessionType);
                 return false;
             }
 
@@ -75,7 +74,6 @@
             if (eligibleDrivers == null)
             {
                 Logger.Info("Seesion is not acceptable to be used by rating calculations - no drivers");
-                SharedContext.QualificationContext = null;
                 return false;
             }
 
