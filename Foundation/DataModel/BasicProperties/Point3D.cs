@@ -9,7 +9,9 @@
     {
         public Point3D()
         {
-
+            X = new Distance();
+            Y = new Distance();
+            Z = new Distance();
         }
 
         public Point3D(Distance x, Distance y, Distance z)
