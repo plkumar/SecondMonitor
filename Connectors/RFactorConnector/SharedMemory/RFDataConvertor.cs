@@ -288,12 +288,12 @@
 
         private void CheckValidityByPlayer(DriverInfo driver)
         {
-            if (_lastPlayer == null || driver == null || (!_lastPlayer.InPits && driver.InPits))
+            if (_lastPlayer?.WorldPosition == null || driver?.WorldPosition == null || (!_lastPlayer.InPits && driver.InPits))
             {
                 return;
             }
-
             Distance distance = Point3D.GetDistance(driver.WorldPosition, _lastPlayer.WorldPosition);
+
             if (distance.InMeters > 200)
             {
                 currentlyIgnoredPackage++;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
-    <version>6.1.0.0</version>
-    <url>https://gitlab.com/winzarten/SecondMonitor/uploads/a2c8bdae280eb99045bb4b5a042ac1f4/SecondMonitor.msi</url>
+    <version>6.1.1.0</version>
+    <url>https://gitlab.com/winzarten/SecondMonitor/uploads/71f95b509ba8e5c8ce0e9f1d113d48e3/SecondMonitor.msi</url>
     <changelog>https://winzarten.gitlab.io/SecondMonitor/</changelog>
     <mandatory>false</mandatory>
 </item>
