@@ -2,6 +2,7 @@
 {
     using Contracts.TrackRecords;
     using Controllers;
+    using LapTimings;
     using Ninject.Modules;
     using TrackRecords.Controller;
 
@@ -13,6 +14,7 @@
             Bind<ITrackRecordsController, ITrackRecordsProvider>().To<TrackRecordsController>().InSingletonScope();
             Bind<MapManagementController>().ToSelf().InSingletonScope();
             Bind<ISessionEventsController>().To<SessionEventsController>();
+            Bind<DriverLapSectorsTrackerFactory>().ToSelf();
         }
     }
 }

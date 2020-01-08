@@ -768,7 +768,8 @@
 
         private void FillGetGapToPlayerComputed(double distanceToPlayer)
         {
-            double requiredTime = distanceToPlayer > 0 ? distanceToPlayer / DriverTiming.DriverInfo.Speed.InMs : distanceToPlayer / DriverTiming.Session.Player.DriverInfo.Speed.InMs;
+            GapToPlayer = DriverTiming.DriverLapSectorsTracker.GetRelativeGapToPlayer();
+            /*double requiredTime = distanceToPlayer > 0 ? distanceToPlayer / DriverTiming.DriverInfo.Speed.InMs : distanceToPlayer / DriverTiming.Session.Player.DriverInfo.Speed.InMs;
             if (double.IsNaN(requiredTime) || double.IsInfinity(requiredTime))
             {
                 GapToColumnText = string.Empty;
@@ -780,7 +781,7 @@
             {
                 GapToColumnText = distanceToPlayer < 0 ? "+30.000+" : "-30.000+";
                 return;
-            }
+            }*/
 
 
             GapToColumnText = GapToPlayer.FormatTimeSpanOnlySecondNoMiliseconds(true);

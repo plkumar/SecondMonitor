@@ -8,6 +8,7 @@
     using DataModel.BasicProperties;
     using DataModel.Extensions;
     using DataModel.Snapshot;
+    using LapTimings;
     using NLog;
     using SecondMonitor.DataModel.Snapshot.Drivers;
     using SecondMonitor.Timing.SessionTiming.ViewModel;
@@ -19,14 +20,16 @@
         private static readonly TimeSpan MaxPendingStateWait = TimeSpan.FromSeconds(5);
 
         private readonly Stopwatch _refreshBestSectorIndicationWatch;
+        private readonly Stopwatch _refreshSectorTimingWatch;
         private readonly Velocity _maximumVelocity = Velocity.FromMs(185);
         private readonly List<ILapInfo> _lapsInfo;
         private readonly List<PitStopInfo> _pitStopInfo;
         private double _previousTickLapDistance;
 
-        public DriverTiming(DriverInfo driverInfo, SessionTiming session)
+        public DriverTiming(DriverInfo driverInfo, SessionTiming session, DriverLapSectorsTrackerFactory driverLapSectorsTrackerFactory)
         {
             _refreshBestSectorIndicationWatch = Stopwatch.StartNew();
+            _refreshSectorTimingWatch = Stopwatch.StartNew();
             _lapsInfo = new List<ILapInfo>();
             _pitStopInfo = new List<PitStopInfo>();
             DriverInfo = driverInfo;
@@ -34,6 +37,7 @@
             LapPercentage = 0;
             _previousTickLapDistance = 0;
             Session = session;
+            DriverLapSectorsTracker = driverLapSectorsTrackerFactory.Build(this);
         }
 
         public event EventHandler<LapEventArgs> NewLapStarted;
@@ -103,6 +107,8 @@
         public bool IsLastSector2SessionBest { get; private set; }
         public bool IsLastSector3SessionBest { get; private set; }
 
+        public IDriverLapSectorsTracker DriverLapSectorsTracker { get; }
+
         public IReadOnlyCollection<ILapInfo> Laps => _lapsInfo.AsReadOnly();
 
         public int TyresAge
@@ -168,9 +174,9 @@
         public bool IsLastLapTrackRecord { get; set; }
 
 
-        public static DriverTiming FromModel(DriverInfo modelDriverInfo, SessionTiming session, bool invalidateFirstLap)
+        public static DriverTiming FromModel(DriverInfo modelDriverInfo, SessionTiming session, DriverLapSectorsTrackerFactory driverLapSectorsTrackerFactory, bool invalidateFirstLap)
         {
-            var driver = new DriverTiming(modelDriverInfo, session);
+            var driver = new DriverTiming(modelDriverInfo, session, driverLapSectorsTrackerFactory);
             driver.InvalidateFirstLap = invalidateFirstLap;
             return driver;
         }
@@ -229,6 +235,8 @@
                 UpdateBestSectorProperties();
                 _refreshBestSectorIndicationWatch.Restart();
             }
+
+            DriverLapSectorsTracker.Update();
 
             if (ShouldFinishLap(set, currentLap))
             {

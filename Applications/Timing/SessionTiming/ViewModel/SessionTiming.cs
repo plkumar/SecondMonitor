@@ -16,6 +16,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using SecondMonitor.Timing.Presentation.ViewModel;
     using Properties;
     using Drivers;
+    using LapTimings;
     using SecondMonitor.Timing.SessionTiming.Drivers.ViewModel;
     using NLog;
     using Rating.Application.Championship;
@@ -31,6 +32,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
         private readonly ITrackRecordsController _trackRecordsController;
         private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
         private readonly ISessionEventProvider _sessionEventProvider;
+        private readonly DriverLapSectorsTrackerFactory _driverLapSectorsTrackerFactory;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public class DriverNotFoundException : Exception
@@ -65,12 +67,13 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
         private CombinedLapPortionComparatorsViewModel _combinedLapPortionComparatorsViewModel;
 
         private SessionTiming(TimingDataViewModel timingDataViewModel, ISessionTelemetryController sessionTelemetryController, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController, IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider,
-            ISessionEventProvider sessionEventProvider)
+            ISessionEventProvider sessionEventProvider, DriverLapSectorsTrackerFactory driverLapSectorsTrackerFactory)
         {
             _ratingProvider = ratingProvider;
             _trackRecordsController = trackRecordsController;
             _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
             _sessionEventProvider = sessionEventProvider;
+            _driverLapSectorsTrackerFactory = driverLapSectorsTrackerFactory;
             PaceLaps = 4;
             DisplayBindTimeRelative = false;
             TimingDataViewModel = timingDataViewModel;
@@ -185,12 +188,12 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
         }
 
         public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController,
-            IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider, ISessionEventProvider sessionEventProvider)
+            IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider, ISessionEventProvider sessionEventProvider, DriverLapSectorsTrackerFactory driverLapSectorsTrackerFactory)
         {
 
             Dictionary<string, DriverTiming> drivers = new Dictionary<string, DriverTiming>();
             Logger.Info($"New Seesion Started :{dataSet.SessionInfo.SessionType.ToString()}");
-            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController, championshipCurrentEventPointsProvider, sessionEventProvider)
+            SessionTiming timing = new SessionTiming(timingDataViewModel, sessionTelemetryControllerFactory.Create(dataSet), ratingProvider, trackRecordsController, championshipCurrentEventPointsProvider, sessionEventProvider, driverLapSectorsTrackerFactory)
                                        {
                                            SessionStarTime = dataSet.SessionInfo.SessionTime,
                                            SessionType = dataSet.SessionInfo.SessionType,
@@ -207,7 +210,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                         return;
                     }
 
-                    DriverTiming newDriver = DriverTiming.FromModel(s, timing, invalidateFirstLap);
+                    DriverTiming newDriver = DriverTiming.FromModel(s, timing, driverLapSectorsTrackerFactory, invalidateFirstLap);
                     newDriver.SectorCompletedEvent += timing.OnSectorCompletedEvent;
                     newDriver.LapInvalidated += timing.LapInvalidatedHandler;
                     newDriver.LapCompleted += timing.DriverOnLapCompleted;
@@ -307,7 +310,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
                 Drivers.Remove(newDriverInfo.DriverName);
             }
             Logger.Info($"Adding new driver: {newDriverInfo.DriverName}");
-            DriverTiming newDriver = DriverTiming.FromModel(newDriverInfo, this, SessionType != SessionType.Race);
+            DriverTiming newDriver = DriverTiming.FromModel(newDriverInfo, this, _driverLapSectorsTrackerFactory, SessionType != SessionType.Race);
             newDriver.SectorCompletedEvent += OnSectorCompletedEvent;
             newDriver.LapInvalidated += LapInvalidatedHandler;
             newDriver.LapCompleted += DriverOnLapCompleted;

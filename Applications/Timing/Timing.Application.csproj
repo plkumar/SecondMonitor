@@ -106,6 +106,9 @@
     <Compile Include="Controllers\SessionEventsController.cs" />
     <Compile Include="Controllers\SimSettingController.cs" />
     <Compile Include="Controllers\TimingApplicationController.cs" />
+    <Compile Include="LapTimings\DriverLapSectorsTracker.cs" />
+    <Compile Include="LapTimings\DriverLapSectorsTrackerFactory.cs" />
+    <Compile Include="LapTimings\IDriverLapSectorsTracker.cs" />
     <Compile Include="LapTimings\ViewModel\DriverLapsWindowManager.cs" />
     <Compile Include="Presentation\Controls\TimingGridControl\TimingGrid.cs" />
     <Compile Include="Presentation\ViewModel\Commands\ResetCommand.cs" />

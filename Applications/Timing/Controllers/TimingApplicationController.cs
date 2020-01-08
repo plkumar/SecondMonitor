@@ -24,6 +24,7 @@ namespace SecondMonitor.Timing.Controllers
     using ViewModels.Settings.ViewModel;
     using System.Windows;
     using Contracts.NInject;
+    using LapTimings;
     using Ninject.Syntax;
     using Rating.Application.Championship;
     using Rating.Application.Championship.Controller;
@@ -67,6 +68,7 @@ namespace SecondMonitor.Timing.Controllers
         private readonly ISessionEventsController _sessionEventsController;
         private readonly ISessionEventProvider _sessionEventProvider;
         private readonly IChampionshipCurrentEventPointsProvider _championshipCurrentEventPointsProvider;
+        private readonly DriverLapSectorsTrackerFactory _driverLapSectorsTrackerFactory;
         private Window _splashScreen;
 
         public TimingApplicationController()
@@ -80,6 +82,7 @@ namespace SecondMonitor.Timing.Controllers
             _championshipController = _kernelWrapper.Get<IChampionshipController>();
             _sessionEventsController = _kernelWrapper.Get<ISessionEventsController>();
             _sessionEventProvider = _kernelWrapper.Get<ISessionEventProvider>();
+            _driverLapSectorsTrackerFactory = _kernelWrapper.Get<DriverLapSectorsTrackerFactory>();
             _championshipCurrentEventPointsProvider = _kernelWrapper.Get<IChampionshipCurrentEventPointsProvider>();
         }
 
@@ -115,7 +118,7 @@ namespace SecondMonitor.Timing.Controllers
             await StartControllers();
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
             _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _settingsProvider, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
-                _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider) {MapManagementController = _mapManagementController};
+                _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider, _driverLapSectorsTrackerFactory) {MapManagementController = _mapManagementController};
             _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
             _timingDataViewModel.ChampionshipIconStateViewModel = _championshipController.ChampionshipIconStateViewModel;
