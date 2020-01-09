@@ -132,14 +132,17 @@
                     continue;
                 }
 
-                double gapInSeconds = Math.Abs(driverTimingViewModel.GapToPlayer.TotalSeconds - previousViewModel.GapToPlayer.TotalSeconds) - minimalGap;
-                if (!isVisualizationEnabled || gapInSeconds < 0 )
+                double gapInSeconds = Math.Abs(driverTimingViewModel.GapToPlayer.TotalSeconds - previousViewModel.GapToPlayer.TotalSeconds);
+                double gapInSecondsWithMinimal = gapInSeconds - minimalGap;
+                if (!isVisualizationEnabled || gapInSecondsWithMinimal < 0 )
                 {
                     previousViewModel.GapHeight = 0;
                     previousViewModel = driverTimingViewModel;
                     continue;
                 }
-                previousViewModel.GapHeight = Math.Min(gapInSeconds * heightPerSecond, maximumGap);
+
+                previousViewModel.GapToNextDriver = gapInSeconds;
+                previousViewModel.GapHeight = Math.Min(gapInSecondsWithMinimal * heightPerSecond, maximumGap);
                 previousViewModel = driverTimingViewModel;
 
             }
@@ -258,7 +261,7 @@
                     _driverNameTimingMap.Add(driversToAdd[i].Name, driversToAdd[i]);
                     RebindViewModel(DriversViewModels.First(x => x.Name == driversToRemove[i].Name), driversToAdd[i]);
                 }
-                
+
                 driversToRemove.Skip(i).ForEach(RemoveDriver);
                 AddDrivers(driversToAdd.Skip(i));
             }

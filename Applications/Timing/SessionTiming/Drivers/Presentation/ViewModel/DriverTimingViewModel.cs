@@ -113,6 +113,14 @@
             set => SetProperty(ref _gapHeight, value);
         }
 
+        private double _gapToNextDriver;
+
+        public double GapToNextDriver
+        {
+            get => _gapToNextDriver;
+            set => SetProperty(ref _gapToNextDriver, value);
+        }
+
         private string _name;
         public string Name
         {

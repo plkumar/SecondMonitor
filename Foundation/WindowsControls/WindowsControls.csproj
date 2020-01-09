@@ -125,6 +125,7 @@
       <DependentUpon>PlotViewWrapper.cs</DependentUpon>
     </Compile>
     <Compile Include="WPF\Behaviors\BindableSelectedItemBehavior.cs" />
+    <Compile Include="WPF\Behaviors\FontSizeByHeightBehavior.cs" />
     <Compile Include="WPF\Behaviors\RefreshBindingOnVisibilityChangeBehavior.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorAbleIconByLimits.cs" />
     <Compile Include="WPF\Behaviors\TyreWear\ColorByLinearLimitsBehavior.cs" />

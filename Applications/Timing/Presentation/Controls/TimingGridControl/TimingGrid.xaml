@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:timingGridControl="clr-namespace:SecondMonitor.Timing.Presentation.Controls.TimingGridControl">
+                    xmlns:timingGridControl="clr-namespace:SecondMonitor.Timing.Presentation.Controls.TimingGridControl"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:behaviors="clr-namespace:SecondMonitor.WindowsControls.WPF.Behaviors;assembly=WindowsControls">
 
     <Style x:Key="TextBoxStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource LightGrey01Brush}" />
@@ -134,7 +136,14 @@
                                                     ItemsPanel="{TemplateBinding ItemsPanel}"
                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
-                        <Grid Grid.Row="1" Background="{StaticResource Anthracite01Brush}" Height="{Binding DataContext.GapHeight, RelativeSource={RelativeSource TemplatedParent}}"></Grid>
+                        <Grid Grid.Row="1" Background="{StaticResource Anthracite01Brush}"  Height="{Binding DataContext.GapHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Style="{StaticResource StandardText}" Text="{Binding DataContext.GapToNextDriver, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DoubleToScalableDecimalsConverter}}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:FontSizeByHeightBehavior/>
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
+                        </Grid>
+
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

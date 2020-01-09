@@ -19,7 +19,7 @@
         public SimulatorDataSet CreateSimulatorDataSet(RfShared rfData)
         {
             SimulatorDataSet simData = new SimulatorDataSet("RFactor");
-            simData.SimulatorSourceInfo.GapInformationProvided = GapInformationKind.TimeToSurroundingDrivers;
+            simData.SimulatorSourceInfo.GapInformationProvided = GapInformationKind.None;
             simData.SimulatorSourceInfo.HasLapTimeInformation = true;
             simData.SimulatorSourceInfo.SimNotReportingEndOfOutLapCorrectly = true;
             simData.SimulatorSourceInfo.OutLapIsValid = true;
@@ -283,7 +283,7 @@
                 data.PlayerInfo = playersInfo;
             }
 
-            FillGapInformation(data.DriversInfo);
+            //FillGapInformation(data.DriversInfo);
         }
 
         private void CheckValidityByPlayer(DriverInfo driver)
