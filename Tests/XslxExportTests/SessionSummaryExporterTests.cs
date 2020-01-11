@@ -2,7 +2,7 @@
 {
     using System;
     using System.IO;
-
+    using System.Xml.Serialization;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Summary;
@@ -39,6 +39,33 @@
             AddDrivers(20, sessionSummary);
             sessionSummary.Drivers.ForEach((s) => FillLaps(s, 140, 20));
 
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
+            // Act
+            _testee.ExportSessionSummary(sessionSummary, fileName);
+
+            // Assert
+            Assert.That(File.Exists(fileName), Is.True);
+            System.Diagnostics.Process.Start(fileName);
+        }
+
+        [Test]
+        public void TestExportSummaryLapsStored()
+        {
+            // Arrange
+            string fileName = @"c:\Users\Darkman\Documents\SecondMonitor\Reports\Laps.xlsx";
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
+            SessionSummary sessionSummary;
+            using (TextReader file = File.OpenText(@"c:\Users\Darkman\Documents\SecondMonitor\Reports\Report_2020-01-11T12-15-47_Autodromo Yahuacocha_Practice.xlsx.xml"))
+            {
+                sessionSummary = xmlSerializer.Deserialize(file) as SessionSummary;
+            }
+
+            sessionSummary.Drivers.ForEach(x => x.BindLaps());
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);

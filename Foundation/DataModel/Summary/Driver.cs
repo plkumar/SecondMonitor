@@ -99,6 +99,11 @@
             }
         }
 
+        public void BindLaps()
+        {
+            Laps.ForEach(x => x.Driver = this);
+        }
+
 
         private Lap FindBest(Func<Lap, TimeSpan> paramFunc, List<Lap> laps)
         {

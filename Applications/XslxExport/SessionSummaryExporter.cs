@@ -20,6 +20,7 @@
 
     using DataModel.Extensions;
     using DataModel.Snapshot.Systems;
+    using OfficeOpenXml.Drawing;
     using ViewModels.Colors.Extensions;
 
     public class SessionSummaryExporter
@@ -27,7 +28,8 @@
         private const string SummarySheet = "Summary";
         private const string LapsAndSectorsSheet = "Laps & Sectors";
         private const string PlayerLapsSheet = "Players Laps";
-        private const string RaceProgressSheet = "RaceProgress";
+        private const string RaceProgressSheet = "Race Progress";
+        private const string TyreDegradationSheet = "Tyres Condition";
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -61,6 +63,7 @@
                 AddSummary(workbook.Worksheets[SummarySheet], sessionSummary);
                 AddLapsInfo(workbook.Worksheets[LapsAndSectorsSheet], sessionSummary);
                 AddPlayersLaps(workbook.Worksheets[PlayerLapsSheet], sessionSummary);
+                AddTyresDegradation(workbook.Worksheets[TyreDegradationSheet], sessionSummary);
 
                 if (sessionSummary.SessionType == SessionType.Race)
                 {
@@ -75,7 +78,6 @@
             }
 
         }
-
         private void AddRaceProgress(ExcelWorksheet sheet, SessionSummary sessionSummary)
         {
             int maxLaps = sessionSummary.Drivers.Select(x => x.Laps.Count).Max();
@@ -761,7 +763,104 @@
             {
                 package.Workbook.Worksheets.Add(RaceProgressSheet);
             }
+
+            package.Workbook.Worksheets.Add(TyreDegradationSheet);
         }
+
+        private void AddTyresDegradation(ExcelWorksheet sheet, SessionSummary sessionSummary)
+        {
+            Driver player = sessionSummary.Drivers.FirstOrDefault(x => x.IsPlayer);
+            if (player == null)
+            {
+                return;
+            }
+
+            int totalLaps = player.TotalLaps;
+            int startRow = 100;
+            int startColumn = 1;
+            sheet.Cells[startRow + 1, startColumn].Value = "Start";
+            sheet.Cells[startRow, startColumn + 1].Value = "FL";
+            sheet.Cells[startRow, startColumn + 2].Value = "FR";
+            sheet.Cells[startRow, startColumn + 3].Value = "RF";
+            sheet.Cells[startRow, startColumn + 4].Value = "RR";
+            GenerateNumberColumn(sheet, new ExcelCellAddress(startRow + 2, startColumn), totalLaps);
+            TyresConditionsRows(sheet, new ExcelCellAddress(startRow + 1 , startColumn + 1), player);
+
+            ExcelLineChart chart = (ExcelLineChart)sheet.Drawings.AddChart("Tyres Condition", eChartType.LineMarkers);
+            chart.SetPosition(0, 0, 0, 0);
+            int currentColumn = 2;
+
+            ExcelLineChartSerie series = (ExcelLineChartSerie)chart.Series.Add(ExcelCellBase.GetAddress(startRow + 1, currentColumn, startRow + 1 + totalLaps, currentColumn), ExcelCellBase.GetAddress(startRow + 1, 1, startRow + 1 + totalLaps, 1));
+            series.Header = "Front Left";
+            currentColumn++;
+
+            series = (ExcelLineChartSerie)chart.Series.Add(ExcelCellBase.GetAddress(startRow + 1, currentColumn, startRow + 1 + totalLaps, currentColumn), ExcelCellBase.GetAddress(startRow + 1, 1, startRow + 1 + totalLaps, 1));
+            series.Header = "Front Right";
+            currentColumn++;
+
+            series = (ExcelLineChartSerie)chart.Series.Add(ExcelCellBase.GetAddress(startRow + 1, currentColumn, startRow + 1 + totalLaps, currentColumn), ExcelCellBase.GetAddress(startRow + 1, 1, startRow + 1 + totalLaps, 1));
+            series.Header = "Rear Left";
+            currentColumn++;
+
+            series = (ExcelLineChartSerie)chart.Series.Add(ExcelCellBase.GetAddress(startRow + 1, currentColumn, startRow + 1 + totalLaps, currentColumn), ExcelCellBase.GetAddress(startRow + 1, 1, startRow + 1 + totalLaps, 1));
+            series.Header = "Rear Right";
+            currentColumn++;
+
+            chart.ShowDataLabelsOverMaximum = false;
+            chart.DataLabel.ShowValue = true;
+            chart.ShowHiddenData = true;
+
+            chart.Axis[1].MinValue = 0;
+            chart.Axis[1].TickLabelPosition = eTickLabelPosition.NextTo;
+            chart.Axis[1].MajorUnit = 25;
+            chart.Axis[1].MajorGridlines.LineStyle = eLineStyle.Dash;
+            chart.Axis[1].MinorGridlines.LineStyle = eLineStyle.Dot;
+            chart.Axis[1].MinorUnit = 5;
+            chart.Axis[1].Orientation = eAxisOrientation.MinMax;
+            chart.Axis[1].MaxValue = 100;
+            chart.SetSize(70 * totalLaps, 800);
+            chart.Axis[0].MajorUnit = 1;
+            chart.Axis[0].MinorUnit = 1;
+            chart.Title.Text = "Tyres Condition";
+
+        }
+
+        private void TyresConditionsRows(ExcelWorksheet sheet, ExcelCellAddress cellAddress, Driver player)
+        {
+            foreach (Lap playerLap in player.Laps)
+            {
+                if (playerLap.LapStartSnapshot?.PlayerData?.CarInfo?.WheelsInfo == null)
+                {
+                    cellAddress = new ExcelCellAddress(cellAddress.Row + 1, cellAddress.Column);
+                    continue;
+                }
+
+                AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column, (1 - playerLap.LapStartSnapshot.PlayerData.CarInfo.WheelsInfo.FrontLeft.TyreWear.ActualWear) * 100);
+                AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 1, (1 - playerLap.LapStartSnapshot.PlayerData.CarInfo.WheelsInfo.FrontRight.TyreWear.ActualWear) * 100);
+                AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 2, (1 - playerLap.LapStartSnapshot.PlayerData.CarInfo.WheelsInfo.RearLeft.TyreWear.ActualWear) * 100);
+                AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 3, (1 - playerLap.LapStartSnapshot.PlayerData.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear) * 100);
+                cellAddress = new ExcelCellAddress(cellAddress.Row + 1 , cellAddress.Column);
+            }
+
+            Lap lastLap = player.Laps.Last();
+            if (lastLap.LapEndSnapshot?.PlayerData?.CarInfo?.WheelsInfo == null)
+            {
+                return;
+            }
+
+            AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column, (1 - lastLap.LapEndSnapshot.PlayerData.CarInfo.WheelsInfo.FrontLeft.TyreWear.ActualWear) * 100);
+            AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 1, (1 - lastLap.LapEndSnapshot.PlayerData.CarInfo.WheelsInfo.FrontRight.TyreWear.ActualWear) * 100);
+            AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 2, (1 - lastLap.LapEndSnapshot.PlayerData.CarInfo.WheelsInfo.RearLeft.TyreWear.ActualWear) * 100);
+            AddTyreDegradation(sheet, cellAddress.Row, cellAddress.Column + 3, (1 - lastLap.LapEndSnapshot.PlayerData.CarInfo.WheelsInfo.RearRight.TyreWear.ActualWear) * 100);
+
+        }
+
+        private void AddTyreDegradation(ExcelWorksheet sheet, int row, int column, double value)
+        {
+            sheet.Cells[row, column].Value = value;
+            sheet.Cells[row, column].Style.Numberformat.Format = "0.00";
+        }
+
 
         public static string FormatTimeSpan(TimeSpan timeSpan)
         {

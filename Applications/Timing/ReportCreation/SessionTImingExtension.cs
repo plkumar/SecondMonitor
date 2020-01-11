@@ -73,7 +73,7 @@
             }
             else if(playerTiming.BestLap != null && driverToFillTiming.BestLap != null)
             {
-                driverToFill.GapToPlayerRelative = playerTiming.BestLap.LapTime - driverToFillTiming.BestLap.LapTime;
+                driverToFill.GapToPlayerRelative = driverToFillTiming.BestLap.LapTime - playerTiming.BestLap.LapTime;
             }
         }
 
