@@ -8,6 +8,8 @@
 
         public static TrackTemplate AdriaFull => new TrackTemplate("Adria - Full Circuit", 2702);
 
+        public static TrackTemplate AlgarveCircuit1Present => new TrackTemplate("Algarve, Portimão - Circuit 1", 4699);
+
         public static TrackTemplate Alemannenring => new TrackTemplate("Alemannenring", 2800);
 
         public static TrackTemplate AlbertParkPresent => new TrackTemplate("Albert Park, Melbourne (Present)", 5303);
@@ -51,6 +53,8 @@
         public static TrackTemplate CotaGP => new TrackTemplate("Circuit of the Americas - Grand Prix", 5515);
 
         public static TrackTemplate CroftMainCircuit => new TrackTemplate("Croft - Main Circuit", 3423);
+
+        public static TrackTemplate GoldenportMororPark => new TrackTemplate("Goldenport Motor Park - Main Course", 2390);
 
 
         public static TrackTemplate DaytonaRoadCourse => new TrackTemplate("Daytona - Road Course", 5729);
@@ -161,8 +165,11 @@
 
         public static TrackTemplate MugelloGpPresent => new TrackTemplate("Mugello - Grand Prix (Present)", 5245);
 
+        public static TrackTemplate NavarraSpeedCircuitLong => new TrackTemplate("Navarra - Speed Circuit Long", 3933);
 
         public static TrackTemplate NingboPresent => new TrackTemplate("Ningbo International Speedway", 4015);
+
+        public static TrackTemplate NogaroGrandPrixPresent => new TrackTemplate("Circuit Paul Armagnac (Nogaro) - Grand Prix (Present)", 3636);
 
         public static TrackTemplate NorisringPresent => new TrackTemplate("Norisring (Present)", 2300);
 
@@ -183,6 +190,8 @@
 
         public static TrackTemplate OultonParkIslandCircuit => new TrackTemplate("Oulton Park - Island Circuit", 3637);
 
+        public static TrackTemplate OrdosGrandPrix => new TrackTemplate("Ordos International Circuit - Grand Prix Circuit", 3751);
+
 
         public static TrackTemplate PaulRicard1CV2 => new TrackTemplate("Paul Ricard - Circuit 1C 2V", 5842);
 
@@ -199,6 +208,8 @@
 
         public static TrackTemplate PhoenixInternationalRaceway => new TrackTemplate("Phoenix International Raceway (2011 - 2018)", 1645);
         public static TrackTemplate PhoenixInternationalRacewayRoad9111 => new TrackTemplate("Phoenix International Raceway - Road Course (1991 - 2011)", 1510);
+
+        public static TrackTemplate PotrerodelosFunesPresent => new TrackTemplate("Potrero de los Funes (Present)", 6270);
 
 
         public static TrackTemplate RedBullRing => new TrackTemplate("Red Bull Ring - Grand Prix", 4318);

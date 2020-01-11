@@ -60,6 +60,7 @@
     <Compile Include="Championship\Calendar\Templates\Formula3Calendars.cs" />
     <Compile Include="Championship\Calendar\Templates\Formula2Calendars.cs" />
     <Compile Include="Championship\Calendar\Templates\Formula1Calendars.cs" />
+    <Compile Include="Championship\Calendar\Templates\GT1Calendars.cs" />
     <Compile Include="Championship\Calendar\Templates\ImsaCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\IndycarCalendars.cs" />
     <Compile Include="Championship\Calendar\Templates\WTCRCalendars.cs" />

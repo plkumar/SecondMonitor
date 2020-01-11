@@ -47,12 +47,12 @@
                 OpenReportIfEnabled(sessionSummary, fullReportPath);
                 CheckAndDeleteIfMaximumReportsExceeded();
 
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
+                /*XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
                 string xmlFilePath = fullReportPath + ".xml";
                 using (FileStream file = File.Exists(xmlFilePath) ? File.Open(xmlFilePath, FileMode.Truncate) : File.Create(xmlFilePath))
                 {
                     xmlSerializer.Serialize(file, sessionSummary);
-                }
+                }*/
             }
             catch (Exception ex)
             {
