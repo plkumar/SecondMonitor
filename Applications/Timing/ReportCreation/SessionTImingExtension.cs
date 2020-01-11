@@ -33,10 +33,10 @@
 
         private static void AddDrivers(SessionSummary summary, SessionTiming timing)
         {
-           summary.Drivers.AddRange(timing.Drivers.Select(d => ConvertToSummaryDriver(d.Value, timing.SessionType)));
+            summary.Drivers.AddRange(timing.Drivers.Select(d => ConvertToSummaryDriver(d.Value, timing.SessionType, timing.Player)));
         }
 
-        private static Driver ConvertToSummaryDriver(DriverTiming driverTiming, SessionType sessionType)
+        private static Driver ConvertToSummaryDriver(DriverTiming driverTiming, SessionType sessionType, DriverTiming playerTiming)
         {
             Driver driverSummary = new Driver()
                                        {
@@ -49,12 +49,32 @@
                                            FinishStatus = driverTiming.DriverInfo.FinishStatus,
                                            ClassName = driverTiming.CarClassName,
                                            ClassId = driverTiming.CarClassId,
+                                           TotalDistance = driverTiming.TotalDistanceTraveled
                                        };
             int lapNumber = 1;
             bool allLaps = sessionType == SessionType.Race;
             driverSummary.Laps.AddRange(driverTiming.Laps.Where(l => l.LapTelemetryInfo != null && l.Completed && (allLaps || l.Valid)).Select(l => ConvertToSummaryLap(driverSummary, l, lapNumber++, sessionType)));
             driverSummary.TotalLaps = driverSummary.Laps.Count;
+            FillGapInfo(driverSummary, driverTiming, playerTiming, sessionType);
             return driverSummary;
+        }
+
+        private static void FillGapInfo(Driver driverToFill, DriverTiming driverToFillTiming, DriverTiming playerTiming, SessionType sessionType)
+        {
+            if (playerTiming == null)
+            {
+                return;
+            }
+
+            if (sessionType == SessionType.Race)
+            {
+                driverToFill.GapToPlayerRelative = driverToFillTiming.DriverLapSectorsTracker.GetRelativeGapToPlayer();
+                driverToFill.LapsDifferenceToPlayer = (int)((playerTiming.TotalDistanceTraveled - driverToFillTiming.TotalDistanceTraveled) / driverToFillTiming.Session.LastSet.SessionInfo.TrackInfo.LayoutLength.InMeters);
+            }
+            else if(playerTiming.BestLap != null && driverToFillTiming.BestLap != null)
+            {
+                driverToFill.GapToPlayerRelative = playerTiming.BestLap.LapTime - driverToFillTiming.BestLap.LapTime;
+            }
         }
 
         private static Lap ConvertToSummaryLap(Driver summaryDriver,  ILapInfo lapInfo, int lapNumber, SessionType sessionType)

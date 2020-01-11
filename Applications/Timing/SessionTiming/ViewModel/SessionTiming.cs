@@ -8,7 +8,6 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using System.Diagnostics;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using System.Windows;
 
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
@@ -26,7 +25,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
     using TrackRecords.Controller;
     using ViewModels.SessionEvents;
 
-    public class SessionTiming : DependencyObject, IEnumerable, INotifyPropertyChanged
+    public class SessionTiming : IEnumerable, INotifyPropertyChanged
     {
         private readonly IRatingProvider _ratingProvider;
         private readonly ITrackRecordsController _trackRecordsController;
@@ -55,6 +54,8 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
         public double TotalSessionLength { get; private set; }
 
         public TimeSpan SessionStarTime { get; private set; }
+
+        public bool IsFinished { get; private set; }
 
         private readonly Stopwatch _ratingUpdateStopwatch;
 
@@ -187,6 +188,7 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             }
         }
 
+        // TODO: Extract To Factory
         public static SessionTiming FromSimulatorData(SimulatorDataSet dataSet, bool invalidateFirstLap, TimingDataViewModel timingDataViewModel, ISessionTelemetryControllerFactory sessionTelemetryControllerFactory, IRatingProvider ratingProvider, ITrackRecordsController trackRecordsController,
             IChampionshipCurrentEventPointsProvider championshipCurrentEventPointsProvider, ISessionEventProvider sessionEventProvider, DriverLapSectorsTrackerFactory driverLapSectorsTrackerFactory)
         {
@@ -228,7 +230,13 @@ namespace SecondMonitor.Timing.SessionTiming.ViewModel
             {
                 timing.TotalSessionLength = dataSet.SessionInfo.SessionTimeRemaining;
             }
+
             return timing;
+        }
+
+        public void Finish()
+        {
+            IsFinished = true;
         }
 
         private void DriverOnLapCompleted(object sender, LapEventArgs lapEventArgs)

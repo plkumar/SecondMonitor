@@ -1,6 +1,7 @@
 ﻿namespace SecondMonitor.DataModel.Summary
 {
     using System;
+    using System.Xml.Serialization;
     using BasicProperties;
     using Telemetry;
 
@@ -18,6 +19,7 @@
             IsValid = isValid;
         }
 
+        [XmlIgnore]
         public Driver Driver { get; set; }
 
         public int LapNumber { get; set; }

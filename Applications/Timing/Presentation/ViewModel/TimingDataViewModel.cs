@@ -20,6 +20,7 @@
 
     using DataModel.Extensions;
     using Controllers;
+    using DataModel.Snapshot.Drivers;
     using LapTimings;
     using NLog;
     using Rating.Application.Championship;
@@ -96,6 +97,7 @@
             _trackRecordsController = trackRecordsController;
             _championshipCurrentEventPointsProvider = championshipCurrentEventPointsProvider;
             _sessionEventProvider = sessionEventProvider;
+            _sessionEventProvider.PlayerFinishStateChanged += SessionEventProviderOnPlayerFinishStateChanged;
             _driverLapSectorsTrackerFactory = driverLapSectorsTrackerFactory;
             DoubleLeftClickCommand = _driverLapsWindowManager.OpenWindowCommand;
             DisplaySettingsViewModel = settingsProvider.DisplaySettingsViewModel;
@@ -104,6 +106,7 @@
         }
 
         public event EventHandler<SessionSummaryEventArgs> SessionCompleted;
+        public event EventHandler<SessionSummaryEventArgs> PlayerFinished;
 
         public TimeSpan? PlayersPace => SessionTiming?.Player?.Pace;
         public TimeSpan? LeadersPace => SessionTiming?.Leader?.Pace;
@@ -609,6 +612,7 @@
                 Application.Current.Dispatcher.Invoke(() => StartNewSession(dataSet));
                 return;
             }
+
             CheckAndNotifySessionCompleted();
             if (dataSet.SessionInfo.SessionType == SessionType.Na)
             {
@@ -689,12 +693,24 @@
 
         }
 
-        private void CheckAndNotifySessionCompleted()
+        private void SessionEventProviderOnPlayerFinishStateChanged(object sender, DataSetArgs e)
         {
-            if (_sessionTiming?.WasGreen != true)
+            if (e.DataSet.SessionInfo.SessionType != SessionType.Race || e.DataSet.PlayerInfo.FinishStatus != DriverFinishStatus.Finished || _sessionTiming?.WasGreen != true)
             {
                 return;
             }
+
+            PlayerFinished?.Invoke(this, new SessionSummaryEventArgs(_sessionTiming.ToSessionSummary()));
+        }
+
+        private void CheckAndNotifySessionCompleted()
+        {
+            if (_sessionTiming?.WasGreen != true || _sessionTiming.IsFinished)
+            {
+                return;
+            }
+
+            _sessionTiming.Finish();
             SessionCompleted?.Invoke(this, new SessionSummaryEventArgs(_sessionTiming.ToSessionSummary()));
         }
     }

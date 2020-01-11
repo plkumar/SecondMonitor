@@ -31,6 +31,12 @@
 
         public int TotalLaps { get; set; }
 
+        public double TotalDistance { get; set; }
+
+        public TimeSpan GapToPlayerRelative { get; set; }
+
+        public int LapsDifferenceToPlayer { get; set; }
+
         public Velocity TopSpeed { get; set; } = Velocity.Zero;
 
         public List<Lap> Laps { get; } = new List<Lap>();
@@ -96,7 +102,6 @@
 
         private Lap FindBest(Func<Lap, TimeSpan> paramFunc, List<Lap> laps)
         {
-
             return laps.Count == 0 ? null : laps.Where(l => l.IsValid  && paramFunc(l) != TimeSpan.Zero).OrderBy(paramFunc).FirstOrDefault();
         }
     }

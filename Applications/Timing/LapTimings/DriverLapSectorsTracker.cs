@@ -47,7 +47,7 @@
                 _lastSectionIndex = -1;
             }
 
-            while (_lastSectionIndex != currentSectionIndex && _lastSectionIndex < _sections.Length)
+            while (_lastSectionIndex != currentSectionIndex && _lastSectionIndex + 1 < _sections.Length)
             {
                 _lastSectionIndex++;
                 _sections[_lastSectionIndex] = lastDataSet.SessionInfo.SessionTime;

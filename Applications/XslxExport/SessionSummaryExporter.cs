@@ -317,10 +317,10 @@
 
         private static void WrapSummaryInTable(ExcelWorksheet sheet, int rowCount)
         {
-            ExcelRange range = sheet.Cells[5, 1, 5 + rowCount, 9];
+            ExcelRange range = sheet.Cells[5, 1, 5 + rowCount, 10];
             ExcelTable table = sheet.Tables.Add(range, "SummaryTable");
             table.ShowHeader = true;
-            for (int i = 1; i <= 9; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 sheet.Column(i).AutoFit();
             }
@@ -501,7 +501,7 @@
             sheet.Cells["D2"].Value = "Sector 3";
             sheet.Cells["E2"].Value = "Fuel Change";
             sheet.Cells["G2"].Value = "LF Pressure";
-            sheet.Cells["H2"].Value = "Brake Temp";
+            sheet.Cells["H2"].Value = "Tyre Condition";
             sheet.Cells["J2"].Value = "FR Pressure";
             sheet.Cells["K2"].Value = "Tyre Condition";
 
@@ -573,6 +573,24 @@
             sheet.Cells[row.Row + 1, 8].Value = driver.BestSector3Lap == null ? string.Empty : FormatTimeSpan(driver.BestSector3Lap.Sector3);
             sheet.Cells[row.Row + 1, 9].Value = driver.TopSpeed.GetValueInUnits(VelocityUnits).ToString("N0") + Velocity.GetUnitSymbol(VelocityUnits);
 
+
+            if (driver.LapsDifferenceToPlayer != 0)
+            {
+                sheet.Cells[row.Row + 1, 10].Value = $"{driver.LapsDifferenceToPlayer:+#;-#;0} Lap";
+            }
+            else
+            {
+                if (sessionSummary.SessionType == SessionType.Race)
+                {
+                    sheet.Cells[row.Row + 1, 10].Style.Numberformat.Format = "+0.0; -0.0; 0.0";
+                }
+                else
+                {
+                    sheet.Cells[row.Row + 1, 10].Style.Numberformat.Format = "+0.000; -0.000; 0.000";
+                }
+                sheet.Cells[row.Row + 1, 10].Value = Convert.ToDecimal(driver.GapToPlayerRelative.FormatTimeSpanOnlySeconds(true));
+            }
+
             if (driver.BestPersonalLap == sessionSummary.SessionBestLap)
             {
                 sheet.Cells[row.Row + 1, 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -616,7 +634,7 @@
 
         private void AddDriversInfoHeader(ExcelWorksheet sheet)
         {
-            ExcelStyle style = sheet.Cells[5,1,5,9].Style;
+            ExcelStyle style = sheet.Cells[5,1,5,10].Style;
             style.Font.Bold = true;
             style.Font.Size = 14;
             style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -630,6 +648,7 @@
             sheet.Cells["G5"].Value = "Best S2";
             sheet.Cells["H5"].Value = "Best S3";
             sheet.Cells["I5"].Value = "Top Speed";
+            sheet.Cells["J5"].Value = "Gap";
         }
 
         private void AddTrackInformation(ExcelWorksheet sheet, SessionSummary sessionSummary)
@@ -664,43 +683,43 @@
 
         private void AddSessionBestInfo(SessionSummary sessionSummary, ExcelWorksheet sheet)
         {
-            ExcelRange range = sheet.Cells["K5:L9"];
+            ExcelRange range = sheet.Cells["L5:M9"];
             range.Style.Border.BorderAround(ExcelBorderStyle.Medium, SessionBestColor.ToDrawingColor());
-            sheet.Cells["K5"].Value = "Session Best:";
-            sheet.Cells["K6"].Value = "Sector 1:";
-            sheet.Cells["K7"].Value = "Sector 2:";
-            sheet.Cells["K8"].Value = "Sector 3:";
-            sheet.Cells["K9"].Value = "Lap:";
+            sheet.Cells["L5"].Value = "Session Best:";
+            sheet.Cells["L6"].Value = "Sector 1:";
+            sheet.Cells["L7"].Value = "Sector 2:";
+            sheet.Cells["L8"].Value = "Sector 3:";
+            sheet.Cells["L9"].Value = "Lap:";
 
             if (sessionSummary.SessionBestSector1 != null)
             {
-                sheet.Cells["L6"].Value = FormatSessionBest(
+                sheet.Cells["M6"].Value = FormatSessionBest(
                     sessionSummary.SessionBestSector1,
                     sessionSummary.SessionBestSector1.Sector1);
             }
 
             if (sessionSummary.SessionBestSector2 != null)
             {
-                sheet.Cells["L7"].Value = FormatSessionBest(
+                sheet.Cells["M7"].Value = FormatSessionBest(
                     sessionSummary.SessionBestSector2,
                     sessionSummary.SessionBestSector2.Sector2);
             }
 
             if (sessionSummary.SessionBestSector3 != null)
             {
-                sheet.Cells["L8"].Value = FormatSessionBest(
+                sheet.Cells["M8"].Value = FormatSessionBest(
                     sessionSummary.SessionBestSector3,
                     sessionSummary.SessionBestSector3.Sector3);
             }
 
             if (sessionSummary.SessionBestLap != null)
             {
-                sheet.Cells["L9"].Value = FormatSessionBest(
+                sheet.Cells["M9"].Value = FormatSessionBest(
                     sessionSummary.SessionBestLap,
                     sessionSummary.SessionBestLap.LapTime);
             }
-            sheet.Cells["K5:K9"].Style.Font.Bold = true;
-            sheet.Cells["L5:L9"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+            sheet.Cells["L5:L9"].Style.Font.Bold = true;
+            sheet.Cells["M5:M9"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
             range.AutoFitColumns();
 
         }

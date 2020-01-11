@@ -374,6 +374,7 @@
         {
             try
             {
+                Remark = DriverTiming.Remark;
                 IsClassIndicationEnabled = DriverTiming.Session?.LastSet?.SessionInfo?.IsMultiClass == true;
                 SetRating();
                 Position = DriverTiming.Position.ToString();
@@ -383,7 +384,6 @@
                 CurrentLapProgressTime = GetCurrentLapProgressTime();
                 Pace = GetPace();
                 BestLap = GetBestLap();
-                Remark = DriverTiming.Remark;
                 LastPitInfo = GetPitInfo();
                 TopSpeed = GetTopSpeed().GetValueInUnits(DriverTiming.Session.TimingDataViewModel.DisplaySettingsViewModel.VelocityUnits).ToString("N0");
                 SetTimeToPlayerProperties();

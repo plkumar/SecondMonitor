@@ -5,6 +5,7 @@ namespace SecondMonitor.Timing.Controllers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using WindowsControls.Extension;
@@ -24,6 +25,7 @@ namespace SecondMonitor.Timing.Controllers
     using ViewModels.Settings.ViewModel;
     using System.Windows;
     using Contracts.NInject;
+    using DataModel.BasicProperties;
     using LapTimings;
     using Ninject.Syntax;
     using Rating.Application.Championship;
@@ -119,7 +121,8 @@ namespace SecondMonitor.Timing.Controllers
             DriverLapsWindowManager driverLapsWindowManager = new DriverLapsWindowManager(() => _timingGui, () => _timingDataViewModel.SelectedDriverTiming, _driverPresentationsManager);
             _timingDataViewModel = new TimingDataViewModel(driverLapsWindowManager, _settingsProvider, _driverPresentationsManager, _sessionTelemetryControllerFactory, _ratingApplicationController.RatingProvider,
                 _trackRecordsController, _championshipCurrentEventPointsProvider, _sessionEventProvider, _driverLapSectorsTrackerFactory) {MapManagementController = _mapManagementController};
-            _timingDataViewModel.SessionCompleted+=TimingDataViewModelOnSessionCompleted;
+            _timingDataViewModel.PlayerFinished += TimingDataViewModelOnPlayerFinished;
+            _timingDataViewModel.SessionCompleted += TimingDataViewModelOnSessionCompleted;
             _timingDataViewModel.RatingApplicationViewModel = _ratingApplicationController.RatingApplicationViewModel;
             _timingDataViewModel.ChampionshipIconStateViewModel = _championshipController.ChampionshipIconStateViewModel;
             BindCommands();
@@ -360,10 +363,21 @@ namespace SecondMonitor.Timing.Controllers
             }
         }
 
+        private void TimingDataViewModelOnPlayerFinished(object sender, SessionSummaryEventArgs e)
+        {
+            if (e.Summary.SessionType == SessionType.Race && e.Summary.Drivers.Any(x => x.IsPlayer && x.Finished))
+            {
+                _reportsController?.CreateReport(e.Summary);
+            }
+        }
+
         private async void TimingDataViewModelOnSessionCompleted(object sender, SessionSummaryEventArgs e)
         {
             await _ratingApplicationController.NotifySessionCompletion(e.Summary);
-            _reportsController?.CreateReport(e.Summary);
+            if ((e.Summary.SessionType == SessionType.Race && e.Summary.Drivers.All(x => !x.IsPlayer || !x.Finished)) || e.Summary.SessionType != SessionType.Race)
+            {
+                _reportsController?.CreateReport(e.Summary);
+            }
         }
     }
 }

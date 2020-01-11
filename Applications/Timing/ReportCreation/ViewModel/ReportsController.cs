@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Contracts.Commands;
+    using System.Xml.Serialization;
     using DataModel.BasicProperties;
     using DataModel.Summary;
 
@@ -46,6 +46,13 @@
                 sessionSummaryExporter.ExportSessionSummary(sessionSummary, fullReportPath);
                 OpenReportIfEnabled(sessionSummary, fullReportPath);
                 CheckAndDeleteIfMaximumReportsExceeded();
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
+                string xmlFilePath = fullReportPath + ".xml";
+                using (FileStream file = File.Exists(xmlFilePath) ? File.Open(xmlFilePath, FileMode.Truncate) : File.Create(xmlFilePath))
+                {
+                    xmlSerializer.Serialize(file, sessionSummary);
+                }
             }
             catch (Exception ex)
             {
@@ -89,7 +96,7 @@
                 return false;
             }
 
-            if (sessionSummary.SessionRunDuration.TotalMinutes < SettingsView.ReportingSettingsView.MinimumSessionLength)
+            if (sessionSummary.SessionRunDuration.TotalMinutes < SettingsView.ReportingSettingsView.MinimumSessionLength && sessionSummary.SessionType != SessionType.Race)
             {
                 return false;
             }
@@ -115,7 +122,6 @@
             switch (sessionSummary.SessionType)
             {
                 case SessionType.Na:
-                    openReport = false;
                     break;
                 case SessionType.Practice:
                     openReport = SettingsView.ReportingSettingsView.PracticeReportSettingsView.AutoOpen;
