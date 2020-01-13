@@ -256,6 +256,17 @@
         public ICommand OpenLastReportCommand { get; set; }
         public ICommand OpenReportFolderCommand { get; set; }
 
+        public Dictionary<string, TimeSpan> GetPaceForDriversMap()
+        {
+            if (SessionTiming == null)
+            {
+                return new Dictionary<string, TimeSpan>();
+            }
+
+            return SessionTiming.Drivers.ToDictionary(x => x.Value.Name, x => x.Value.Pace);
+        }
+
+
         public void TerminatePeriodicTask(List<Exception> exceptions)
         {
             TerminatePeriodicTasks = true;

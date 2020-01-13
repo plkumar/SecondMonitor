@@ -1,8 +1,10 @@
 ﻿namespace SecondMonitor.Timing.Presentation.ViewModel
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using Annotations;
     using DataModel.BasicProperties;
@@ -44,6 +46,17 @@
         public TimeSpan? PlayersPace => _timing?.Player?.Pace;
 
         public TimeSpan? LeadersPace => _timing?.Leader?.Pace;
+
+        public Dictionary<string, TimeSpan> GetPaceForDriversMap()
+        {
+            if (_timing == null)
+            {
+                return new Dictionary<string, TimeSpan>();
+            }
+
+            return _timing.Drivers.ToDictionary(x => x.Value.Name, x => x.Value.Pace);
+        }
+
 
         public string BestSector1
         {

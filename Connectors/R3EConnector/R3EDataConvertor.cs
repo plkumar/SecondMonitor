@@ -327,17 +327,20 @@
                                             CarName = string.Empty,
                                             InPits = r3RDriverData.InPitlane == 1
                                         };
-
             driverInfo.IsPlayer = driverInfo.DriverName == playerName;
             driverInfo.Position = r3RDriverData.Place;
             driverInfo.PositionInClass = r3RDriverData.PlaceClass;
             driverInfo.Speed = Velocity.FromMs(r3RDriverData.CarSpeed);
             driverInfo.LapDistance = r3RDriverData.LapDistance;
-            driverInfo.TotalDistance = r3RDriverData.CompletedLaps * r3RData.LayoutLength + r3RDriverData.LapDistance;
             driverInfo.CarName = _database.GetCarName(r3RDriverData.R3EDriverInfo.ModelId);
             driverInfo.CarClassName = _database.GetClassName(r3RDriverData.R3EDriverInfo.ClassId);
             driverInfo.CarClassId = r3RDriverData.R3EDriverInfo.ClassPerformanceIndex.ToString();
             driverInfo.FinishStatus = FromR3RStatus(r3RDriverData.FinishStatus);
+            if (driverInfo.FinishStatus == DriverFinishStatus.Finished && driverInfo.Position < _lastPlayer?.Position)
+            {
+                driverInfo.CompletedLaps++;
+            }
+            driverInfo.TotalDistance = r3RDriverData.CompletedLaps * r3RData.LayoutLength + r3RDriverData.LapDistance;
             driverInfo.WorldPosition = new Point3D(Distance.FromMeters(r3RDriverData.Position.X * -1), Distance.FromMeters(r3RDriverData.Position.Y), Distance.FromMeters(r3RDriverData.Position.Z));
             ComputeDistanceToPlayer(_lastPlayer, driverInfo, r3RData);
             return driverInfo;

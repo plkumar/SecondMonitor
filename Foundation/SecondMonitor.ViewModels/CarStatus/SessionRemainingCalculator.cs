@@ -2,23 +2,28 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Linq;
     using DataModel.BasicProperties;
     using DataModel.Snapshot;
     using DataModel.Snapshot.Drivers;
+    using DataModel.Summary;
 
     public class SessionRemainingCalculator
     {
         private readonly IPaceProvider _paceProvider;
         private int _leaderTimeoutLap;
         private readonly Stopwatch _lastCalculationStopWatch;
+        private readonly Stopwatch _lastDriverWithMostDistanceCalculation;
         private double? _lapsRemaining;
         private TimeSpan? _timeRemaining;
+        private (DriverInfo driver, TimeSpan pace) _driverWithMostDistanceAtRaceEnd;
 
         public SessionRemainingCalculator(IPaceProvider paceProvider)
         {
             _paceProvider = paceProvider;
             _leaderTimeoutLap = -1;
             _lastCalculationStopWatch = Stopwatch.StartNew();
+            _lastDriverWithMostDistanceCalculation = Stopwatch.StartNew();
         }
 
 
@@ -70,6 +75,7 @@
             _leaderTimeoutLap = -1;
             _timeRemaining = null;
             _lapsRemaining = null;
+            _driverWithMostDistanceAtRaceEnd = (null, TimeSpan.Zero);
         }
 
 
@@ -77,9 +83,14 @@
         public void RecalculateLapsRemaining(SimulatorDataSet dataSet)
         {
             TimeSpan? playerPace = _paceProvider.PlayersPace;
-            TimeSpan? leaderPace = _paceProvider.LeadersPace;
+            /*if (_driverWithMostDistanceAtRaceEnd.driver == null || _lastDriverWithMostDistanceCalculation.ElapsedMilliseconds > 20000)
+            {*/
+                _driverWithMostDistanceAtRaceEnd = GetDriverWithHigherDistanceAtRaceEnd(dataSet);
+                //_lastDriverWithMostDistanceCalculation.Restart();
+            //}
+            TimeSpan driverWithMostDistancePace = _driverWithMostDistanceAtRaceEnd.pace;
 
-            if (!playerPace.HasValue|| !leaderPace.HasValue || playerPace.Value == TimeSpan.Zero || leaderPace.Value == TimeSpan.Zero)
+            if (!playerPace.HasValue || playerPace.Value == TimeSpan.Zero || _driverWithMostDistanceAtRaceEnd.driver == null || driverWithMostDistancePace == TimeSpan.Zero)
             {
                 _lapsRemaining = double.NaN;
                 return;
@@ -96,7 +107,7 @@
                 {
                     _leaderTimeoutLap = dataSet.LeaderInfo.CompletedLaps;
                 }
-                double secondsTillSessionEnds = dataSet.LeaderInfo.IsPlayer ? dataSet.SessionInfo.SessionTimeRemaining : GetSecondsTillLeaderFinished(dataSet, leaderPace.Value);
+                double secondsTillSessionEnds = _driverWithMostDistanceAtRaceEnd.driver.IsPlayer ? dataSet.SessionInfo.SessionTimeRemaining : GetSecondsTillDriverFinished(dataSet, _driverWithMostDistanceAtRaceEnd.driver, driverWithMostDistancePace);
                 double distanceToGo = (secondsTillSessionEnds / playerPace.Value.TotalSeconds) * dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
                 double distanceWithLapDistance = distanceToGo + dataSet.PlayerInfo.LapDistance;
                 double distanceToFinishLap = dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters - ((int)distanceWithLapDistance % (int)dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters);
@@ -116,15 +127,37 @@
             }
         }
 
-        private double GetSecondsTillLeaderFinished(SimulatorDataSet dataSet, TimeSpan leaderPace)
+        private double CalculateTotalDistanceByRaceEnd(DriverInfo driver, TimeSpan? driversPace, SimulatorDataSet dataSet)
+        {
+            if (!driversPace.HasValue)
+            {
+                return 0;
+            }
+            return driver.TotalDistance + (dataSet.SessionInfo.SessionTimeRemaining / driversPace.Value.TotalSeconds) * dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
+        }
+
+        private (DriverInfo driver, TimeSpan pace) GetDriverWithHigherDistanceAtRaceEnd(SimulatorDataSet dataSet)
+        {
+            var driverPaceMap = _paceProvider.GetPaceForDriversMap();
+            var driversPaceWithDistanceTraveled = dataSet.DriversInfo.OrderBy(x => x.Position).Where(x => driverPaceMap.ContainsKey(x.DriverName)).Select(x => (driver:x, totalDistance:CalculateTotalDistanceByRaceEnd(x, driverPaceMap[x.DriverName], dataSet))).Where(x => !double.IsInfinity(x.totalDistance)).ToList();
+            if (driversPaceWithDistanceTraveled.Count == 0)
+            {
+                return (null, TimeSpan.Zero);
+            }
+
+            var driverWithMostDistance = driversPaceWithDistanceTraveled.OrderBy(x => x.totalDistance).Last();
+            return (driverWithMostDistance.driver, driverPaceMap[driverWithMostDistance.driver.DriverName]);
+        }
+
+        private double GetSecondsTillDriverFinished(SimulatorDataSet dataSet, DriverInfo driver, TimeSpan driverPace)
         {
             double distanceToGo = (dataSet.SessionInfo.SessionTimeRemaining /
-                                   leaderPace.TotalSeconds) * dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
-            double distanceWithLapDistance = distanceToGo + dataSet.LeaderInfo.LapDistance;
+                                   driverPace.TotalSeconds) * dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
+            double distanceWithLapDistance = distanceToGo + driver.LapDistance;
             double distanceToFinishLap = dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters - ((int)distanceWithLapDistance % (int)dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters);
             double totalDistanceToGo = distanceToGo + distanceToFinishLap;
             double totalLapsToGo = totalDistanceToGo / dataSet.SessionInfo.TrackInfo.LayoutLength.InMeters;
-            return totalLapsToGo * leaderPace.TotalSeconds;
+            return totalLapsToGo * driverPace.TotalSeconds;
         }
 
         private double GetLeaderLapsToGo(SimulatorDataSet dataSet)
