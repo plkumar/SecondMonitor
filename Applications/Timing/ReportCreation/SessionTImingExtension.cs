@@ -95,7 +95,7 @@
         {
             int lapsCount = Math.Min(driverToFill.Laps.Count, player.Laps.Count);
             double totalTimeDriver = driverToFill.Laps.Take(lapsCount).Sum(x => x.LapTime.TotalSeconds);
-            double totalTimePlayer = driverToFill.Laps.Take(lapsCount).Sum(x => x.LapTime.TotalSeconds);
+            double totalTimePlayer = player.Laps.Take(lapsCount).Sum(x => x.LapTime.TotalSeconds);
             driverToFill.GapToPlayerRelative = TimeSpan.FromSeconds(totalTimeDriver - totalTimePlayer);
         }
 

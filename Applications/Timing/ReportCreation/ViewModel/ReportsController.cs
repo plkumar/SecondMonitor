@@ -43,16 +43,17 @@
                 string fullReportPath = Path.Combine(
                     GetReportDirectory(),
                     reportName);
-                sessionSummaryExporter.ExportSessionSummary(sessionSummary, fullReportPath);
-                OpenReportIfEnabled(sessionSummary, fullReportPath);
-                CheckAndDeleteIfMaximumReportsExceeded();
 
-                /*XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SessionSummary));
                 string xmlFilePath = fullReportPath + ".xml";
                 using (FileStream file = File.Exists(xmlFilePath) ? File.Open(xmlFilePath, FileMode.Truncate) : File.Create(xmlFilePath))
                 {
                     xmlSerializer.Serialize(file, sessionSummary);
-                }*/
+                }
+
+                sessionSummaryExporter.ExportSessionSummary(sessionSummary, fullReportPath);
+                OpenReportIfEnabled(sessionSummary, fullReportPath);
+                CheckAndDeleteIfMaximumReportsExceeded();
             }
             catch (Exception ex)
             {

@@ -268,6 +268,7 @@
                     data.LeaderInfo = driverInfo;
                 }
 
+
                 if (rfVehicleInfo.Control == 2)
                 {
                     data.SessionInfo.IsMultiplayer = true;
@@ -375,9 +376,10 @@
                                             CarClassName = StringExtensions.FromArray(rfVehicleInfo.VehicleClass),
                                             InPits = rfVehicleInfo.InPits == 1
                                         };
-            driverInfo.CarClassId = driverInfo.CarClassName;
+            driverInfo.CarClassId = "empty";
             driverInfo.IsPlayer = rfVehicleInfo.IsPlayer == 1;
             driverInfo.Position = rfVehicleInfo.Place;
+            driverInfo.PositionInClass = rfVehicleInfo.Place;
             driverInfo.Speed = Velocity.FromMs(rfVehicleInfo.Speed);
             driverInfo.LapDistance = rfVehicleInfo.LapDist >= 0 ? rfVehicleInfo.LapDist : rfData.LapDist + rfVehicleInfo.LapDist;
             driverInfo.TotalDistance = rfVehicleInfo.TotalLaps * rfData.LapDist + driverInfo.LapDistance;

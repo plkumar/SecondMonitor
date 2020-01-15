@@ -19,6 +19,7 @@
     using OfficeOpenXml.Table;
 
     using DataModel.Extensions;
+    using DataModel.Snapshot.Drivers;
     using DataModel.Snapshot.Systems;
     using OfficeOpenXml.Drawing;
     using ViewModels.Colors.Extensions;
@@ -575,8 +576,11 @@
             sheet.Cells[row.Row + 1, 8].Value = driver.BestSector3Lap == null ? string.Empty : FormatTimeSpan(driver.BestSector3Lap.Sector3);
             sheet.Cells[row.Row + 1, 9].Value = driver.TopSpeed.GetValueInUnits(VelocityUnits).ToString("N0") + Velocity.GetUnitSymbol(VelocityUnits);
 
-
-            if (driver.LapsDifferenceToPlayer != 0)
+            if (driver.FinishStatus == DriverFinishStatus.Dnf || driver.FinishStatus == DriverFinishStatus.Dq)
+            {
+                sheet.Cells[row.Row + 1, 10].Value = driver.FinishStatus.ToString();
+            }
+            else if (driver.LapsDifferenceToPlayer != 0)
             {
                 sheet.Cells[row.Row + 1, 10].Value = $"{driver.LapsDifferenceToPlayer:+#;-#;0} Lap";
             }
