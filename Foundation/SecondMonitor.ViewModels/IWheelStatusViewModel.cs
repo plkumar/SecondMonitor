@@ -5,7 +5,7 @@
 
     public interface IWheelStatusViewModel
     {
-        void ApplyWheelCondition(SimulatorDataSet simulatorDataSet, WheelInfo wheelInfo);
+        void ApplyWheelCondition(SimulatorDataSet dataSet, WheelInfo wheelInfo);
         void Reset();
     }
 }

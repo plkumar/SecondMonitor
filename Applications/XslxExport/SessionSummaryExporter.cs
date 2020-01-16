@@ -594,7 +594,7 @@
                 {
                     sheet.Cells[row.Row + 1, 10].Style.Numberformat.Format = "+0.000; -0.000; 0.000";
                 }
-                sheet.Cells[row.Row + 1, 10].Value = Convert.ToDecimal(driver.GapToPlayerRelative.FormatTimeSpanOnlySeconds(true));
+                sheet.Cells[row.Row + 1, 10].Value = driver.GapToPlayerRelative.TotalSeconds;
             }
 
             if (driver.BestPersonalLap == sessionSummary.SessionBestLap)

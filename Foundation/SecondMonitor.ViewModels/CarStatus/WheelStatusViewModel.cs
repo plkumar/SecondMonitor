@@ -191,8 +191,18 @@
             //WheelCamber = wheelInfo.Camber.GetValueInUnits(AngleUnits.Degrees);
         }
 
-        public void ApplyWheelCondition(SimulatorDataSet dateSet, WheelInfo wheelInfo)
+        public void ApplyWheelCondition(SimulatorDataSet dataSet, WheelInfo wheelInfo)
         {
+            if (dataSet.PlayerInfo == null)
+            {
+                return;
+            }
+
+            if (dataSet.SessionInfo.SessionType != SessionType.Race && dataSet.PlayerInfo.InPits)
+            {
+                return;
+            }
+
             ApplyWheelCondition(wheelInfo);
 
             if (_tyreLifeTimeMonitor == null)
@@ -200,7 +210,7 @@
                 return;
             }
 
-            _tyreLifeTimeMonitor.ApplyWheelInfo(dateSet, wheelInfo);
+            _tyreLifeTimeMonitor.ApplyWheelInfo(dataSet, wheelInfo);
             WearAtRaceEnd = _tyreLifeTimeMonitor.WearAtRaceEnd;
             LapsUntilHeavyWear = _tyreLifeTimeMonitor.LapsUntilHeavyWear;
         }

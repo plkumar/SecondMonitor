@@ -102,6 +102,15 @@
             System.Diagnostics.Process.Start(fileName);
         }
 
+        [Test]
+        public void TimespanFormatTest()
+        {
+            // Arrange
+            TimeSpan time = new TimeSpan(0, 0, 12);
+
+            string formatted = time.ToString("mm\\:ss\\.fff");
+        }
+
         private void FillLaps(Driver driver, int baseTimeSeconds, int totalLaps)
         {
             if (!driver.Finished)
