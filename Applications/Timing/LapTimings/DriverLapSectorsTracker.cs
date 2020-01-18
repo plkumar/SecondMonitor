@@ -8,7 +8,7 @@
 
     public class DriverLapSectorsTracker : IDriverLapSectorsTracker
     {
-        private const int SectionLength = 100;
+        private const int SectionLength = 20;
         private readonly DriverTiming _driverTiming;
         private readonly ISessionEventProvider _sessionEventProvider;
         private readonly TimeSpan[] _sections;
@@ -33,6 +33,7 @@
             int currentSectionIndex = (int) _driverTiming.DriverInfo.LapDistance / SectionLength;
             if (currentSectionIndex == _lastSectionIndex)
             {
+                _sections[_lastSectionIndex] = lastDataSet.SessionInfo.SessionTime;
                 return;
             }
 

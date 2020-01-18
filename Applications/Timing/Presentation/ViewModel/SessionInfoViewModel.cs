@@ -211,7 +211,9 @@
                 string timeRemaining =  prefix + _sessionRemainingCalculator.GetTimeRemaining(dataSet).FormatToMinutesSeconds();
                 if (_timing?.Leader != null && dataSet.SessionInfo?.SessionType == SessionType.Race && _timing?.Leader?.Pace != TimeSpan.Zero)
                 {
-                    timeRemaining += "\nEst. Laps:" + (Math.Floor(_sessionRemainingCalculator.GetLapsRemaining(dataSet) * 10) / 10.0).ToString("N1");
+                    double lapsRemaining = _sessionRemainingCalculator.GetLapsRemaining(dataSet);
+                    double totalLaps = Math.Ceiling(lapsRemaining + dataSet.PlayerInfo.CompletedLaps);
+                    timeRemaining += $"\nEst. Laps: {(Math.Floor(lapsRemaining * 10) / 10.0):N1} / {totalLaps:N0}";
                 }
 
                 return timeRemaining;

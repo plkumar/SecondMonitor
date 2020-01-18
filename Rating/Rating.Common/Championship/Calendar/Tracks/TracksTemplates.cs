@@ -27,6 +27,8 @@
 
         public static TrackTemplate BarberMotorsportsPark => new TrackTemplate("Barber Motorsports Park", 3700);
 
+        public static TrackTemplate BathurstPresent => new TrackTemplate("Bathurst Mount Panorama", 6213);
+
         public static TrackTemplate BrainerdInternationalRaceway6888 => new TrackTemplate("Brainerd International Raceway (1968 - 1988)", 4989);
 
         public static TrackTemplate BrandsHatchGpPresent => new TrackTemplate("Brands Hatch - Grand Prix (Present)", 3916);
@@ -112,8 +114,9 @@
         public static TrackTemplate LagunaSecaPresent => new TrackTemplate("Laguna Seca", 3602);
         public static TrackTemplate LagunaSeca6885 => new TrackTemplate("Laguna Seca (1968 - 1985)", 3058);
         public static TrackTemplate LagunaSeca8687 => new TrackTemplate("Laguna Seca (1986 - 1987)", 3058);
-
         public static TrackTemplate LagunaSeca9095 => new TrackTemplate("Laguna Seca (1990 - 1995)", 3563);
+
+        public static TrackTemplate LasVegasCombinedLayout => new TrackTemplate("Las Vegas Motor Speedway - Combined Layout");
 
         public static TrackTemplate LongBeach => new TrackTemplate("Long Beach", 3167);
 
@@ -128,6 +131,8 @@
         public static TrackTemplate KnockhillNational => new TrackTemplate("Knockhill Racing Circuit - National", 1609);
 
         public static TrackTemplate KoreaGp => new TrackTemplate("Korea International Circuit - Grand Prix", 5615);
+
+        public static TrackTemplate KyalamiGPPresent => new TrackTemplate("Kyalami - Grand Prix (Present)", 4580);
 
         public static TrackTemplate KyalamiGP9308 => new TrackTemplate("Kyalami - Grand Prix (1993 - 2008)", 4260);
 
@@ -193,7 +198,9 @@
         public static TrackTemplate OrdosGrandPrix => new TrackTemplate("Ordos International Circuit - Grand Prix Circuit", 3751);
 
 
-        public static TrackTemplate PaulRicard1CV2 => new TrackTemplate("Paul Ricard - Circuit 1C 2V", 5842);
+        public static TrackTemplate PaulRicard1CV2 => new TrackTemplate("Paul Ricard - Circuit 1C-V2", 5842);
+
+        public static TrackTemplate PaulRicard1AV2 => new TrackTemplate("Paul Ricard - Circuit 1A-V2 (No Chicane)", 5770);
 
         public static TrackTemplate PalmBeach6400 => new TrackTemplate("Palm Beach International Raceway (1964 - 2000)", 3621);
 
@@ -249,6 +256,8 @@
         public static TrackTemplate SochipGp => new TrackTemplate("Sochi - Grand Prix", 5872);
 
         public static TrackTemplate SonomaRacewayIndy => new TrackTemplate("Sonoma Raceway - IndyCar Circuit", 3838);
+
+        public static TrackTemplate SonomaRacewayLong => new TrackTemplate("Sonoma Raceway - Long Circuit", 4056);
         public static TrackTemplate SonomaRaceway6892 => new TrackTemplate("Sonoma Raceway - Long Circuit (1968 - 1992)", 4060);
 
         public static TrackTemplate Snetterton300 => new TrackTemplate("Snetterton 300", 4779);
@@ -289,9 +298,9 @@
         public static TrackTemplate VirginiaIntRacewayFull => new TrackTemplate("Virgina International Raceway - Full Course", 5262);
 
 
-        public static TrackTemplate WatkinsGlenGpWithInnerLoop => new TrackTemplate("Watkins Glen - Grand Prix, with inner loop.", 5552);
+        public static TrackTemplate WatkinsGlenGpWithInnerLoop => new TrackTemplate("Watkins Glen - Grand Prix, with inner loop", 5552);
 
-        public static TrackTemplate WatkinsGlenGpWithoutInnerLoop => new TrackTemplate("Watkins Glen - Grand Prix, without inner loop.", 5435);
+        public static TrackTemplate WatkinsGlenGpWithoutInnerLoop => new TrackTemplate("Watkins Glen - Grand Prix, without inner loop", 5435);
 
         public static TrackTemplate WorldWideTechnologyRacewayGatewayOval => new TrackTemplate("World Wide Technology Raceway at Gateway - Oval", 2012);
 
