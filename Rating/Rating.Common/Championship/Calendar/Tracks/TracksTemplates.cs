@@ -195,6 +195,8 @@
 
         public static TrackTemplate OultonParkIslandCircuit => new TrackTemplate("Oulton Park - Island Circuit", 3637);
 
+        public static TrackTemplate OultonParkInternationalCircuit => new TrackTemplate("Oulton Park - International Circuit", 4333);
+
         public static TrackTemplate OrdosGrandPrix => new TrackTemplate("Ordos International Circuit - Grand Prix Circuit", 3751);
 
 
